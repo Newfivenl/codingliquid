@@ -1,0 +1,201 @@
+/* This file includes all the styling corrected from Dawn.  */
+/* It's needed to keep it lean, so updates are always possible without a worry */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+.h0,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.price {
+  letter-spacing: 0;
+}
+.price {
+  font-size: 1.2rem;
+}
+.card__heading a {
+  text-decoration: none !important;
+  font-weight: bold;
+}
+.button {
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+body {
+  font-size: 1.4rem;
+}
+@media (min-width:750px) {
+    .product__info-wrapper {
+        margin-top: 1.5rem;
+    }
+}
+
+
+.product-form__input input[type=radio]+label {
+    font-size: 1.2rem;
+}
+.accordion__title {
+    font-size: 1.4rem;
+}
+.drawer__heading {
+    font-size: 1.6rem;
+}
+.drawer__close svg {
+    height: 1.6rem;
+    width: 1.6rem;
+}
+.drawer__close {
+    top:0;
+}
+
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+
+
+/* .quantity:after {
+    box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground), 0.1);
+    border-radius: 100px;
+}
+.quantity__button {
+    background-color: #eee!important;
+    border-radius: 100%;
+    border: 4px solid white;
+} */
+/* Round quantity input */
+.cart-item__name {
+    font-size: 1.3rem;
+}
+.product-option {
+    font-size: 1.2rem;
+}
+.quantity__input, .totals__total-value {
+font-size: 1.4rem;
+}
+.tax-note {font-size: 1rem;display:none;}
+.list-menu__item {font-weight: 500;}
+
+/* quick-add-css */
+.quick-add {
+  position: absolute;
+  grid-row-start: 4;
+  margin: 0 0 1rem;
+  z-index: 1;
+  bottom: 0;
+  right: 1rem;
+}
+/* end quick-add-css */
+
+/* multicolumn-card__info */
+.multicolumn-card__info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0px 35px 0 15px!important;
+  z-index: 2;
+}
+
+.multicolumn-card__image-wrapper::after {
+  content: '';
+  background: linear-gradient(180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.00) 69%, rgba(0,0,0,0.64) 98%); /* background fade */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left:0;
+}
+
+/* slider buttons featured collections*/
+.collection .slider-buttons {
+  justify-content: space-between;
+  padding:0 1rem;
+}
+
+@media (max-width:749px) {
+  .collection {
+    .slider-buttons {
+      display: none;
+    }
+  }
+}
+@media (min-width:750px) {
+ .collection .slider-buttons {
+    position: absolute;
+    right: 0;
+    top:-60px;
+  }
+}
+.collection .slider-button {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 100px;
+  /* box-shadow: 0px 2px 5px #00000021; */
+  border: 1px solid #eee;
+}
+
+/* PDP slider buttons */
+.product .slider-buttons {
+  position: absolute;
+  left: -10px;
+  bottom: 15px;
+  background: #ffffff66;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  border: 1px solid #bbbbbb78;
+  .slider-button {
+    width: 25px;
+    height:25px;
+  }
+}
+.product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
+  margin-left: 5px;
+}
+.product .slider.slider--mobile .slider__slide {
+  padding-top: 0;
+}
+
+.banner--media__mobile {
+  display: none;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 640px){
+  .banner--media__desktop {
+    display: none;
+  }
+  .banner--media__mobile {
+    display: block;
+    visibility: visible;
+  }
+
+  .nf-image-banner h2 {
+    font-size: 46px !important;
+  }
+
+  .nf-image-banner .banner__text {
+    font-size: 24px !important;
+    line-height: initial !important;
+  }
+  .content-container--full-width-mobile {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end !important;
+  }
+
+}

@@ -1,0 +1,252 @@
+/* 
+note: This is from @tailwind base. added here to use all 
+required varialbles instead of including the whole base 
+which also breaks the dawn css default 
+*/
+*, ::before, ::after {
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-pan-x:  ;
+    --tw-pan-y:  ;
+    --tw-pinch-zoom:  ;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-gradient-from-position:  ;
+    --tw-gradient-via-position:  ;
+    --tw-gradient-to-position:  ;
+    --tw-ordinal:  ;
+    --tw-slashed-zero:  ;
+    --tw-numeric-figure:  ;
+    --tw-numeric-spacing:  ;
+    --tw-numeric-fraction:  ;
+    --tw-ring-inset:  ;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-blur:  ;
+    --tw-brightness:  ;
+    --tw-contrast:  ;
+    --tw-grayscale:  ;
+    --tw-hue-rotate:  ;
+    --tw-invert:  ;
+    --tw-saturate:  ;
+    --tw-sepia:  ;
+    --tw-drop-shadow:  ;
+    --tw-backdrop-blur:  ;
+    --tw-backdrop-brightness:  ;
+    --tw-backdrop-contrast:  ;
+    --tw-backdrop-grayscale:  ;
+    --tw-backdrop-hue-rotate:  ;
+    --tw-backdrop-invert:  ;
+    --tw-backdrop-opacity:  ;
+    --tw-backdrop-saturate:  ;
+    --tw-backdrop-sepia:  ;
+}
+
+.nf-aspect-h-1 {
+    --tw-aspect-h: 1;
+}
+
+.nf-aspect-w-1 {
+    position: relative;
+    padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+    --tw-aspect-w: 1;
+}
+.nf-aspect-w-1 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+
+ /* @import 'nf-dawn-base.css' this will not work you need to use postCSS. added the css below instead */
+
+ /* This file includes all the styling corrected from Dawn.  */
+/* It's needed to keep it lean, so updates are always possible without a worry */
+
+body,
+
+h3,
+h4,
+h5,
+.h3,
+.h4,
+.h5,
+.price {
+  letter-spacing: 0;
+}
+.price {
+  font-size: 1.2rem;
+}
+
+.card__heading a {
+  text-decoration: none !important;
+  font-weight: bold;
+}
+.button {
+  font-size: 1.3rem;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+body {
+  font-size: 1.4rem;
+}
+@media (min-width:750px) {
+    .product__info-wrapper {
+        margin-top: 1.5rem;
+    }
+}
+
+
+.product-form__input input[type=radio]+label {
+    font-size: 1.2rem;
+}
+.accordion__title {
+    font-size: 1.4rem;
+}
+.drawer__heading {
+    font-size: 1.6rem;
+}
+.drawer__close svg {
+    height: 1.6rem;
+    width: 1.6rem;
+}
+.drawer__close {
+    top:0;
+}
+
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+/* CUSTOM OVERWRITE */
+
+
+/* .quantity:after {
+    box-shadow: 0 0 0 var(--inputs-border-width) rgba(var(--color-foreground), 0.1);
+    border-radius: 100px;
+}
+.quantity__button {
+    background-color: #eee!important;
+    border-radius: 100%;
+    border: 4px solid white;
+} */
+/* Round input buttons */
+.cart-item__name {
+    font-size: 1.3rem;
+}
+.product-option {
+    font-size: 1.2rem;
+}
+.quantity__input, .totals__total-value {
+font-size: 1.4rem;
+}
+.tax-note {font-size: 1rem;}
+.list-menu__item {font-weight: 500;}
+
+/* quick-add-css */
+.quick-add {
+  position: absolute;
+  grid-row-start: 4;
+  margin: 0 0 1rem;
+  z-index: 1;
+  bottom: 0;
+  right: 1rem;
+}
+/* end quick-add-css */
+
+/* slider buttons featured collections*/
+.collection .slider-buttons {
+  justify-content: space-between;
+  padding:0 1rem;
+}
+
+@media (max-width:749px) {
+  .collection {
+    .slider-buttons {
+      display: none;
+    }
+  }
+}
+@media (min-width:750px) {
+ .collection .slider-buttons {
+    position: absolute;
+    right: 0;
+    top:-60px;
+  }
+}
+.collection .slider-button {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 100px;
+  /* box-shadow: 0px 2px 5px #00000021; */
+  border: 1px solid #eee;
+}
+
+/* PDP slider buttons */
+.product .slider-buttons {
+  position: absolute;
+  left: -10px;
+  bottom: 15px;
+  background: #ffffff66;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  border: 1px solid #bbbbbb78;
+  .slider-button {
+    width: 25px;
+    height:25px;
+  }
+}
+.product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
+  margin-left: 5px;
+}
+.product .slider.slider--mobile .slider__slide {
+  padding-top: 0;
+}
+
+.banner--media__mobile {
+  display: none;
+  visibility: hidden;
+}
+
+@media screen and (max-width: 640px){
+  .banner--media__desktop {
+    display: none;
+  }
+  .banner--media__mobile {
+    display: block;
+    visibility: visible;
+  }
+
+  .nf-image-banner h2 {
+    font-size: 46px !important;
+  }
+
+  .nf-image-banner .banner__text {
+    font-size: 24px !important;
+    line-height: initial !important;
+  }
+  .content-container--full-width-mobile {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end !important;
+  }
+
+}
+
+@tailwind utilities;
