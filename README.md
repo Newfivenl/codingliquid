@@ -22,8 +22,10 @@ shopify theme component install
 ### Shopify Theme Store
 shopify theme dev --store="nf-comp.myshopify.com"
 
-### To intall tailwind
+### To install tailwind
 check the [Shopify CLI Theme Component plugin](https://github.com/archetype-themes/plugin-theme-component) for instructions 
+1. create a tailwind folder and tailwind.css file inside the plugin-theme-compoent folder
+2. create a tailwind.config.js file inside the plugin-theme-compoent folder
 
 ### To watch tailwind
 npx tailwindcss -i ./tailwind/tailwind.css -o ../assets/tailwind.css --watch

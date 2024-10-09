@@ -553,3 +553,40 @@ video {
 [hidden] {
   display: none;
 }
+
+.block {
+  display: block;
+}
+
+.table {
+  display: table;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-\[80px\] {
+  font-size: 80px;
+}
+
+.text-\[12px\] {
+  font-size: 12px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.leading-\[20px\] {
+  line-height: 20px;
+}
