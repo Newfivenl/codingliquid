@@ -1,8 +1,8 @@
+/* reference-components v1.0.0 | Copyright © 2024 Archetype Themes LP  | "MIT" License */
 .button {
   cursor: pointer;
   display: inline-flex;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   background-color: rgb(var(--color-foreground));
   color: rgb(var(--color-background));
@@ -1175,7 +1175,6 @@ div:has(.placeholder-svg) {
 .select {
   position: relative;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   border: 1px solid currentColor;
 }
