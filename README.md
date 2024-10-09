@@ -19,10 +19,12 @@ After installation, import the latest changes of your components and locales int
 shopify theme component install
 ```
 
-## Shopify Theme Store
+### Shopify Theme Store
 shopify theme dev --store="nf-comp.myshopify.com"
 
-## To intall tailwind check the [Shopify CLI Theme Component plugin](https://github.com/archetype-themes/plugin-theme-component) for instructions
+### To intall tailwind
+check the [Shopify CLI Theme Component plugin](https://github.com/archetype-themes/plugin-theme-component) for instructions 
+
 ### To watch tailwind
 npx tailwindcss -i ./tailwind/tailwind.css -o ../assets/tailwind.css --watch
 
