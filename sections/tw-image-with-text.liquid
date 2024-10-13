@@ -1,0 +1,91 @@
+<div class="custom-section" data-color-scheme="{{ settings.color_scheme }}" style="
+  padding-top: {{ settings.padding_top }}px;
+  padding-bottom: {{ settings.padding_bottom }}px;
+">
+  <section id="relume" class="px-[5%] py-16 md:py-24 lg:py-28">
+    <div class="container">
+      <div class="grid grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16 lg:grid-cols-2 lg:items-center">
+        <div>
+          <h1 class="mb-5 text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">
+            Medium length hero heading goes here
+          </h1>
+          <p class="md:text-md">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros
+            elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut
+            commodo diam libero vitae erat.
+          </p>
+          <div class="mt-6 flex gap-x-4 md:mt-8">
+            <button
+              class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary bg-background-alternative text-text-alternative px-6 py-3"
+              title="Button"
+            >
+              Button</button
+            ><button
+              class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-6 py-3"
+              title="Button"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div>
+          <img
+            src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
+            class="w-full object-cover"
+            alt="Relume placeholder image"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</div>
+
+{% schema %}
+    {
+      "name": "Custom Section with Color Scheme",
+      "settings": [
+        {
+          "type": "range",
+          "id": "padding_top",
+          "label": "Padding Top",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "label": "Padding Bottom",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "default": 20,
+          "unit": "px"
+        },
+        {
+          "type": "select",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "options": [
+            {
+              "value": "scheme-1",
+              "label": "Scheme 1"
+            },
+            {
+              "value": "scheme-2",
+              "label": "Scheme 2"
+            },
+            {
+              "value": "scheme-3",
+              "label": "Scheme 3"
+            }
+          ],
+          "default": "scheme-1"
+        }
+      ],
+      "blocks": []
+    }
+    {% endschema %}
