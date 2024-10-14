@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -31,12 +40,61 @@
         "image_height": "large",
         "desktop_content_position": "bottom-center",
         "show_text_box": false,
-        "image_behavior": "none",
         "desktop_content_alignment": "center",
         "color_scheme": "scheme-3",
+        "image_behavior": "none",
         "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
         "show_text_below": false
+      }
+    },
+    "hero_1_eYYnPW": {
+      "type": "hero-1",
+      "blocks": {
+        "heading_qYeHin": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Medium length hero heading goes here",
+            "heading_tag": "h2",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "paragraph_r9WjqY": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "button_tWG3VE": {
+          "type": "button",
+          "settings": {
+            "button_text": "Button",
+            "button_link": "",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "image_F7eKUg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/USP-Checkbox-Copy-2.webp"
+          }
+        }
+      },
+      "block_order": [
+        "heading_qYeHin",
+        "paragraph_r9WjqY",
+        "button_tWG3VE",
+        "image_F7eKUg"
+      ],
+      "settings": {
+        "hero_width": "full-width",
+        "section_color_scheme": "scheme-3",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "featured_collection": {
@@ -50,12 +108,11 @@
         "collection": "all",
         "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
         "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,6 +120,7 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
       }
@@ -70,6 +128,7 @@
   },
   "order": [
     "image_banner",
+    "hero_1_eYYnPW",
     "featured_collection"
   ]
 }
