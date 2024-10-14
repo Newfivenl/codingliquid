@@ -55,7 +55,7 @@
           "type": "heading",
           "settings": {
             "heading_text": "Medium length hero heading goes here",
-            "heading_tag": "h2",
+            "heading_tag": "h1",
             "margin_top": 10,
             "margin_bottom": 10
           }
