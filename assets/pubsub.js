@@ -1,21 +1,23 @@
-export function subscribe(eventName, callback) {
-  let cb = (event) => callback(event)
+let subscribers = {};
 
-  document.addEventListener(eventName, cb)
+function subscribe(eventName, callback) {
+  if (subscribers[eventName] === undefined) {
+    subscribers[eventName] = [];
+  }
+
+  subscribers[eventName] = [...subscribers[eventName], callback];
 
   return function unsubscribe() {
-    document.removeEventListener(eventName, cb)
+    subscribers[eventName] = subscribers[eventName].filter((cb) => {
+      return cb !== callback;
+    });
+  };
+}
+
+function publish(eventName, data) {
+  if (subscribers[eventName]) {
+    subscribers[eventName].forEach((callback) => {
+      callback(data);
+    });
   }
-}
-
-export function publish(eventName, options) {
-  document.dispatchEvent(new CustomEvent(eventName, options))
-}
-
-export const EVENTS = {
-  cartBeforeChange: 'cart:before-change',
-  cartChange: 'cart:change',
-  cartError: 'cart:error',
-  lineItemChange: 'line-item:change',
-  variantChange: 'variant:change'
 }
