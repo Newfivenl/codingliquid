@@ -73,6 +73,7 @@
           "settings": {
             "button_text": "Button",
             "button_link": "",
+            "button_style": "secondary",
             "margin_top": 10,
             "margin_bottom": 10
           }
