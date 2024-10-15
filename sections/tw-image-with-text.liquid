@@ -103,7 +103,7 @@
                     }
                 {%- endstyle -%}
                 <a href="{{ block.settings.button_link }}"
-                    class="button btn-primary button-{{ block.id }}-margin"
+                    class="button button--{{ block.settings.button_style }} button-{{ block.id }}-margin"
                     title="Button">
                     {{ block.settings.button_text }}
                 </a>
@@ -359,6 +359,22 @@
           "type": "url",
           "id": "button_link",
           "label": "Button link"
+        },
+        {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "primary",
+            "options": [
+                {
+                    "value": "primary",
+                    "label": "Button primary"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Button secondary"
+                }
+            ]
         },
         {
             "type": "range",
