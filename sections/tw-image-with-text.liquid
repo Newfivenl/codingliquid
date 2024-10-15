@@ -7,6 +7,32 @@
     .full-width {
         padding: 0 1.5rem;
     }
+
+    .desktop-content-position-flex-start {
+        align-items: flex-start;
+    }
+
+    .desktop-content-position-center {
+        align-items: center;
+    }
+
+    .desktop-content-position-flex-end {
+        align-items: flex-end;
+    }
+
+    .desktop-content-alignment-left {
+        text-align: left;
+    }
+
+    .desktop-content-alignment-center {
+        text-align: center;
+    }
+
+    .desktop-content-alignment-right {
+        text-align: right;
+    }
+
+    
   
     @media screen and (min-width: 750px) {
       .section-{{ section.id }}-padding {
@@ -21,11 +47,26 @@
             padding-right: 5rem;
         }
     }
+
+    @media screen and (max-width: 990px) {
+        .mobile-content-alignment-left {
+            text-align: left;
+        }
+
+        .mobile-content-alignment-center {
+            text-align: center;
+        }
+
+        .mobile-content-alignment-right {
+            text-align: right;
+        }
+    }
+
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="{{ section.settings.hero_width }}">
-    <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 lg:tw-items-center">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 desktop-content-position-{{ section.settings.desktop_content_position }} desktop-content-alignment-{{ section.settings.desktop_content_alignment }} mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">
       <div>
         {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -115,6 +156,66 @@
                 "label": "Full Width"
             }
         ]
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center",
+      "label": "Desktop content position"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Deskop content alignment"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Mobile content alignment"
     },
     {
       "type": "color_scheme",
