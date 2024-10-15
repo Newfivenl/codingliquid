@@ -1,92 +1,305 @@
-<div
-  class="custom-section"
-  data-color-scheme="{{ settings.color_scheme }}"
-  style="
-    padding-top: {{ settings.padding_top }}px;
-    padding-bottom: {{ settings.padding_bottom }}px;
-  "
->
-  <section id="relume" class="px-[5%] py-16 md:py-24 lg:py-28">
-    <div class="container">
-      <div class="grid grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16 lg:grid-cols-2 lg:items-center">
-        <div>
-          <h1 class="mb-5 text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">Medium length hero heading goes here</h1>
-          <p class="md:text-md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
-            tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae
-            erat.
-          </p>
-          <div class="mt-6 flex gap-x-4 md:mt-8">
-            <button
-              class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary bg-background-alternative text-text-alternative px-6 py-3"
-              title="Button"
-            >
-              Button</button
-            ><button
-              class="focus-visible:ring-border-primary inline-flex gap-3 items-center justify-center whitespace-nowrap ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-border-primary text-text-primary bg-background-primary px-6 py-3"
-              title="Button"
-            >
-              Button
-            </button>
-          </div>
-        </div>
-        <div>
-          <img
-            src="https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg"
-            class="w-full object-cover"
-            alt="Relume placeholder image"
-          >
-        </div>
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    .full-width {
+        padding: 0 1.5rem;
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    @media screen and (min-width: 990px) {
+        .full-width {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+    }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="{{ section.settings.hero_width }}">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 lg:tw-items-center">
+      <div>
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'heading' -%}
+                {%- style -%}
+                    .heading-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                {%- case block.settings.heading_tag -%} 
+                {%- when 'h1' -%}
+                    <h1 class="h1 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h1>
+                {%- when 'h2' -%}
+                    <h2 class="h2 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h2>
+                {%- when 'h3' -%}
+                    <h3 class="h3 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h3>
+                {%- endcase -%}
+            {%- when 'paragraph' -%}
+                {%- style -%}
+                    .paragraph-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                <p class="paragraph-{{ block.id }}-margin">
+                    {{ block.settings.paragraph_text }}
+                </p>
+            {%- when 'button' -%}
+                {%- style -%}
+                    .button-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                <a href="{{ block.settings.button_link }}"
+                    class="button btn-primary button-{{ block.id }}-margin"
+                    title="Button">
+                    {{ block.settings.button_text }}
+                </a>
+            {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <div>
+        {%- liquid 
+            
+            assign fetch_priority = 'auto'
+            if section.index == 1
+                assign fetch_priority = 'high'
+            endif
+
+            assign image_blocks = section.blocks | where: 'type', 'image'
+            assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+            assign image_class = ''
+
+        -%}
+
+        {% for block in image_blocks %}
+            {% if block.settings.image != blank %}
+                {% assign image_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio %}
+                {{ block.settings.image | image_url: width: 3840 | image_tag: width: block.settings.image.width, height: image_height, class: image_class, sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
+            {% else %}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+        {% endfor %}
+
       </div>
     </div>
-  </section>
-</div>
-
+  </div>
+</section>
 {% schema %}
 {
-  "name": "TW - image with text",
+  "name": "TW - Image with text",
   "settings": [
+    {
+        "type": "select",
+        "id": "hero_width",
+        "label": "Width",
+        "default": "page-width",
+        "options": [
+            {
+                "value": "page-width",
+                "label": "Page Width"
+            },
+            {
+                "value": "full-width",
+                "label": "Full Width"
+            }
+        ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding Top",
       "min": 0,
       "max": 100,
-      "step": 5,
-      "default": 20,
-      "unit": "px"
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding Bottom",
       "min": 0,
       "max": 100,
-      "step": 5,
-      "default": 20,
-      "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "options": [
-        {
-          "value": "scheme-1",
-          "label": "Scheme 1"
-        },
-        {
-          "value": "scheme-2",
-          "label": "Scheme 2"
-        },
-        {
-          "value": "scheme-3",
-          "label": "Scheme 3"
-        }
-      ],
-      "default": "scheme-1"
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
     }
   ],
-  "blocks": []
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Medium length hero heading goes here"
+        },
+        {
+            "type": "select",
+            "id": "heading_tag",
+            "label": "Heading Tag",
+            "default": "h1",
+          
+            "options": [
+                {
+                    "value": "h1",
+                    "label": "H1"
+                },
+                {
+                    "value": "h2",
+                    "label": "H2"
+                },
+                {
+                    "value": "h3",
+                    "label": "H3"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "paragraph_text",
+          "label": "Paragraph text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Button"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TW - Image with text",
+      "blocks": [
+        {
+            "type": "heading"
+        },
+        {
+            "type": "paragraph"
+        },
+        {
+            "type": "button"
+        },
+        {
+            "type": "image"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
