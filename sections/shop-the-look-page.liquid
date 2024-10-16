@@ -1,0 +1,65 @@
+{% comment %}
+Metaobject name: shop_the_look
+Metafield name: shop_the_look
+{% endcomment %}
+
+<div class="page-width">
+    {% if page.metafields.custom.shop_the_look != blank %}
+
+        {% liquid 
+            assign fetch_priority = 'auto'
+            if section.index == 1
+                assign fetch_priority = 'high'
+            endif
+            assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+            assign image_class = ''
+        %}
+
+        <p><strong>Main image:</strong>{{ section.settings.main_image | image_url: width: 3840 | image_tag: width: block.settings.image.width, height: image_height, class: image_class, sizes: sizes, widths: widths, fetchpriority: fetch_priority }}</p>
+        <p><strong>Model name:</strong> {{ section.settings.name_model }}</p> 
+        <p><strong>Description:</strong> {{ section.settings.description }}</p>
+
+        {% for product in section.settings.product_list %}
+            <br>
+            <a href="{{ product.url }}">{{ product.title }}</a>
+            {{ product.featured_image  | image_url: width: 3840 | image_tag: width: block.settings.image.width, alt: product.title,  height: image_height, class: image_class, sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
+            {{ product.price | money_with_currency }}
+            <br>
+        {% endfor %}        
+    {% endif %}
+</div>
+
+
+
+{% schema %}
+{
+    "name": "Shop the Look",
+    "settings": [
+        {
+            "type": "text",
+            "id": "name_model",
+            "label": "Model name"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+        },
+        {
+            "type": "image_picker",
+            "id": "main_image",
+            "label": "Main image"
+        },
+        {
+            "type": "product_list",
+            "id": "product_list",
+            "label": "Product list"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Shop the Look"
+        }
+    ]
+}
+{% endschema %}
