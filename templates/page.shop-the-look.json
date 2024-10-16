@@ -39,10 +39,20 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "shop_the_look_page_Er3pcT": {
+      "type": "shop-the-look-page",
+      "settings": {
+        "name_model": "{{ page.metafields.custom.shop_the_look.value.name_model.value }}",
+        "description": "{{ page.metafields.custom.shop_the_look.value.description | metafield_tag }}",
+        "main_image": "{{ page.metafields.custom.shop_the_look.value.main_image.value }}",
+        "product_list": "{{ page.metafields.custom.shop_the_look.value.product_list.value }}"
+      }
     }
   },
   "order": [
     "main",
-    "rich_text_cFyjEe"
+    "rich_text_cFyjEe",
+    "shop_the_look_page_Er3pcT"
   ]
 }
