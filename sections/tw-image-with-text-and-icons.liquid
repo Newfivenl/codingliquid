@@ -1,37 +1,57 @@
 {%- style -%}
+
+
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
 
     .full-width {
-      padding: 0 1.5rem;
+        padding: 0 1.5rem;
     }
 
     .desktop-content-position-flex-start {
-      align-items: flex-start;
+        align-items: flex-start;
     }
 
     .desktop-content-position-center {
-      align-items: center;
+        align-items: center;
     }
 
     .desktop-content-position-flex-end {
-      align-items: flex-end;
+        align-items: flex-end;
     }
 
     .desktop-content-alignment-left {
-      text-align: left;
+        text-align: left;
     }
 
     .desktop-content-alignment-center {
-      text-align: center;
+        text-align: center;
     }
 
     .desktop-content-alignment-right {
-      text-align: right;
+        text-align: right;
     }
 
+    {% comment %} This text size has dependencies on base.css need to clarify this scenario {% endcomment %}
+
+    .caption-with-letter-spacing {
+        font-size: 1rem;
+        letter-spacing: 0.13rem;
+        line-height: calc(1 + 0.2 / var(--font-body-scale));
+        text-transform: uppercase;
+    }
+
+    .caption-with-letter-spacing--medium {
+        font-size: 1.2rem;
+        letter-spacing: 0.16rem;
+    }
+
+    .caption-with-letter-spacing--large {
+        font-size: 1.4rem;
+        letter-spacing: 0.18rem;
+    }
     
   
     @media screen and (min-width: 750px) {
@@ -85,6 +105,13 @@
                 {%- when 'h3' -%}
                     <h3 class="h3 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h3>
                 {%- endcase -%}
+            {%- when 'caption' -%}
+                <p
+                    class="image-with-text__text image-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}"
+                    {{ block.shopify_attributes }}
+                >
+                    {{ block.settings.caption | escape }}
+                </p>
             {%- when 'paragraph' -%}
                 {%- style -%}
                     .paragraph-{{ block.id }}-margin {
@@ -145,9 +172,10 @@
     </div>
   </div>
 </section>
+
 {% schema %}
 {
-  "name": "TW - Image with text",
+  "name": "TW - Image / text & icons",
   "settings": [
     {
         "type": "select",
@@ -308,6 +336,55 @@
       ]
     },
     {
+      "type": "caption",
+      "name": "Caption",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "caption",
+          "default": "Add a tagline",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "subtitle",
+              "label": "Subtitle"
+            },
+            {
+              "value": "caption-with-letter-spacing",
+              "label": "Uppercase"
+            }
+          ],
+          "default": "caption-with-letter-spacing",
+          "label": "Uppercase"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "large"
+            }
+          ],
+          "default": "medium",
+          "label": "Medium"
+        }
+      ]
+    },
+    {
       "type": "paragraph",
       "name": "Paragraph",
       "limit": 1,
@@ -405,17 +482,48 @@
             "default": 10
         }
       ]
+    },
+    {
+        "type": "icon",
+        "name": "Icon & text",
+        "limit": 3,
+        "settings": [ 
+            {
+                "type": "text",
+                "id": "icon_text",
+                "label": "Text",
+                "default": "Icon text"
+            },
+            {
+                "type": "image_picker",
+                "id": "icon_image",
+                "label": "Icon",
+                "info": "Use SVG icon for best result."
+            }
+        ]
     }
   ],
   "presets": [
     {
-      "name": "TW - Image with text",
+      "name": "TW - Image / text & icons",
       "blocks": [
+        {
+            "type": "caption"
+        },
         {
             "type": "heading"
         },
         {
             "type": "paragraph"
+        },
+        {
+            "type": "icon"
+        },
+        {
+            "type": "icon"
+        },
+        {
+            "type": "icon"
         },
         {
             "type": "button"
