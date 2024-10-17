@@ -132,8 +132,9 @@
         "icon_xnDngQ": {
           "type": "icon",
           "settings": {
-            "icon_text": "Icon text",
-            "margin_top": 4,
+            "icon_text": "Icon heart",
+            "icon_image": "shopify://shop_images/icon-heart.svg",
+            "margin_top": 20,
             "margin_bottom": 4
           }
         },
@@ -150,7 +151,7 @@
           "settings": {
             "icon_text": "Icon text",
             "margin_top": 4,
-            "margin_bottom": 4
+            "margin_bottom": 20
           }
         },
         "button_zrUXqy": {
