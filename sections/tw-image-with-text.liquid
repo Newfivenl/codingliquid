@@ -79,11 +79,11 @@
                 {%- endstyle -%}
                 {%- case block.settings.heading_tag -%} 
                 {%- when 'h1' -%}
-                    <h1 class="h1 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h1>
+                    <h1 class="h1 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h1>
                 {%- when 'h2' -%}
-                    <h2 class="h2 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h2>
+                    <h2 class="h2 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h2>
                 {%- when 'h3' -%}
-                    <h3 class="h3 heading-{{ block.id }}-margin">{{ block.settings.heading_text }}</h3>
+                    <h3 class="h3 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h3>
                 {%- endcase -%}
             {%- when 'paragraph' -%}
                 {%- style -%}
@@ -92,7 +92,7 @@
                         margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
                     }
                 {%- endstyle -%}
-                <p class="paragraph-{{ block.id }}-margin">
+                <p class="paragraph-{{ block.id }}-margin" {{ block.shopify_attributes }}>
                     {{ block.settings.paragraph_text }}
                 </p>
             {%- when 'button' -%}
@@ -104,7 +104,7 @@
                 {%- endstyle -%}
                 <a href="{{ block.settings.button_link }}"
                     class="button button--{{ block.settings.button_style }} button-{{ block.id }}-margin"
-                    title="Button">
+                    title="Button" {{ block.shopify_attributes }}>
                     {{ block.settings.button_text }}
                 </a>
             {%- endcase -%}
