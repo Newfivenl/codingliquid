@@ -109,14 +109,14 @@
           "settings": {
             "caption": "Add a tagline",
             "text_style": "caption-with-letter-spacing",
-            "text_size": "medium"
+            "text_size": "large"
           }
         },
         "heading_i3rXrq": {
           "type": "heading",
           "settings": {
             "heading_text": "Medium length hero heading goes here",
-            "heading_tag": "h1",
+            "heading_tag": "h2",
             "margin_top": 10,
             "margin_bottom": 10
           }
