@@ -92,7 +92,7 @@
         "image_NnfxJ8"
       ],
       "settings": {
-        "hero_width": "full-width",
+        "hero_width": "page-width",
         "desktop_content_position": "flex-start",
         "desktop_content_alignment": "right",
         "mobile_content_alignment": "center",
