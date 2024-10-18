@@ -1,6 +1,28 @@
 {% comment %}
-Metaobject name: shop_the_look
+
+Metaobject name: Shop the look
+Metaobject description: This shop the look is designed for shopify page. It allows you to add a list of products with a main image and a description.
+
+Metobject type: shop_the_look
+Metaobject fields:
+- Name model
+  name: Name model
+  type: single line text
+- Description
+  name: Description
+  type: richtext
+- Main image:
+  name: Main image
+  type: file(image only)
+- Product list
+  name: Product list
+  type: product_list
+
+The metafield will be setup on the page level.
 Metafield name: shop_the_look
+Meatafield type: meataobject
+Select the shop the look metaobject
+
 {% endcomment %}
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
