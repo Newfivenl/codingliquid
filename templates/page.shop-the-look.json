@@ -31,6 +31,7 @@
       "block_order": [
         "heading_YBanR8"
       ],
+      "disabled": true,
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
@@ -42,11 +43,22 @@
     },
     "shop_the_look_page_Er3pcT": {
       "type": "shop-the-look-page",
+      "blocks": {
+        "shop_the_look_product_t4mWry": {
+          "type": "shop-the-look-product",
+          "repeater": "{{ page.metafields.custom.shop_the_look.value }}",
+          "settings": {
+            "name_model": "{{ block.repeater.name_model.value }}",
+            "description": "{{ block.repeater.description | metafield_tag }}",
+            "main_image": "{{ block.repeater.main_image.value }}",
+            "product_list": "{{ block.repeater.product_list.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "shop_the_look_product_t4mWry"
+      ],
       "settings": {
-        "name_model": "{{ page.metafields.custom.shop_the_look.value.name_model.value }}",
-        "description": "{{ page.metafields.custom.shop_the_look.value.description | metafield_tag }}",
-        "main_image": "{{ page.metafields.custom.shop_the_look.value.main_image.value }}",
-        "product_list": "{{ page.metafields.custom.shop_the_look.value.product_list.value }}"
       }
     }
   },
