@@ -981,6 +981,15 @@ html {
   height: 346px;
 }
 
+.tw-h-\[320px\] {
+  height: 320px;
+}
+
+.tw-h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
 .tw-w-\[200vw\] {
   width: 200vw;
 }
@@ -1237,6 +1246,14 @@ html {
 .tw-py-\[2rem\] {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.tw-pb-\[2rem\] {
+  padding-bottom: 2rem;
+}
+
+.tw-pb-\[0px\] {
+  padding-bottom: 0px;
 }
 
 .tw-text-\[10px\] {
