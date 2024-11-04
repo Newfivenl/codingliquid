@@ -41,8 +41,8 @@
         "padding_bottom": 52
       }
     },
-    "shop_the_look_page_Er3pcT": {
-      "type": "shop-the-look-page",
+    "tw_shop_the_look_page_W6DrtM": {
+      "type": "tw-shop-the-look-page",
       "settings": {
         "shop_the_look_items": [
           "name-here",
@@ -53,13 +53,16 @@
           "look-6",
           "look-7",
           "look-8"
-        ]
+        ],
+        "section_color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "main",
     "rich_text_cFyjEe",
-    "shop_the_look_page_Er3pcT"
+    "tw_shop_the_look_page_W6DrtM"
   ]
 }
