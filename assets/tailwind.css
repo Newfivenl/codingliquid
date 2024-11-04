@@ -1248,6 +1248,11 @@ html {
   padding-bottom: 2rem;
 }
 
+.tw-py-\[10px\] {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .tw-pb-\[2rem\] {
   padding-bottom: 2rem;
 }
