@@ -383,6 +383,8 @@
       "step_error": "You can only add this item in increments of {{ step }}"
     },
     "shop_the_look": {
+      "show_the_look": "Show the look",
+      "view_all_looks": "View all looks",
       "title": "Shop the look",
       "overlay": "overlay"
     }
