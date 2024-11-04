@@ -1,52 +1,139 @@
-<section class="tw-flex tw-w-screen tw-max-w-full tw-justify-end tw-overflow-hidden tw-border-b tw-border-border-primary">
-  <div class="tw-flex tw-w-[200vw]">
-    <div class="tw-flex tw-w-screen tw-animate-marquee2 tw-items-center tw-justify-around tw-py-4">
-      <div class="tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden lg:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden lg:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden md:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
+{%- style -%}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+{%- endstyle -%}
+
+{% assign text_items = section.blocks | where: 'type', 'text' %}
+
+<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <section class="tw-flex tw-w-screen tw-max-w-full tw-justify-end tw-overflow-hidden">
+    <div id="marquee" class="tw-flex tw-overflow-hidden tw-w-full">
+      <div class="marquee-content tw-flex tw-w-[200%]">
+        {%- for block in text_items -%}
+          <div class="tw-flex tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
+            {{ block.settings.text }}
+          </div>
+        {%- endfor -%}
+        {%- for block in text_items -%}
+          <div class="tw-flex tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
+            {{ block.settings.text }}
+          </div>
+        {%- endfor -%}
       </div>
     </div>
-    <div class="tw-flex tw-w-screen tw-animate-marquee2 tw-items-center tw-justify-around tw-py-4">
-      <div class="tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden lg:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden lg:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-      <div class="tw-hidden md:tw-flex tw-items-center tw-justify-center tw-px-4">
-        <h1 class="tw-text-md tw-font-bold md:tw-text-lg">Relume Library</h1>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const marquee = document.getElementById('marquee');
+    const marqueeContent = marquee.querySelector('.marquee-content');
+    let speed = {{ section.settings.speed }};
+    let pos = 0;
+
+    function startMarquee() {
+      pos -= speed;
+      if (pos <= -marqueeContent.scrollWidth / 2) {
+        pos = 0;
+      }
+      marqueeContent.style.transform = `translateX(${pos}px)`;
+      requestAnimationFrame(startMarquee);
+    }
+
+    startMarquee();
+
+    marquee.addEventListener('mouseover', () => speed = 0);
+    marquee.addEventListener('mouseout', () => speed = {{ section.settings.speed }});
+  });
+</script>
 
 
 {% schema %}
 {
     "name": "TW - Marquee banner",
     "settings": [
-    
+        {
+          "type":"range",
+          "id":"speed",
+          "label":"Marquee speed",
+          "min":0.1,
+          "max":5,
+          "step":0.1,
+          "default":0.5
+        },
+        {
+          "type": "color_scheme",
+          "id": "section_color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "Padding top",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "Padding bottom",
+          "default": 12
+        }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "NEWFIVE"
+          }
+        ]
+      }
     ],
     "presets": [
         {
-            "name": "TW - Marquee banner"
+          "name": "TW - Marquee banner",
+          "blocks": [
+            {
+              "type": "text"
+            },
+            {
+              "type": "text"
+            },
+            {
+              "type": "text"
+            },
+            {
+              "type": "text"
+            }
+          ]
         }
     ]
 }

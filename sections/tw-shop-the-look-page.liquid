@@ -83,9 +83,12 @@ Metaobject fields:
     (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
 {%- endcapture -%}
 
+
 {% assign shop_the_look_items = section.settings.shop_the_look_items  %}
 
 <div class="page-width section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+
+    {% if shop_the_look_items != blank %}
 
     <div class="shop-the-look-items">
         <div class="product-grid-container">
@@ -110,7 +113,6 @@ Metaobject fields:
             <div class="">
                 <button class="shop-the-look-back tw-relative tw-text-black tw-group">
                     <h2 class="tw-font-bold">{{ 'sections.shop_the_look.view_all_looks' | t }}</h2>
-                    {% comment %} <span class="tw-absolute tw-w-full tw-h-[2px] tw-bg-black tw-left-0 tw-bottom-0 tw-transform tw-scale-x-0 tw-transition tw-duration-300 tw-group-hover:tw-scale-x-100"></span> {% endcomment %}
                 </button>
                 <div class="tw-py-[10px] tw-grid tw-grid-cols-2">
                     {% assign description_data = look_item.description.value %}
@@ -152,6 +154,23 @@ Metaobject fields:
             </div>               
         </div> 
     {% endfor %}
+
+    {% else %}
+        <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
+            {% for i in (1..4) %}
+                <li class="tw-relative tw-group grid__item max-[640px]:!tw-w-full max-[640px]:tw-max-w-[100%]" data-index="{{ forloop.index }}">
+                    {%- assign ridx = forloop.index | append: '' -%}
+                    {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
+                    {% render 'card-product',
+                    show_vendor: section.settings.show_vendor,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    placeholder_image: placeholder_image
+                    %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 </div>
 
@@ -276,7 +295,7 @@ Metaobject fields:
 
 {% schema %}
 {
-    "name": "Shop the Look",
+    "name": "TW - Shop the Look",
     "settings": [
         {
             "type": "metaobject_list",
@@ -314,7 +333,7 @@ Metaobject fields:
     ],
     "presets": [
         {
-            "name": "Shop the Look"
+            "name": "TW - Shop the Look"
         }
     ]
 }
