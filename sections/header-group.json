@@ -17,25 +17,25 @@
         "text_NiMedG": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE"
+            "text": "NEWFIVE 1"
           }
         },
         "text_RnWiDE": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE"
+            "text": "NEWFIVE 2"
           }
         },
         "text_Ug9tHp": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE"
+            "text": "NEWFIVE 3"
           }
         },
-        "text_d6Rypb": {
+        "text_aecRB9": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE"
+            "text": "NEWFIVE 4"
           }
         }
       },
@@ -43,7 +43,7 @@
         "text_NiMedG",
         "text_RnWiDE",
         "text_Ug9tHp",
-        "text_d6Rypb"
+        "text_aecRB9"
       ],
       "settings": {
         "speed": 2,
