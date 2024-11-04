@@ -43,22 +43,17 @@
     },
     "shop_the_look_page_Er3pcT": {
       "type": "shop-the-look-page",
-      "blocks": {
-        "shop_the_look_product_t4mWry": {
-          "type": "shop-the-look-product",
-          "repeater": "{{ page.metafields.custom.shop_the_look.value }}",
-          "settings": {
-            "name_model": "{{ block.repeater.name_model.value }}",
-            "description": "{{ block.repeater.description | metafield_tag }}",
-            "main_image": "{{ block.repeater.main_image.value }}",
-            "product_list": "{{ block.repeater.product_list.value }}"
-          }
-        }
-      },
-      "block_order": [
-        "shop_the_look_product_t4mWry"
-      ],
       "settings": {
+        "shop_the_look_items": [
+          "name-here",
+          "second-product",
+          "third-product",
+          "fourth-product",
+          "look-5",
+          "look-6",
+          "look-7",
+          "look-8"
+        ]
       }
     }
   },
