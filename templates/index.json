@@ -48,6 +48,44 @@
         "show_text_below": false
       }
     },
+    "tw_full_image_with_text_9gbhcE": {
+      "type": "tw-full-image-with-text",
+      "blocks": {
+        "image_twTUBe": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
+            "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
+            "heading": "GIFT GUIDE",
+            "heading_size": 240,
+            "subheading": "Holiday is coming",
+            "subheading_size": 90,
+            "link": "",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
+        "video_7WWBYM": {
+          "type": "video",
+          "settings": {
+            "heading": "Heading",
+            "heading_size": 30,
+            "subheading": "Subheading",
+            "subheading_size": 20,
+            "link": "",
+            "content_color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_twTUBe",
+        "video_7WWBYM"
+      ],
+      "settings": {
+        "section_color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "tw_image_with_text_MtJVNb": {
       "type": "tw-image-with-text",
       "blocks": {
@@ -221,6 +259,7 @@
   },
   "order": [
     "image_banner",
+    "tw_full_image_with_text_9gbhcE",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection"
