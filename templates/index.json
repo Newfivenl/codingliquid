@@ -63,22 +63,35 @@
             "link": "",
             "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
-        },
-        "video_7WWBYM": {
-          "type": "video",
+        }
+      },
+      "block_order": [
+        "image_twTUBe"
+      ],
+      "settings": {
+        "section_color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "tw_full_image_with_text_aXrHka": {
+      "type": "tw-full-image-with-text",
+      "blocks": {
+        "image_PbHX4z": {
+          "type": "image",
           "settings": {
-            "heading": "Heading",
-            "heading_size": 30,
-            "subheading": "Subheading",
-            "subheading_size": 20,
+            "image_desktop": "shopify://shop_images/MenyardPariscontentshopify-206.jpg",
+            "heading": "SECOND SECTION",
+            "heading_size": 240,
+            "subheading": "Some content here.",
+            "subheading_size": 70,
             "link": "",
             "content_color_scheme": ""
           }
         }
       },
       "block_order": [
-        "image_twTUBe",
-        "video_7WWBYM"
+        "image_PbHX4z"
       ],
       "settings": {
         "section_color_scheme": "",
@@ -260,6 +273,7 @@
   "order": [
     "image_banner",
     "tw_full_image_with_text_9gbhcE",
+    "tw_full_image_with_text_aXrHka",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection"
