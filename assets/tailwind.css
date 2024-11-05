@@ -1277,6 +1277,10 @@ html {
   .max-\[640px\]\:\!tw-pb-\[2rem\] {
     padding-bottom: 2rem !important;
   }
+
+  .max-\[640px\]\:\!tw-pb-0 {
+    padding-bottom: 0px !important;
+  }
 }
 
 @media (min-width: 768px) {

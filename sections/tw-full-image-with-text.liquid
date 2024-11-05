@@ -46,7 +46,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
           {% endif %}
         </picture>
-        <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full tw-p-[5rem] tw-pb-0 max-[640px]:!tw-p-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
+        <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full tw-p-[5rem] tw-pb-0 max-[640px]:!tw-p-[2rem] max-[640px]:!tw-pb-0 gradient color-{{ block.settings.content_color_scheme }}">
           <div class="tw-sticky tw-top-0 tw-z-10 tw-h-full tw-max-h-screen">
             <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end tw-pb-[5rem] max-[640px]:!tw-pb-[2rem]">
               <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none">
@@ -60,6 +60,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                       font-size: {{ block.settings.subheading_size }}px;
                       line-height: {{ block.settings.subheading_size }}px;
                       margin-top: 1rem;
+                      margin-left: 1rem;
                     }
                     @media screen and (max-width: 989px) {
                       .h2-{{ block.id }} {
@@ -79,6 +80,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                       .h3-{{ block.id }} {
                         font-size: calc({{ block.settings.subheading_size }}px * 0.2);
                         line-height: calc({{ block.settings.subheading_size }}px * 0.2);
+                        margin-left: .5rem;
                       }
                     }
                   {% endstyle %}
