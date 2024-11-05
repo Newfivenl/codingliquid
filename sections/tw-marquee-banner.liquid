@@ -20,8 +20,8 @@
 
 {% assign text_items = section.blocks | where: 'type', 'text' %}
 
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <section class="tw-flex tw-w-screen tw-max-w-full tw-justify-end tw-overflow-hidden">
+<section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="tw-flex tw-w-screen tw-max-w-full tw-justify-end tw-overflow-hidden">
     <div id="marquee" class="tw-flex tw-overflow-hidden tw-w-full">
       <div class="marquee-content tw-flex tw-w-[200%]">
         {%- for block in text_items -%}
@@ -36,8 +36,8 @@
         {%- endfor -%}
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
