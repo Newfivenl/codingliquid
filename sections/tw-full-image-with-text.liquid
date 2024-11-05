@@ -21,7 +21,7 @@ if section.index == 1
 endif
 
 assign image_blocks = section.blocks | where: 'type', 'image'
-assign widths = '375, 550, 750, 1100, 1500, 1780, 2048, 3000, 3840'
+assign widths = '375, 550, 750, 800, 1100, 1500, 1780, 2048, 3000, 3840'
 assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
 
 -%}
@@ -34,28 +34,63 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
       <div class="tw-relative">
         <picture class="tw-aspect-w-1">
           {% if block.settings.image_desktop != blank %}
+            <div class="tw-full-image-desktop {% if block.settings.image_mobile != blank %} max-[989px]:tw-hidden {% endif %}">
               {{ block.settings.image_desktop | image_url: width: 2048 | image_tag: class: image_class, widths: widths, fetchpriority: fetch_priority }}
-            {% else %}
-              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            {% if block.settings.image_mobile != blank %}
+              <div class="tw-full-image-mobile tw-hidden max-[989px]:tw-block">
+                {{ block.settings.image_mobile| image_url: width: 800 | image_tag: class: image_class, widths: widths, fetchpriority: fetch_priority }}
+              </div>
+            {% endif %}
+          {% else %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
           {% endif %}
         </picture>
-        <div class="tw-absolute tw-bottom-0 tw-left-0 tw-w-full tw-p-[5rem]">
-          {% if block.settings.heading != blank %}
-            {%  style %}
-             .h2-{{ block.id }} {
-                font-size: {{ block.settings.heading_size }}px;
-                line-height: {{ block.settings.heading_size }}px;
-             }
-             .h3-{{ block.id }} {
-                font-size: {{ block.settings.subheading_size }}px;
-                line-height: {{ block.settings.subheading_size }}px;
-             }
-            {% endstyle %}
-            <h2 class="h2-{{ block.id }}">{{ block.settings.heading }}</h2>
-            <h3 class="h3-{{ block.id }}">{{ block.settings.subheading }}</h3>
-          {% endif %}
+        <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full tw-p-[5rem] tw-pb-0 max-[640px]:!tw-p-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
+          <div class="tw-sticky tw-top-0 tw-z-10 tw-h-full tw-max-h-screen">
+            <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end tw-pb-[5rem] max-[640px]:!tw-pb-[2rem]">
+              <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none">
+                {% if block.settings.heading != blank %}
+                  {% style %}
+                    .h2-{{ block.id }} {
+                      font-size: {{ block.settings.heading_size }}px;
+                      line-height: {{ block.settings.heading_size }}px;
+                    }
+                    .h3-{{ block.id }} {
+                      font-size: {{ block.settings.subheading_size }}px;
+                      line-height: {{ block.settings.subheading_size }}px;
+                      margin-top: 1rem;
+                    }
+                    @media screen and (max-width: 989px) {
+                      .h2-{{ block.id }} {
+                        font-size: calc({{ block.settings.heading_size }}px * 0.5);
+                        line-height: calc({{ block.settings.heading_size }}px * 0.5);
+                      }
+                      .h3-{{ block.id }} {
+                        font-size: calc({{ block.settings.subheading_size }}px * 0.5);
+                        line-height: calc({{ block.settings.subheading_size }}px * 0.5);
+                      }
+                    }
+                    @media screen and (max-width: 640px) {
+                      .h2-{{ block.id }} {
+                        font-size: calc({{ block.settings.heading_size }}px * 0.2);
+                        line-height: calc({{ block.settings.heading_size }}px * 0.2);
+                      }
+                      .h3-{{ block.id }} {
+                        font-size: calc({{ block.settings.subheading_size }}px * 0.2);
+                        line-height: calc({{ block.settings.subheading_size }}px * 0.2);
+                      }
+                    }
+                  {% endstyle %}
+                  <h2 class="h2-{{ block.id }}">{{ block.settings.heading }}</h2>
+                  <h3 class="h3-{{ block.id }}">{{ block.settings.subheading }}</h3>
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
     {%  when 'video' %}
       <div></div>
     {% endcase %}
@@ -100,18 +135,16 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
         "name": "Image",
         "settings": [
           {
-            "type": "paragraph",
-            "content": "Use portrait image and high resolution (2048 × 2560) for better layout"
-          },
-          {
             "type": "image_picker",
             "id": "image_desktop",
-            "label": "Image desktop"
+            "label": "Image desktop",
+            "info": "Use portrait image and high resolution (2048 × 2560) for better layout"
           },
           {
             "type": "image_picker",
             "id": "image_mobile",
-            "label": "Image moible"
+            "label": "Image moible",
+             "info": "Use portrait image and high resolution (800 × 1400) for better layout"
           },
           {
             "type": "text",
