@@ -38,11 +38,11 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           <picture>
             {% if block.settings.image_desktop != blank %}
               <div class="tw-full-image-desktop {% if block.settings.image_mobile != blank %} max-[989px]:tw-hidden {% endif %}">
-                {{ block.settings.image_desktop | image_url: width: 2048 | image_tag: class: image_class, widths: widths, fetchpriority: fetch_priority }}
+                {{ block.settings.image_desktop | image_url: width: 2048 | image_tag: class: image_class, alt: block.settings.image_desktop.alt, widths: widths, fetchpriority: fetch_priority }}
               </div>
               {% if block.settings.image_mobile != blank %}
                 <div class="tw-full-image-mobile tw-hidden max-[989px]:tw-block">
-                  {{ block.settings.image_mobile| image_url: width: 800 | image_tag: class: image_class, widths: widths, fetchpriority: fetch_priority }}
+                  {{ block.settings.image_mobile| image_url: width: 800 | image_tag: class: image_class, alt: block.settings.image_mobile.alt, widths: widths, fetchpriority: fetch_priority }}
                 </div>
               {% endif %}
             {% else %}
@@ -50,7 +50,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             {% endif %}
           </picture>
           <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
-            <div class="tw-sticky tw-top-0 tw-z-10 tw-h-full tw-max-h-screen">
+            <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
               <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">
                 <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none tw-p-[5rem] max-[640px]:!tw-pb-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
                   {% if block.settings.heading != blank %}
@@ -99,7 +99,65 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
       </a>
       {% endif %}
     {%  when 'video' %}
-      <div>Video here</div>
+      {% if block.settings.video != blank %}
+        <div class="tw-relative">
+          {{
+            block.settings.video | video_tag:
+              image_size: '2048',
+              autoplay: true,
+              loop: true,
+              controls: false,
+              muted: true,
+              class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
+          }}
+          <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
+            <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
+              <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">
+                <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none tw-p-[5rem] max-[640px]:!tw-pb-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
+                  {% if block.settings.heading != blank %}
+                    {% style %}
+                      .h2-{{ block.id }} {
+                        font-size: {{ block.settings.heading_size }}px;
+                        line-height: {{ block.settings.heading_size }}px;
+                      }
+                      .h3-{{ block.id }} {
+                        font-size: {{ block.settings.subheading_size }}px;
+                        line-height: {{ block.settings.subheading_size }}px;
+                        margin-top: 1rem;
+                        margin-left: 1rem;
+                      }
+                      @media screen and (max-width: 989px) {
+                        .h2-{{ block.id }} {
+                          font-size: calc({{ block.settings.heading_size }}px * 0.5);
+                          line-height: calc({{ block.settings.heading_size }}px * 0.5);
+                        }
+                        .h3-{{ block.id }} {
+                          font-size: calc({{ block.settings.subheading_size }}px * 0.5);
+                          line-height: calc({{ block.settings.subheading_size }}px * 0.5);
+                        }
+                      }
+                      @media screen and (max-width: 640px) {
+                        .h2-{{ block.id }} {
+                          font-size: calc({{ block.settings.heading_size }}px * 0.2);
+                          line-height: calc({{ block.settings.heading_size }}px * 0.2);
+                        }
+                        .h3-{{ block.id }} {
+                          font-size: calc({{ block.settings.subheading_size }}px * 0.2);
+                          line-height: calc({{ block.settings.subheading_size }}px * 0.2);
+                          margin-left: .5rem;
+                        }
+                      }
+                    {% endstyle %}
+                    <h2 class="h2-{{ block.id }}">{{ block.settings.heading }}</h2>
+                    <h3 class="h3-{{ block.id }}">{{ block.settings.subheading }}</h3>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {% endif %}
     {% endcase %}
   {% endfor %}
 
@@ -211,7 +269,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           {
             "type": "video",
             "id": "video",
-            "label": "Video"
+            "label": "Video",
+            "info": "Use portrait video (800 × 1400) for better layout"
           },
           {
             "type": "text",
