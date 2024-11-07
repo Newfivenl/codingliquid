@@ -134,7 +134,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           const myVideo1 = document.getElementById("myVideo1");
           const myVideo2 = document.getElementById("myVideo2");
           const myVideo2Img = myVideo2.querySelector("img");
-          myVideo2Img.classList.add(myVideo2.classList);
+          myVideo2Img.classList.add(myVideo2.getAttribute("class"));
 
           if (userAgentMyVideo.includes("Safari") && !userAgentMyVideo.includes("Chrome")) {
             myVideo2.style.display = "block";
