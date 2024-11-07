@@ -103,7 +103,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
         <div class="tw-relative">
           <!-- Video Element -->
 
-         
+         {% assign my_video_1 = "my-video-1-" | append: block.id %}
+         {% assign my_video_2 = "my-video-2-" | append: block.id %}
          {{
             block.settings.video | video_tag:
               image_size: '800',
@@ -111,7 +112,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               loop: true,
               controls: false,
               muted: true,
-              id: "myVideo1",
+              id: my_video_1,
               class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
           }}
           {{
@@ -122,7 +123,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               loop: true,
               controls: false,
               muted: true,
-              id: "myVideo2",
+              id: my_video_2,
               class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
             replace: '<video', '<picture' | 
             replace: '</video', '</picture' | 
@@ -131,8 +132,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           <script>
           const userAgentMyVideo = navigator.userAgent;
 
-          const myVideo1 = document.getElementById("myVideo1");
-          const myVideo2 = document.getElementById("myVideo2");
+          const myVideo1 = document.getElementById({{ my_video_1 }});
+          const myVideo2 = document.getElementById({{ my_video_2 }});
           const myVideo2Img = myVideo2.querySelector("img");
           myVideo2.getAttribute("class").split(" ").forEach(className => {
               myVideo2Img.classList.add(className);
