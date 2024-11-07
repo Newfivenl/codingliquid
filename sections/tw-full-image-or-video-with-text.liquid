@@ -132,8 +132,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           <script>
           const userAgentMyVideo = navigator.userAgent;
 
-          const myVideo1 = document.getElementById({{ my_video_1 }});
-          const myVideo2 = document.getElementById({{ my_video_2 }});
+          const myVideo1 = document.getElementById("{{ my_video_1 }}");
+          const myVideo2 = document.getElementById("{{ my_video_2 }}");
           const myVideo2Img = myVideo2.querySelector("img");
           myVideo2.getAttribute("class").split(" ").forEach(className => {
               myVideo2Img.classList.add(className);
