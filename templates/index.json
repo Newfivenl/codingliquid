@@ -56,12 +56,12 @@
           "settings": {
             "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
             "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
-            "heading": "MIEGAMI",
-            "heading_size": 30,
-            "subheading": "Subheading",
-            "subheading_size": 20,
-            "link": "",
-            "content_color_scheme": ""
+            "heading": "IMAGE BLOCK",
+            "heading_size": 240,
+            "subheading": "Sub heading image block.",
+            "subheading_size": 80,
+            "link": "shopify://collections",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
         }
       },
@@ -70,8 +70,8 @@
       ],
       "settings": {
         "section_color_scheme": "",
-        "padding_top": 12,
-        "padding_bottom": 12
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "tw_image_with_text_MtJVNb": {
