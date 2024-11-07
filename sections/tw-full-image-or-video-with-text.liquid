@@ -114,11 +114,25 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               id: "myVideo1",
               class: "video1 tw-w-full tw-h-full tw-object-cover tw-object-center"
           }}
+          {{
+            block.settings.video | 
+            video_tag:
+              image_size: '800',
+              autoplay: true,
+              loop: true,
+              controls: false,
+              muted: true,
+              id: "myVideo2",
+              class: "video2 tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+            replace: '<video', '<picture' | 
+            replace: '</video', '</picture' | 
+            replace: '<source src', '<source srcset'
+          }}
          
-          <picture id="myVideo2">
+          <!-- <picture id="myVideo2">
               <source srcset="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
               <img id="videoSrc" class=" tw-w-full tw-h-full tw-object-cover tw-object-center" srcset="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643">
-          </picture>
+          </picture> -->
          
           <script>
           const userAgentMyVide = navigator.userAgent;
