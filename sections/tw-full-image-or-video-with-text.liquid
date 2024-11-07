@@ -106,6 +106,33 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
     Your browser does not support the video tag.
 </video>
 
+          <!-- Play Button (Inline, invisible by default) -->
+    <button id="playButton" style="display:none;">Play</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the video and button elements
+            var video = document.getElementById('myVideo');
+            var playButton = document.getElementById('playButton');
+
+            // Show the play button when the page loads
+            playButton.style.display = 'block';
+
+            // Auto-trigger the play button click event
+            playButton.addEventListener('click', function() {
+                video.play().then(() => {
+                    // Hide the button after the video starts playing
+                    playButton.style.display = 'none';
+                }).catch((error) => {
+                    console.log("Failed to play the video:", error);
+                });
+            });
+
+            // Alternatively you can just start playing when the page loads
+            playButton.click();
+        });
+    </script>
+
 
           {% comment %}
           {{
