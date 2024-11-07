@@ -101,38 +101,32 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
     {%  when 'video' %}
       {% if block.settings.video != blank %}
         <div class="tw-relative">
-         <video id="myVideo" muted loop playsinline preload="metadata" poster="false">
-        <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-          <!-- Play Button (Inline, invisible by default) -->
-    <button id="playButton" style="display:none;">Play</button>
+     <!-- Example Video Element -->
+    <div data-component="video" data-autoplay="true" class="video">
+        <video playsinline="playsinline" muted="muted" loop="loop" class="object-cover" preload="metadata">
+            <source src="//www.rains.com/cdn/shop/videos/c/vp/c60c18a583804d02b914a4a5ed24c81f/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4?v=0" type="video/mp4">
+            <img src="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643">
+        </video>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get the video and button elements
-            var video = document.getElementById('myVideo');
-            var playButton = document.getElementById('playButton');
+            // Find all video elements with data-autoplay="true"
+            var videos = document.querySelectorAll('div[data-autoplay="true"] video');
 
-            // Show the play button when the page loads
-            playButton.style.display = 'block';
+            videos.forEach(function(video) {
+                // Ensure the video is muted (a requirement for autoplay in most browsers)
+                video.muted = true;
 
-            // Auto-trigger the play button click event
-            playButton.addEventListener('click', function() {
+                // Attempt to play the video
                 video.play().then(() => {
-                    // Hide the button after the video starts playing
-                    playButton.style.display = 'none';
+                    console.log('Video is playing');
                 }).catch((error) => {
-                    console.log("Failed to play the video:", error);
+                    console.error('Autoplay failed:', error);
                 });
             });
-
-            // Alternatively you can just start playing when the page loads
-            playButton.click();
         });
     </script>
-
 
           {% comment %}
           {{
