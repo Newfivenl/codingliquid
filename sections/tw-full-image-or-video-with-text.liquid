@@ -130,23 +130,25 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             replace: '<source src', '<source srcset'
           }}
           <script>
-          const userAgentMyVideo = navigator.userAgent;
+          (function () {
+            const userAgentMyVideo = navigator.userAgent;
 
-          const myVideo1 = document.getElementById("{{ my_video_1 }}");
-          const myVideo2 = document.getElementById("{{ my_video_2 }}");
-          const myVideo2Img = myVideo2.querySelector("img");
-          myVideo2.getAttribute("class").split(" ").forEach(className => {
-              myVideo2Img.classList.add(className);
-          });
-
-          if (userAgentMyVideo.includes("Safari") && !userAgentMyVideo.includes("Chrome")) {
-            myVideo2.style.display = "block";
-            myVideo1.style.display = "none";
-          } else {
-            myVideo2.style.display = "none";
-            myVideo1.style.display = "block";
-            myVideo1.play();
-          } 
+            const myVideo1 = document.getElementById("{{ my_video_1 }}");
+            const myVideo2 = document.getElementById("{{ my_video_2 }}");
+            const myVideo2Img = myVideo2.querySelector("img");
+            myVideo2.getAttribute("class").split(" ").forEach(className => {
+                myVideo2Img.classList.add(className);
+            });
+  
+            if (userAgentMyVideo.includes("Safari") && !userAgentMyVideo.includes("Chrome")) {
+              myVideo2.style.display = "block";
+              myVideo1.style.display = "none";
+            } else {
+              myVideo2.style.display = "none";
+              myVideo1.style.display = "block";
+              myVideo1.play();
+            } 
+          })();
           </script>
          
           
