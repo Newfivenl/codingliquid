@@ -101,32 +101,50 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
     {%  when 'video' %}
       {% if block.settings.video != blank %}
         <div class="tw-relative">
+            <style>
+    .video-container {
+      margin: 50vh 0; /* To ensure scrolling is needed */
+    }
+  </style>
      <!-- Example Video Element -->
-    <div data-component="video" data-autoplay="true" class="video">
-        <video playsinline="playsinline" muted="muted" loop="loop" class="object-cover" preload="metadata">
-            <source src="//www.rains.com/cdn/shop/videos/c/vp/c60c18a583804d02b914a4a5ed24c81f/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4?v=0" type="video/mp4">
-            <img src="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643">
-        </video>
-    </div>
+  <div class="video-container" data-autoplay="true">
+    <video playsinline muted loop preload="metadata" width="100%" height="auto">
+      <source src="//www.rains.com/cdn/shop/videos/c/vp/c60c18a583804d02b914a4a5ed24c81f/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4?v=0" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Find all video elements with data-autoplay="true"
-            var videos = document.querySelectorAll('div[data-autoplay="true"] video');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const options = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.25 // Play video when 25% of the element is visible
+      };
 
-            videos.forEach(function(video) {
-                // Ensure the video is muted (a requirement for autoplay in most browsers)
-                video.muted = true;
-
-                // Attempt to play the video
-                video.play().then(() => {
-                    console.log('Video is playing');
-                }).catch((error) => {
-                    console.error('Autoplay failed:', error);
-                });
-            });
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target.querySelector('video');
+            if (video && video.muted) {
+              video.play().then(() => {
+                console.log('Video is playing');
+              }).catch(error => {
+                console.error('Video play failed:', error);
+              });
+            }
+          }
         });
-    </script>
+      }, options);
+
+      // Observe all containers with data-autoplay="true"
+      const videoContainers = document.querySelectorAll('[data-autoplay="true"]');
+      videoContainers.forEach(container => {
+        observer.observe(container);
+      });
+    });
+  </script>
+</body>
 
           {% comment %}
           {{
