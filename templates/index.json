@@ -63,10 +63,62 @@
             "link": "shopify://collections",
             "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
+        },
+        "video_cGc4HV": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "VIDEO BLOCK",
+            "heading_size": 240,
+            "subheading": "Video block sub heading.",
+            "subheading_size": 70,
+            "link": "shopify://products/cargo-shine-black",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
         }
       },
       "block_order": [
-        "image_bzHGmc"
+        "image_bzHGmc",
+        "video_cGc4HV"
+      ],
+      "settings": {
+        "section_color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "tw_full_image_or_video_with_text_ycLpA6": {
+      "type": "tw-full-image-or-video-with-text",
+      "blocks": {
+        "image_GkKCB3": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/MenyardPariscontentshopify-206.jpg",
+            "image_mobile": "shopify://shop_images/MenyardPariscontentshopify-60.jpg",
+            "heading": "SECOND SECTION",
+            "heading_size": 240,
+            "subheading": "Image block",
+            "subheading_size": 70,
+            "link": "",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
+        "video_UeYEdA": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "VIDEO BLOCK",
+            "heading_size": 240,
+            "subheading": "Second section",
+            "subheading_size": 70,
+            "link": "",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        }
+      },
+      "block_order": [
+        "image_GkKCB3",
+        "video_UeYEdA"
       ],
       "settings": {
         "section_color_scheme": "",
@@ -247,6 +299,7 @@
   "order": [
     "image_banner",
     "tw_full_image_or_video_with_text_L4bfVH",
+    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection"
