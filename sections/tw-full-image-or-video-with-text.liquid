@@ -102,52 +102,34 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
       {% if block.settings.video != blank %}
         <div class="tw-relative">
           <!-- Video Element -->
-          
-          video: {{ block.settings.video.sources.url }}
 
-           <img src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0"/>
 
-          {% comment %}
-
-<picture>
-           <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
-            <img src="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643" width="400" height="400">
-          </picture>
-          <video id="myVideo" muted loop playsinline preload="metadata" poster="false">
+          <video id="myVideo1" muted loop playsinline preload="metadata" poster="false">
               <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
               Your browser does not support the video tag.
           </video>
-          {% endcomment %}
-
-          <!-- Play Button (Inline, invisible by default) -->
-          <button id="playButton" style="display:none;">Play</button>
-      
+          <!-- <img id="myVideo2" style="display:none;" src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0"/> -->
+          <picture id="myVideo2">
+              <source srcset="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
+              <img src="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643">
+          </picture>
           <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                  // Get the video and button elements
-                  var video = document.getElementById('myVideo');
-                  var playButton = document.getElementById('playButton');
-      
-                  // Show the play button when the page loads
-                  playButton.style.display = 'block';
-      
-                  // Auto-trigger the play button click event
-                  playButton.addEventListener('click', function() {
-                      video.play().then(() => {
-                          // Hide the button after the video starts playing
-                          playButton.style.display = 'none';
-                      }).catch((error) => {
-                          console.log("Failed to play the video:", error);
-                      });
-                  });
-      
-                  // Alternatively you can just start playing when the page loads
-                  playButton.click();
-              });
+          const userAgentMyVide = navigator.userAgent;
+          const myVideo1 = document.getElementById("myVideo1");
+          const myVideo2 = document.getElementById("myVideo2");
+          
+          if (userAgentMyVide.includes("Safari") && !userAgentMyVide.includes("Chrome")) {
+              myVideo1.style.display = "none";
+              myVideo2.style.display = "block";
+          } else {
+              myVideo1.style.display = "block";
+              myVideo1.play();
+              myVideo2.style.display = "none";
+          } 
           </script>
 
-          
-         
+  
+          {% comment %}
           {{
             block.settings.video | video_tag:
               image_size: '800',
@@ -157,7 +139,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               muted: true,
               class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
           }}
-         
+          {% endcomment %}
           <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
             <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
               <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">
