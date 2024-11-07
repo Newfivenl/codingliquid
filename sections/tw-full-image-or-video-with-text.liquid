@@ -112,11 +112,11 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
           const userAgent = navigator.userAgent;
           if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
             console.log("Browser is Safari");
-            document.getElementId("myVideo1").style.display = "none";
-            document.getElementId("myVideo2").style.display = "block";
+            document.getElementById("myVideo1").style.display = "none";
+            document.getElementById("myVideo2").style.display = "block";
           } else {
-            document.getElementId("myVideo1").style.display = "block";
-            document.getElementId("myVideo2").style.display = "none";
+            document.getElementById("myVideo1").style.display = "block";
+            document.getElementById("myVideo2").style.display = "none";
           }
           </script>
           {% comment %}
