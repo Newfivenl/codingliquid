@@ -102,12 +102,17 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
       {% if block.settings.video != blank %}
         <div class="tw-relative">
           <!-- Video Element -->
-          <picture>
+          
+          <video id="myVideo" muted loop playsinline preload="metadata" poster="false">
+             <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
+          <img src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0"/>
+            </video>
+          {% comment %}
+
+<picture>
            <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
             <img src="//www.rains.com/cdn/shop/files/preview_images/c60c18a583804d02b914a4a5ed24c81f.thumbnail.0000000000_small.jpg?v=1729596643" width="400" height="400">
           </picture>
-          <img src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0"/>
-          {% comment %}
           <video id="myVideo" muted loop playsinline preload="metadata" poster="false">
               <source src="//codingliquid.com/cdn/shop/videos/c/vp/42385c2a8d494224975a85c91631f6c3/42385c2a8d494224975a85c91631f6c3.HD-1080p-3.3Mbps-37639119.mp4?v=0" type="video/mp4">
               Your browser does not support the video tag.
