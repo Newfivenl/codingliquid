@@ -106,13 +106,13 @@
         "video_UeYEdA": {
           "type": "video",
           "settings": {
-            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "video": "shopify://files/videos/Polydata Personal accestoken.mp4",
             "heading": "VIDEO BLOCK",
             "heading_size": 240,
             "subheading": "Second section",
             "subheading_size": 70,
-            "link": "",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+            "link": "shopify://pages/contact",
+            "content_color_scheme": "scheme-b52601c6-7452-486a-beb2-4368aece8731"
           }
         }
       },
