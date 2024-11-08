@@ -101,15 +101,55 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
     {%  when 'video' %}
       {% if block.settings.video != blank %}
         <div class="tw-relative">
-          {{
+          <!-- Video Element -->
+
+         {% assign my_video_1 = "my-video-1-" | append: block.id %}
+         {% assign my_video_2 = "my-video-2-" | append: block.id %}
+         {{
             block.settings.video | video_tag:
               image_size: '800',
               autoplay: true,
               loop: true,
               controls: false,
               muted: true,
+              id: my_video_1,
               class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
           }}
+          {{
+            block.settings.video | 
+            video_tag:
+              image_size: '800',
+              autoplay: true,
+              loop: true,
+              controls: false,
+              muted: true,
+              id: my_video_2,
+              class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+            replace: '<video', '<picture' | 
+            replace: '</video', '</picture' | 
+            replace: '<source src', '<source srcset'
+          }}
+          <script>
+          (function () {
+            const userAgentMyVideo = navigator.userAgent;
+            const myVideo1 = document.getElementById("{{ my_video_1 }}");
+            const myVideo2 = document.getElementById("{{ my_video_2 }}");
+            const myVideo2Img = myVideo2.querySelector("img");
+            myVideo2.getAttribute("class").split(" ").forEach(className => {
+                myVideo2Img.classList.add(className);
+            });
+            if (userAgentMyVideo.includes("Safari") && !userAgentMyVideo.includes("Chrome")) {
+              myVideo2.style.display = "block";
+              myVideo1.style.display = "none";
+            } else {
+              myVideo2.style.display = "none";
+              myVideo1.style.display = "block";
+              myVideo1.play();
+            } 
+          })();
+          </script>
+         
+          
           <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
             <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
               <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">

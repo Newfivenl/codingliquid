@@ -48,25 +48,38 @@
         "show_text_below": false
       }
     },
-    "tw_full_image_with_text_9gbhcE": {
-      "type": "tw-full-image-with-text",
+    "tw_full_image_or_video_with_text_L4bfVH": {
+      "type": "tw-full-image-or-video-with-text",
       "blocks": {
-        "image_twTUBe": {
+        "image_bzHGmc": {
           "type": "image",
           "settings": {
             "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
             "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
-            "heading": "GIFT GUIDE",
+            "heading": "IMAGE BLOCK",
             "heading_size": 240,
-            "subheading": "Holiday is coming",
-            "subheading_size": 90,
-            "link": "",
+            "subheading": "Sub heading image block.",
+            "subheading_size": 80,
+            "link": "shopify://collections",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
+        "video_cGc4HV": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "VIDEO BLOCK",
+            "heading_size": 240,
+            "subheading": "Video block sub heading.",
+            "subheading_size": 70,
+            "link": "shopify://products/cargo-shine-black",
             "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
         }
       },
       "block_order": [
-        "image_twTUBe"
+        "image_bzHGmc",
+        "video_cGc4HV"
       ],
       "settings": {
         "section_color_scheme": "",
@@ -74,24 +87,38 @@
         "padding_bottom": 0
       }
     },
-    "tw_full_image_with_text_aXrHka": {
-      "type": "tw-full-image-with-text",
+    "tw_full_image_or_video_with_text_ycLpA6": {
+      "type": "tw-full-image-or-video-with-text",
       "blocks": {
-        "image_PbHX4z": {
+        "image_GkKCB3": {
           "type": "image",
           "settings": {
             "image_desktop": "shopify://shop_images/MenyardPariscontentshopify-206.jpg",
+            "image_mobile": "shopify://shop_images/MenyardPariscontentshopify-60.jpg",
             "heading": "SECOND SECTION",
             "heading_size": 240,
-            "subheading": "Some content here.",
+            "subheading": "Image block",
             "subheading_size": 70,
             "link": "",
-            "content_color_scheme": "scheme-b52601c6-7452-486a-beb2-4368aece8731"
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
+        "video_UeYEdA": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "VIDEO BLOCK",
+            "heading_size": 240,
+            "subheading": "Second section",
+            "subheading_size": 70,
+            "link": "",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
         }
       },
       "block_order": [
-        "image_PbHX4z"
+        "image_GkKCB3",
+        "video_UeYEdA"
       ],
       "settings": {
         "section_color_scheme": "",
@@ -217,8 +244,7 @@
         },
         "image_fdiKk7": {
           "type": "image",
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -272,8 +298,8 @@
   },
   "order": [
     "image_banner",
-    "tw_full_image_with_text_9gbhcE",
-    "tw_full_image_with_text_aXrHka",
+    "tw_full_image_or_video_with_text_L4bfVH",
+    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection"
