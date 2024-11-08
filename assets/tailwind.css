@@ -903,20 +903,20 @@ html {
   top: calc(50% - 0.5em * 1.02);
 }
 
-.tw-z-10 {
-  z-index: 10;
-}
-
 .tw-z-30 {
   z-index: 30;
+}
+
+.tw-z-\[1\] {
+  z-index: 1;
 }
 
 .tw-z-\[9999\] {
   z-index: 9999;
 }
 
-.tw-z-\[1\] {
-  z-index: 1;
+.tw-z-\[2\] {
+  z-index: 2;
 }
 
 .tw-m-\[20px\] {
@@ -929,6 +929,10 @@ html {
 
 .tw-block {
   display: block;
+}
+
+.\!tw-block {
+  display: block !important;
 }
 
 .tw-flex {
