@@ -75,9 +75,8 @@
         "accordion_H3NNzj": {
           "type": "accordion",
           "settings": {
-            "heading": "Accordion content",
-            "icon": "none",
-            "row_content": "",
+            "heading": "Accordion content 1",
+            "row_content": "<p>Explore the Unpredictable World of Random Finds at Your Fingertips.</p>",
             "page": ""
           }
         },
@@ -85,7 +84,6 @@
           "type": "accordion",
           "settings": {
             "heading": "Accordion content",
-            "icon": "none",
             "row_content": "",
             "page": ""
           }
@@ -94,7 +92,6 @@
           "type": "accordion",
           "settings": {
             "heading": "Accordion content",
-            "icon": "none",
             "row_content": "",
             "page": ""
           }
