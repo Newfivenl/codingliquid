@@ -120,7 +120,7 @@
               <ul class="tw-grid tw-grid-cols-1 tw-gap-4">
                 {% if block.settings.icon_image and block.settings.icon_text != blank %}
                   <li class="tw-flex tw-self-start icon-{{ block.id }}-margin" {{ block.shopify_attributes }}>
-                    <div class="tw-mr-4 tw-flex-none tw-self-start">
+                    <div class="tw-mr-4 tw-flex-none tw-flex tw-items-center">
                       <span class="svg-wrapper">
                         {{ block.settings.icon_image | image_url: width: 20 | image_tag: class: image_class }}
                       </span>
@@ -129,7 +129,7 @@
                   </li>
                 {% else %}
                   <li class="tw-flex tw-self-start icon-{{ block.id }}-margin" {{ block.shopify_attributes }}>
-                    <div class="tw-mr-4 tw-flex-none tw-self-start">
+                    <div class="tw-mr-4 tw-flex-none tw-flex tw-items-center">
                       <span class="svg-wrapper">{{ 'icon-box.svg' | inline_asset_content }}</span>
                     </div>
                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
