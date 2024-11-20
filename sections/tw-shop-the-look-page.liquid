@@ -136,7 +136,7 @@ Metaobject fields:
                                 <div class="tw-cursor-pointer">
                                     {% render 'card-product',
                                     card_product: product,
-                                    media_aspect_ratio: 'square',
+                                    media_aspect_ratio: section.settings.image_ratio,
                                     image_shape: 'default',
                                     show_secondary_image: true,
                                     show_vendor: false,
@@ -163,7 +163,7 @@ Metaobject fields:
                     {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
                     {% render 'card-product',
                     show_vendor: section.settings.show_vendor,
-                    media_aspect_ratio: section.settings.image_ratio,
+                    media_aspect_ratio: 'portrait',
                     image_shape: section.settings.image_shape,
                     placeholder_image: placeholder_image
                     %}
@@ -199,7 +199,7 @@ Metaobject fields:
                 <div class="tw-cursor-pointer">
                     {% render 'card-product',
                     card_product: product,
-                    media_aspect_ratio: 'square',
+                    media_aspect_ratio: section.settings.image_ratio,
                     image_shape: 'default',
                     show_secondary_image: true,
                     show_vendor: false,
@@ -305,30 +305,50 @@ Metaobject fields:
             "info": "Connect the shop the look metaobject to this field."
         },
         {
-        "type": "color_scheme",
-        "id": "section_color_scheme",
-        "label": "Color scheme",
-        "default": "scheme-1"
+            "type": "select",
+            "id": "image_ratio",
+            "options": [
+                {
+                "value": "adapt",
+                "label": "t:sections.related-products.settings.image_ratio.options__1.label"
+                },
+                {
+                "value": "portrait",
+                "label": "t:sections.related-products.settings.image_ratio.options__2.label"
+                },
+                {
+                "value": "square",
+                "label": "t:sections.related-products.settings.image_ratio.options__3.label"
+                }
+            ],
+            "default": "adapt",
+            "label": "Product items image ratio"
+        },
+        {
+            "type": "color_scheme",
+            "id": "section_color_scheme",
+            "label": "Color scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding top",
+            "default": 36
         },
         {
         "type": "range",
-        "id": "padding_top",
-        "min": 0,
-        "max": 100,
-        "step": 4,
-        "unit": "px",
-        "label": "Padding top",
-        "default": 36
-        },
-        {
-        "type": "range",
-        "id": "padding_bottom",
-        "min": 0,
-        "max": 100,
-        "step": 4,
-        "unit": "px",
-        "label": "Padding bottom",
-        "default": 36
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding bottom",
+            "default": 36
         }
     ],
     "presets": [
