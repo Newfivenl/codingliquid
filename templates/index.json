@@ -83,17 +83,17 @@
         "accordion_QwHz9f": {
           "type": "accordion",
           "settings": {
-            "heading": "Accordion content",
-            "row_content": "",
+            "heading": "Accordion content 2",
+            "row_content": "<p>Unlock Endless Possibilities with Our Assortment of Random Goods.</p>",
             "page": ""
           }
         },
         "accordion_cPtzqr": {
           "type": "accordion",
           "settings": {
-            "heading": "Accordion content",
-            "row_content": "",
-            "page": ""
+            "heading": "Accordion content 3",
+            "row_content": "<p>Unlock the Power of Random Products for Your Wellness Journey.</p>",
+            "page": "contact"
           }
         }
       },
