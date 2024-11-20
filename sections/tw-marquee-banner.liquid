@@ -25,13 +25,29 @@
     <div id="marquee" class="tw-flex tw-overflow-hidden tw-w-full">
       <div class="marquee-content tw-flex tw-w-[200%]">
         {%- for block in text_items -%}
-          <div class="tw-flex tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
-            {{ block.settings.text }}
+          <div class="tw-flex tw-gap-[5px] tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
+            {% if block.settings.icon != blank %}
+              {{ block.settings.icon | image_url: width: 20 | image_tag:
+                loading: 'lazy',
+                class: ''
+              }}
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <span style="font-size: {{ block.settings.text_size }}px;">{{ block.settings.text }}</span>
+            {% endif %}
           </div>
         {%- endfor -%}
         {%- for block in text_items -%}
-          <div class="tw-flex tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
-            {{ block.settings.text }}
+          <div class="tw-flex tw-gap-[5px] tw-flex-none tw-w-1/4 tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
+            {% if block.settings.icon != blank %}
+              {{ block.settings.icon | image_url: width: 20 | image_tag:
+                loading: 'lazy',
+                class: ''
+              }}
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <span style="font-size: {{ block.settings.text_size }}px;">{{ block.settings.text }}</span>
+            {% endif %}
           </div>
         {%- endfor -%}
       </div>
@@ -113,6 +129,21 @@
             "id": "text",
             "label": "Text",
             "default": "NEWFIVE"
+          },
+          {
+            "type": "range",
+            "id": "text_size",
+            "label": "Text size",
+            "min": 12,
+            "max": 36,
+            "step": 1,
+            "unit": "px",
+            "default": 12
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
           }
         ]
       }

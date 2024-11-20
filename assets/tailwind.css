@@ -962,16 +962,12 @@ html {
   margin-right: auto;
 }
 
-.tw-mr-4 {
-  margin-right: 1rem;
-}
-
 .tw-mb-4 {
   margin-bottom: 1rem;
 }
 
-.tw-mt-12 {
-  margin-top: 3rem;
+.tw-mr-4 {
+  margin-right: 1rem;
 }
 
 .\!tw-block {
@@ -994,6 +990,10 @@ html {
   display: none;
 }
 
+.tw-h-10 {
+  height: 2.5rem;
+}
+
 .tw-h-\[2px\] {
   height: 2px;
 }
@@ -1011,16 +1011,16 @@ html {
   height: 100%;
 }
 
-.tw-h-10 {
-  height: 2.5rem;
-}
-
 .tw-max-h-screen {
   max-height: 100vh;
 }
 
 .tw-w-1\/4 {
   width: 25%;
+}
+
+.tw-w-10 {
+  width: 2.5rem;
 }
 
 .tw-w-\[200\%\] {
@@ -1041,10 +1041,6 @@ html {
 
 .tw-w-screen {
   width: 100vw;
-}
-
-.tw-w-10 {
-  width: 2.5rem;
 }
 
 .tw-max-w-full {
@@ -1104,16 +1100,20 @@ html {
   justify-content: space-between;
 }
 
-.tw-gap-4 {
-  gap: 1rem;
-}
-
 .tw-gap-12 {
   gap: 3rem;
 }
 
+.tw-gap-4 {
+  gap: 1rem;
+}
+
 .tw-gap-8 {
   gap: 2rem;
+}
+
+.tw-gap-\[5px\] {
+  gap: 5px;
 }
 
 .tw-gap-x-20 {
@@ -1149,12 +1149,12 @@ html {
   overflow-y: auto;
 }
 
-.tw-rounded-md {
-  border-radius: 0.375rem;
-}
-
 .tw-rounded-lg {
   border-radius: 0.5rem;
+}
+
+.tw-rounded-md {
+  border-radius: 0.375rem;
 }
 
 .tw-bg-black {
@@ -1227,16 +1227,6 @@ html {
   padding-bottom: 5rem;
 }
 
-.tw-px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.tw-py-16 {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-
 .tw-pb-\[0px\] {
   padding-bottom: 0px;
 }
@@ -1247,6 +1237,11 @@ html {
 
 .tw-text-left {
   text-align: left;
+}
+
+.tw-text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .tw-text-\[10px\] {
@@ -1260,11 +1255,6 @@ html {
 .tw-text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.tw-text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
 }
 
 .tw-font-bold {
@@ -1290,11 +1280,6 @@ html {
 .tw-text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.tw-text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .tw-shadow-lg {
@@ -1431,11 +1416,6 @@ html {
 
   .lg\:tw-gap-16 {
     gap: 4rem;
-  }
-
-  .lg\:tw-py-24 {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
   }
 
   .lg\:tw-text-4xl {
