@@ -70,7 +70,9 @@
         },
         "image_m8tEjH": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/USP-Checkbox-Copy.webp"
+          }
         },
         "accordion_H3NNzj": {
           "type": "accordion",
