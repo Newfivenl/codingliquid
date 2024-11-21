@@ -1,0 +1,54 @@
+{% assign vidoe_blocks = section.blocks | where: 'type', 'video' %}
+{% assign chrome_video = "chrome-video-" | append: block.id %}
+{% assign safari_video = "safari-video-" | append: block.id %}
+
+{% for block in vidoe_blocks %}
+    {% if block.settings.video != blank %}
+        
+        {{
+        block.settings.video | video_tag:
+        image_size: '800',
+        autoplay: true,
+        loop: true,
+        controls: false,
+        muted: true,
+        id: chrome_video,
+        class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
+        }}
+        {{
+        block.settings.video | video_tag:
+        image_size: '800',
+        autoplay: true,
+        loop: true,
+        controls: false,
+        muted: true,
+        id: safari_video,
+        class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+        replace: '<video', '<picture' | 
+        replace: '</video', '</picture' | 
+        replace: '<source src', '<source srcset'
+        }}
+        <script>
+        (function () {
+            const userAgentForVideo = navigator.userAgent;
+            const chromeVideo = document.getElementById("{{ chrome_video }}");
+            const safariVideo = document.getElementById("{{ safari_video }}");
+            const safariVideoImg = safariVideo.querySelector("img");
+            safariVideo.getAttribute("class").split(" ").forEach(className => {
+                safariVideoImg.classList.add(className);
+            });
+            if (userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome")) {
+            safariVideo.style.display = "block";
+            chromeVideo.style.display = "none";
+            } else {
+            safariVideo.style.display = "none";
+            chromeVideo.style.display = "block";
+            chromeVideo.play();
+            } 
+        })();
+        </script>
+    
+    {% else %}
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+{% endfor %}

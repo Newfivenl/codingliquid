@@ -1,0 +1,456 @@
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    .full-width {
+      padding: 0 1.5rem;
+    }
+
+    .desktop-content-position-flex-start {
+      align-items: flex-start;
+    }
+
+    .desktop-content-position-center {
+      align-items: center;
+    }
+
+    .desktop-content-position-flex-end {
+      align-items: flex-end;
+    }
+
+    .desktop-content-alignment-left {
+      text-align: left;
+    }
+
+    .desktop-content-alignment-center {
+      text-align: center;
+    }
+
+    .desktop-content-alignment-right {
+      text-align: right;
+    }
+
+    
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    @media screen and (min-width: 990px) {
+        .full-width {
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+    }
+
+    @media screen and (max-width: 990px) {
+        .mobile-content-alignment-left {
+            text-align: left;
+        }
+
+        .mobile-content-alignment-center {
+            text-align: center;
+        }
+
+        .mobile-content-alignment-right {
+            text-align: right;
+        }
+    }
+
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="{{ section.settings.hero_width }}">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 desktop-content-position-{{ section.settings.desktop_content_position }} desktop-content-alignment-{{ section.settings.desktop_content_alignment }} mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">
+      <div class="max-[1024px]:tw-order-1">
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'heading' -%}
+                {%- style -%}
+                    .heading-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                {%- case block.settings.heading_tag -%} 
+                {%- when 'h1' -%}
+                    <h1 class="h1 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h1>
+                {%- when 'h2' -%}
+                    <h2 class="h2 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h2>
+                {%- when 'h3' -%}
+                    <h3 class="h3 heading-{{ block.id }}-margin" {{ block.shopify_attributes }}>{{ block.settings.heading_text }}</h3>
+                {%- endcase -%}
+            {%- when 'paragraph' -%}
+                {%- style -%}
+                    .paragraph-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                <p class="paragraph-{{ block.id }}-margin" {{ block.shopify_attributes }}>
+                    {{ block.settings.paragraph_text }}
+                </p>
+            {%- when 'button' -%}
+                {%- style -%}
+                    .button-{{ block.id }}-margin {
+                        margin-top: {{ block.settings.margin_top | times: 0.75 | round: 0 }}px;
+                        margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+                    }
+                {%- endstyle -%}
+                <a href="{{ block.settings.button_link }}"
+                    class="button button--{{ block.settings.button_style }} button-{{ block.id }}-margin"
+                    title="Button" {{ block.shopify_attributes }}>
+                    {{ block.settings.button_text }}
+                </a>
+            {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <div>
+
+        {% assign vidoe_blocks = section.blocks | where: 'type', 'video' %}
+        {% assign chrome_video = "chrome-video-" | append: block.id %}
+        {% assign safari_video = "safari-video-" | append: block.id %}
+        
+        {% for block in vidoe_blocks %}
+            {% if block.settings.video != blank %}
+                
+              {{
+                block.settings.video | video_tag:
+                image_size: '800',
+                autoplay: true,
+                loop: true,
+                controls: false,
+                muted: true,
+                id: chrome_video,
+                class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
+              }}
+              {{
+                block.settings.video | video_tag:
+                image_size: '800',
+                autoplay: true,
+                loop: true,
+                controls: false,
+                muted: true,
+                id: safari_video,
+                class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+                replace: '<video', '<picture' | 
+                replace: '</video', '</picture' | 
+                replace: '<source src', '<source srcset'
+              }}
+              <script>
+                (function () {
+                  const userAgentForVideo = navigator.userAgent;
+                  const chromeVideo = document.getElementById("{{ chrome_video }}");
+                  const safariVideo = document.getElementById("{{ safari_video }}");
+                  const safariVideoImg = safariVideo.querySelector("img");
+                  safariVideo.getAttribute("class").split(" ").forEach(className => {
+                      safariVideoImg.classList.add(className);
+                  });
+                  if (userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome")) {
+                    safariVideo.style.display = "block";
+                    chromeVideo.style.display = "none";
+                  } else {
+                    safariVideo.style.display = "none";
+                    chromeVideo.style.display = "block";
+                    chromeVideo.play();
+                  } 
+                })();
+              </script>
+            
+            {% else %}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "TW - Video with text",
+  "settings": [
+    {
+        "type": "select",
+        "id": "hero_width",
+        "label": "Width",
+        "default": "page-width",
+        "options": [
+            {
+                "value": "page-width",
+                "label": "Page Width"
+            },
+            {
+                "value": "full-width",
+                "label": "Full Width"
+            }
+        ]
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center",
+      "label": "Desktop content position"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Deskop content alignment"
+    },
+    {
+      "type": "select",
+      "id": "mobile_content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Mobile content alignment"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Medium length hero heading goes here"
+        },
+        {
+            "type": "select",
+            "id": "heading_tag",
+            "label": "Heading Tag",
+            "default": "h1",
+          
+            "options": [
+                {
+                    "value": "h1",
+                    "label": "H1"
+                },
+                {
+                    "value": "h2",
+                    "label": "H2"
+                },
+                {
+                    "value": "h3",
+                    "label": "H3"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "paragraph_text",
+          "label": "Paragraph text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "video",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Button"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "primary",
+            "options": [
+                {
+                    "value": "primary",
+                    "label": "Button primary"
+                },
+                {
+                    "value": "secondary",
+                    "label": "Button secondary"
+                }
+            ]
+        },
+        {
+            "type": "range",
+            "id": "margin_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin top",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "margin_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Margin bottom",
+            "default": 10
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TW - Video with text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
