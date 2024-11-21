@@ -48,6 +48,59 @@
         "show_text_below": false
       }
     },
+    "tw_video_with_text_HDwWBL": {
+      "type": "tw-video-with-text",
+      "blocks": {
+        "heading_XG4pxD": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Medium length hero heading goes here",
+            "heading_tag": "h1",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "paragraph_CcwNAy": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "video_ACDAHT": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Polydata Personal accestoken.mp4"
+          }
+        },
+        "button_rkNkFx": {
+          "type": "button",
+          "settings": {
+            "button_text": "Button",
+            "button_link": "",
+            "button_style": "primary",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        }
+      },
+      "block_order": [
+        "heading_XG4pxD",
+        "paragraph_CcwNAy",
+        "video_ACDAHT",
+        "button_rkNkFx"
+      ],
+      "settings": {
+        "hero_width": "page-width",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "tw_image_with_text_and_accordion_ecg4pc": {
       "type": "tw-image-with-text-and-accordion",
       "blocks": {
@@ -416,6 +469,7 @@
   },
   "order": [
     "image_banner",
+    "tw_video_with_text_HDwWBL",
     "tw_image_with_text_and_accordion_ecg4pc",
     "tw_features_grid_pKynKV",
     "tw_full_image_or_video_with_text_L4bfVH",
