@@ -1,21 +1,199 @@
-{%- liquid
-  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
--%}
+{% comment %}
 
-<div class="{% if section.settings.background_style == 'primary' %}tw-bg-gray-100{% endif %} tw-py-8 tw-md:py-12">
-  <div class="tw-max-w-7xl tw-mx-auto tw-px-4 tw-sm:px-6 tw-lg:px-8">
+Instructions:
+
+1. Add this file to your sections folder
+
+2. Create your metaobject
+Metaobject name: Questions and Answers
+Metaobject description: This is metaobject will be the content for the questions and answer content, 
+you can also change this metaobject depends on what you need.
+
+Metobject type: questions_and_answers
+Metaobject fields:
+- Title
+  name: Title
+  type: single line text
+- Icon
+  name: Icon
+  type: file file(image only)
+- Questions and Answers
+  name: Questions and Answers
+  type: JSON
+  format:
+  [
+    {
+      "question": "How long does shipping typically take?",
+      "answer": "Our standard shipping takes 3-5 business days within the mainland. Express shipping options are available for next-day delivery."
+    },
+  ]
+{% endcomment %}
+
+{%- style -%}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .full-width {
+    padding: 0 1.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    [data-columns-mobile="1"] {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    
+    [data-columns-mobile="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+  @media screen and (min-width: 990px) {
+    .full-width {
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+  }
+    .question-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question-btn:hover {
+      background: rgb(var(--color-foreground), .05);
+    }
+
+    .question-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgb(var(--color-foreground), 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease-out, height 0.6s ease-out;
+    }
+
+    .question-btn.active::after {
+      width: 1000px;
+      height: 1000px;
+    }
+
+    .tw-question-and-answer-block-{{ section.id }} {
+      border: 1px solid rgb(var(--color-foreground));
+    }
+
+    .tw-question-and-answer-dialog-title-{{ section.id }} {
+      border-bottom: 1px solid rgb(var(--color-foreground));
+    }
+
+    dialog.tw-question-and-answer-dialog {
+      opacity: 0;
+      transform: scale(0.95) translateY(-30px);
+      transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      padding: 0;
+      width: calc(100% - 4rem);
+      max-width: 42rem;
+    }
+
+    dialog.tw-question-and-answer-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+
+    /* Open state animations */
+    dialog.tw-question-and-answer-dialog[open] {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      animation: dialogIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    dialog.tw-question-and-answer-dialog[open]::backdrop {
+      opacity: 1;
+      animation: backdropIn 0.3s ease-out;
+    }
+
+    dialog.tw-question-and-answer-dialog.closing {
+      animation: dialogOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    dialog.closing::backdrop {
+      animation: backdropOut 0.2s ease-out forwards;
+    }
+
+    @keyframes dialogIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes dialogOut {
+      0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.95) translateY(30px);
+      }
+    }
+
+    @keyframes backdropIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes backdropOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    .dialog-content {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
+    }
+
+    dialog.tw-question-and-answer-dialog[open] .dialog-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+{%- endstyle -%}
+
+{% assign columns_mobile_int = section.settings.columns_mobile | plus: 0 %}
+
+<section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
+  <div class="page-width">
+
     {%- unless section.settings.title == blank -%}
-        {%- case section.settings.heading_tag -%} 
-        {%- when 'h1' -%}
-            <h1 class="h1 tw-mb-[3rem]">{{ section.settings.title }}</h1>
-        {%- when 'h2' -%}
-            <h2 class="h2 tw-mb-[3rem]">{{ section.settings.title }}</h2>
-        {%- when 'h3' -%}
-            <h3 class="h3 tw-mb-[3rem]">{{ section.settings.title }}</h3>
-        {%- endcase -%}
+      {%- case section.settings.heading_tag -%} 
+      {%- when 'h1' -%}
+          <h1 class="h1 tw-mb-[3rem]">{{ section.settings.title }}</h1>
+      {%- when 'h2' -%}
+          <h2 class="h2 tw-mb-[3rem]">{{ section.settings.title }}</h2>
+      {%- when 'h3' -%}
+          <h3 class="h3 tw-mb-[3rem]">{{ section.settings.title }}</h3>
+      {%- endcase -%}
     {%- endunless -%}
 
-    <div class="tw-grid tw-gap-6" 
+    <div class="tw-grid tw-gap-[3rem]" 
       style="grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));"
       data-columns-mobile="{{ section.settings.columns_mobile }}"
       data-columns-desktop="{{ section.settings.columns_desktop }}"
@@ -23,57 +201,164 @@
     {%- for block in section.blocks -%}
         {%- assign qa_object = block.settings.questions_and_answers -%}
         
-        <div class="tw-flex tw-flex-col {% if section.settings.column_alignment == 'center' %}tw-items-center tw-text-center{% endif %}" 
+        <div class="tw-flex tw-flex-col tw-border tw-rounded-[5px] tw-question-and-answer-block-{{ section.id }}  {% if section.settings.column_alignment == 'center' %}tw-items-center tw-text-center{% endif %}" 
           {{ block.shopify_attributes }}
         >
-          {%- if qa_object.title.value != blank or qa_object.questions_and_answers.icon != blank -%}
-            {{ qa_object.questions_and_answers.icon.value }}
-            <div class="tw-flex tw-items-center tw-gap-3 tw-mb-4 {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
-              {%- if qa_object.questions_and_answers.icon != blank -%}
-                {{ qa_object.questions_and_answers.icon | image_url: width: 40 | image_tag:
+         
+          {%- if qa_object.title.value != blank -%}
+            <div class="tw-flex tw-items-center tw-gap-3 tw-py-[1rem] tw-px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
+              {%- if qa_object.icon.value != blank -%}
+                {{ qa_object.icon.value | image_url: width: 40 | image_tag:
                     loading: 'lazy',
                     class: 'tw-w-10 tw-h-10 tw-object-contain'
                 }}
               {%- endif -%}
               {%- if qa_object.title.value != blank -%}
-                <h3 class="tw-text-xl tw-font-semibold tw-text-gray-900">{{ qa_object.title.value }}</h3>
+                <h3 class="">{{ qa_object.title.value }}</h3>
               {%- endif -%}
             </div>
           {%- endif -%}
-      
+
           {%- if qa_object.questions_and_answers.value != blank -%}
             {%- assign qa_items = qa_object.questions_and_answers.value | json_parse -%}
             
             {%- for item in qa_items -%}
-              <div class="tw-mb-4 last:tw-mb-0">
+              <div class="">
                 {%- if item.question != blank -%}
-                  <h4 class="tw-text-lg tw-font-medium tw-text-gray-900 tw-mb-2">{{ item.question }}</h4>
+                  <button 
+                    onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
+                    class="question-btn tw-w-full tw-text-left tw-flex tw-items-center tw-text-lg  focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
+                    aria-expanded="false"
+                    aria-controls="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw-w-5 tw-h-5 tw-mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
+                    <h4 class="tw-text-lg tw-m-0">{{ item.question }}</h4>
+                  </button>
                 {%- endif -%}
-      
+
                 {%- if item.answer != blank -%}
-                  <div class="tw-text-gray-600">{{ item.answer }}</div>
+                  <dialog 
+                    id="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
+                    class="tw-question-and-answer-dialog tw-p-0 tw-rounded-lg tw-shadow-xl tw-border-none tw-max-w-2xl tw-w-full md:tw-w-[90vw] tw-m-auto"
+                    aria-labelledby="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}"
+                  >
+                    <div class="dialog-content tw-w-full">
+                      <div class="tw-flex tw-items-center tw-justify-between tw-p-[1.5rem] tw-border-b">
+                        <h3 
+                          id="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
+                          class="tw-text-xl tw-font-semibold tw-text-gray-700"
+                        >
+                          {{ item.question }}
+                        </h3>
+                        <button 
+                          onclick="closeModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
+                          class="tw-text-gray-400 hover:tw-text-gray-500 focus:tw-outline-none tw-rounded-lg"
+                          aria-label="Close modal"
+                        >
+                          <svg class="tw-w-6 tw-h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                          </svg>
+                        </button>
+                      </div>
+                      <div class="tw-p-[1.5rem] tw-prose tw-max-w-none">
+                        <p>{{ item.answer }}</p>
+                      </div>
+                    </div>
+                  </dialog>
                 {%- endif -%}
               </div>
             {%- endfor -%}
           {%- endif -%}
         </div>
-      {%- endfor -%}
-      
+    {%- endfor -%}
     </div>
   </div>
-</div>
 
-<style>
-@media screen and (max-width: 749px) {
-  [data-columns-mobile="1"] {
-    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-  }
   
-  [data-columns-mobile="2"] {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-</style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dialogs = document.querySelectorAll('dialog');
+      window.openModal = function(modalId, buttonElement) {
+        const dialog = document.getElementById(modalId);
+        if (dialog) {
+          buttonElement.classList.add('active');
+          dialog.showModal();
+          dialog.classList.remove('closing');
+          void dialog.offsetWidth;
+          const firstFocusable = dialog.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          if (firstFocusable) {
+            firstFocusable.focus();
+          }
+        }
+      };
+
+      window.closeModal = function(modalId, buttonElement) {
+        const dialog = document.getElementById(modalId);
+        if (dialog) {
+          document.querySelectorAll('.question-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+
+          dialog.classList.add('closing');
+          setTimeout(() => {
+            dialog.classList.remove('closing');
+            dialog.close();
+            const triggerButton = document.querySelector(`[aria-controls="${modalId}"]`);
+            if (triggerButton) {
+              triggerButton.focus();
+            }
+          }, 200);
+        }
+      };
+
+      dialogs.forEach(dialog => {
+        dialog.addEventListener('click', (e) => {
+          const dialogDimensions = dialog.getBoundingClientRect();
+          if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY < dialogDimensions.top ||
+            e.clientY > dialogDimensions.bottom
+          ) {
+            closeModal(dialog.id);
+          }
+        });
+
+        dialog.querySelector('.dialog-content').addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+        dialog.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeModal(dialog.id);
+          }
+        });
+
+        dialog.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            const focusableElements = dialog.querySelectorAll(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstFocusableElement = focusableElements[0];
+            const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) {
+              if (document.activeElement === firstFocusableElement) {
+                lastFocusableElement.focus();
+                e.preventDefault();
+              }
+            } else {
+              if (document.activeElement === lastFocusableElement) {
+                firstFocusableElement.focus();
+                e.preventDefault();
+              }
+            }
+          }
+        });
+      });
+    });
+  </script>
+</section>
 
 {% schema %}
 {
@@ -137,22 +422,6 @@
     },
     {
       "type": "select",
-      "id": "background_style",
-      "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "primary",
-          "label": "Primary"
-        }
-      ],
-      "default": "none",
-      "label": "Background style"
-    },
-    {
-      "type": "select",
       "id": "columns_mobile",
       "options": [
         {
@@ -166,13 +435,48 @@
       ],
       "default": "1",
       "label": "Number of columns on mobile"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
     }
   ],
   "blocks": [
+     
     {
       "type": "metaobject",
       "name": "Q&A lists",
       "settings": [
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "paragraph",
+          "content": "Connect your metaobject setup it should have metaobject_type: questions_and_answers. Check documentation for setup."
+        }, 
         {
           "type": "metaobject",
           "id": "questions_and_answers",
