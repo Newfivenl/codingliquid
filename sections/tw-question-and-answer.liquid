@@ -206,7 +206,7 @@ Metaobject fields:
         >
          
           {%- if qa_object.title.value != blank -%}
-            <div class="tw-flex tw-items-center tw-gap-3 tw-py-[1rem] tw-px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
+            <div class="tw-flex tw-items-center tw-gap-3 tw-py-[1rem] tw-w-full tw-px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
               {%- if qa_object.icon.value != blank -%}
                 {{ qa_object.icon.value | image_url: width: 40 | image_tag:
                     loading: 'lazy',
@@ -223,7 +223,7 @@ Metaobject fields:
             {%- assign qa_items = qa_object.questions_and_answers.value | json_parse -%}
             
             {%- for item in qa_items -%}
-              <div class="">
+              <div class="tw-w-full">
                 {%- if item.question != blank -%}
                   <button 
                     onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
