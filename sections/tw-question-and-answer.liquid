@@ -6,8 +6,16 @@ Instructions:
 
 2. Create your metaobject
 Metaobject name: Questions and Answers
-Metaobject description: This is metaobject will be the content for the questions and answer content, 
-you can also change this metaobject depends on what you need.
+Metaobject description: This metaobject will be the content for the questions and answer content. 
+You can also change the name of this metaobject depends on what you need 
+just make sure to also update the ID, Label and metaobject_type below based on your changes.
+
+{
+  "type": "metaobject",
+  "id": "questions_and_answers",
+  "label": "Questions & Answers",
+  "metaobject_type": "questions_and_answers"
+}
 
 Metobject type: questions_and_answers
 Metaobject fields:
@@ -277,7 +285,7 @@ Metaobject fields:
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const dialogs = document.querySelectorAll('dialog');
+      const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');
       window.openModal = function(modalId, buttonElement) {
         const dialog = document.getElementById(modalId);
         if (dialog) {
