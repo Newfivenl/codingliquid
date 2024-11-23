@@ -1,0 +1,262 @@
+{%- comment -%}
+
+Instructions:
+
+Add to your main-product.liquid block case
+{%- when 'tw_product_detail' -%}
+{% render 'tw-product-detail', block: block %}
+
+Add to your schema settings block main-product.liquid
+
+{
+    "type": "tw_product_detail",
+    "name": "TW - Product detail",
+    "settings": [
+    {
+        "type": "text",
+        "id": "block_title",
+        "label": "Block title"
+    },
+    {
+        "type": "header",
+        "content": "Content 1"
+    },
+    {
+        "type": "text",
+        "id": "title_1",
+        "label": "Title"
+    },
+    {
+        "type": "richtext",
+        "id": "content_1",
+        "label": "Content"
+    },
+    {
+        "type": "header",
+        "content": "Content 2"
+    },
+    {
+        "type": "text",
+        "id": "title_2",
+        "label": "Title"
+    },
+    {
+        "type": "richtext",
+        "id": "content_2",
+        "label": "Content"
+    },
+    {
+        "type": "header",
+        "content": "Content 3"
+    },
+    {
+        "type": "text",
+        "id": "title_3",
+        "label": "Title"
+    },
+    {
+        "type": "richtext",
+        "id": "content_3",
+        "label": "Content"
+    },
+    {
+        "type": "header",
+        "content": "Content 4"
+    },
+    {
+        "type": "text",
+        "id": "title_4",
+        "label": "Title"
+    },
+    {
+        "type": "richtext",
+        "id": "content_4",
+        "label": "Content"
+    }
+    ] 
+}
+
+{%- endcomment -%}
+
+{%- style -%}
+
+  .usp-dialog-content img {
+    height: auto;
+  }
+  
+  .usp-dialog-content::backdrop {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: #000;
+    opacity: .8;
+  }
+  
+  .usp-dialog-content[open] {
+    -webkit-animation: show .5s cubic-bezier(.4,0,.2,1) normal;
+  }
+  
+  .usp-dialog-content.hide {
+    -webkit-animation: hide 0.5s cubic-bezier(.4,0,.2,1) normal;
+  }
+  
+  @keyframes show {
+    from {
+        transform: translateX(110%);
+    }
+  
+    to {
+        transform: translateX(0%);
+    }
+  }
+    
+  @keyframes hide {
+    from {
+    transform: translateX(0%);
+    }
+  
+    to {
+    transform: translateX(110%);
+    }
+  }
+  
+  
+  @-webkit-keyframes show {
+    from {
+        transform: translateX(110%);
+    }
+  
+    to {
+        transform: translateX(0%);
+    }
+  }
+    
+  @-webkit-keyframes hide {
+    from {
+    transform: translateX(0%);
+    }
+  
+    to {
+    transform: translateX(110%);
+    }
+  }
+{%- endstyle -%}
+
+<div>
+
+    {% assign count_dialog = count_dialog | plus: 1 %}
+    {% assign count_usp = count_usp | plus: 1 %}
+
+    {% if block.settings.block_title != blank %}
+        <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" block-id="{{ block.id }}" count_usp="{{count_usp}}">
+            <span id="showDialog-{{ block.id }}" class="tw-flex usp-font-size tw-cursor-pointer">
+                {{ block.settings.block_title }}
+            </span>
+        </div> 
+    {% endif %}
+    
+    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[483px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[60px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content color-{{ block.settings.usp_product_dialog_color_scheme }}" count_dialog="{{count_dialog}}" close>
+        <div>
+            <div>
+                {% if block.settings.title_1 != blank %}
+                    <h4>{{ block.settings.title_1 }}</h4>
+                {% endif %}
+                {% if block.settings.content_1 != blank %}
+                    {{ block.settings.content_1 }}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if block.settings.title_2 != blank %}
+                    <h4>{{ block.settings.title_2 }}</h4>
+                {% endif %}
+                {% if block.settings.content_2 != blank %}
+                    {{ block.settings.content_2 }}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if block.settings.title_3 != blank %}
+                    <h4>{{ block.settings.title_3 }}</h4>
+                {% endif %}
+                {% if block.settings.content_3 != blank %}
+                    {{ block.settings.content_3 }}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if block.settings.title_4 != blank %}
+                    <h4>{{ block.settings.title_4 }}</h4>
+                {% endif %}
+                {% if block.settings.content_4 != blank %}
+                    {{ block.settings.content_4 }}
+                {% endif %}
+            </div>
+        </div>
+        <button id="usp-dialog-button-{{ block.id }}" class="tw-absolute tw-top-[10px] tw-right-[20px] tw-border-none tw-bg-transparent tw-cursor-pointer usp-dialog-button">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[20px]" fill="none" viewBox="0 0 18 17">
+            <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+            </path></svg>
+        </button>
+    </dialog>
+</div>
+
+
+
+
+<script>
+  function uspDialogContent(collapseBtn, closeBtn){
+
+    const btn = document.querySelector(""+collapseBtn+"");
+
+    const uspItemCount = btn.parentNode.getAttribute('count_usp');
+    const uspItemBlockId =  btn.parentNode.getAttribute("block-id");
+    const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
+    const xbtn = document.querySelector(""+closeBtn+"");
+
+    btn.addEventListener("click", function(event){
+      dialogContent.removeAttribute('close');
+      dialogContent.showModal();
+      dialogContent.classList.remove('hide');
+      document.querySelector('body').classList.add('overflow-hidden')
+    });
+
+    xbtn.addEventListener("click", function(event){
+      dialogContent.classList.add('hide');
+      document.querySelector('body').classList.remove('overflow-hidden')
+
+      if (!('showModal' in document.createElement('dialog'))) {
+        dialogContent.close();
+      }else {
+        dialogContent.addEventListener('webkitAnimationEnd', function () {
+        dialogContent.classList.remove('hide');
+          dialogContent.close();
+          dialogContent.removeEventListener('webkitAnimationEnd', arguments.callee, false);
+        }, false);
+      }
+    
+    });
+
+    const dialog = document.querySelectorAll('.usp-dialog-content');
+
+    dialog.forEach((thisDialog) => {
+      thisDialog.addEventListener('click', function(event){
+        if (!event.target.contains(thisDialog)) return;
+          thisDialog.classList.add('hide');
+          document.querySelector('body').classList.remove('overflow-hidden')
+
+          if (!('showModal' in document.createElement('dialog'))) {
+            thisDialog.close();
+          }else {
+            thisDialog.addEventListener('webkitAnimationEnd', function () {
+            thisDialog.classList.remove('hide');
+              thisDialog.close();
+              thisDialog.removeEventListener('webkitAnimationEnd', arguments.callee, false);
+            }, false);
+          }
+
+          event.stopPropagation();
+      });
+    });
+  }
+  uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}');
+</script>

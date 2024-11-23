@@ -660,6 +660,8 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'tw_product_detail' -%}
+                {% render 'tw-product-detail', block: block %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -2074,6 +2076,73 @@
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         }
       ]
+    },
+    {
+      "type": "tw_product_detail",
+      "name": "TW - Product detail",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Block title"
+        },
+        {
+          "type": "header",
+          "content": "Content 1"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_1",
+          "label": "Content"
+        },
+        {
+          "type": "header",
+          "content": "Content 2"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_2",
+          "label": "Content"
+        },
+        {
+          "type": "header",
+          "content": "Content 3"
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_3",
+          "label": "Content"
+        },
+        {
+          "type": "header",
+          "content": "Content 4"
+        },
+        {
+          "type": "text",
+          "id": "title_4",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_4",
+          "label": "Content"
+        }
+      ] 
     }
   ],
   "settings": [
