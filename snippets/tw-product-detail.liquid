@@ -98,7 +98,48 @@ Add to your schema settings block main-product.liquid
   .usp-dialog-content.hide {
     -webkit-animation: hide 0.5s cubic-bezier(.4,0,.2,1) normal;
   }
-  
+
+  .details-animated {
+    z-index: 1;
+}
+
+.details-animated[open] {
+    z-index: 2;
+}
+
+.details-content {
+    position: relative;
+    z-index: 1;
+}
+
+.accordion-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.plus-icon,
+.minus-icon {
+    transition: all 0.2s ease-out;
+}
+
+.plus-icon.tw-opacity-0 {
+    transform: rotate(90deg);
+}
+
+.plus-icon svg,
+.minus-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.details-animated > summary {
+    list-style: none;
+}
+
+.details-animated > summary::-webkit-details-marker {
+    display: none;
+}
+    
   @keyframes show {
     from {
         transform: translateX(110%);
@@ -148,55 +189,115 @@ Add to your schema settings block main-product.liquid
 
     {% if block.settings.block_title != blank %}
         <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" block-id="{{ block.id }}" count_usp="{{count_usp}}">
-            <span id="showDialog-{{ block.id }}" class="tw-flex usp-font-size tw-cursor-pointer">
-                {{ block.settings.block_title }}
+            <span id="showDialog-{{ block.id }}" class="tw-flex usp-font-size tw-cursor-pointer tw-justify-between tw-items-center tw-w-full">
+                <span>{{ block.settings.block_title }}</span>
+                <spa class="tw-w-3 tw-h-3">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
             </span>
         </div> 
     {% endif %}
     
-    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[483px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[60px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content color-{{ block.settings.usp_product_dialog_color_scheme }}" count_dialog="{{count_dialog}}" close>
-        <div>
-            <div>
-                {% if block.settings.title_1 != blank %}
-                    <h4>{{ block.settings.title_1 }}</h4>
-                {% endif %}
-                {% if block.settings.content_1 != blank %}
-                    {{ block.settings.content_1 }}
-                {% endif %}
+    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
+      {% if block.settings.block_title != blank %}
+        <h2 class="h2 tw-mb-[20px]">{{ block.settings.block_title }}</h2>
+      {% endif %}
+      <div class="accordions-wrapper">
+        {% if block.settings.title_1 != blank and block.settings.content_1 != blank %}
+          <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative" open>
+            <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                <h4>{{ block.settings.title_1 }}</h4>
+                <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                  <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon tw-opacity-0 tw-rotate-90">
+                    {{- 'icon-plus.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="tw-absolute tw-transition-all tw-duration-200 minus-icon">
+                    {{- 'icon-minus.svg' | inline_asset_content -}}
+                  </span>
+                </span>
+              </div>
+            </summary>
+            <div class="details-content tw-relative tw-z-0 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-pb-4 tw-px-1">
+                {{ block.settings.content_1 }}
+              </div>
             </div>
-
-            <div>
-                {% if block.settings.title_2 != blank %}
-                    <h4>{{ block.settings.title_2 }}</h4>
-                {% endif %}
-                {% if block.settings.content_2 != blank %}
-                    {{ block.settings.content_2 }}
-                {% endif %}
+          </details>
+        {% endif %}
+      
+        {% if block.settings.title_2 != blank and block.settings.content_2 != blank %}
+          <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+            <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                <h4>{{ block.settings.title_2 }}</h4>
+                <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                  <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                    {{- 'icon-plus.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                    {{- 'icon-minus.svg' | inline_asset_content -}}
+                  </span>
+                </span>
+              </div>
+            </summary>
+            <div class="details-content tw-relative tw-z-0 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-pb-4 tw-px-1">
+                {{ block.settings.content_2 }}
+              </div>
             </div>
-
-            <div>
-                {% if block.settings.title_3 != blank %}
-                    <h4>{{ block.settings.title_3 }}</h4>
-                {% endif %}
-                {% if block.settings.content_3 != blank %}
-                    {{ block.settings.content_3 }}
-                {% endif %}
+          </details>
+        {% endif %}
+      
+        {% if block.settings.title_3 != blank and block.settings.content_3 != blank %}
+          <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+            <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                <h4>{{ block.settings.title_3 }}</h4>
+                <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                  <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                    {{- 'icon-plus.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                    {{- 'icon-minus.svg' | inline_asset_content -}}
+                  </span>
+                </span>
+              </div>
+            </summary>
+            <div class="details-content tw-relative tw-z-0 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-pb-4 tw-px-1">
+                {{ block.settings.content_3 }}
+              </div>
             </div>
-
-            <div>
-                {% if block.settings.title_4 != blank %}
-                    <h4>{{ block.settings.title_4 }}</h4>
-                {% endif %}
-                {% if block.settings.content_4 != blank %}
-                    {{ block.settings.content_4 }}
-                {% endif %}
+          </details>
+        {% endif %}
+      
+        {% if block.settings.title_4 != blank and block.settings.content_4 != blank %}
+          <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+            <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                <h4>{{ block.settings.title_4 }}</h4>
+                <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                  <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                    {{- 'icon-plus.svg' | inline_asset_content -}}
+                  </span>
+                  <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                    {{- 'icon-minus.svg' | inline_asset_content -}}
+                  </span>
+                </span>
+              </div>
+            </summary>
+            <div class="details-content tw-relative tw-z-0 gradient color-{{ block.settings.color_scheme }}">
+              <div class="tw-pb-4 tw-px-1">
+                {{ block.settings.content_4 }}
+              </div>
             </div>
-        </div>
-        <button id="usp-dialog-button-{{ block.id }}" class="tw-absolute tw-top-[10px] tw-right-[20px] tw-border-none tw-bg-transparent tw-cursor-pointer usp-dialog-button">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[20px]" fill="none" viewBox="0 0 18 17">
-            <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
-            </path></svg>
-        </button>
+          </details>
+        {% endif %}
+      </div>
+      <button id="usp-dialog-button-{{ block.id }}" class="tw-absolute tw-top-[10px] tw-right-[20px] tw-border-none tw-bg-transparent tw-cursor-pointer usp-dialog-button">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[20px]" fill="none" viewBox="0 0 18 17">
+          <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+          </path></svg>
+      </button>
     </dialog>
 </div>
 
@@ -259,4 +360,169 @@ Add to your schema settings block main-product.liquid
     });
   }
   uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}');
+
+  (function() {
+    'use strict';
+
+    const Accordion = function(el) {
+        this.el = el;
+        this.summary = el.querySelector('summary');
+        this.content = el.querySelector('.details-content');
+        this.animation = null;
+        this.isClosing = false;
+        this.isExpanding = false;
+        
+        // Find icons within the current accordion element's scope
+        this.plusIcon = this.summary.querySelector('.plus-icon');
+        this.minusIcon = this.summary.querySelector('.minus-icon');
+        
+        // Get the dialog parent
+        this.dialog = el.closest('dialog');
+        this.wrapper = el.closest('.accordions-wrapper');
+
+        // Set initial state
+        this.initializeState();
+        
+        this.summary.addEventListener('click', (e) => this.onClick(e));
+    };
+
+    Accordion.prototype.initializeState = function() {
+        const isOpen = this.el.hasAttribute('open');
+        if (isOpen) {
+            this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
+            this.minusIcon.classList.remove('tw-opacity-0');
+        } else {
+            this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
+            this.minusIcon.classList.add('tw-opacity-0');
+        }
+    };
+
+    Accordion.prototype.onClick = function(e) {
+        e.preventDefault();
+        this.updateStackOrder();
+        this.closeOthersInSameDialog();
+        
+        this.el.style.overflow = 'hidden';
+        
+        if (this.isClosing || !this.el.open) {
+            this.open();
+        } else if (this.isExpanding || this.el.open) {
+            this.shrink();
+        }
+    };
+
+    Accordion.prototype.updateStackOrder = function() {
+        if (this.wrapper) {
+            this.wrapper.querySelectorAll('.details-animated').forEach(details => {
+                details.style.zIndex = '1';
+            });
+            this.el.style.zIndex = '2';
+        }
+    };
+
+    Accordion.prototype.shrink = function() {
+        this.isClosing = true;
+        
+        // Show plus icon, hide minus icon
+        this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
+        this.minusIcon.classList.add('tw-opacity-0');
+        
+        const startHeight = `${this.el.offsetHeight}px`;
+        const endHeight = `${this.summary.offsetHeight}px`;
+        
+        if (this.animation) {
+            this.animation.cancel();
+        }
+        
+        this.animation = this.el.animate({
+            height: [startHeight, endHeight]
+        }, {
+            duration: 200,
+            easing: 'ease-out'
+        });
+        
+        this.animation.onfinish = () => this.onAnimationFinish(false);
+        this.animation.oncancel = () => this.isClosing = false;
+    };
+
+    Accordion.prototype.open = function() {
+        this.el.style.height = `${this.el.offsetHeight}px`;
+        this.el.open = true;
+        
+        // Hide plus icon, show minus icon
+        this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
+        this.minusIcon.classList.remove('tw-opacity-0');
+        
+        window.requestAnimationFrame(() => this.expand());
+    };
+
+    Accordion.prototype.expand = function() {
+        this.isExpanding = true;
+        const startHeight = `${this.el.offsetHeight}px`;
+        const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+        
+        if (this.animation) {
+            this.animation.cancel();
+        }
+        
+        this.animation = this.el.animate({
+            height: [startHeight, endHeight]
+        }, {
+            duration: 200,
+            easing: 'ease-out'
+        });
+        
+        this.animation.onfinish = () => this.onAnimationFinish(true);
+        this.animation.oncancel = () => this.isExpanding = false;
+    };
+
+    Accordion.prototype.onAnimationFinish = function(open) {
+        this.el.open = open;
+        this.animation = null;
+        this.isClosing = false;
+        this.isExpanding = false;
+        this.el.style.height = '';
+        this.el.style.overflow = '';
+        
+        if (!open) {
+            this.el.style.zIndex = '1';
+        }
+    };
+
+    Accordion.prototype.closeOthersInSameDialog = function() {
+        if (this.dialog && this.wrapper) {
+            // Only close accordions within the same dialog and wrapper
+            this.wrapper.querySelectorAll('.details-animated').forEach(details => {
+                if (details !== this.el && details.open) {
+                    const accordion = details.accordion;
+                    if (accordion && !accordion.isClosing) {
+                        accordion.shrink();
+                    }
+                }
+            });
+        }
+    };
+
+    // Initialize accordions for existing dialogs
+    const initializeAccordions = () => {
+        document.querySelectorAll('.details-animated').forEach((el) => {
+            if (!el.accordion) {
+                el.accordion = new Accordion(el);
+            }
+        });
+    };
+
+    // Initialize on DOM content loaded
+    document.addEventListener('DOMContentLoaded', initializeAccordions);
+
+    // Initialize when new dialogs are opened/shown
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.matches('[data-open-dialog]') || target.closest('[data-open-dialog]')) {
+            // Wait for dialog to be fully rendered
+            setTimeout(initializeAccordions, 0);
+        }
+    });
+})();
+
 </script>
