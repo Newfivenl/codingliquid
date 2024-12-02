@@ -52,6 +52,21 @@
             "content_4": "<p>Enhance Your Content Marketing Strategy with Proven Techniques.</p>",
             "color_scheme": "background-1"
           }
+        },
+        "tw_product_detail_qthMKJ": {
+          "type": "tw_product_detail",
+          "settings": {
+            "block_title": "Shipping & Returns",
+            "title_1": "Shipping",
+            "content_1": "<p>Secure and Efficient Shipping Solutions for Your E-commerce Business.</p>",
+            "title_2": "Returns",
+            "content_2": "<p>Maximize Your Shopping Experience with Hassle-Free Returns.</p>",
+            "title_3": "",
+            "content_3": "",
+            "title_4": "",
+            "content_4": "",
+            "color_scheme": "scheme-3"
+          }
         }
       },
       "block_order": [
@@ -60,7 +75,8 @@
         "variant_picker",
         "description",
         "buy_buttons",
-        "tw_product_detail_hT3egy"
+        "tw_product_detail_hT3egy",
+        "tw_product_detail_qthMKJ"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
