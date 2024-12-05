@@ -314,6 +314,7 @@ Add to your schema settings block main-product.liquid
 
 
 <script>
+
   function uspDialogContent(collapseBtn, closeBtn){
 
     const btn = document.querySelector(""+collapseBtn+"");
@@ -372,166 +373,188 @@ Add to your schema settings block main-product.liquid
 
   (function() {
     'use strict';
-
     const Accordion = function(el) {
-        this.el = el;
-        this.summary = el.querySelector('summary');
-        this.content = el.querySelector('.details-content');
-        this.animation = null;
-        this.isClosing = false;
-        this.isExpanding = false;
-        
-        // Find icons within the current accordion element's scope
-        this.plusIcon = this.summary.querySelector('.plus-icon');
-        this.minusIcon = this.summary.querySelector('.minus-icon');
-        
-        // Get the dialog parent
-        this.dialog = el.closest('dialog');
-        this.wrapper = el.closest('.accordions-wrapper');
+      this.el = el;
+      this.summary = el.querySelector('summary');
+      this.content = el.querySelector('.details-content');
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      
+      // Find icons within the current accordion element's scope
+      this.plusIcon = this.summary.querySelector('.plus-icon');
+      this.minusIcon = this.summary.querySelector('.minus-icon');
+      
+      // Get the dialog parent
+      this.dialog = el.closest('dialog');
+      this.wrapper = el.closest('.accordions-wrapper');
 
-        // Set initial state
-        this.initializeState();
-        
-        this.summary.addEventListener('click', (e) => this.onClick(e));
+      // Set initial state
+      this.initializeState();
+      
+      this.summary.addEventListener('click', (e) => this.onClick(e));
     };
 
     Accordion.prototype.initializeState = function() {
-        const isOpen = this.el.hasAttribute('open');
-        if (isOpen) {
-            this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
-            this.minusIcon.classList.remove('tw-opacity-0');
-        } else {
-            this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
-            this.minusIcon.classList.add('tw-opacity-0');
-        }
+      const isOpen = this.el.hasAttribute('open');
+      if (isOpen) {
+        this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
+        this.minusIcon.classList.remove('tw-opacity-0');
+      } else {
+        this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
+        this.minusIcon.classList.add('tw-opacity-0');
+      }
     };
 
     Accordion.prototype.onClick = function(e) {
-        e.preventDefault();
-        this.updateStackOrder();
-        this.closeOthersInSameDialog();
-        
-        this.el.style.overflow = 'hidden';
-        
-        if (this.isClosing || !this.el.open) {
-            this.open();
-        } else if (this.isExpanding || this.el.open) {
-            this.shrink();
-        }
+      e.preventDefault();
+      this.updateStackOrder();
+      this.closeOthersInSameDialog();
+      
+      this.el.style.overflow = 'hidden';
+      
+      if (this.isClosing || !this.el.open) {
+        this.open();
+      } else if (this.isExpanding || this.el.open) {
+        this.shrink();
+      }
     };
 
     Accordion.prototype.updateStackOrder = function() {
-        if (this.wrapper) {
-            this.wrapper.querySelectorAll('.details-animated').forEach(details => {
-                details.style.zIndex = '1';
-            });
-            this.el.style.zIndex = '2';
-        }
+      if (this.wrapper) {
+        this.wrapper.querySelectorAll('.details-animated').forEach(details => {
+          details.style.zIndex = '1';
+        });
+        this.el.style.zIndex = '2';
+      }
     };
 
     Accordion.prototype.shrink = function() {
-        this.isClosing = true;
-        
-        // Show plus icon, hide minus icon
-        this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
-        this.minusIcon.classList.add('tw-opacity-0');
-        
-        const startHeight = `${this.el.offsetHeight}px`;
-        const endHeight = `${this.summary.offsetHeight}px`;
-        
-        if (this.animation) {
-            this.animation.cancel();
-        }
-        
-        this.animation = this.el.animate({
-            height: [startHeight, endHeight]
-        }, {
-            duration: 200,
-            easing: 'ease-out'
-        });
-        
-        this.animation.onfinish = () => this.onAnimationFinish(false);
-        this.animation.oncancel = () => this.isClosing = false;
+      this.isClosing = true;
+      
+      this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
+      this.minusIcon.classList.add('tw-opacity-0');
+      
+      const startHeight = `${this.el.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight}px`;
+      
+      if (this.animation) {
+        this.animation.cancel();
+      }
+      
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 200,
+        easing: 'ease-out'
+      });
+      
+      this.animation.onfinish = () => this.onAnimationFinish(false);
+      this.animation.oncancel = () => this.isClosing = false;
     };
 
     Accordion.prototype.open = function() {
-        this.el.style.height = `${this.el.offsetHeight}px`;
-        this.el.open = true;
-        
-        // Hide plus icon, show minus icon
-        this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
-        this.minusIcon.classList.remove('tw-opacity-0');
-        
-        window.requestAnimationFrame(() => this.expand());
+      this.el.style.height = `${this.el.offsetHeight}px`;
+      this.el.open = true;
+     
+      this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
+      this.minusIcon.classList.remove('tw-opacity-0');
+      
+      window.requestAnimationFrame(() => this.expand());
     };
 
     Accordion.prototype.expand = function() {
-        this.isExpanding = true;
-        const startHeight = `${this.el.offsetHeight}px`;
-        const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
-        
-        if (this.animation) {
-            this.animation.cancel();
-        }
-        
-        this.animation = this.el.animate({
-            height: [startHeight, endHeight]
-        }, {
-            duration: 200,
-            easing: 'ease-out'
-        });
-        
-        this.animation.onfinish = () => this.onAnimationFinish(true);
-        this.animation.oncancel = () => this.isExpanding = false;
+      this.isExpanding = true;
+      const startHeight = `${this.el.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
+      
+      if (this.animation) {
+        this.animation.cancel();
+      }
+      
+      this.animation = this.el.animate({
+          height: [startHeight, endHeight]
+      }, {
+        duration: 200,
+        easing: 'ease-out'
+      });
+      
+      this.animation.onfinish = () => this.onAnimationFinish(true);
+      this.animation.oncancel = () => this.isExpanding = false;
     };
 
     Accordion.prototype.onAnimationFinish = function(open) {
-        this.el.open = open;
-        this.animation = null;
-        this.isClosing = false;
-        this.isExpanding = false;
-        this.el.style.height = '';
-        this.el.style.overflow = '';
-        
-        if (!open) {
-            this.el.style.zIndex = '1';
-        }
+      this.el.open = open;
+      this.animation = null;
+      this.isClosing = false;
+      this.isExpanding = false;
+      this.el.style.height = '';
+      this.el.style.overflow = '';
+      
+      if (!open) {
+        this.el.style.zIndex = '1';
+      }
     };
 
     Accordion.prototype.closeOthersInSameDialog = function() {
-        if (this.dialog && this.wrapper) {
-            // Only close accordions within the same dialog and wrapper
-            this.wrapper.querySelectorAll('.details-animated').forEach(details => {
-                if (details !== this.el && details.open) {
-                    const accordion = details.accordion;
-                    if (accordion && !accordion.isClosing) {
-                        accordion.shrink();
-                    }
-                }
-            });
-        }
-    };
-
-    // Initialize accordions for existing dialogs
-    const initializeAccordions = () => {
-        document.querySelectorAll('.details-animated').forEach((el) => {
-            if (!el.accordion) {
-                el.accordion = new Accordion(el);
+      if (this.dialog && this.wrapper) {
+        this.wrapper.querySelectorAll('.details-animated').forEach(details => {
+          if (details !== this.el && details.open) {
+            const accordion = details.accordion;
+            if (accordion && !accordion.isClosing) {
+              accordion.shrink();
             }
+          }
         });
+      }
     };
 
-    // Initialize on DOM content loaded
+    const initializeAccordions = () => {
+      document.querySelectorAll('.details-animated').forEach((el) => {
+        if (!el.accordion) {
+          el.accordion = new Accordion(el);
+        }
+      });
+    };
+
     document.addEventListener('DOMContentLoaded', initializeAccordions);
 
-    // Initialize when new dialogs are opened/shown
     document.addEventListener('click', (e) => {
-        const target = e.target;
-        if (target.matches('[data-open-dialog]') || target.closest('[data-open-dialog]')) {
-            // Wait for dialog to be fully rendered
-            setTimeout(initializeAccordions, 0);
-        }
+      const target = e.target;
+      if (target.matches('[data-open-dialog]') || target.closest('[data-open-dialog]')) {
+        setTimeout(initializeAccordions, 0);
+      }
     });
-})();
+  })();
+
+
+  (function() {
+    const breakpoints = {
+        mobile: '(max-width: 767px)',
+        tablet: '(min-width: 768px) and (max-width: 1023px)',
+        desktop: '(min-width: 1024px)'
+    };
+
+    const mediaQueries = Object.entries(breakpoints).map(([device, query]) => ({
+        device,
+        mql: window.matchMedia(query)
+    }));
+
+    function handleScreenChange(e, device) {
+        if (e.matches) {
+            console.log(`Current breakpoint: ${device}`);
+            // You can add your responsive logic here
+        }
+    }
+
+    // Set up listeners for each breakpoint
+    mediaQueries.forEach(({ device, mql }) => {
+        // Initial check
+        handleScreenChange(mql, device);
+        
+        // Add listener for changes
+        mql.addListener((e) => handleScreenChange(e, device));
+    });
+  })();
 
 </script>
