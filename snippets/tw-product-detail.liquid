@@ -91,12 +91,33 @@ Add to your schema settings block main-product.liquid
     opacity: .8;
   }
   
+  /* Vertical animation class */
   .usp-dialog-content[open] {
-    -webkit-animation: show .5s cubic-bezier(.4,0,.2,1) normal;
+    -webkit-animation: vertical-show .5s cubic-bezier(.4,0,.2,1) normal;
   }
   
   .usp-dialog-content.hide {
-    -webkit-animation: hide 0.5s cubic-bezier(.4,0,.2,1) normal;
+    -webkit-animation: vertical-hide 0.5s cubic-bezier(.4,0,.2,1) normal;
+  }
+
+  /* Horizontal animation class */
+  .usp-dialog-content.horizontal[open] {
+    -webkit-animation: horizontal-show .5s cubic-bezier(.4, 0, .2, 1) normal;
+    animation: horizontal-show .5s cubic-bezier(.4, 0, .2, 1) normal;
+  }
+
+  .usp-dialog-content.horizontal.hide {
+    -webkit-animation: horizontal-hide 0.5s cubic-bezier(.4, 0, .2, 1) normal;
+    animation: horizontal-hide 0.5s cubic-bezier(.4, 0, .2, 1) normal;
+  }
+
+  .usp-dialog-content-vertical {
+    width: 100%;
+    max-width: 100%;
+    height: 550px;
+    left:0;
+    bottom: 0;
+    top: auto !important; 
   }
 
   .usp-dialog-content ul {
@@ -148,53 +169,107 @@ Add to your schema settings block main-product.liquid
 .details-animated > summary::-webkit-details-marker {
     display: none;
 }
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-bottom: 1px solid rgb(from currentColor r g b / 0.5);
+  cursor: pointer;
+  flex-basis: 100%;
+}
+.tab-btn.active {
+  border-bottom: 1px solid currentColor;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
     
-  @keyframes show {
-    from {
-        transform: translateX(110%);
-    }
-  
-    to {
-        transform: translateX(0%);
-    }
-  }
-    
-  @keyframes hide {
-    from {
-    transform: translateX(0%);
-    }
-  
-    to {
+ /* Horizontal animation keyframes */
+@keyframes horizontal-show {
+  from {
     transform: translateX(110%);
-    }
   }
-  
-  
-  @-webkit-keyframes show {
-    from {
-        transform: translateX(110%);
-    }
-  
-    to {
-        transform: translateX(0%);
-    }
-  }
-    
-  @-webkit-keyframes hide {
-    from {
+  to {
     transform: translateX(0%);
-    }
-  
-    to {
-    transform: translateX(110%);
-    }
   }
+}
+
+@keyframes horizontal-hide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+@-webkit-keyframes horizontal-show {
+  from {
+    transform: translateX(110%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes horizontal-hide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+/* Vertical animation keyframes */
+@keyframes vertical-show {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes vertical-hide {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(110%);
+  }
+}
+
+@-webkit-keyframes vertical-show {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes vertical-hide {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(110%);
+  }
+}
+
 {%- endstyle -%}
 
 <div>
-
     {% assign count_dialog = count_dialog | plus: 1 %}
     {% assign count_usp = count_usp | plus: 1 %}
+    {% assign count_tab = count_tab |  plus: 1 %}
+    {% assign product_details = section.blocks | where: 'type', 'tw_product_detail' %}
+    {% assign block_color_scheme =  block.settings.color_scheme %}
 
     {% if block.settings.block_title != blank %}
         <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" block-id="{{ block.id }}" count_usp="{{count_usp}}">
@@ -205,11 +280,14 @@ Add to your schema settings block main-product.liquid
         </div> 
     {% endif %}
     
-    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
-      {% if block.settings.block_title != blank %}
-        <h2 class="h2 tw-mb-[20px]">{{ block.settings.block_title }}</h2>
-      {% endif %}
-      <div class="accordions-wrapper">
+    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content horizontal gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
+     
+      <div class="product-details-content-desktop accordions-wrapper tw-block">
+
+        {% if block.settings.block_title != blank %}
+          <h2 class="h2 tw-mb-[20px]">{{ block.settings.block_title }}</h2>
+        {% endif %}
+
         {% if block.settings.title_1 != blank and block.settings.content_1 != blank %}
           <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative" open>
             <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block.settings.color_scheme }}">
@@ -302,75 +380,234 @@ Add to your schema settings block main-product.liquid
           </details>
         {% endif %}
       </div>
-      <button id="usp-dialog-button-{{ block.id }}" class="tw-absolute tw-top-[10px] tw-right-[20px] tw-border-none tw-bg-transparent tw-cursor-pointer usp-dialog-button">
-          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[20px]" fill="none" viewBox="0 0 18 17">
-          <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
-          </path></svg>
-      </button>
+
+      <div class="product-details-content-mobile tw-hidden">
+        <div class="tw-tabs-container">
+          <div class="tw-flex tw-justify-space-evenly tw-mb-[20px]">
+            {% for block in product_details %}
+              {% if block.settings.block_title != blank %}
+                {% assign tab_id = block.id | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+                <button 
+                  class="tab-btn {% if forloop.first %}active{% endif %}"
+                  data-tab="tab-{{ tab_id }}">
+                  {{ block.settings.block_title }}
+                </button>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <div>
+            {% for block in product_details %}
+              {% assign tab_id = block.id | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+              <div 
+                id="tab-{{ tab_id }}" 
+                class="tab-content {% if forloop.first %}active{% endif %}">
+
+                  {% if block.settings.title_1 != blank and block.settings.content_1 != blank %}
+                    <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative" open>
+                      <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                          <h4>{{ block.settings.title_1 }}</h4>
+                          <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                            <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon tw-opacity-0 tw-rotate-90">
+                              {{- 'icon-plus.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="tw-absolute tw-transition-all tw-duration-200 minus-icon">
+                              {{- 'icon-minus.svg' | inline_asset_content -}}
+                            </span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="details-content tw-relative tw-z-0 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-pb-4 tw-px-1">
+                          {{ block.settings.content_1 }}
+                        </div>
+                      </div>
+                    </details>
+                  {% endif %}
+                
+                  {% if block.settings.title_2 != blank and block.settings.content_2 != blank %}
+                    <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+                      <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                          <h4>{{ block.settings.title_2 }}</h4>
+                          <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                            <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                              {{- 'icon-plus.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                              {{- 'icon-minus.svg' | inline_asset_content -}}
+                            </span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="details-content tw-relative tw-z-0 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-pb-4 tw-px-1">
+                          {{ block.settings.content_2 }}
+                        </div>
+                      </div>
+                    </details>
+                  {% endif %}
+                
+                  {% if block.settings.title_3 != blank and block.settings.content_3 != blank %}
+                    <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+                      <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                          <h4>{{ block.settings.title_3 }}</h4>
+                          <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                            <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                              {{- 'icon-plus.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                              {{- 'icon-minus.svg' | inline_asset_content -}}
+                            </span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="details-content tw-relative tw-z-0 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-pb-4 tw-px-1">
+                          {{ block.settings.content_3 }}
+                        </div>
+                      </div>
+                    </details>
+                  {% endif %}
+                
+                  {% if block.settings.title_4 != blank and block.settings.content_4 != blank %}
+                    <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative">
+                      <summary class="summary-animated tw-w-full tw-flex tw-cursor-pointer tw-relative tw-z-10 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-flex-1 tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-1">
+                          <h4>{{ block.settings.title_4 }}</h4>
+                          <span class="accordion-icon tw-relative tw-w-3 tw-h-3">
+                            <span class="tw-absolute tw-transition-all tw-duration-200 plus-icon">
+                              {{- 'icon-plus.svg' | inline_asset_content -}}
+                            </span>
+                            <span class="tw-absolute tw-transition-all tw-duration-200 tw-opacity-0 minus-icon">
+                              {{- 'icon-minus.svg' | inline_asset_content -}}
+                            </span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="details-content tw-relative tw-z-0 gradient color-{{ block_color_scheme }}">
+                        <div class="tw-pb-4 tw-px-1">
+                          {{ block.settings.content_4 }}
+                        </div>
+                      </div>
+                    </details>
+                  {% endif %}
+
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+          
+      <div class="tw-w-full tw-mt-[40px] tw-flex tw-justify-end">
+        <button id="usp-dialog-button-{{ block.id }}" class="button tw-flex tw-items-center tw-gap-[5px] tw-p-[10px] tw-border-none tw-cursor-pointer usp-dialog-button">
+          <span>
+             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
+             <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
+             </svg>
+          </span>
+          <span>Close</span>
+       </button>
+      </div>
+
     </dialog>
 </div>
 
-
-
-
 <script>
 
-  function uspDialogContent(collapseBtn, closeBtn){
-
-    const btn = document.querySelector(""+collapseBtn+"");
-
+  /* Dialog */
+  function uspDialogContent(collapseBtn, closeBtn, animation) {
+    const btn = document.querySelector("" + collapseBtn + "");
     const uspItemCount = btn.parentNode.getAttribute('count_usp');
-    const uspItemBlockId =  btn.parentNode.getAttribute("block-id");
+    const uspItemBlockId = btn.parentNode.getAttribute("block-id");
     const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-    const xbtn = document.querySelector(""+closeBtn+"");
+    const xbtn = document.querySelector("" + closeBtn + "");
 
-    btn.addEventListener("click", function(event){
+    dialogContent.classList.add(animation);
+
+    btn.addEventListener("click", function(event) {
       dialogContent.removeAttribute('close');
       dialogContent.showModal();
       dialogContent.classList.remove('hide');
-      document.querySelector('body').classList.add('overflow-hidden')
+      document.querySelector('body').classList.add('overflow-hidden');
+
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        const uspItem = event.currentTarget.parentNode;
+        const uspBlockId = uspItem.getAttribute('block-id');
+        
+        const mobileContent = dialogContent.querySelector('.product-details-content-mobile');
+        if (mobileContent) {
+          const tabsContainer = mobileContent.querySelector('.tw-tabs-container');
+          if (tabsContainer) {
+          
+            const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+            const tabContents = tabsContainer.querySelectorAll('.tab-content');
+            
+            let targetIndex = -1;
+            tabContents.forEach((content, index) => {
+              if (content.id.includes(uspBlockId)) {
+                targetIndex = index;
+              }
+            });
+
+            if (targetIndex !== -1) {
+             
+              tabButtons.forEach(btn => btn.classList.remove('active'));
+              tabContents.forEach(content => content.classList.remove('active'));
+
+              if (tabButtons[targetIndex]) {
+                tabButtons[targetIndex].classList.add('active');
+              }
+              if (tabContents[targetIndex]) {
+                tabContents[targetIndex].classList.add('active');
+              }
+            }
+          }
+        }
+      }
     });
 
-    xbtn.addEventListener("click", function(event){
+    xbtn.addEventListener("click", function(event) {
       dialogContent.classList.add('hide');
-      document.querySelector('body').classList.remove('overflow-hidden')
+      document.querySelector('body').classList.remove('overflow-hidden');
 
       if (!('showModal' in document.createElement('dialog'))) {
         dialogContent.close();
-      }else {
-        dialogContent.addEventListener('webkitAnimationEnd', function () {
-        dialogContent.classList.remove('hide');
+      } else {
+        dialogContent.addEventListener('webkitAnimationEnd', function() {
+          dialogContent.classList.remove('hide');
           dialogContent.close();
           dialogContent.removeEventListener('webkitAnimationEnd', arguments.callee, false);
         }, false);
       }
-    
     });
 
     const dialog = document.querySelectorAll('.usp-dialog-content');
 
     dialog.forEach((thisDialog) => {
-      thisDialog.addEventListener('click', function(event){
+      thisDialog.addEventListener('click', function(event) {
         if (!event.target.contains(thisDialog)) return;
-          thisDialog.classList.add('hide');
-          document.querySelector('body').classList.remove('overflow-hidden')
+        thisDialog.classList.add('hide');
+        document.querySelector('body').classList.remove('overflow-hidden');
 
-          if (!('showModal' in document.createElement('dialog'))) {
-            thisDialog.close();
-          }else {
-            thisDialog.addEventListener('webkitAnimationEnd', function () {
+        if (!('showModal' in document.createElement('dialog'))) {
+          thisDialog.close();
+        } else {
+          thisDialog.addEventListener('webkitAnimationEnd', function() {
             thisDialog.classList.remove('hide');
-              thisDialog.close();
-              thisDialog.removeEventListener('webkitAnimationEnd', arguments.callee, false);
-            }, false);
-          }
+            thisDialog.close();
+            thisDialog.removeEventListener('webkitAnimationEnd', arguments.callee, false);
+          }, false);
+        }
 
-          event.stopPropagation();
+        event.stopPropagation();
       });
     });
   }
-  uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}');
-
+  
+  /* Accordion */
   (function() {
     'use strict';
     const Accordion = function(el) {
@@ -381,15 +618,13 @@ Add to your schema settings block main-product.liquid
       this.isClosing = false;
       this.isExpanding = false;
       
-      // Find icons within the current accordion element's scope
       this.plusIcon = this.summary.querySelector('.plus-icon');
       this.minusIcon = this.summary.querySelector('.minus-icon');
       
-      // Get the dialog parent
       this.dialog = el.closest('dialog');
       this.wrapper = el.closest('.accordions-wrapper');
+      this.mobileWrapper = el.closest('.tab-content');
 
-      // Set initial state
       this.initializeState();
       
       this.summary.addEventListener('click', (e) => this.onClick(e));
@@ -409,9 +644,7 @@ Add to your schema settings block main-product.liquid
     Accordion.prototype.onClick = function(e) {
       e.preventDefault();
       this.updateStackOrder();
-      this.closeOthersInSameDialog();
-      
-      this.el.style.overflow = 'hidden';
+      this.closeOthersInSameContext();
       
       if (this.isClosing || !this.el.open) {
         this.open();
@@ -421,22 +654,79 @@ Add to your schema settings block main-product.liquid
     };
 
     Accordion.prototype.updateStackOrder = function() {
-      if (this.wrapper) {
-        this.wrapper.querySelectorAll('.details-animated').forEach(details => {
+      const currentWrapper = this.mobileWrapper || this.wrapper;
+      if (currentWrapper) {
+        currentWrapper.querySelectorAll('.details-animated').forEach(details => {
           details.style.zIndex = '1';
         });
         this.el.style.zIndex = '2';
       }
     };
 
+    Accordion.prototype.closeOthersInSameContext = function() {
+      const context = this.mobileWrapper || (this.dialog && this.wrapper);
+      
+      if (context) {
+        context.querySelectorAll('.details-animated').forEach(details => {
+          if (details !== this.el && details.open) {
+            const accordion = details.accordion;
+            if (accordion && !accordion.isClosing) {
+              accordion.shrink();
+            }
+          }
+        });
+      }
+    };
+
     Accordion.prototype.shrink = function() {
       this.isClosing = true;
       
-      this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
-      this.minusIcon.classList.add('tw-opacity-0');
-      
       const startHeight = `${this.el.offsetHeight}px`;
       const endHeight = `${this.summary.offsetHeight}px`;
+      
+      if (this.animation) {
+        this.animation.cancel();
+      }
+      
+      this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
+      this.minusIcon.classList.add('tw-opacity-0');
+
+      this.content.style.overflow = 'hidden';
+      this.content.style.visibility = 'hidden';
+      
+      this.animation = this.el.animate({
+        height: [startHeight, endHeight]
+      }, {
+        duration: 200,
+        easing: 'ease-out'
+      });
+      
+      this.animation.onfinish = () => this.onAnimationFinish(false);
+      this.animation.oncancel = () => {
+        this.isClosing = false;
+        this.el.style.height = '';
+        this.content.style.overflow = '';
+        this.content.style.visibility = '';
+      };
+    };
+
+    Accordion.prototype.open = function() {
+      this.el.style.height = `${this.summary.offsetHeight}px`;
+      this.el.open = true;
+      
+      this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
+      this.minusIcon.classList.remove('tw-opacity-0');
+      
+      this.content.style.overflow = 'hidden';
+      this.content.style.visibility = 'visible';
+      
+      window.requestAnimationFrame(() => this.expand());
+    };
+
+    Accordion.prototype.expand = function() {
+      this.isExpanding = true;
+      const startHeight = `${this.summary.offsetHeight}px`;
+      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
       
       if (this.animation) {
         this.animation.cancel();
@@ -449,38 +739,13 @@ Add to your schema settings block main-product.liquid
         easing: 'ease-out'
       });
       
-      this.animation.onfinish = () => this.onAnimationFinish(false);
-      this.animation.oncancel = () => this.isClosing = false;
-    };
-
-    Accordion.prototype.open = function() {
-      this.el.style.height = `${this.el.offsetHeight}px`;
-      this.el.open = true;
-     
-      this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
-      this.minusIcon.classList.remove('tw-opacity-0');
-      
-      window.requestAnimationFrame(() => this.expand());
-    };
-
-    Accordion.prototype.expand = function() {
-      this.isExpanding = true;
-      const startHeight = `${this.el.offsetHeight}px`;
-      const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
-      
-      if (this.animation) {
-        this.animation.cancel();
-      }
-      
-      this.animation = this.el.animate({
-          height: [startHeight, endHeight]
-      }, {
-        duration: 200,
-        easing: 'ease-out'
-      });
-      
       this.animation.onfinish = () => this.onAnimationFinish(true);
-      this.animation.oncancel = () => this.isExpanding = false;
+      this.animation.oncancel = () => {
+        this.isExpanding = false;
+        this.el.style.height = '';
+        this.content.style.overflow = '';
+        this.content.style.visibility = '';
+      };
     };
 
     Accordion.prototype.onAnimationFinish = function(open) {
@@ -489,23 +754,12 @@ Add to your schema settings block main-product.liquid
       this.isClosing = false;
       this.isExpanding = false;
       this.el.style.height = '';
-      this.el.style.overflow = '';
+      
+      this.content.style.overflow = '';
+      this.content.style.visibility = open ? 'visible' : 'hidden';
       
       if (!open) {
         this.el.style.zIndex = '1';
-      }
-    };
-
-    Accordion.prototype.closeOthersInSameDialog = function() {
-      if (this.dialog && this.wrapper) {
-        this.wrapper.querySelectorAll('.details-animated').forEach(details => {
-          if (details !== this.el && details.open) {
-            const accordion = details.accordion;
-            if (accordion && !accordion.isClosing) {
-              accordion.shrink();
-            }
-          }
-        });
       }
     };
 
@@ -525,9 +779,16 @@ Add to your schema settings block main-product.liquid
         setTimeout(initializeAccordions, 0);
       }
     });
+
+    document.addEventListener('click', (e) => {
+      const tabBtn = e.target.closest('.tab-btn');
+      if (tabBtn) {
+        setTimeout(initializeAccordions, 0);
+      }
+    });
   })();
 
-
+  /* Breakpoints */
   (function() {
     const breakpoints = {
         mobile: '(max-width: 767px)',
@@ -540,21 +801,106 @@ Add to your schema settings block main-product.liquid
         mql: window.matchMedia(query)
     }));
 
-    function handleScreenChange(e, device) {
+      function handleScreenChange(e, device) {
         if (e.matches) {
-            console.log(`Current breakpoint: ${device}`);
-            // You can add your responsive logic here
+
+          const uspDialogElement = document.querySelector(`#tw-usp-dialog-content-{{ block.id }}-{{ count_usp }}`);
+          const productDetailsContentDesktop = document.querySelectorAll('.product-details-content-desktop');
+          const productDetailsContentMobile = document.querySelectorAll('.product-details-content-mobile');
+
+          if (uspDialogElement) {
+            uspDialogElement.classList.remove('horizontal', 'usp-dialog-content-vertical');
+          }
+
+          switch (device) {
+          case 'mobile':
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', 'usp-dialog-content-vertical');
+            productDetailsContentDesktop.forEach((content) => {
+              if (content.classList.contains('tw-block')) {
+                content.classList.remove('tw-block');
+              }
+              content.classList.add('tw-hidden');
+            });
+            productDetailsContentMobile.forEach((content) => {
+              if (content.classList.contains('tw-hidden')) {
+                content.classList.remove('tw-hidden');
+              }
+              content.classList.add('tw-block');
+            });
+            break;
+          case 'tablet':
+          case 'desktop':
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', 'horizontal');
+            productDetailsContentDesktop.forEach((content) => {
+              if (content.classList.contains('tw-hidden')) {
+                content.classList.remove('tw-hidden');
+              }
+              content.classList.add('tw-block');
+            });
+            productDetailsContentMobile.forEach((content) => {
+              if (content.classList.contains('tw-block')) {
+                content.classList.remove('tw-block');
+              }
+              content.classList.add('tw-hidden');
+            });
+            break;
         }
+
+      }
     }
 
-    // Set up listeners for each breakpoint
     mediaQueries.forEach(({ device, mql }) => {
-        // Initial check
+       
         handleScreenChange(mql, device);
-        
-        // Add listener for changes
         mql.addListener((e) => handleScreenChange(e, device));
     });
+  })();
+  
+  // Tab Handler
+  (function() {
+    function initTabs() {
+      const tabContainers = document.querySelectorAll('.tw-tabs-container');
+      if (!tabContainers.length) return;
+
+      function switchTab(tabsContainer, clickedTab) {
+        const targetId = clickedTab.getAttribute('data-tab');
+        if (!targetId) return;
+
+        const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+        const tabContents = tabsContainer.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+        });
+        tabContents.forEach(content => {
+          content.classList.remove('active');
+        });
+
+        clickedTab.classList.add('active');
+        const targetContent = tabsContainer.querySelector(`#${targetId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
+      }
+
+      tabContainers.forEach(container => {
+        container.addEventListener('click', (e) => {
+          const clickedTab = e.target.closest('.tab-btn');
+          if (clickedTab) {
+            const parentContainer = clickedTab.closest('.tw-tabs-container');
+            if (parentContainer) {
+              switchTab(parentContainer, clickedTab);
+            }
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTabs);
+    } else {
+      initTabs();
+    }
   })();
 
 </script>
