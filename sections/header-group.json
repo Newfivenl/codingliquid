@@ -17,31 +17,36 @@
         "text_NiMedG": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE 1"
+            "text": "NEWFIVE 1",
+            "text_size": 12
           }
         },
         "text_ptbJzn": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE"
+            "text": "NEWFIVE",
+            "text_size": 12
           }
         },
         "text_RnWiDE": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE 2"
+            "text": "NEWFIVE 2",
+            "text_size": 12
           }
         },
         "text_Ug9tHp": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE 3"
+            "text": "NEWFIVE 3",
+            "text_size": 12
           }
         },
         "text_aecRB9": {
           "type": "text",
           "settings": {
-            "text": "NEWFIVE 4"
+            "text": "NEWFIVE 4",
+            "text_size": 12
           }
         }
       },
@@ -89,6 +94,7 @@
       "settings": {
         "logo_position": "middle-left",
         "menu": "main-menu",
+        "tw_menu": "",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
