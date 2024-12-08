@@ -978,16 +978,8 @@ html {
   left: calc(100vw - 484px);
 }
 
-.tw-right-\[20px\] {
-  right: 20px;
-}
-
 .tw-top-0 {
   top: 0px;
-}
-
-.tw-top-\[10px\] {
-  top: 10px;
 }
 
 .tw-top-\[calc\(50\%_-_0\.5em_\*_1\.02\)\] {
@@ -1063,18 +1055,6 @@ html {
   margin-right: 1rem;
 }
 
-.tw-mr-8 {
-  margin-right: 2rem;
-}
-
-.tw-mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.tw-mt-\[20px\] {
-  margin-top: 20px;
-}
-
 .tw-mt-\[40px\] {
   margin-top: 40px;
 }
@@ -1085,6 +1065,10 @@ html {
 
 .tw-block {
   display: block;
+}
+
+.tw-inline-block {
+  display: inline-block;
 }
 
 .tw-flex {
@@ -1132,6 +1116,10 @@ html {
   height: 100%;
 }
 
+.tw-h-8 {
+  height: 2rem;
+}
+
 .tw-max-h-full {
   max-height: 100%;
 }
@@ -1160,12 +1148,12 @@ html {
   width: 1.5rem;
 }
 
-.tw-w-\[200\%\] {
-  width: 200%;
+.tw-w-\[10px\] {
+  width: 10px;
 }
 
-.tw-w-\[20px\] {
-  width: 20px;
+.tw-w-\[200\%\] {
+  width: 200%;
 }
 
 .tw-w-\[485px\] {
@@ -1188,8 +1176,8 @@ html {
   width: 100vw;
 }
 
-.tw-w-\[10px\] {
-  width: 10px;
+.tw-w-8 {
+  width: 2rem;
 }
 
 .tw-max-w-2xl {
@@ -1286,20 +1274,16 @@ html {
   gap: 2rem;
 }
 
+.tw-gap-\[12px\] {
+  gap: 12px;
+}
+
 .tw-gap-\[3rem\] {
   gap: 3rem;
 }
 
 .tw-gap-\[5px\] {
   gap: 5px;
-}
-
-.tw-gap-\[10px\] {
-  gap: 10px;
-}
-
-.tw-gap-\[12px\] {
-  gap: 12px;
 }
 
 .tw-gap-x-20 {
@@ -1373,10 +1357,6 @@ html {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
-.tw-bg-transparent {
-  background-color: transparent;
-}
-
 .tw-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -1384,6 +1364,10 @@ html {
 
 .tw-bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+
+.tw-fill-none {
+  fill: none;
 }
 
 .tw-object-contain {
@@ -1496,6 +1480,10 @@ html {
 
 .tw-text-center {
   text-align: center;
+}
+
+.tw-align-middle {
+  vertical-align: middle;
 }
 
 .tw-text-3xl {
@@ -1717,6 +1705,10 @@ html {
 }
 
 @media (min-width: 990px) {
+  .min-\[990px\]\:tw-hidden {
+    display: none;
+  }
+
   .min-\[990px\]\:tw-bg-white\/60 {
     background-color: rgb(255 255 255 / 0.6);
   }
@@ -1770,4 +1762,20 @@ html {
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
+}
+
+.\[\&\>svg\]\:tw-h-8>svg {
+  height: 2rem;
+}
+
+.\[\&\>svg\]\:tw-w-8>svg {
+  width: 2rem;
+}
+
+.\[\&\>svg\]\:tw-fill-none>svg {
+  fill: none;
+}
+
+.\[\&\>svg\]\:tw-align-middle>svg {
+  vertical-align: middle;
 }

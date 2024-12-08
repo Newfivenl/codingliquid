@@ -1,0 +1,274 @@
+{% comment %}
+
+1. Add this schema field to header.liquid
+{
+    "type": "text",
+    "id": "tw_menu",
+    "default": "main-menu",
+    "label": "Tw - main menu",
+    "info": "Type the menu handle you'll find it when clicking you menu e.g Handle: main-menu. When activated this will be the main menu. Leave empty to de-activate."
+},
+
+2. Locate and update the code in header-drawer.liquid
+if section.settings.menu != blank
+    if section.settings.tw_menu != blank
+        render 'tw-main-menu'
+    else 
+        render 'header-drawer'
+    endif
+endif
+
+{% endcomment %}
+
+{%- style -%}
+    
+    :root {
+        --tw-dialog-animation-duration: 0.5s;
+        --tw-dialog-timing: cubic-bezier(.4,0,.2,1);
+        --tw-dialog-backdrop-opacity: 0.8;
+        --tw-dialog-height: 550px;
+        --tw-dialog-width: 580px;
+        --tw-dialog-padding: 30px;
+    }
+
+    .tw-dialog-content {
+        width: var(--tw-dialog-width);
+        max-width: 100%;
+        margin-top: 0;
+        height: 100%;
+        max-height: 100%;
+        top: 0;
+        border: 0;
+        padding: var(--tw-dialog-padding) var(--tw-dialog-padding) 20px;
+        transition: all 0.3s ease-in-out;
+        left: calc(100vw - 484px);
+        margin-right: 0;
+    }
+
+    .tw-dialog-content::backdrop {
+        position: fixed;
+        inset: 0;
+        background-color: rgb(0 0 0);
+        opacity: var(--tw-dialog-backdrop-opacity);
+    }
+
+    .tw-dialog-content[open] {
+        animation: var(--tw-dialog-animation-duration) var(--tw-dialog-timing) normal;
+    }
+
+    .tw-dialog-content.hide {
+        animation: var(--tw-dialog-animation-duration) var(--tw-dialog-timing) normal;
+    }
+
+    .tw-dialog-content.horizontal[open] {
+        animation-name: horizontal-show;
+    }
+
+    .tw-dialog-content.horizontal.hide {
+        animation-name: horizontal-hide;
+    }
+
+    .tw-dialog-content.vertical[open] {
+        animation-name: vertical-show;
+    }
+
+    .tw-dialog-content.vertical.hide {
+        animation-name: vertical-hide;
+    }
+
+    dialog.vertical {
+        width: 100%;
+        max-width: 100%;
+        height: var(--tw-dialog-height);
+        left: 0;
+        bottom: 0;
+        top: auto !important;
+    }
+
+    @keyframes horizontal-show {
+        from { transform: translateX(110%); }
+        to { transform: translateX(0); }
+    }
+
+    @keyframes horizontal-hide {
+        from { transform: translateX(0); }
+        to { transform: translateX(110%); }
+    }
+
+    @keyframes vertical-show {
+        from { transform: translateY(110%); }
+        to { transform: translateY(0); }
+    }
+
+    @keyframes vertical-hide {
+        from { transform: translateY(0); }
+        to { transform: translateY(110%); }
+    }
+
+    @media screen and (max-width: 767px) {
+        .tw-dialog-content {
+        padding: 50px var(--tw-dialog-padding) 20px;
+        max-width: 100%;
+        right: 0;
+        left: auto;
+        }
+    }
+
+    .tw-dialog-button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .tw-dialog-button svg {
+        width: 10px;
+        height: 10px;
+    }
+
+    .tw-menu-icons {
+        display: flex;
+        align-items: center;
+    }
+
+
+    @media screen and (min-width: 990px) {
+        .tw-main-menu {
+        display: none;
+        }
+    }
+
+    .tw-dialog-content {
+        will-change: transform;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+{%- endstyle -%}
+
+{% liquid 
+assign dialog_id = dialog_id | plus: 1
+assign trigger_id = trigger_id | plus: 1
+%}
+
+<div class="tw-main-menu min-[990px]:tw-hidden">
+    <div class="tw-menu-icons" section-id="{{ section.id }}" trigger-id="{{ trigger_id }}">
+        <span id="showDialog-{{ section.id }}">
+            <span data-icon="hamburger" class="[&>svg]:tw-h-8 [&>svg]:tw-w-8 [&>svg]:tw-fill-none [&>svg]:tw-align-middle tw-inline-block">
+                {{- 'icon-hamburger.svg' | inline_asset_content -}}
+            </span>
+            <span data-icon="close" class="[&>svg]:tw-h-8 [&>svg]:tw-w-8 [&>svg]:tw-fill-none [&>svg]:tw-align-middle tw-hidden">
+                {{- 'icon-close.svg' | inline_asset_content -}}
+            </span>
+        </span>
+    </div>
+    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content horizontal gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
+        Content here
+        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
+                <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
+                </svg>
+            </span>
+            <span>Close</span>
+        </button>
+    </dialog>
+</div> 
+
+
+<script>
+    (() => {
+        const twDialog = (triggerButton, closeBtn, animation) => {
+            const btn = document.querySelector(triggerButton);
+            if (!btn) return;
+
+            const triggerId = btn.parentNode.getAttribute('trigger-id');
+            const triggerSectionId = btn.parentNode.getAttribute("section-id");
+            const dialogContent = document.querySelector(`#tw-dialog-content-${triggerSectionId}-${triggerId}`);
+            const closeButton = document.querySelector(closeBtn);
+            
+            if (!dialogContent || !closeButton) return;
+
+            // Get both SVG elements within the trigger button
+            const triggerSpan = document.querySelector(triggerButton);
+            const hamburgerIcon = triggerSpan.querySelector('[data-icon="hamburger"]');
+            const closeIcon = triggerSpan.querySelector('[data-icon="close"]');
+
+            // Function to toggle icon visibility using Tailwind classes
+            const toggleIcons = (isOpen) => {
+                if (isOpen) {
+                    hamburgerIcon.classList.remove('tw-inline-block');
+                    hamburgerIcon.classList.add('tw-hidden');
+                    closeIcon.classList.remove('tw-hidden');
+                    closeIcon.classList.add('tw-inline-block');
+                } else {
+                    hamburgerIcon.classList.remove('tw-hidden');
+                    hamburgerIcon.classList.add('tw-inline-block');
+                    closeIcon.classList.remove('tw-inline-block');
+                    closeIcon.classList.add('tw-hidden');
+                }
+            };
+
+            // Initialize icons
+            toggleIcons(false);
+
+            const openDialog = () => {
+                dialogContent.removeAttribute('close');
+                dialogContent.showModal();
+                dialogContent.classList.remove('hide');
+                document.body.classList.add('overflow-hidden');
+                toggleIcons(true);
+            };
+
+            const closeDialog = () => {
+                dialogContent.classList.add('hide');
+                document.body.classList.remove('overflow-hidden');
+                toggleIcons(false);
+
+                const handleAnimationEnd = () => {
+                    dialogContent.classList.remove('hide');
+                    dialogContent.close();
+                    dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
+                };
+
+                if (!('showModal' in document.createElement('dialog'))) {
+                    dialogContent.close();
+                } else {
+                    dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
+                }
+            };
+
+            if (animation === 'horizontal') {
+                dialogContent.classList.remove('vertical');
+                dialogContent.classList.add('horizontal');
+            } else {
+                dialogContent.classList.remove('horizontal');
+                dialogContent.classList.add('vertical');
+            }
+
+            btn.addEventListener("click", openDialog);
+            closeButton.addEventListener("click", closeDialog);
+
+            dialogContent.addEventListener('click', (event) => {
+                if (event.target === dialogContent) {
+                    closeDialog();
+                    event.stopPropagation();
+                }
+            });
+
+            dialogContent.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeDialog();
+                }
+            });
+        };
+
+        twDialog(
+            '#showDialog-{{ section.id }}', 
+            '#tw-dialog-button-{{ section.id }}', 
+            'vertical'
+        );
+    })();
+</script>
