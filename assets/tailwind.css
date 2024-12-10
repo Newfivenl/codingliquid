@@ -1116,10 +1116,6 @@ html {
   height: 100%;
 }
 
-.tw-h-8 {
-  height: 2rem;
-}
-
 .tw-max-h-full {
   max-height: 100%;
 }
@@ -1174,10 +1170,6 @@ html {
 
 .tw-w-screen {
   width: 100vw;
-}
-
-.tw-w-8 {
-  width: 2rem;
 }
 
 .tw-max-w-2xl {
@@ -1366,10 +1358,6 @@ html {
   --tw-bg-opacity: 0.5;
 }
 
-.tw-fill-none {
-  fill: none;
-}
-
 .tw-object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1480,10 +1468,6 @@ html {
 
 .tw-text-center {
   text-align: center;
-}
-
-.tw-align-middle {
-  vertical-align: middle;
 }
 
 .tw-text-3xl {
