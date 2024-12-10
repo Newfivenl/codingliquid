@@ -15,14 +15,21 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "heading": "BLACK FRIDAY DEALS",
+            "heading_size": "hxl"
+          }
+        },
+        "text_9kYr3G": {
+          "type": "text",
+          "settings": {
+            "text": "Nu tijdelijk 2 premium t-shirts voor maar €74,99 Korting wordt automatisch verwerkt.",
+            "text_style": "caption-with-letter-spacing"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "SHOP NOW",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -33,9 +40,11 @@
       },
       "block_order": [
         "heading",
+        "text_9kYr3G",
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/pexels-lysenkow-8903119.jpg",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "desktop_content_position": "bottom-center",
@@ -96,6 +105,7 @@
         "metaobject_xC744H",
         "metaobject_JM7drg"
       ],
+      "disabled": true,
       "settings": {
         "title": "Questions & Answers",
         "heading_tag": "h1",
@@ -150,6 +160,7 @@
         "video_ACDAHT",
         "button_rkNkFx"
       ],
+      "disabled": true,
       "settings": {
         "hero_width": "page-width",
         "desktop_content_position": "center",
@@ -230,6 +241,7 @@
         "accordion_QwHz9f",
         "accordion_cPtzqr"
       ],
+      "disabled": true,
       "settings": {
         "hero_width": "page-width",
         "desktop_content_alignment": "left",
@@ -245,9 +257,9 @@
         "feature_4DADcM": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/box.svg",
-            "title": "The Future of Renewable Energy",
-            "text": "<p>The transition to renewable energy sources represents one of the most significant shifts in modern infrastructure. </p>"
+            "icon": "shopify://shop_images/truck-02.svg",
+            "title": "Free Worldwide Shipping",
+            "text": "<p>No borders, just style. Wherever you are, your favorite pieces will find their way to you.</p>"
           }
         },
         "feature_bNhjGX": {
@@ -282,8 +294,8 @@
         "feature_X3UW7J"
       ],
       "settings": {
-        "heading": "Benefits of daily use",
-        "side_image": "shopify://shop_images/USP-Checkbox-Copy-2.webp",
+        "heading": "Unlock Your Full Fassion Potential",
+        "side_image": "shopify://shop_images/7622fb30cba1617972093fcc051f49d4.jpg",
         "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
@@ -322,6 +334,7 @@
         "image_bzHGmc",
         "video_cGc4HV"
       ],
+      "disabled": true,
       "settings": {
         "section_color_scheme": "",
         "padding_top": 0,
