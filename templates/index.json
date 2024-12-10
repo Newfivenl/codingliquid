@@ -265,7 +265,7 @@
         "feature_bNhjGX": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/icon-heart.svg",
+            "icon": "shopify://shop_images/Icon.svg",
             "title": "Money back guarantee",
             "text": "<p>Shop with confidence. If it doesn’t fit you, we’ve got your back with a full refund.</p>"
           }
