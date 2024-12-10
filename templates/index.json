@@ -19,10 +19,17 @@
             "heading_size": "hxl"
           }
         },
+        "text_9kYr3G": {
+          "type": "text",
+          "settings": {
+            "text": "Nu tijdelijk 2 premium t-shirts voor maar €74,99 Korting wordt automatisch verwerkt.",
+            "text_style": "caption-with-letter-spacing"
+          }
+        },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "SHOP NOW",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -33,6 +40,7 @@
       },
       "block_order": [
         "heading",
+        "text_9kYr3G",
         "button"
       ],
       "settings": {
