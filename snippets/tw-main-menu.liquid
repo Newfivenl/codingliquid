@@ -5,8 +5,24 @@
     "type": "text",
     "id": "tw_menu",
     "default": "main-menu",
-    "label": "Tw - main menu",
-    "info": "Type the menu handle you'll find it when clicking you menu e.g Handle: main-menu. When activated this will be the main menu. Leave empty to de-activate."
+    "label": "TW - main menu",
+    "info": "Enter your menu's handle to activate it - you can find this handle by clicking on your menu. For example: main-menu. Leave empty to deactivate."
+},
+{
+    "type": "select",
+    "id": "tw_animation",
+    "label": "TW - menu animation",
+    "options": [
+    {
+        "label": "Horizontal",
+        "value": "horizontal"
+    },
+    {
+        "label": "Vertical",
+        "value": "vertical"
+    }
+    ],
+    "default": "vertical"
 },
 
 2. Locate and update the code in header-drawer.liquid
@@ -268,7 +284,7 @@ assign trigger_id = trigger_id | plus: 1
         twDialog(
             '#showDialog-{{ section.id }}', 
             '#tw-dialog-button-{{ section.id }}', 
-            'vertical'
+            '{{ section.settings.tw_animation }}'
         );
     })();
 </script>
