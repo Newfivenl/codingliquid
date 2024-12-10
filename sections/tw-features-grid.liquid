@@ -25,14 +25,14 @@ Instructions:
     <div class="tw-grid lg:tw-grid-cols-2 tw-gap-12 lg:tw-gap-16">
       <div class="tw-space-y-6">
 
-        {% if section.settings.heading != blank %}
-          <p class="tw-uppercase tw-text-lg">
+        {% if section.settings.caption != blank %}
+          <p class="tw-uppercase tw-text-[14px] tw-text-[#2D7BF1] tw-tracking-[2px]">
             {{ section.settings.caption }}
           </p>
         {% endif %}
 
         {% if section.settings.heading != blank %}
-          <h2 class="tw-text-3xl lg:tw-text-4xl tw-font-bold tw-tracking-tight">
+          <h2 class="tw-text-[48px] tw-leading-[55px] tw-font-[600] tw-tracking-tight">
             {{ section.settings.heading }}
           </h2>
         {% endif %}

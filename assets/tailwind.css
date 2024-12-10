@@ -1493,6 +1493,19 @@ html {
   line-height: 1.75rem;
 }
 
+.tw-text-\[14px\] {
+  font-size: 14px;
+}
+
+.tw-text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.tw-text-\[48px\] {
+  font-size: 48px;
+}
+
 .tw-font-bold {
   font-weight: 700;
 }
@@ -1505,6 +1518,10 @@ html {
   font-weight: 600;
 }
 
+.tw-font-\[600\] {
+  font-weight: 600;
+}
+
 .tw-uppercase {
   text-transform: uppercase;
 }
@@ -1513,8 +1530,16 @@ html {
   line-height: 11px;
 }
 
+.tw-leading-\[55px\] {
+  line-height: 55px;
+}
+
 .tw-tracking-tight {
   letter-spacing: -0.025em;
+}
+
+.tw-tracking-\[2px\] {
+  letter-spacing: 2px;
 }
 
 .tw-text-black {
@@ -1535,6 +1560,11 @@ html {
 .tw-text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+.tw-text-\[\#2D7BF1\] {
+  --tw-text-opacity: 1;
+  color: rgb(45 123 241 / var(--tw-text-opacity));
 }
 
 .tw-opacity-0 {
