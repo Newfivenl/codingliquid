@@ -105,6 +105,7 @@
         "metaobject_xC744H",
         "metaobject_JM7drg"
       ],
+      "disabled": true,
       "settings": {
         "title": "Questions & Answers",
         "heading_tag": "h1",
@@ -159,6 +160,7 @@
         "video_ACDAHT",
         "button_rkNkFx"
       ],
+      "disabled": true,
       "settings": {
         "hero_width": "page-width",
         "desktop_content_position": "center",
@@ -239,6 +241,7 @@
         "accordion_QwHz9f",
         "accordion_cPtzqr"
       ],
+      "disabled": true,
       "settings": {
         "hero_width": "page-width",
         "desktop_content_alignment": "left",
@@ -331,6 +334,7 @@
         "image_bzHGmc",
         "video_cGc4HV"
       ],
+      "disabled": true,
       "settings": {
         "section_color_scheme": "",
         "padding_top": 0,
