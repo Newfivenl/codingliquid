@@ -37,6 +37,12 @@ Instructions:
           </h2>
         {% endif %}
 
+        {% if section.settings.content != blank %}
+          <p class="">
+            {{ section.settings.content }}
+          </p>
+        {% endif %}
+
         <div class="tw-grid tw-gap-8 sm:tw-grid-cols-2">
           {% for block in section.blocks %}
             {% if block.type == 'feature' %}
@@ -67,6 +73,27 @@ Instructions:
             {% endif %}
           {% endfor %}
         </div>
+
+        <div class="tw-flex tw-gap-[10px]">
+          {% if section.settings.button_1_link != blank %}
+            <a href="{{ section.settings.button_1_link }}"
+              class="button button--{{ section.settings.button_1_style }}"
+              title="Button">
+              {{ section.settings.button_1_text }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_2_link != blank %}
+            <a href="{{ section.settings.button_2_link }}"
+              class="button button--{{ section.settings.button_2_style }}"
+              title="Button">
+              {{ section.settings.button_2_text }}
+            </a>
+
+          {% endif %}
+
+        </div>
+
       </div>
 
       {% if section.settings.side_image %}
@@ -99,9 +126,69 @@ Instructions:
       "default": "Benefits of daily use"
     },
     {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Content here</p>"
+    },
+    {
       "type": "image_picker",
       "id": "side_image",
       "label": "Side Image"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "select",
+      "id": "button_1_style",
+      "label": "Button 1 style",
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Button primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Button secondary"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2",
+      "default": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "select",
+      "id": "button_2_style",
+      "label": "Button 2 style",
+      "default": "primary",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Button primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Button secondary"
+        }
+      ]
     },
     {
       "type": "color_scheme",
