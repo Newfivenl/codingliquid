@@ -1278,6 +1278,10 @@ html {
   gap: 5px;
 }
 
+.tw-gap-\[10px\] {
+  gap: 10px;
+}
+
 .tw-gap-x-20 {
   -moz-column-gap: 5rem;
        column-gap: 5rem;
