@@ -258,43 +258,25 @@
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/truck-02.svg",
-            "title": "Free Worldwide Shipping",
+            "title": "Free worldwide shipping",
             "text": "<p>No borders, just style. Wherever you are, your favorite pieces will find their way to you.</p>"
           }
         },
         "feature_bNhjGX": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/icon-heart.svg",
-            "title": "Artificial Intelligence in Healthcare",
-            "text": "<p>Modern healthcare is being revolutionized by artificial intelligence applications.</p>"
-          }
-        },
-        "feature_RYJGbA": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/box.svg",
-            "title": "Urban Agriculture Trends",
-            "text": "<p>Cities are witnessing a growing movement toward local food production. </p>"
-          }
-        },
-        "feature_X3UW7J": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/icon-heart.svg",
-            "title": "The Evolution of Digital Privacy",
-            "text": "<p>As our lives become increasingly connected, the importance of digital privacy continues to grow. </p>"
+            "icon": "shopify://shop_images/Icon.svg",
+            "title": "Money back guarantee",
+            "text": "<p>Shop with confidence. If it doesn’t fit you, we’ve got your back with a full refund.</p>"
           }
         }
       },
       "block_order": [
         "feature_4DADcM",
-        "feature_bNhjGX",
-        "feature_RYJGbA",
-        "feature_X3UW7J"
+        "feature_bNhjGX"
       ],
       "settings": {
-        "caption": "WO",
+        "caption": "Own the moment",
         "heading": "Unlock Your Full Fassion Potential",
         "side_image": "shopify://shop_images/7622fb30cba1617972093fcc051f49d4.jpg",
         "color_scheme": "",
