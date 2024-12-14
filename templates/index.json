@@ -44,7 +44,7 @@
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/pexels-lysenkow-8903119.jpg",
+        "image": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "desktop_content_position": "bottom-center",
@@ -278,7 +278,14 @@
       "settings": {
         "caption": "Own the moment",
         "heading": "Unlock Your Full Fassion Potential",
+        "content": "<p>Content here</p>",
         "side_image": "shopify://shop_images/7622fb30cba1617972093fcc051f49d4.jpg",
+        "button_1_text": "Button text",
+        "button_1_link": "",
+        "button_1_style": "primary",
+        "button_2_text": "Button text",
+        "button_2_link": "",
+        "button_2_style": "primary",
         "color_scheme": "",
         "padding_top": 60,
         "padding_bottom": 60
