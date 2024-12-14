@@ -16,14 +16,14 @@
           "type": "heading",
           "settings": {
             "heading": "BLACK FRIDAY DEALS",
-            "heading_size": "hxl"
+            "heading_size": "h1"
           }
         },
         "text_9kYr3G": {
           "type": "text",
           "settings": {
             "text": "Nu tijdelijk 2 premium t-shirts voor maar €74,99 Korting wordt automatisch verwerkt.",
-            "text_style": "caption-with-letter-spacing"
+            "text_style": "body"
           }
         },
         "button": {
