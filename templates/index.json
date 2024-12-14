@@ -426,6 +426,10 @@
     "tw_image_with_text_and_icons_98ejaC": {
       "type": "tw-image-with-text-and-icons",
       "blocks": {
+        "image_fdiKk7": {
+          "type": "image",
+          "settings": {}
+        },
         "caption_nhnArX": {
           "type": "caption",
           "settings": {
@@ -485,21 +489,17 @@
             "margin_top": 10,
             "margin_bottom": 10
           }
-        },
-        "image_fdiKk7": {
-          "type": "image",
-          "settings": {}
         }
       },
       "block_order": [
+        "image_fdiKk7",
         "caption_nhnArX",
         "heading_i3rXrq",
         "paragraph_p9t6QT",
         "icon_xnDngQ",
         "icon_Mrwg9p",
         "icon_RzJtt6",
-        "button_zrUXqy",
-        "image_fdiKk7"
+        "button_zrUXqy"
       ],
       "settings": {
         "hero_width": "page-width",
