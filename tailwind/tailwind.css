@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .tw-mask-text {
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
+      mask-image: linear-gradient(to bottom, black 0%, black 100%);
+      -webkit-mask-clip: text;
+      mask-clip: text;
+      -webkit-mask-mode: alpha;
+      mask-mode: alpha;
+    }
+  }

@@ -23,8 +23,8 @@ Instructions:
 <div class="tw-section-wrapper section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   <div class="page-width tw-container tw-mx-auto">
     <div class="tw-grid lg:tw-grid-cols-2 tw-gap-12 lg:tw-gap-16">
-      <div class="tw-space-y-6">
-
+      <div class="tw-space-y-6 tw-flex tw-flex-col tw-justify-center tw-items-center">
+      <div class="tw-flex tw-flex-col tw-align-top tw-gap-3">
         {% if section.settings.caption != blank %}
           <p class="tw-uppercase tw-text-[14px] tw-text-[#2D7BF1] tw-tracking-[2px]">
             {{ section.settings.caption }}
@@ -38,12 +38,12 @@ Instructions:
         {% endif %}
 
         {% if section.settings.content != blank %}
-          <p class="">
+          <p class="tw-mt-5">
             {{ section.settings.content }}
           </p>
         {% endif %}
 
-        <div class="tw-grid tw-gap-8 sm:tw-grid-cols-2">
+        <div class="tw-grid tw-gap-8 sm:tw-grid-cols-2 tw-mt-5 tw-mb-[3.2rem]">
           {% for block in section.blocks %}
             {% if block.type == 'feature' %}
               <div class="tw-relative" {{ block.shopify_attributes }}>
@@ -93,7 +93,7 @@ Instructions:
           {% endif %}
 
         </div>
-
+          </div>
       </div>
 
       {% if section.settings.side_image %}
