@@ -379,7 +379,7 @@
             "heading_text": "Medium length hero heading goes here",
             "heading_tag": "h2",
             "margin_top": 10,
-            "margin_bottom": 10
+            "margin_bottom": 29
           }
         },
         "paragraph_rgFLG4": {
@@ -387,7 +387,7 @@
           "settings": {
             "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
             "margin_top": 10,
-            "margin_bottom": 10
+            "margin_bottom": 31
           }
         },
         "button_Kc9pjb": {
@@ -403,7 +403,7 @@
         "image_NnfxJ8": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/USP-Checkbox-Copy-2.webp"
+            "image": "shopify://shop_images/DSC05402_2.webp"
           }
         }
       },
