@@ -1078,6 +1078,11 @@ html {
   width: 100vw;
 }
 
+.tw-w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .tw-max-w-2xl {
   max-width: 42rem;
 }
@@ -1577,6 +1582,13 @@ html {
   }
 }
 
+@media not all and (min-width: 768px) {
+  .max-md\:tw-w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+
 @media not all and (min-width: 640px) {
   .max-sm\:tw-left-auto {
     left: auto;
@@ -1645,6 +1657,13 @@ html {
 
   .md\:tw-p-\[5rem\] {
     padding: 5rem;
+  }
+
+  @media not all and (min-width: 768px) {
+    .md\:max-md\:tw-w-fit {
+      width: -moz-fit-content;
+      width: fit-content;
+    }
   }
 }
 
