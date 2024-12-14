@@ -105,7 +105,6 @@
         "metaobject_xC744H",
         "metaobject_JM7drg"
       ],
-      "disabled": true,
       "settings": {
         "title": "Questions & Answers",
         "heading_tag": "h1",
@@ -541,7 +540,6 @@
   },
   "order": [
     "image_banner",
-    "tw_question_and_answer_XXWkmA",
     "tw_video_with_text_HDwWBL",
     "tw_image_with_text_and_accordion_ecg4pc",
     "tw_features_grid_pKynKV",
@@ -549,6 +547,7 @@
     "tw_full_image_or_video_with_text_ycLpA6",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
-    "featured_collection"
+    "featured_collection",
+    "tw_question_and_answer_XXWkmA"
   ]
 }
