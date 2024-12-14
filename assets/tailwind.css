@@ -1323,6 +1323,10 @@ html {
   padding: 5rem;
 }
 
+.tw-p-\[1rem\] {
+  padding: 1rem;
+}
+
 .tw-px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -1666,6 +1670,10 @@ html {
 
   .md\:tw-gap-y-16 {
     row-gap: 4rem;
+  }
+
+  .md\:tw-p-\[5rem\] {
+    padding: 5rem;
   }
 }
 

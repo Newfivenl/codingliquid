@@ -89,7 +89,7 @@ Metaobject fields:
       height: 0;
       background: rgb(var(--color-foreground), 0.1);
       transform: translate(-50%, -50%);
-      transition: width 0.6s ease-out, height 0.6s ease-out;
+      transition: width 0.6s ease-out, height 0.1s ease-out;
     }
 
     .question-btn.active::after {
@@ -98,11 +98,11 @@ Metaobject fields:
     }
 
     .tw-question-and-answer-block-{{ section.id }} {
-      border: 1px solid rgb(var(--color-foreground));
+      border: 1px solid rgb(var(--color-foreground),0.2);
     }
 
     .tw-question-and-answer-dialog-title-{{ section.id }} {
-      border-bottom: 1px solid rgb(var(--color-foreground));
+      border-bottom: 1px solid rgb(var(--color-foreground),0.2);
     }
 
     dialog.tw-question-and-answer-dialog {
@@ -111,7 +111,7 @@ Metaobject fields:
       transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       padding: 0;
       width: calc(100% - 4rem);
-      max-width: 42rem;
+      max-width: 60rem;
     }
 
     dialog.tw-question-and-answer-dialog::backdrop {
@@ -235,12 +235,12 @@ Metaobject fields:
                 {%- if item.question != blank -%}
                   <button 
                     onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
-                    class="question-btn tw-w-full tw-text-left tw-flex tw-items-center tw-text-lg  focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
+                    class="question-btn tw-w-full tw-text-left tw-flex tw-items-center focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
                     aria-expanded="false"
                     aria-controls="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw-w-5 tw-h-5 tw-mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
-                    <h4 class="tw-text-lg tw-m-0">{{ item.question }}</h4>
+                    <h4 class=" tw-m-0">{{ item.question }}</h4>
                   </button>
                 {%- endif -%}
 
@@ -254,7 +254,7 @@ Metaobject fields:
                       <div class="tw-flex tw-items-center tw-justify-between tw-p-[1.5rem] tw-border-b">
                         <h3 
                           id="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
-                          class="tw-text-xl tw-font-semibold tw-text-gray-700"
+                          class="tw-text-xl tw-font-semibold"
                         >
                           {{ item.question }}
                         </h3>
@@ -328,7 +328,12 @@ Metaobject fields:
             e.clientY < dialogDimensions.top ||
             e.clientY > dialogDimensions.bottom
           ) {
-            closeModal(dialog.id);
+            // Modified this line to pass the dialog ID and maintain focus management
+            const triggerButton = document.querySelector(`[aria-controls="${dialog.id}"]`);
+            if (triggerButton) {
+              triggerButton.classList.remove('active');
+            }
+            closeModal(dialog.id, triggerButton);
           }
         });
 
