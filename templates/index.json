@@ -577,13 +577,15 @@
         },
         "image_iCfCT6": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/DSC05402_2.webp"
+          }
         },
         "accordion_NCpd9J": {
           "type": "accordion",
           "settings": {
             "heading": "Accordion title",
-            "row_content": "",
+            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
             "page": ""
           }
         },
@@ -591,7 +593,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Accordion title",
-            "row_content": "",
+            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
             "page": ""
           }
         },
@@ -599,7 +601,7 @@
           "type": "accordion",
           "settings": {
             "heading": "Accordion title",
-            "row_content": "",
+            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
             "page": ""
           }
         }
