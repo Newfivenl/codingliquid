@@ -554,74 +554,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "tw_image_with_text_and_accordion_tdJHg9": {
-      "type": "tw-image-with-text-and-accordion",
-      "blocks": {
-        "heading_rjqiGF": {
-          "type": "heading",
-          "settings": {
-            "heading_text": "Medium length hero heading goes here",
-            "heading_tag": "h1",
-            "margin_top": 10,
-            "margin_bottom": 10
-          }
-        },
-        "paragraph_C6bcXk": {
-          "type": "paragraph",
-          "settings": {
-            "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
-            "margin_top": 10,
-            "margin_bottom": 10
-          }
-        },
-        "image_iCfCT6": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC05402_2.webp"
-          }
-        },
-        "accordion_NCpd9J": {
-          "type": "accordion",
-          "settings": {
-            "heading": "Accordion title",
-            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
-            "page": ""
-          }
-        },
-        "accordion_UqQAQj": {
-          "type": "accordion",
-          "settings": {
-            "heading": "Accordion title",
-            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
-            "page": ""
-          }
-        },
-        "accordion_CiQde6": {
-          "type": "accordion",
-          "settings": {
-            "heading": "Accordion title",
-            "row_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "heading_rjqiGF",
-        "paragraph_C6bcXk",
-        "image_iCfCT6",
-        "accordion_NCpd9J",
-        "accordion_UqQAQj",
-        "accordion_CiQde6"
-      ],
-      "settings": {
-        "hero_width": "page-width",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
@@ -635,7 +567,6 @@
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection",
     "tw_question_and_answer_XXWkmA",
-    "tw_shop_the_look_page_fpNbPJ",
-    "tw_image_with_text_and_accordion_tdJHg9"
+    "tw_shop_the_look_page_fpNbPJ"
   ]
 }
