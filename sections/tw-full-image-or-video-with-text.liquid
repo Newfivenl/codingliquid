@@ -139,23 +139,54 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               replace: '<source src', '<source srcset'
             }}
           <script>
+
             (function () {
-              const userAgentForVideo = navigator.userAgent;
+              const userAgentForVideo = navigator.userAgent.toLowerCase();
+              console.log('Current UserAgent:', userAgentForVideo);
+              
               const chromeVideo = document.getElementById("{{ chrome_video }}");
               const safariVideo = document.getElementById("{{ safari_video }}");
-              const safariVideoImg = safariVideo.querySelector("img");
-              safariVideo.getAttribute("class").split(" ").forEach(className => {
-                  safariVideoImg.classList.add(className);
-              });
-              if (userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome")) {
-                safariVideo.style.display = "block";
-                chromeVideo.style.display = "none";
+              
+              const isSafari = () => {
+                const isChrome = /chrome|chromium|crios/i.test(userAgentForVideo);
+                const isSafari = /safari/i.test(userAgentForVideo);
+                return isSafari && !isChrome;
+              };
+              
+              if (safariVideo) {
+                const safariVideoImg = safariVideo.querySelector("img");
+                if (safariVideoImg) {
+                  const classes = safariVideo.getAttribute("class");
+                  if (classes) {
+                    classes.split(" ").forEach(className => {
+                      safariVideoImg.classList.add(className);
+                    });
+                  }
+                }
+              }
+              
+              if (isSafari()) {
+                console.log('Safari detected - showing video Safari version');
+                if (safariVideo) safariVideo.style.display = "block";
+                if (chromeVideo) {
+                  chromeVideo.style.display = "none";
+                  chromeVideo.style.visibility = 'hidden';
+                }
               } else {
-                safariVideo.style.display = "none";
-                chromeVideo.style.display = "block";
-                chromeVideo.play();
-              } 
+                console.log('Non-Safari browser detected - showing video Chrome version');
+                if (safariVideo) {
+                  safariVideo.style.display = "none";
+                  safariVideo.style.visibility = 'hidden';
+                }
+                if (chromeVideo) {
+                  chromeVideo.style.display = "block";
+                  chromeVideo.play().catch(error => {
+                    console.warn('Auto-play failed:', error);
+                  });
+                }
+              }
             })();
+
           </script>
 
           <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
