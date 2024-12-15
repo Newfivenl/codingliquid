@@ -180,7 +180,7 @@ Metaobject fields:
 </div>
 
 <div id="overlay" class="tw-hidden tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50"><span class="tw-sr-only">{{ 'sections.shop_the_look.overlay' | t }}</span></div>
-<div id="show-th-look-slider" class="tw-hidden tw-transition animate-slide-down tw-fixed tw-pb-[0px] tw-w-full tw-h-fit tw-bottom-0 tw-p-[2rem] tw-bg-white tw-z-[9999]">
+<div id="shop-the-look-slider" class="tw-hidden tw-transition animate-slide-down tw-fixed tw-pb-[0px] tw-w-full tw-h-fit tw-bottom-0 tw-p-[2rem] tw-bg-white tw-z-[9999]">
    
     <div class="tw-flex tw-justify-between tw-items-center tw-pb-[2rem]">
         <div class="tw-font-bold tw-text-[2rem]">{{ 'sections.shop_the_look.title' | t }}</div>
@@ -252,12 +252,15 @@ Metaobject fields:
 
     function toggleSlider(index) {
 
-        const slider = document.getElementById('show-th-look-slider');
+        const slider = document.getElementById('shop-the-look-slider');
         const overlay = document.getElementById('overlay');
         const closeButton = document.getElementById('close-button');
+        const body = document.querySelector('body');
+        
+        body.classList.add('tw-overflow-hidden');
 
         function handleClose() {
-
+            body.classList.remove('tw-overflow-hidden');
             slider.classList.remove('animate-slide-up');
             slider.classList.add('animate-slide-down');
             overlay.classList.add('tw-hidden');
