@@ -57,65 +57,6 @@
         "show_text_below": false
       }
     },
-    "tw_question_and_answer_XXWkmA": {
-      "type": "tw-question-and-answer",
-      "blocks": {
-        "metaobject_bbnG8f": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "first-questions-and-answers-list"
-          }
-        },
-        "metaobject_VPPKqm": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "block-heading-2"
-          }
-        },
-        "metaobject_hAfzjb": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "block-heading-3"
-          }
-        },
-        "metaobject_zJ4apQ": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "block-heading-4"
-          }
-        },
-        "metaobject_xC744H": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "block-heading-5"
-          }
-        },
-        "metaobject_JM7drg": {
-          "type": "metaobject",
-          "settings": {
-            "questions_and_answers": "block-heading-6"
-          }
-        }
-      },
-      "block_order": [
-        "metaobject_bbnG8f",
-        "metaobject_VPPKqm",
-        "metaobject_hAfzjb",
-        "metaobject_zJ4apQ",
-        "metaobject_xC744H",
-        "metaobject_JM7drg"
-      ],
-      "settings": {
-        "title": "Questions & Answers",
-        "heading_tag": "h1",
-        "columns_desktop": 3,
-        "column_alignment": "left",
-        "columns_mobile": "1",
-        "section_color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "tw_video_with_text_HDwWBL": {
       "type": "tw-video-with-text",
       "blocks": {
@@ -456,7 +397,7 @@
         "icon_xnDngQ": {
           "type": "icon",
           "settings": {
-            "icon_text": "Icon heart",
+            "icon_text": "Icon heart here",
             "icon_image": "shopify://shop_images/icon-heart.svg",
             "margin_top": 20,
             "margin_bottom": 4
@@ -465,7 +406,8 @@
         "icon_Mrwg9p": {
           "type": "icon",
           "settings": {
-            "icon_text": "Icon text",
+            "icon_text": "Suspendisse varius enim in eros elementum tristique",
+            "icon_image": "shopify://shop_images/box.svg",
             "margin_top": 4,
             "margin_bottom": 4
           }
@@ -473,7 +415,8 @@
         "icon_RzJtt6": {
           "type": "icon",
           "settings": {
-            "icon_text": "Icon text",
+            "icon_text": "Duis cursus, mi quis viverra ornare",
+            "icon_image": "shopify://shop_images/box.svg",
             "margin_top": 4,
             "margin_bottom": 20
           }
@@ -501,6 +444,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
+        "layout": "text_first",
         "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
@@ -534,6 +478,65 @@
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "tw_question_and_answer_XXWkmA": {
+      "type": "tw-question-and-answer",
+      "blocks": {
+        "metaobject_bbnG8f": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "first-questions-and-answers-list"
+          }
+        },
+        "metaobject_VPPKqm": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "block-heading-2"
+          }
+        },
+        "metaobject_hAfzjb": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "block-heading-3"
+          }
+        },
+        "metaobject_zJ4apQ": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "block-heading-4"
+          }
+        },
+        "metaobject_xC744H": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "block-heading-5"
+          }
+        },
+        "metaobject_JM7drg": {
+          "type": "metaobject",
+          "settings": {
+            "questions_and_answers": "block-heading-6"
+          }
+        }
+      },
+      "block_order": [
+        "metaobject_bbnG8f",
+        "metaobject_VPPKqm",
+        "metaobject_hAfzjb",
+        "metaobject_zJ4apQ",
+        "metaobject_xC744H",
+        "metaobject_JM7drg"
+      ],
+      "settings": {
+        "title": "Questions & Answers",
+        "heading_tag": "h1",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "columns_mobile": "1",
+        "section_color_scheme": "",
+        "padding_top": 36,
         "padding_bottom": 36
       }
     }
