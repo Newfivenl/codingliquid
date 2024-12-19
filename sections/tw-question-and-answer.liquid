@@ -4,9 +4,36 @@ Instructions:
 
 1. Add this file to your sections folder
 
-2. Create your metaobject
-Metaobject name: Questions and Answers
-Metaobject description: This metaobject will be the content for the questions and answer content. 
+2. Create your metaobjects
+  1. Meta object blocks
+      Metaobject name: Questions and Answers
+      Metobject type: questions_and_answers
+      Metaobject description: This metaobject will be the block content for the questions and answers.
+      Metaobject fields
+      - Title
+        name: Title
+        type: single line text (one value)
+      - Icon
+        name: Icon
+        type: file file(image only) (one file)
+      - Question and answer items
+        name: Question and answer items
+        type: metaobject (list of entries)
+        reference: Question and answer item
+
+  2. Meta object question and answer item
+      Metaobject name: Question and answer item
+      Metobject type: question_and_answer_item
+      Metaobject description: This metaobject will be connected to metaobject field (Question and answer items) in Questions and Answers metaobject
+      Metaobject fields
+      - Question
+        name: Question
+        type: single line text (one value)
+      - Answer
+        name: Answer
+        type: Richtext
+  
+FYI.
 You can also change the name of this metaobject depends on what you need 
 just make sure to also update the ID, Label and metaobject_type below based on your changes.
 
@@ -17,24 +44,6 @@ just make sure to also update the ID, Label and metaobject_type below based on y
   "metaobject_type": "questions_and_answers"
 }
 
-Metobject type: questions_and_answers
-Metaobject fields:
-- Title
-  name: Title
-  type: single line text
-- Icon
-  name: Icon
-  type: file file(image only)
-- Questions and Answers
-  name: Questions and Answers
-  type: JSON
-  format:
-  [
-    {
-      "question": "How long does shipping typically take?",
-      "answer": "Our standard shipping takes 3-5 business days within the mainland. Express shipping options are available for next-day delivery."
-    },
-  ]
 {% endcomment %}
 
 {%- style -%}
@@ -283,7 +292,6 @@ Metaobject fields:
     </div>
   </div>
 
-  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');
