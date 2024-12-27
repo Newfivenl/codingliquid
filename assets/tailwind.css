@@ -981,6 +981,10 @@ html {
   margin-top: 40px;
 }
 
+.tw-mt-auto {
+  margin-top: auto;
+}
+
 .\!tw-block {
   display: block !important;
 }
@@ -1057,6 +1061,10 @@ html {
 
 .tw-max-h-screen {
   max-height: 100vh;
+}
+
+.tw-min-h-0 {
+  min-height: 0px;
 }
 
 .tw-w-1\/4 {
@@ -1144,6 +1152,14 @@ html {
   flex-shrink: 0;
 }
 
+.tw-grow-0 {
+  flex-grow: 0;
+}
+
+.tw-basis-full {
+  flex-basis: 100%;
+}
+
 .tw-rotate-90 {
   --tw-rotate: 90deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1160,6 +1176,10 @@ html {
 
 .tw-cursor-pointer {
   cursor: pointer;
+}
+
+.tw-snap-x {
+  scroll-snap-type: x var(--tw-scroll-snap-strictness);
 }
 
 .tw-snap-both {
@@ -1264,6 +1284,10 @@ html {
   gap: 5px;
 }
 
+.tw-gap-0 {
+  gap: 0px;
+}
+
 .tw-gap-x-20 {
   -moz-column-gap: 5rem;
        column-gap: 5rem;
@@ -1295,6 +1319,18 @@ html {
 
 .tw-overflow-y-auto {
   overflow-y: auto;
+}
+
+.tw-overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.tw-overscroll-none {
+  overscroll-behavior: none;
+}
+
+.tw-scroll-smooth {
+  scroll-behavior: smooth;
 }
 
 .tw-rounded-\[5px\] {
@@ -1342,6 +1378,10 @@ html {
 
 .tw-bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+
+.tw-bg-opacity-10 {
+  --tw-bg-opacity: 0.1;
 }
 
 .tw-object-contain {
@@ -1431,6 +1471,11 @@ html {
 .tw-py-\[5rem\] {
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.tw-px-\[20px\] {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .tw-pb-4 {
