@@ -69,7 +69,6 @@ endif
         --tw-dialog-width: 580px;
         --tw-dialog-padding: 30px;
         --vh: 8.96px;
-        
     }
 
     .tw-dialog-content *:focus-visible {
@@ -88,6 +87,7 @@ endif
         transition: all 0.3s ease-in-out;
         left: calc(100vw - 484px);
         margin-right: 0;
+        overflow: initial;
     }
 
     .tw-dialog-content::backdrop {
@@ -196,8 +196,33 @@ endif
     }
 
     .no-scrollbar {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
+
+    .tw-dialog-handle {
+        width: 5rem;
+        height: 3px;
+        background-color: #ffffff4d;
+        border-radius: 2px;
+        margin: 8px auto;
+        cursor: grab;
+        position: relative;
+        display: block !important;
+    }
+
+    .tw-dialog-handle-container {
+        width: 100%;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        position: absolute;
+        top: -21px;
+        z-index: 9999;
+        z-index: 10;
+        touch-action: none;
     }
 
 {%- endstyle -%}
@@ -493,6 +518,12 @@ endif
                 document.body.classList.add('overflow-hidden');
                 toggleIcons(true);
 
+                // Initialize swipe to close
+                if (animation === 'vertical') {
+                    initSwipeToClose(dialogContent, closeDialog);
+                }
+                
+
                 requestAnimationFrame(() => {
                     initTabs();
                 });
@@ -650,5 +681,95 @@ endif
             tabBtns[0].classList.add('active');
         });
     })();
+
+    // Add this to your existing JavaScript, inside the twDialog function
+    const initSwipeToClose = (dialogContent, closeDialog) => {
+
+    const existingHandle = dialogContent.querySelector('.tw-dialog-handle-container');
+        if (existingHandle) {
+            return; // Exit if handle already exists
+        }
+
+        const handleContainer = document.createElement('div');
+        handleContainer.className = 'tw-dialog-handle-container';
+        
+        const handle = document.createElement('div');
+        handle.className = 'tw-dialog-handle';
+        handleContainer.appendChild(handle);
+        
+        // Insert the handle at the beginning of the dialog content
+        dialogContent.insertBefore(handleContainer, dialogContent.firstChild);
+        
+        let startY = 0;
+        let currentY = 0;
+        let initialTransform = 0;
+        let isDragging = false;
+        
+        const onTouchStart = (e) => {
+            if (!dialogContent.classList.contains('vertical')) return;
+            
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            initialTransform = 0;
+            dialogContent.style.transition = 'none';
+            
+            // Prevent content scrolling while dragging
+            e.preventDefault();
+        };
+        
+        const onTouchMove = (e) => {
+            if (!isDragging) return;
+            
+            currentY = e.touches[0].clientY;
+            const deltaY = currentY - startY;
+            
+            // Only allow dragging downward
+            if (deltaY < 0) return;
+            
+            // Apply transform with some resistance
+            const transform = Math.min(deltaY * 0.7, window.innerHeight);
+            dialogContent.style.transform = `translateY(${transform}px)`;
+            
+            // Prevent content scrolling while dragging
+            e.preventDefault();
+        };
+        
+        const onTouchEnd = () => {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            dialogContent.style.transition = 'transform 0.3s ease-out';
+            
+            // Get the current transform value
+            const transform = parseFloat(dialogContent.style.transform.replace('translateY(', ''));
+            
+            // If dragged more than 150px or with enough velocity, close the dialog
+            if (transform > 150) {
+                dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+                setTimeout(closeDialog, 300);
+            } else {
+                // Reset position
+                dialogContent.style.transform = 'translateY(0)';
+            }
+            
+            setTimeout(() => {
+                dialogContent.style.transform = '';
+                dialogContent.style.transition = '';
+            }, 300);
+        };
+        
+        handleContainer.addEventListener('touchstart', onTouchStart, { passive: false });
+        handleContainer.addEventListener('touchmove', onTouchMove, { passive: false });
+        handleContainer.addEventListener('touchend', onTouchEnd);
+        
+        // Cleanup function
+        return () => {
+            handleContainer.removeEventListener('touchstart', onTouchStart);
+            handleContainer.removeEventListener('touchmove', onTouchMove);
+            handleContainer.removeEventListener('touchend', onTouchEnd);
+            handleContainer.remove();
+        };
+    };
+
     
 </script>
