@@ -13,22 +13,45 @@
     "id": "tw_animation",
     "label": "TW - menu animation",
     "options": [
-    {
-        "label": "Horizontal",
-        "value": "horizontal"
-    },
-    {
-        "label": "Vertical",
-        "value": "vertical"
-    }
+        {
+            "label": "Horizontal",
+            "value": "horizontal"
+        },
+        {
+            "label": "Vertical",
+            "value": "vertical"
+        }
     ],
     "default": "vertical"
 },
+add this to block
+    {
+        "type": "tw_menu_image",
+        "name": "TW - menu image",
+        "limit": 6,
+        "settings": [
+        {
+            "type": "text",
+            "id": "tw_title",
+            "label": "Image title"
+        },
+        {
+            "type": "url",
+            "id": "tw_title_link",
+            "label": "Title link"
+        },
+        {
+            "type": "image_picker",
+            "id": "tw_image",
+            "label": "Image"
+        }
+    ]
+}
 
 2. Locate and update the code in header-drawer.liquid
 if section.settings.menu != blank
     if section.settings.tw_menu != blank
-        render 'tw-main-menu'
+        render 'tw-main-menu', section: section
     else 
         render 'header-drawer'
     endif
@@ -42,9 +65,16 @@ endif
         --tw-dialog-animation-duration: 0.5s;
         --tw-dialog-timing: cubic-bezier(.4,0,.2,1);
         --tw-dialog-backdrop-opacity: 0.8;
-        --tw-dialog-height: 550px;
+        --tw-dialog-height: 100%; 
         --tw-dialog-width: 580px;
         --tw-dialog-padding: 30px;
+        --vh: 8.96px;
+        
+    }
+
+    .tw-dialog-content *:focus-visible {
+        outline: none;
+        box-shadow: none;
     }
 
     .tw-dialog-content {
@@ -55,7 +85,6 @@ endif
         max-height: 100%;
         top: 0;
         border: 0;
-        padding: var(--tw-dialog-padding) var(--tw-dialog-padding) 20px;
         transition: all 0.3s ease-in-out;
         left: calc(100vw - 484px);
         margin-right: 0;
@@ -96,6 +125,7 @@ endif
         width: 100%;
         max-width: 100%;
         height: var(--tw-dialog-height);
+        max-height: calc(var(--vh,1vh)*92);
         left: 0;
         bottom: 0;
         top: auto !important;
@@ -123,7 +153,6 @@ endif
 
     @media screen and (max-width: 767px) {
         .tw-dialog-content {
-        padding: 50px var(--tw-dialog-padding) 20px;
         max-width: 100%;
         right: 0;
         left: auto;
@@ -152,7 +181,7 @@ endif
 
     @media screen and (min-width: 990px) {
         .tw-main-menu {
-        display: none;
+            display: none;
         }
     }
 
@@ -162,11 +191,108 @@ endif
         transform: translateZ(0);
     }
 
+    .tab-btn {
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        flex-basis: 100%;
+    }
+
+    .tw-tabs-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tw-tabs-content-wrapper {
+        position: relative;
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+    }
+
+    .tab-content {
+        flex: 0 0 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .slide-left {
+        transform: translateX(-100%);
+    }
+
+    .slide-right {
+        transform: translateX(100%);
+    }
+
+    .tw-tab-btn-container {
+        position: relative;
+    }
+
+    .tab-btn {
+        position: relative;
+        padding: 10px 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+
+    .tw-tab-btn-container {
+        position: relative;
+    }
+
+    .tab-btn {
+        position: relative;
+        padding: 10px 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .tab-indicator {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background-color: currentColor;
+        transition: transform 0.3s ease, width 0.3s ease;
+        display: block !important;
+    }
+
+    .tw-tabs-content-wrapper {
+        display: flex;
+        transition: transform 0.3s ease;
+    }
+
+    .tab-content {
+        flex: 0 0 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .tab-content.active {
+        opacity: 1;
+    }
+
+    .tw-tabs-content-wrapper .tw-tabs-content-link-list {
+        transition: transform 0.3s ease;
+    }
+
 {%- endstyle -%}
 
 {% liquid 
-assign dialog_id = dialog_id | plus: 1
-assign trigger_id = trigger_id | plus: 1
+    assign dialog_id = dialog_id | plus: 1
+    assign trigger_id = trigger_id | plus: 1
+    assign count_tab = count_tab |  plus: 1
 %}
 
 <div class="tw-main-menu min-[990px]:tw-hidden">
@@ -180,9 +306,127 @@ assign trigger_id = trigger_id | plus: 1
             </span>
         </span>
     </div>
-    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content horizontal gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
-        Content here
-        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button">
+    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content horizontal gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
+        <div class="tw-tabs-container tw-h-full">
+            <div class="tw-tab-btn-container tw-flex tw-justify-space-evenly">
+                {%- for link in section.settings.menu.links -%}
+                    {% comment %} {% if link.title != blank and link.links != blank %} {% endif %} {% endcomment %}
+                    {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+                    <button 
+                        class="tab-btn {% if forloop.first %}active{% endif %}"
+                        data-tab="tab-{{ tab_id }}" tab-index="-1">
+                        {{ link.title | escape }}
+                    </button>
+                   
+                {%- endfor -%}
+            </div>
+            <div class="tw-tab-contents tw-px-[30px] tw-h-full">
+                <div class="tw-tabs-content-wrapper tw-h-full tw-flex tw-flex-col">
+                    <div class="tw-tabs-content-link-list tw-flex tw-h-full">
+                        {%- for link in section.settings.menu.links -%}
+                            {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+                            <div id="tab-{{ tab_id }}" class="tab-content tw-w-full tw-h-full tw-flex tw-flex-col tw-justify-between {% if forloop.first %}active{% endif %}">
+                                {%- if link.links != blank -%}
+                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-columns-2 tw-h-max tw-py-5" role="list">
+                                    {% for childlink in link.links %}
+                                        <li class="">
+                                        <div class="tw-py-4 tw-px-1 tw-break-inside-avoid">
+                                            <a 
+                                            href="{{ childlink.url }}"
+                                            class="tw-block tw-text-current hover:tw-opacity-75 tw-font-bold {% if childlink.current %}{% endif %}"
+                                            {% if childlink.current %}aria-current="page"{% endif %}
+                                            >
+                                            {{ childlink.title | escape }}
+                                            </a>
+                                            
+                                            {%- if childlink.links != blank -%}
+                                            <ul class="tw-list-none tw-mt-2 tw-mb-0 tw-p-0 tw-break-inside-avoid" role="list">
+                                                {%- for grandchildlink in childlink.links -%}
+                                                <li class="tw-mb-2">
+                                                    <a 
+                                                    href="{{ grandchildlink.url }}"
+                                                    class="tw-block tw-text-current hover:tw-opacity-75 {% if grandchildlink.current %}{% endif %}"
+                                                    {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                                    >
+                                                    {{ grandchildlink.title | escape }}
+                                                    </a>
+                                                </li>
+                                                {%- endfor -%}
+                                            </ul>
+                                            {%- endif -%}
+                                        </div>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {%- else -%}
+                                    <div class="tw-py-4 tw-px-1">
+                                    <a 
+                                        href="{{ link.url }}"
+                                        class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
+                                        {% if link.current %}aria-current="page"{% endif %}
+                                    >
+                                        {{ link.title | escape }}
+                                    </a>
+                                    </div>
+                                {%- endif -%}
+                                <div class="tw-main-menu-images tw-w-full tw-flex-shrink-0 tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
+                                    <div class="tw-w-fit tw-flex">
+                                        {% assign total_blocks = section.blocks.size %}
+                                        {% assign half_blocks = total_blocks | divided_by: 2 %}
+                        
+                                        {% for block in section.blocks %}
+                                            {% assign block_index = forloop.index0 %}
+                                            {% if forloop.first %}
+                                                {% assign tab_index = 0 %}
+                                            {% endif %}
+                        
+                                            {% comment %}Show first half of images in first tab{% endcomment %}
+                                            {% if forloop.index0 < 3 and forloop.parentloop.index0 == 0 %}
+                                                {% assign should_display = true %}
+                                            {% comment %}Show second half of images in second tab{% endcomment %}
+                                            {% elsif forloop.index0 >= 3 and forloop.parentloop.index0 == 1 %}
+                                                {% assign should_display = true %}
+                                            {% else %}
+                                                {% assign should_display = false %}
+                                            {% endif %}
+                        
+                                            {% if should_display %}
+                                                <div class="tw-snap-center tw-relative tw-overflow-hidden">
+                                                    {% if block.type == 'tw_menu_image' %}
+                                                        {% if block.settings.tw_image != blank %}
+                                                            {% if block.settings.tw_title_link != blank %}
+                                                            <a href="{{ block.settings.tw_title_link }}" class="tw-block tw-w-full tw-aspect-auto">
+                                                            {% else %}
+                                                            <div class="tw-block tw-relative tw-w-full tw-aspect-auto">
+                                                            {% endif %}
+                                                                {{ block.settings.tw_image | image_url: width: 800 | image_tag: class: 'tw-w-[75vw] tw-max-w-[35rem] ' }}
+                                                                {% if block.settings.tw_title != blank %}
+                                                                    <span class="tw-absolute tw-w-full tw-h-full tw-z-[1] tw-flex tw-justify-center tw-items-center tw-top-0 tw-left-0">{{ block.settings.tw_title }}</span>
+                                                                {% endif %}
+                                                            {% if block.settings.tw_title_link != blank %}
+                                                            </a>
+                                                            {% else %}
+                                                            </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <div class="">
+                                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>    
+                                </div>
+                            </div>
+                        {%- endfor -%}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button !tw-hidden">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
                 <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
@@ -193,8 +437,8 @@ assign trigger_id = trigger_id | plus: 1
     </dialog>
 </div> 
 
-
 <script>
+
     (() => {
         const twDialog = (triggerButton, closeBtn, animation) => {
             const btn = document.querySelector(triggerButton);
@@ -236,6 +480,14 @@ assign trigger_id = trigger_id | plus: 1
                 dialogContent.classList.remove('hide');
                 document.body.classList.add('overflow-hidden');
                 toggleIcons(true);
+
+                const tabButtons = dialogContent.querySelectorAll('.tab-btn');
+                tabButtons.forEach(button => {
+                    button.setAttribute('tabindex', '-1');
+                });
+                
+                dialogContent.setAttribute('tabindex', '-1');
+
             };
 
             const closeDialog = () => {
@@ -287,4 +539,152 @@ assign trigger_id = trigger_id | plus: 1
             '{{ section.settings.tw_animation }}'
         );
     })();
+
+
+    (() => {
+        function initTabs() {
+            const tabContainers = document.querySelectorAll('.tw-tabs-container');
+            if (!tabContainers.length) return;
+
+            function initTabIndicator(container) {
+                const btnContainer = container.querySelector('.tw-tab-btn-container');
+                const activeTab = btnContainer.querySelector('.tab-btn.active');
+                const existingIndicator = btnContainer.querySelector('.tab-indicator');
+                
+                if (activeTab) {
+                    const activeTabWidth = activeTab.offsetWidth;
+                    const activeTabLeft = activeTab.offsetLeft;
+                    
+                    if (existingIndicator) {
+                        existingIndicator.style.width = `${activeTabWidth}px`;
+                        existingIndicator.style.transform = `translateX(${activeTabLeft}px)`;
+                    } else {
+                        const indicator = document.createElement('div');
+                        indicator.className = 'tab-indicator';
+                        indicator.style.width = `50%`;
+                        indicator.style.transform = `translateX(${activeTabLeft}px)`;
+                        btnContainer.appendChild(indicator);
+                    }
+                }
+            }
+
+            function switchTab(tabsContainer, clickedTab) {
+                const targetId = clickedTab.getAttribute('data-tab');
+                if (!targetId) return;
+
+                const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+                const tabContents = tabsContainer.querySelectorAll('.tab-content');
+                const contentWrapper = tabsContainer.querySelector('.tw-tabs-content-wrapper');
+                const indicator = tabsContainer.querySelector('.tab-indicator');
+
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                clickedTab.classList.add('active');
+
+                if (indicator) {
+                    indicator.style.width = `${clickedTab.offsetWidth}px`;
+                    indicator.style.transform = `translateX(${clickedTab.offsetLeft}px)`;
+                }
+
+                if (contentWrapper) {
+                    const targetIndex = Array.from(tabButtons).indexOf(clickedTab);
+                    contentWrapper.style.transform = `translateX(${-targetIndex * 100}%)`;
+                    
+                    tabContents.forEach((content) => {
+                        if (content.id === targetId) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                }
+            }
+
+            tabContainers.forEach(container => {
+               
+                if (!container.querySelector('.tw-tabs-content-wrapper')) {
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'tw-tabs-content-wrapper';
+                    
+                    const contents = Array.from(container.querySelectorAll('.tab-content'));
+                    contents.forEach(content => {
+                        contentWrapper.appendChild(content);
+                    });
+                    
+                    const contentContainer = container.querySelector('.tw-tab-contents');
+                    if (contentContainer) {
+                        contentContainer.appendChild(contentWrapper);
+                    }
+                }
+
+                initTabIndicator(container);
+
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        initTabIndicator(container);
+                    }, 100);
+                });
+
+                container.addEventListener('click', (e) => {
+                    const clickedTab = e.target.closest('.tab-btn');
+                    if (clickedTab) {
+                        const parentContainer = clickedTab.closest('.tw-tabs-container');
+                        if (parentContainer) {
+                            switchTab(parentContainer, clickedTab);
+                        }
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTabs);
+        } else {
+            initTabs();
+        }
+    })();
+
+    // function switchTab(tabsContainer, clickedTab) {
+    //     const targetId = clickedTab.getAttribute('data-tab');
+    //     if (!targetId) return;
+
+    //     const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+    //     const tabContents = tabsContainer.querySelectorAll('.tab-content');
+    //     const contentWrapper = tabsContainer.querySelector('.tw-tabs-content-wrapper');
+    //     const indicator = tabsContainer.querySelector('.tab-indicator');
+
+    //     // Remove active classes
+    //     tabButtons.forEach(btn => btn.classList.remove('active'));
+        
+    //     // Add active class to clicked tab
+    //     clickedTab.classList.add('active');
+
+    //     // Update indicator position
+    //     if (indicator) {
+    //         indicator.style.width = `${clickedTab.offsetWidth}px`;
+    //         indicator.style.transform = `translateX(${clickedTab.offsetLeft}px)`;
+    //     }
+
+    //     // Handle content switching
+    //     if (contentWrapper) {
+    //         const targetIndex = Array.from(tabButtons).indexOf(clickedTab);
+            
+    //         // Apply transform to all sliding elements
+    //         const slidingElements = contentWrapper.querySelectorAll('.tw-tabs-content-link-list');
+    //         slidingElements.forEach(element => {
+    //             element.style.transform = `translateX(${-targetIndex * 100}%)`;
+    //         });
+
+    //         tabContents.forEach((content) => {
+    //             if (content.id === targetId) {
+    //                 content.classList.add('active');
+    //             } else {
+    //                 content.classList.remove('active');
+    //             }
+    //         });
+    //     }
+    // }
+
 </script>
