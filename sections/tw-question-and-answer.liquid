@@ -277,7 +277,8 @@ just make sure to also update the ID, Label and metaobject_type below based on y
                           </button>
                         </div>
                         <div class="tw-p-[1.5rem] tw-prose tw-max-w-none">
-                          <p>{{ question_and_answer_item.answer }}</p>
+                          {% assign rich_text = question_and_answer_item.answer %}
+                          {{ rich_text |  metafield_tag }}
                         </div>
                       </div>
                     </dialog>
