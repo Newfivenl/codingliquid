@@ -521,7 +521,7 @@ endif
                 if (animation === 'vertical') {
                     console.log(dialogContent);
                     console.log(closeDialog)
-                    //initSwipeToClose(dialogContent, closeDialog);
+                    initSwipeToClose(dialogContent, closeDialog);
                 }
                 
                 requestAnimationFrame(() => {
@@ -774,7 +774,7 @@ endif
                 resetState();
                 // Remove the transform before closing to prevent visual glitches
                 dialogContent.style.transform = '';
-                dialogContent.style.display = 'none';
+                //dialogContent.style.display = 'none';
                 closeDialog();
             }, 300);
         } else {
