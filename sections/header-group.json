@@ -21,6 +21,13 @@
             "text_size": 12
           }
         },
+        "text_xNcxmb": {
+          "type": "text",
+          "settings": {
+            "text": "NEWFIVE",
+            "text_size": 12
+          }
+        },
         "text_ptbJzn": {
           "type": "text",
           "settings": {
@@ -45,6 +52,7 @@
       },
       "block_order": [
         "text_NiMedG",
+        "text_xNcxmb",
         "text_ptbJzn",
         "text_tkcRLE",
         "text_RnWiDE"
