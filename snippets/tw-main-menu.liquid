@@ -681,39 +681,39 @@ endif
     })();
 
     const initSwipeToClose = (dialogContent, closeDialog) => {
-    // Prevent multiple initialization
-    const existingHandle = dialogContent.querySelector('.tw-dialog-handle-container');
-    if (existingHandle) {
-        return () => {}; // Return empty cleanup function
-    }
+        // Prevent multiple initialization
+        const existingHandle = dialogContent.querySelector('.tw-dialog-handle-container');
+        if (existingHandle) {
+            return () => {}; // Return empty cleanup function
+        }
 
-    // Create and append handle elements
-    const handleContainer = document.createElement('div');
-    handleContainer.className = 'tw-dialog-handle-container';
-    
-    const handle = document.createElement('div');
-    handle.className = 'tw-dialog-handle';
-    handleContainer.appendChild(handle);
-    
-    dialogContent.insertBefore(handleContainer, dialogContent.firstChild);
-    
-    // State management
-    let startY = 0;
-    let currentY = 0;
-    let isDragging = false;
-    let isClosing = false;
-    let initialScrollTop = 0;
-    
-    // Helper function to reset state without animation
-    const resetState = () => {
-        isDragging = false;
-        isClosing = false;
-        dialogContent.style.transform = '';
-        dialogContent.style.transition = '';
-    };
+        // Create and append handle elements
+        const handleContainer = document.createElement('div');
+        handleContainer.className = 'tw-dialog-handle-container';
+        
+        const handle = document.createElement('div');
+        handle.className = 'tw-dialog-handle';
+        handleContainer.appendChild(handle);
+        
+        dialogContent.insertBefore(handleContainer, dialogContent.firstChild);
+        
+        // State management
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let isClosing = false;
+        let initialScrollTop = 0;
+        
+        // Helper function to reset state without animation
+        const resetState = () => {
+            isDragging = false;
+            isClosing = false;
+            dialogContent.style.transform = '';
+            dialogContent.style.transition = '';
+        };
 
-    // Touch event handlers
-    const onTouchStart = (e) => {
+            // Touch event handlers
+        const onTouchStart = (e) => {
         if (!dialogContent.classList.contains('vertical') || isClosing) {
             return;
         }
