@@ -28,6 +28,13 @@
             "text_size": 12
           }
         },
+        "text_tkcRLE": {
+          "type": "text",
+          "settings": {
+            "text": "CODING LIQUID",
+            "text_size": 12
+          }
+        },
         "text_RnWiDE": {
           "type": "text",
           "settings": {
@@ -39,6 +46,7 @@
       "block_order": [
         "text_NiMedG",
         "text_ptbJzn",
+        "text_tkcRLE",
         "text_RnWiDE"
       ],
       "settings": {
