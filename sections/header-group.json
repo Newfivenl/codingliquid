@@ -21,24 +21,10 @@
             "text_size": 12
           }
         },
-        "text_xNcxmb": {
-          "type": "text",
-          "settings": {
-            "text": "NEWFIVE",
-            "text_size": 12
-          }
-        },
         "text_ptbJzn": {
           "type": "text",
           "settings": {
             "text": "🔥 2 PREMIUM T-SHIRTS FOR 75.-",
-            "text_size": 12
-          }
-        },
-        "text_tkcRLE": {
-          "type": "text",
-          "settings": {
-            "text": "CODING LIQUID",
             "text_size": 12
           }
         },
@@ -52,9 +38,7 @@
       },
       "block_order": [
         "text_NiMedG",
-        "text_xNcxmb",
         "text_ptbJzn",
-        "text_tkcRLE",
         "text_RnWiDE"
       ],
       "settings": {
