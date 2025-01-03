@@ -884,6 +884,14 @@ html {
   top: calc(50% - 0.5em * 1.02);
 }
 
+.tw-bottom-\[20px\] {
+  bottom: 20px;
+}
+
+.tw-right-\[20px\] {
+  right: 20px;
+}
+
 .tw-z-0 {
   z-index: 0;
 }
