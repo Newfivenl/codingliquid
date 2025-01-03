@@ -1058,6 +1058,11 @@ html {
   max-height: 100vh;
 }
 
+.\!tw-min-h-max {
+  min-height: -moz-max-content !important;
+  min-height: max-content !important;
+}
+
 .tw-w-1\/4 {
   width: 25%;
 }
@@ -1113,6 +1118,11 @@ html {
 
 .tw-w-screen {
   width: 100vw;
+}
+
+.\!tw-min-w-max {
+  min-width: -moz-max-content !important;
+  min-width: max-content !important;
 }
 
 .tw-max-w-2xl {
