@@ -1533,6 +1533,10 @@ html {
   padding-top: 40px;
 }
 
+.tw-pt-\[20px\] {
+  padding-top: 20px;
+}
+
 .tw-text-left {
   text-align: left;
 }
