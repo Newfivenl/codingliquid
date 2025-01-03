@@ -1782,6 +1782,10 @@ html {
   .md\:tw-p-\[5rem\] {
     padding: 5rem;
   }
+
+  .min-\[768px\]\:tw-hidden {
+    display: none;
+  }
 }
 
 @media (min-width: 990px) {
