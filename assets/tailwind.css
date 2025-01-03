@@ -1493,6 +1493,11 @@ html {
   padding-bottom: 5px;
 }
 
+.tw-py-\[20px\] {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .tw-pb-4 {
   padding-bottom: 1rem;
 }
