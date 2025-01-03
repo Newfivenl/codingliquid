@@ -1471,6 +1471,16 @@ html {
   padding-bottom: 5rem;
 }
 
+.tw-px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.tw-py-\[5px\] {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .tw-pb-4 {
   padding-bottom: 1rem;
 }
