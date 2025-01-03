@@ -993,6 +993,10 @@ html {
   margin-top: auto;
 }
 
+.tw-mb-\[30px\] {
+  margin-bottom: 30px;
+}
+
 .\!tw-block {
   display: block !important;
 }
