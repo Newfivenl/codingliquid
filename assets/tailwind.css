@@ -1610,6 +1610,10 @@ html {
   color: rgb(255 255 255 / 0.8);
 }
 
+.tw-text-\[currentColor\] {
+  color: currentColor;
+}
+
 .tw-opacity-0 {
   opacity: 0;
 }
