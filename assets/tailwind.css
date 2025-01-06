@@ -1124,6 +1124,10 @@ html {
   width: 100vw;
 }
 
+.tw-w-\[15px\] {
+  width: 15px;
+}
+
 .\!tw-min-w-max {
   min-width: -moz-max-content !important;
   min-width: max-content !important;
