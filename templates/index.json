@@ -57,59 +57,6 @@
         "show_text_below": false
       }
     },
-    "tw_video_with_text_HDwWBL": {
-      "type": "tw-video-with-text",
-      "blocks": {
-        "heading_XG4pxD": {
-          "type": "heading",
-          "settings": {
-            "heading_text": "Medium length hero heading goes here",
-            "heading_tag": "h1",
-            "margin_top": 10,
-            "margin_bottom": 10
-          }
-        },
-        "paragraph_CcwNAy": {
-          "type": "paragraph",
-          "settings": {
-            "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
-            "margin_top": 10,
-            "margin_bottom": 10
-          }
-        },
-        "video_ACDAHT": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4"
-          }
-        },
-        "button_rkNkFx": {
-          "type": "button",
-          "settings": {
-            "button_text": "Button",
-            "button_link": "",
-            "button_style": "primary",
-            "margin_top": 10,
-            "margin_bottom": 10
-          }
-        }
-      },
-      "block_order": [
-        "heading_XG4pxD",
-        "paragraph_CcwNAy",
-        "video_ACDAHT",
-        "button_rkNkFx"
-      ],
-      "settings": {
-        "hero_width": "page-width",
-        "desktop_content_position": "center",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "scheme-b52601c6-7452-486a-beb2-4368aece8731",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "tw_image_with_text_and_accordion_ecg4pc": {
       "type": "tw-image-with-text-and-accordion",
       "blocks": {
@@ -133,7 +80,7 @@
         "image_m8tEjH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/USP-Checkbox-Copy.webp"
+            "image": "shopify://shop_images/MenyardPariscontentshopify-60.jpg"
           }
         },
         "button_mChtrP": {
@@ -185,6 +132,59 @@
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "tw_video_with_text_HDwWBL": {
+      "type": "tw-video-with-text",
+      "blocks": {
+        "heading_XG4pxD": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Medium length hero heading goes here",
+            "heading_tag": "h1",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "paragraph_CcwNAy": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        },
+        "video_ACDAHT": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4"
+          }
+        },
+        "button_rkNkFx": {
+          "type": "button",
+          "settings": {
+            "button_text": "Button",
+            "button_link": "",
+            "button_style": "primary",
+            "margin_top": 10,
+            "margin_bottom": 10
+          }
+        }
+      },
+      "block_order": [
+        "heading_XG4pxD",
+        "paragraph_CcwNAy",
+        "video_ACDAHT",
+        "button_rkNkFx"
+      ],
+      "settings": {
+        "hero_width": "page-width",
+        "desktop_content_position": "flex-start",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-b52601c6-7452-486a-beb2-4368aece8731",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -597,8 +597,8 @@
   },
   "order": [
     "image_banner",
-    "tw_video_with_text_HDwWBL",
     "tw_image_with_text_and_accordion_ecg4pc",
+    "tw_video_with_text_HDwWBL",
     "tw_features_grid_pKynKV",
     "tw_full_image_or_video_with_text_L4bfVH",
     "tw_full_image_or_video_with_text_ycLpA6",
