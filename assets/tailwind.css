@@ -1614,6 +1614,10 @@ html {
   color: currentColor;
 }
 
+.\!tw-text-\[currentColor\] {
+  color: currentColor !important;
+}
+
 .tw-opacity-0 {
   opacity: 0;
 }
