@@ -884,14 +884,6 @@ html {
   top: calc(50% - 0.5em * 1.02);
 }
 
-.tw-bottom-\[20px\] {
-  bottom: 20px;
-}
-
-.tw-right-\[20px\] {
-  right: 20px;
-}
-
 .tw-z-0 {
   z-index: 0;
 }
@@ -961,6 +953,10 @@ html {
   margin-bottom: 3.2rem;
 }
 
+.tw-mb-\[30px\] {
+  margin-bottom: 30px;
+}
+
 .tw-mb-\[3rem\] {
   margin-bottom: 3rem;
 }
@@ -991,10 +987,6 @@ html {
 
 .tw-mt-auto {
   margin-top: auto;
-}
-
-.tw-mb-\[30px\] {
-  margin-bottom: 30px;
 }
 
 .\!tw-block {
@@ -1285,10 +1277,6 @@ html {
   gap: 5px;
 }
 
-.tw-gap-1\.5 {
-  gap: 0.375rem;
-}
-
 .tw-gap-\[7px\] {
   gap: 7px;
 }
@@ -1338,6 +1326,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.tw-rounded-3xl {
+  border-radius: 1.5rem;
+}
+
 .tw-rounded-\[5px\] {
   border-radius: 5px;
 }
@@ -1348,10 +1340,6 @@ html {
 
 .tw-rounded-md {
   border-radius: 0.375rem;
-}
-
-.tw-rounded-3xl {
-  border-radius: 1.5rem;
 }
 
 .tw-border {
@@ -1447,6 +1435,11 @@ html {
   padding-right: 1.5rem;
 }
 
+.tw-px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .tw-px-\[20px\] {
   padding-left: 20px;
   padding-right: 20px;
@@ -1482,14 +1475,9 @@ html {
   padding-bottom: 1rem;
 }
 
-.tw-py-\[5rem\] {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-.tw-px-\[10px\] {
-  padding-left: 10px;
-  padding-right: 10px;
+.tw-py-\[20px\] {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .tw-py-\[5px\] {
@@ -1497,9 +1485,9 @@ html {
   padding-bottom: 5px;
 }
 
-.tw-py-\[20px\] {
-  padding-top: 20px;
-  padding-bottom: 20px;
+.tw-py-\[5rem\] {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .tw-pb-4 {
@@ -1510,40 +1498,8 @@ html {
   padding-bottom: 0px;
 }
 
-.tw-pb-\[20px\] {
-  padding-bottom: 20px;
-}
-
 .tw-pb-\[2rem\] {
   padding-bottom: 2rem;
-}
-
-.tw-pt-\[50px\] {
-  padding-top: 50px;
-}
-
-.tw-pb-1\.5 {
-  padding-bottom: 0.375rem;
-}
-
-.tw-pl-2\.5 {
-  padding-left: 0.625rem;
-}
-
-.tw-pr-2\.5 {
-  padding-right: 0.625rem;
-}
-
-.tw-pt-1\.5 {
-  padding-top: 0.375rem;
-}
-
-.tw-pt-\[40px\] {
-  padding-top: 40px;
-}
-
-.tw-pt-\[20px\] {
-  padding-top: 20px;
 }
 
 .tw-text-left {
@@ -1803,11 +1759,6 @@ html {
 
   .max-sm\:tw-max-w-full {
     max-width: 100%;
-  }
-
-  .max-sm\:tw-px-\[30px\] {
-    padding-left: 30px;
-    padding-right: 30px;
   }
 
   .max-sm\:tw-pb-\[20px\] {
