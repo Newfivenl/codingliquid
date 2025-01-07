@@ -914,12 +914,7 @@ endif
         if (Shopify && Shopify.designMode) {
             document.addEventListener('shopify:section:load', initializeMenu);
         }
+        
     })();
-
-    // Try to initialize immediately
-    initializeMenu();
-
-    // Also initialize on DOMContentLoaded as a fallback
-    document.addEventListener('DOMContentLoaded', initializeMenu);
 
 </script>
