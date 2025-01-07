@@ -637,6 +637,24 @@ endif
                 });
             };
 
+            // const closeDialog = () => {
+            //     dialogContent.classList.add('hide');
+            //     document.body.classList.remove('overflow-hidden');
+            //     toggleIcons(false);
+
+            //     const handleAnimationEnd = () => {
+            //         dialogContent.classList.remove('hide');
+            //         dialogContent.close();
+            //         dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
+            //     };
+
+            //     if (!('showModal' in document.createElement('dialog'))) {
+            //         dialogContent.close();
+            //     } else {
+            //         dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
+            //     }
+            // };
+
             const closeDialog = () => {
                 dialogContent.classList.add('hide');
                 document.body.classList.remove('overflow-hidden');
@@ -645,11 +663,13 @@ endif
                 const handleAnimationEnd = () => {
                     dialogContent.classList.remove('hide');
                     dialogContent.close();
+                    dialogContent.setAttribute('close', '');
                     dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
                 };
 
                 if (!('showModal' in document.createElement('dialog'))) {
                     dialogContent.close();
+                    dialogContent.setAttribute('close', '');
                 } else {
                     dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
                 }
