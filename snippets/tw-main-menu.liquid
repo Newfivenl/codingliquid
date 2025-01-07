@@ -644,13 +644,13 @@ endif
                 }
             };
 
-            if (animation === 'horizontal') {
-                dialogContent.classList.remove('vertical');
-                dialogContent.classList.add('horizontal');
-            } else {
-                dialogContent.classList.remove('horizontal');
-                dialogContent.classList.add('vertical');
-            }
+            // if (animation === 'horizontal') {
+            //     dialogContent.classList.remove('vertical');
+            //     dialogContent.classList.add('horizontal');
+            // } else {
+            //     dialogContent.classList.remove('horizontal');
+            //     dialogContent.classList.add('vertical');
+            // }
 
             btn.addEventListener("click", openDialog);
             closeButton.addEventListener("click", closeDialog);
@@ -672,8 +672,7 @@ endif
 
         twDialog(
             '#showDialog-{{ section.id }}', 
-            '#tw-dialog-button-{{ section.id }}', 
-            'vertical'
+            '#tw-dialog-button-{{ section.id }}'
         );
         
     })();
