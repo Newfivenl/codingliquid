@@ -238,7 +238,7 @@ endif
                     {% comment %} {% if link.title != blank and link.links != blank %} {% endif %} {% endcomment %}
                     {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                     <button 
-                        class="tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
+                        class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
                         data-tab="tab-{{ tab_id }}" tab-index="-1">
                         {{ link.title | escape }}
                     </button>
@@ -507,7 +507,7 @@ endif
             toggleIcons(false);
 
             const initTabs = () => {
-                const tabBtns = dialogContent.querySelectorAll('.tab-btn');
+                const tabBtns = dialogContent.querySelectorAll('.tw-menu-tab-btn');
                 const tabsWrapper = dialogContent.querySelector('.tw-tabs-content-wrapper');
                 const tabContents = dialogContent.querySelectorAll('.tw-tabs-content-link-list');
                 let isScrollingFromClick = false;
