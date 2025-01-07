@@ -469,6 +469,22 @@ endif
                 };
 
 
+                // handle.addEventListener('touchend', () => {
+                //     if (!isDragging) return;
+                //     isDragging = false;
+
+                //     const swipeDistance = touchCurrentY - touchStartY;
+                    
+                //     if (swipeDistance >= CLOSE_THRESHOLD) {
+                //         finishClose();
+                //     } else {
+                //         resetDialog();
+                //     }
+                    
+                //     touchStartY = 0;
+                //     touchCurrentY = 0;
+                // });
+
                 handle.addEventListener('touchend', () => {
                     if (!isDragging) return;
                     isDragging = false;
@@ -478,6 +494,7 @@ endif
                     if (swipeDistance >= CLOSE_THRESHOLD) {
                         finishClose();
                     } else {
+                        // Only reset if not closing
                         resetDialog();
                     }
                     
@@ -507,6 +524,22 @@ endif
                     touchCurrentY = e.clientY;
                     updateDialogPosition(touchCurrentY);
                 });
+
+                // window.addEventListener('mouseup', () => {
+                //     if (!isMouseDragging) return;
+                //     isMouseDragging = false;
+
+                //     const swipeDistance = touchCurrentY - touchStartY;
+                    
+                //     if (swipeDistance >= CLOSE_THRESHOLD) {
+                //         finishClose();
+                //     } else {
+                //         resetDialog();
+                //     }
+                    
+                //     touchStartY = 0;
+                //     touchCurrentY = 0;
+                // });
 
                 window.addEventListener('mouseup', () => {
                     if (!isMouseDragging) return;
@@ -655,7 +688,33 @@ endif
                 });
             };
 
-            const closeDialog = () => {
+            // const closeDialog = () => {
+            //     dialogContent.classList.add('hide');
+            //     document.body.classList.remove('overflow-hidden');
+            //     toggleIcons(false);
+
+            //     const handleAnimationEnd = () => {
+            //         dialogContent.classList.remove('hide');
+            //         dialogContent.close();
+            //         dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
+            //     };
+
+            //     if (!('showModal' in document.createElement('dialog'))) {
+            //         dialogContent.close();
+            //     } else {
+            //         dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
+            //     }
+            // };
+
+            const closeDialog = (fromSwipe = false) => {
+                if (fromSwipe) {
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    dialogContent.close();
+                    return;
+                }
+                
+                // Regular close behavior for button clicks etc.
                 dialogContent.classList.add('hide');
                 document.body.classList.remove('overflow-hidden');
                 toggleIcons(false);
