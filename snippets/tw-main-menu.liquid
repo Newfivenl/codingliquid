@@ -679,285 +679,109 @@ endif
         
     })();
 
-    // (() => {
-    //     document.addEventListener('DOMContentLoaded', () => {
-    //         const tabBtns = document.querySelectorAll('.tab-btn');
-    //         const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
-    //         const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
-    //         let isScrollingFromClick = false;
-
-    //         const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
-    //         const activeIndicator = document.createElement('span');
-    //         activeIndicator.classList.add('active-tab-indicator');
-    //         Object.assign(activeIndicator.style, {
-    //             position: 'absolute',
-    //             bottom: '0',
-    //             left: '0',
-    //             height: '2px',
-    //             backgroundColor: 'currentColor',
-    //             transition: 'transform 0.3s ease, width 0.3s ease',
-    //             display: 'block'
-    //         });
-    //         tabBtnContainer.appendChild(activeIndicator);
-
-    //         function updateIndicator(activeBtn) {
-    //             if (!activeBtn) return;
-                
-    //             const width = activeBtn.offsetWidth;
-    //             const left = activeBtn.offsetLeft;
-                
-    //             activeIndicator.style.width = `${width}px`;
-    //             activeIndicator.style.transform = `translateX(${left}px)`;
-    //         }
-
-    //         tabBtns.forEach((btn, index) => {
-    //             btn.addEventListener('click', () => {
-    //                 isScrollingFromClick = true;
-                    
-    //                 tabBtns.forEach(b => b.classList.remove('active'));
-    //                 btn.classList.add('active');
-    //                 updateIndicator(btn);
-                    
-    //                 const scrollPosition = tabContents[index].offsetLeft;
-                    
-    //                 tabsWrapper.scrollTo({
-    //                     left: scrollPosition,
-    //                     top: 0,
-    //                     behavior: 'smooth'
-    //                 });
-
-    //                 setTimeout(() => {
-    //                     isScrollingFromClick = false;
-    //                 }, 500);
-    //             });
-    //         });
-
-    //         tabsWrapper.addEventListener('scroll', () => {
-    //             if (!isScrollingFromClick) {
-    //                 updateActiveTabOnScroll();
-    //             }
-    //         });
-
-    //         tabsWrapper.addEventListener('wheel', (e) => {
-    //             if (e.deltaY !== 0) {
-    //                 e.preventDefault();
-    //                 tabsWrapper.scrollLeft += e.deltaY;
-    //                 if (!isScrollingFromClick) {
-    //                     updateActiveTabOnScroll();
-    //                 }
-    //             }
-    //         });
-
-    //         function updateActiveTabOnScroll() {
-    //             const scrollPosition = tabsWrapper.scrollLeft;
-                
-    //             let activeIndex = 0;
-    //             let minDistance = Infinity;
-                
-    //             tabContents.forEach((content, index) => {
-    //                 const distance = Math.abs(content.offsetLeft - scrollPosition);
-    //                 if (distance < minDistance) {
-    //                     minDistance = distance;
-    //                     activeIndex = index;
-    //                 }
-    //             });
-
-    //             tabBtns.forEach((btn, index) => {
-    //                 if (index === activeIndex) {
-    //                     btn.classList.add('active');
-    //                     updateIndicator(btn);
-    //                 } else {
-    //                     btn.classList.remove('active');
-    //                 }
-    //             });
-    //         }
-
-    //         window.addEventListener('resize', () => {
-    //             const activeBtn = document.querySelector('.tab-btn.active');
-    //             updateIndicator(activeBtn);
-    //         });
-
-    //         updateIndicator(tabBtns[0]);
-    //         tabBtns[0].classList.add('active');
-    //     });
-    // })(); 
-
     (() => {
-    const initializeMenu = () => {
-        console.log('Initializing menu...');
-        
-        // Check for elements
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        console.log('Found tab buttons:', tabBtns.length);
-        
-        const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
-        console.log('Found wrapper:', !!tabsWrapper);
-        
-        const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
-        console.log('Found tab contents:', tabContents.length);
-        
-        const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
-        console.log('Found button container:', !!tabBtnContainer);
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
+            const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
+            let isScrollingFromClick = false;
 
-        // If required elements aren't found, exit gracefully
-        if (!tabsWrapper || !tabBtnContainer || !tabContents.length || !tabBtns.length) {
-            console.warn('Required menu elements not found - stopping initialization');
-            return;
-        }
-
-        // Check if menu is already initialized
-        if (tabBtnContainer.querySelector('.active-tab-indicator')) {
-            console.log('Menu already initialized, cleaning up...');
-            tabBtnContainer.querySelector('.active-tab-indicator').remove();
-        }
-
-        let isScrollingFromClick = false;
-
-        const activeIndicator = document.createElement('span');
-        activeIndicator.classList.add('active-tab-indicator');
-        Object.assign(activeIndicator.style, {
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            height: '2px',
-            backgroundColor: 'currentColor',
-            transition: 'transform 0.3s ease, width 0.3s ease',
-            display: 'block'
-        });
-        tabBtnContainer.appendChild(activeIndicator);
-        console.log('Added active indicator');
-
-        function updateIndicator(activeBtn) {
-            if (!activeBtn) {
-                console.log('No active button provided to updateIndicator');
-                return;
-            }
-            
-            const width = activeBtn.offsetWidth;
-            const left = activeBtn.offsetLeft;
-            
-            console.log('Updating indicator -', 'width:', width, 'left:', left);
-            activeIndicator.style.width = `${width}px`;
-            activeIndicator.style.transform = `translateX(${left}px)`;
-        }
-
-        function updateActiveTabOnScroll() {
-            const scrollPosition = tabsWrapper.scrollLeft;
-            console.log('Scroll position:', scrollPosition);
-            
-            let activeIndex = 0;
-            let minDistance = Infinity;
-            
-            tabContents.forEach((content, index) => {
-                const distance = Math.abs(content.offsetLeft - scrollPosition);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    activeIndex = index;
-                }
+            const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
+            const activeIndicator = document.createElement('span');
+            activeIndicator.classList.add('active-tab-indicator');
+            Object.assign(activeIndicator.style, {
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                height: '2px',
+                backgroundColor: 'currentColor',
+                transition: 'transform 0.3s ease, width 0.3s ease',
+                display: 'block'
             });
+            tabBtnContainer.appendChild(activeIndicator);
 
-            console.log('New active index:', activeIndex);
+            function updateIndicator(activeBtn) {
+                if (!activeBtn) return;
+                
+                const width = activeBtn.offsetWidth;
+                const left = activeBtn.offsetLeft;
+                
+                activeIndicator.style.width = `${width}px`;
+                activeIndicator.style.transform = `translateX(${left}px)`;
+            }
+
             tabBtns.forEach((btn, index) => {
-                if (index === activeIndex) {
+                btn.addEventListener('click', () => {
+                    isScrollingFromClick = true;
+                    
+                    tabBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     updateIndicator(btn);
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
+                    
+                    const scrollPosition = tabContents[index].offsetLeft;
+                    
+                    tabsWrapper.scrollTo({
+                        left: scrollPosition,
+                        top: 0,
+                        behavior: 'smooth'
+                    });
 
-        // Set up click handlers
-        tabBtns.forEach((btn, index) => {
-            btn.addEventListener('click', (e) => {
-                console.log('Tab clicked:', index);
-                isScrollingFromClick = true;
-                
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                updateIndicator(btn);
-                
-                const scrollPosition = tabContents[index].offsetLeft;
-                console.log('Scrolling to position:', scrollPosition);
-                
-                tabsWrapper.scrollTo({
-                    left: scrollPosition,
-                    top: 0,
-                    behavior: 'smooth'
+                    setTimeout(() => {
+                        isScrollingFromClick = false;
+                    }, 500);
                 });
-
-                setTimeout(() => {
-                    isScrollingFromClick = false;
-                }, 500);
             });
-        });
 
-        // Set up scroll handler
-        tabsWrapper.addEventListener('scroll', () => {
-            if (!isScrollingFromClick) {
-                updateActiveTabOnScroll();
-            }
-        });
-
-        // Set up wheel handler
-        tabsWrapper.addEventListener('wheel', (e) => {
-            if (e.deltaY !== 0) {
-                e.preventDefault();
-                tabsWrapper.scrollLeft += e.deltaY;
+            tabsWrapper.addEventListener('scroll', () => {
                 if (!isScrollingFromClick) {
                     updateActiveTabOnScroll();
                 }
+            });
+
+            tabsWrapper.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    tabsWrapper.scrollLeft += e.deltaY;
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                }
+            });
+
+            function updateActiveTabOnScroll() {
+                const scrollPosition = tabsWrapper.scrollLeft;
+                
+                let activeIndex = 0;
+                let minDistance = Infinity;
+                
+                tabContents.forEach((content, index) => {
+                    const distance = Math.abs(content.offsetLeft - scrollPosition);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeIndex = index;
+                    }
+                });
+
+                tabBtns.forEach((btn, index) => {
+                    if (index === activeIndex) {
+                        btn.classList.add('active');
+                        updateIndicator(btn);
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
             }
+
+            window.addEventListener('resize', () => {
+                const activeBtn = document.querySelector('.tab-btn.active');
+                updateIndicator(activeBtn);
+            });
+
+            updateIndicator(tabBtns[0]);
+            tabBtns[0].classList.add('active');
         });
+    })(); 
 
-        // Set up resize handler
-        window.addEventListener('resize', () => {
-            const activeBtn = document.querySelector('.tab-btn.active');
-            console.log('Window resized, active button:', !!activeBtn);
-            updateIndicator(activeBtn);
-        });
-
-        // Initialize first tab
-        console.log('Setting initial active tab');
-        tabBtns[0].classList.add('active');
-        updateIndicator(tabBtns[0]);
-    };
-
-    // Create a mutation observer to watch for dynamic content
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                console.log('New nodes added to DOM, checking if menu needs initialization');
-                initializeMenu();
-            }
-        });
-    });
-
-    // Start observing the document with the configured parameters
-    observer.observe(document.body, { 
-        childList: true, 
-        subtree: true 
-    });
-
-    // Try multiple initialization points
-    console.log('Setting up initialization points');
     
-    // Immediate initialization
-    initializeMenu();
-    
-    // DOMContentLoaded initialization
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOMContentLoaded fired');
-        initializeMenu();
-    });
-
-    // For Shopify theme editor
-    if (typeof Shopify !== 'undefined' && Shopify.designMode) {
-        document.addEventListener('shopify:section:load', () => {
-            console.log('Shopify section loaded');
-            initializeMenu();
-        });
-    }
-})();
 
 </script>
