@@ -439,11 +439,10 @@ endif
                         toggleIcons(false);
                         dialogContent.close();
                         
-                        // Reset transform after dialog is closed
                         dialogContent.style.transform = '';
                         dialogContent.style.transition = '';
                         handle.style.cursor = 'grab';
-                    }, 500); // Match the transition duration
+                    }, 500); 
                 };
 
                 const resetDialog = () => {
@@ -468,7 +467,6 @@ endif
                     touchCurrentY = 0;
                 });
 
-                // Mouse support with the same enhanced behavior
                 let isMouseDragging = false;
 
                 handle.addEventListener('mousedown', (e) => {
@@ -638,23 +636,6 @@ endif
                 });
             };
 
-            // const closeDialog = () => {
-            //     dialogContent.classList.add('hide');
-            //     document.body.classList.remove('overflow-hidden');
-            //     toggleIcons(false);
-
-            //     const handleAnimationEnd = () => {
-            //         dialogContent.classList.remove('hide');
-            //         dialogContent.close();
-            //         dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
-            //     };
-
-            //     if (!('showModal' in document.createElement('dialog'))) {
-            //         dialogContent.close();
-            //     } else {
-            //         dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
-            //     }
-            // };
 
             const closeDialog = (fromSwipe = false) => {
                 if (fromSwipe) {
@@ -664,7 +645,6 @@ endif
                     return;
                 }
                 
-                // Regular close behavior for button clicks etc.
                 dialogContent.classList.add('hide');
                 document.body.classList.remove('overflow-hidden');
                 toggleIcons(false);
