@@ -1091,6 +1091,10 @@ html {
   width: 10px;
 }
 
+.tw-w-\[15px\] {
+  width: 15px;
+}
+
 .tw-w-\[200\%\] {
   width: 200%;
 }
@@ -1122,10 +1126,6 @@ html {
 
 .tw-w-screen {
   width: 100vw;
-}
-
-.tw-w-\[15px\] {
-  width: 15px;
 }
 
 .\!tw-min-w-max {
@@ -1362,17 +1362,9 @@ html {
   border-style: none;
 }
 
-.tw-border-\[currentColor\] {
-  border-color: currentColor;
-}
-
 .tw-border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
-}
-
-.tw-border-opacity-20 {
-  --tw-border-opacity: 0.2;
 }
 
 .tw-bg-black {
@@ -1612,14 +1604,6 @@ html {
 
 .tw-text-white\/80 {
   color: rgb(255 255 255 / 0.8);
-}
-
-.tw-text-\[currentColor\] {
-  color: currentColor;
-}
-
-.\!tw-text-\[currentColor\] {
-  color: currentColor !important;
 }
 
 .tw-opacity-0 {
