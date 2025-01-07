@@ -397,13 +397,14 @@ endif
             const hamburgerIcon = triggerSpan.querySelector('[data-icon="hamburger"]');
             const closeIcon = triggerSpan.querySelector('[data-icon="close"]');
             
+
             const handleSwipeClose = () => {
                 const handle = dialogContent.querySelector('.tw-dialog-handle');
                 if (!handle) return;
 
                 let touchStartY = 0;
                 let touchCurrentY = 0;
-                const CLOSE_THRESHOLD = window.innerHeight * 0.75; // 75% of screen height
+                const CLOSE_THRESHOLD = window.innerHeight * 0.50; // 50% of screen height
                 let isDragging = false;
 
                 handle.addEventListener('touchstart', (e) => {
@@ -416,7 +417,6 @@ endif
                 const updateDialogPosition = (yPosition) => {
                     const swipeDistance = yPosition - touchStartY;
                     if (swipeDistance > 0) {
-                        // Add smoother resistance curve
                         const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
                         const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
                         dialogContent.style.transform = `translateY(${easedDistance}px)`;
@@ -430,11 +430,10 @@ endif
                 }, { passive: true });
 
                 const finishClose = () => {
-                    // First animate to bottom
+                    
                     dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
 
-                    // Wait for animation to complete before closing
                     setTimeout(() => {
                         document.body.classList.remove('overflow-hidden');
                         toggleIcons(false);
