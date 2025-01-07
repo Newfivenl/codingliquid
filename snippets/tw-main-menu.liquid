@@ -229,6 +229,7 @@ endif
             <div class="tw-tab-contents tw-w-full tw-h-full tw-overflow-auto tw-scroll-smooth no-scrollbar">
                 <div class="tw-tabs-content-wrapper tw-w-full tw-flex tw-overflow-auto tw-overscroll-none tw-snap-both tw-snap-mandatory tw-scroll-smooth no-scrollbar">
                    
+
                     {%- for link in section.settings.menu.links -%}
                         <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
                             {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
@@ -266,36 +267,32 @@ endif
                                     {% endfor %}
                                     </ul>
                                 {%- else -%}
-                                    <div class="tw-py-4 tw-px-1">
-                                    <a 
-                                        href="{{ link.url }}"
-                                        class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
-                                        {% if link.current %}aria-current="page"{% endif %}
-                                    >
-                                        {{ link.title | escape }}
-                                    </a>
-                                    </div>
+                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                        <li><a 
+                                            href="{{ link.url }}"
+                                            class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
+                                            {% if link.current %}aria-current="page"{% endif %}
+                                        >
+                                            {{ link.title | escape }}
+                                        </a></li>
+                                    </ul>
                                 {%- endif -%}
-                                <div class="tw-main-menu-images tw-mt-auto tw-w-full  tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
+                                <div class="tw-main-menu-images tw-mt-auto tw-w-full tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
                                     <div class="tw-w-fit tw-flex">
-                                        {% assign total_blocks = section.blocks.size %}
-                                        {% assign half_blocks = total_blocks | divided_by: 2 %}
-                        
+                                        {% assign menu_items_count = section.settings.menu.links | size %}
+                                        {% assign blocks_per_menu = section.blocks.size | divided_by: menu_items_count %}
+                                        
                                         {% for block in section.blocks %}
                                             {% assign block_index = forloop.index0 %}
-                                            {% if forloop.first %}
-                                                {% assign tab_index = 0 %}
-                                            {% endif %}
-                        
-                                            {% if forloop.index0 < 3 and forloop.parentloop.index0 == 0 %}
-                                                {% assign should_display = true %}
-                                        
-                                            {% elsif forloop.index0 >= 3 and forloop.parentloop.index0 == 1 %}
+                                            {% assign start_index = forloop.parentloop.index0 | times: blocks_per_menu %}
+                                            {% assign end_index = start_index | plus: blocks_per_menu | minus: 1 %}
+
+                                            {% if block_index >= start_index and block_index <= end_index %}
                                                 {% assign should_display = true %}
                                             {% else %}
                                                 {% assign should_display = false %}
                                             {% endif %}
-                        
+
                                             {% if should_display %}
                                                 <div class="tw-snap-center tw-relative tw-overflow-hidden">
                                                     {% if block.type == 'tw_menu_image' %}
@@ -328,6 +325,7 @@ endif
                             </div>
                         </div>
                     {%- endfor -%}
+
                     
                 </div>
                 
