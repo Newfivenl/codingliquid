@@ -235,7 +235,6 @@ endif
         <div class="tw-menu-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
             <div class="tw-tab-btn-container tw-relative tw-flex tw-justify-space-evenly tw-relative tw-w-full tw-overflow-x-hidden">
                 {%- for link in section.settings.menu.links -%}
-                    {% comment %} {% if link.title != blank and link.links != blank %} {% endif %} {% endcomment %}
                     {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                     <button 
                         class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
@@ -786,7 +785,5 @@ endif
             tabBtns[0].classList.add('active');
         });
     })(); 
-
-    
 
 </script>
