@@ -266,14 +266,15 @@ endif
                                     {% endfor %}
                                     </ul>
                                 {%- else -%}
-                                    <div class="tw-py-4 tw-px-1">
-                                    <a 
-                                        href="{{ link.url }}"
-                                        class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
-                                        {% if link.current %}aria-current="page"{% endif %}
-                                    >
-                                        {{ link.title | escape }}
-                                    </a>
+                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                        <li><a 
+                                            href="{{ link.url }}"
+                                            class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
+                                            {% if link.current %}aria-current="page"{% endif %}
+                                        >
+                                            {{ link.title | escape }}
+                                        </a></li>
+                                    </ul>
                                     </div>
                                 {%- endif -%}
                                 <div class="tw-main-menu-images tw-mt-auto tw-w-full  tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
