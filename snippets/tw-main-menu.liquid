@@ -620,7 +620,6 @@ endif
                 });
             };
 
-
             const closeDialog = (fromSwipe = false) => {
                 if (fromSwipe) {
                     document.body.classList.remove('overflow-hidden');
@@ -670,9 +669,6 @@ endif
                 }
             });
 
-
-
-
         };
 
         twDialog(
@@ -680,6 +676,7 @@ endif
             '#tw-dialog-button-{{ section.id }}', 
             'vertical'
         );
+        
     })();
 
     (() => {
