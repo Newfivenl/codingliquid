@@ -399,13 +399,172 @@ endif
             
 
             // Add handleSwipeClose function here, after dialog element queries
+            // const handleSwipeClose = () => {
+            //     const handle = dialogContent.querySelector('.tw-dialog-handle');
+            //     if (!handle) return;
+
+            //     let touchStartY = 0;
+            //     let touchCurrentY = 0;
+            //     const CLOSE_THRESHOLD = window.innerHeight * 0.50; // 50% of screen height
+            //     let isDragging = false;
+
+            //     handle.addEventListener('touchstart', (e) => {
+            //         touchStartY = e.touches[0].clientY;
+            //         isDragging = true;
+            //         dialogContent.style.transition = 'none';
+            //         handle.style.cursor = 'grabbing';
+            //     }, { passive: true });
+
+            //     const updateDialogPosition = (yPosition) => {
+            //         const swipeDistance = yPosition - touchStartY;
+            //         if (swipeDistance > 0) {
+            //             dialogContent.style.transform = `translateY(${swipeDistance}px)`;
+
+            //             // Add resistance when dragging beyond threshold
+            //             if (swipeDistance > CLOSE_THRESHOLD) {
+            //                 const excess = swipeDistance - CLOSE_THRESHOLD;
+            //                 const resistance = excess * 0.1;
+            //                 dialogContent.style.transform = `translateY(${CLOSE_THRESHOLD + resistance}px)`;
+            //             }
+            //         }
+            //     };
+
+            //     handle.addEventListener('touchmove', (e) => {
+            //         if (!isDragging) return;
+            //         touchCurrentY = e.touches[0].clientY;
+            //         updateDialogPosition(touchCurrentY);
+            //     }, { passive: true });
+
+            //     const resetDialog = () => {
+            //         dialogContent.style.transform = 'translateY(0)';
+            //         dialogContent.style.transition = 'transform 0.3s ease-out';
+            //         handle.style.cursor = 'grab';
+            //     };
+
+            //     // const finishClose = () => {
+            //     //     dialogContent.style.transition = 'transform 0.3s ease-out';
+            //     //     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+                    
+            //     //     setTimeout(() => {
+            //     //         closeDialog();
+            //     //         //resetDialog();
+            //     //         handle.style.cursor = 'grab';
+            //     //     }, 300);
+            //     // };
+
+            //     const finishClose = () => {
+            //         // Immediately remove any existing transitions
+            //         dialogContent.style.transition = 'none';
+            //         // Set final position
+            //         dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+                    
+            //         // Close immediately without additional animations
+            //         document.body.classList.remove('overflow-hidden');
+            //         toggleIcons(false);
+            //         dialogContent.close();
+                    
+            //         // Reset styles after close
+            //         dialogContent.style.transform = '';
+            //         handle.style.cursor = 'grab';
+            //     };
+
+
+            //     // handle.addEventListener('touchend', () => {
+            //     //     if (!isDragging) return;
+            //     //     isDragging = false;
+
+            //     //     const swipeDistance = touchCurrentY - touchStartY;
+                    
+            //     //     if (swipeDistance >= CLOSE_THRESHOLD) {
+            //     //         finishClose();
+            //     //     } else {
+            //     //         resetDialog();
+            //     //     }
+                    
+            //     //     touchStartY = 0;
+            //     //     touchCurrentY = 0;
+            //     // });
+
+            //     handle.addEventListener('touchend', () => {
+            //         if (!isDragging) return;
+            //         isDragging = false;
+
+            //         const swipeDistance = touchCurrentY - touchStartY;
+                    
+            //         if (swipeDistance >= CLOSE_THRESHOLD) {
+            //             finishClose();
+            //         } else {
+            //             // Only reset if not closing
+            //             resetDialog();
+            //         }
+                    
+            //         touchStartY = 0;
+            //         touchCurrentY = 0;
+            //     });
+
+            //     handle.addEventListener('touchcancel', () => {
+            //         isDragging = false;
+            //         resetDialog();
+            //         touchStartY = 0;
+            //         touchCurrentY = 0;
+            //     });
+
+            //     // Mouse support for desktop testing
+            //     let isMouseDragging = false;
+
+            //     handle.addEventListener('mousedown', (e) => {
+            //         isMouseDragging = true;
+            //         touchStartY = e.clientY;
+            //         dialogContent.style.transition = 'none';
+            //         handle.style.cursor = 'grabbing';
+            //     });
+
+            //     window.addEventListener('mousemove', (e) => {
+            //         if (!isMouseDragging) return;
+            //         touchCurrentY = e.clientY;
+            //         updateDialogPosition(touchCurrentY);
+            //     });
+
+            //     // window.addEventListener('mouseup', () => {
+            //     //     if (!isMouseDragging) return;
+            //     //     isMouseDragging = false;
+
+            //     //     const swipeDistance = touchCurrentY - touchStartY;
+                    
+            //     //     if (swipeDistance >= CLOSE_THRESHOLD) {
+            //     //         finishClose();
+            //     //     } else {
+            //     //         resetDialog();
+            //     //     }
+                    
+            //     //     touchStartY = 0;
+            //     //     touchCurrentY = 0;
+            //     // });
+
+            //     window.addEventListener('mouseup', () => {
+            //         if (!isMouseDragging) return;
+            //         isMouseDragging = false;
+
+            //         const swipeDistance = touchCurrentY - touchStartY;
+                    
+            //         if (swipeDistance >= CLOSE_THRESHOLD) {
+            //             finishClose();
+            //         } else {
+            //             resetDialog();
+            //         }
+                    
+            //         touchStartY = 0;
+            //         touchCurrentY = 0;
+            //     });
+            // };
+
             const handleSwipeClose = () => {
                 const handle = dialogContent.querySelector('.tw-dialog-handle');
                 if (!handle) return;
 
                 let touchStartY = 0;
                 let touchCurrentY = 0;
-                const CLOSE_THRESHOLD = window.innerHeight * 0.50; // 50% of screen height
+                const CLOSE_THRESHOLD = window.innerHeight * 0.75; // 75% of screen height
                 let isDragging = false;
 
                 handle.addEventListener('touchstart', (e) => {
@@ -418,14 +577,10 @@ endif
                 const updateDialogPosition = (yPosition) => {
                     const swipeDistance = yPosition - touchStartY;
                     if (swipeDistance > 0) {
-                        dialogContent.style.transform = `translateY(${swipeDistance}px)`;
-
-                        // Add resistance when dragging beyond threshold
-                        if (swipeDistance > CLOSE_THRESHOLD) {
-                            const excess = swipeDistance - CLOSE_THRESHOLD;
-                            const resistance = excess * 0.1;
-                            dialogContent.style.transform = `translateY(${CLOSE_THRESHOLD + resistance}px)`;
-                        }
+                        // Add smoother resistance curve
+                        const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
+                        const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
+                        dialogContent.style.transform = `translateY(${easedDistance}px)`;
                     }
                 };
 
@@ -435,55 +590,29 @@ endif
                     updateDialogPosition(touchCurrentY);
                 }, { passive: true });
 
-                const resetDialog = () => {
-                    dialogContent.style.transform = 'translateY(0)';
-                    dialogContent.style.transition = 'transform 0.3s ease-out';
-                    handle.style.cursor = 'grab';
-                };
-
-                // const finishClose = () => {
-                //     dialogContent.style.transition = 'transform 0.3s ease-out';
-                //     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
-                    
-                //     setTimeout(() => {
-                //         closeDialog();
-                //         //resetDialog();
-                //         handle.style.cursor = 'grab';
-                //     }, 300);
-                // };
-
                 const finishClose = () => {
-                    // Immediately remove any existing transitions
-                    dialogContent.style.transition = 'none';
-                    // Set final position
+                    // First animate to bottom
+                    dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
-                    
-                    // Close immediately without additional animations
-                    document.body.classList.remove('overflow-hidden');
-                    toggleIcons(false);
-                    dialogContent.close();
-                    
-                    // Reset styles after close
-                    dialogContent.style.transform = '';
-                    handle.style.cursor = 'grab';
+
+                    // Wait for animation to complete before closing
+                    setTimeout(() => {
+                        document.body.classList.remove('overflow-hidden');
+                        toggleIcons(false);
+                        dialogContent.close();
+                        
+                        // Reset transform after dialog is closed
+                        dialogContent.style.transform = '';
+                        dialogContent.style.transition = '';
+                        handle.style.cursor = 'grab';
+                    }, 500); // Match the transition duration
                 };
 
-
-                // handle.addEventListener('touchend', () => {
-                //     if (!isDragging) return;
-                //     isDragging = false;
-
-                //     const swipeDistance = touchCurrentY - touchStartY;
-                    
-                //     if (swipeDistance >= CLOSE_THRESHOLD) {
-                //         finishClose();
-                //     } else {
-                //         resetDialog();
-                //     }
-                    
-                //     touchStartY = 0;
-                //     touchCurrentY = 0;
-                // });
+                const resetDialog = () => {
+                    dialogContent.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    dialogContent.style.transform = 'translateY(0)';
+                    handle.style.cursor = 'grab';
+                };
 
                 handle.addEventListener('touchend', () => {
                     if (!isDragging) return;
@@ -494,7 +623,6 @@ endif
                     if (swipeDistance >= CLOSE_THRESHOLD) {
                         finishClose();
                     } else {
-                        // Only reset if not closing
                         resetDialog();
                     }
                     
@@ -502,14 +630,7 @@ endif
                     touchCurrentY = 0;
                 });
 
-                handle.addEventListener('touchcancel', () => {
-                    isDragging = false;
-                    resetDialog();
-                    touchStartY = 0;
-                    touchCurrentY = 0;
-                });
-
-                // Mouse support for desktop testing
+                // Mouse support with the same enhanced behavior
                 let isMouseDragging = false;
 
                 handle.addEventListener('mousedown', (e) => {
@@ -525,22 +646,6 @@ endif
                     updateDialogPosition(touchCurrentY);
                 });
 
-                // window.addEventListener('mouseup', () => {
-                //     if (!isMouseDragging) return;
-                //     isMouseDragging = false;
-
-                //     const swipeDistance = touchCurrentY - touchStartY;
-                    
-                //     if (swipeDistance >= CLOSE_THRESHOLD) {
-                //         finishClose();
-                //     } else {
-                //         resetDialog();
-                //     }
-                    
-                //     touchStartY = 0;
-                //     touchCurrentY = 0;
-                // });
-
                 window.addEventListener('mouseup', () => {
                     if (!isMouseDragging) return;
                     isMouseDragging = false;
@@ -553,6 +658,13 @@ endif
                         resetDialog();
                     }
                     
+                    touchStartY = 0;
+                    touchCurrentY = 0;
+                });
+
+                handle.addEventListener('touchcancel', () => {
+                    isDragging = false;
+                    resetDialog();
                     touchStartY = 0;
                     touchCurrentY = 0;
                 });
