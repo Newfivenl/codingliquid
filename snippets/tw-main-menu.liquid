@@ -229,7 +229,7 @@ endif
             <div class="tw-tab-contents tw-w-full tw-h-full tw-overflow-auto tw-scroll-smooth no-scrollbar">
                 <div class="tw-tabs-content-wrapper tw-w-full tw-flex tw-overflow-auto tw-overscroll-none tw-snap-both tw-snap-mandatory tw-scroll-smooth no-scrollbar">
                    
-                    {%- for link in section.settings.menu.links -%}
+                    {% comment %} {%- for link in section.settings.menu.links -%}
                         <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
                             {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                             <div id="tab-{{ tab_id }}" class="tw-menu-tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
@@ -327,7 +327,7 @@ endif
                                 </div>
                             </div>
                         </div>
-                    {%- endfor -%}
+                    {%- endfor -%} {% endcomment %}
                     
                 </div>
                 
