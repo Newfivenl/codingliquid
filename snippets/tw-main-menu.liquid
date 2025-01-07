@@ -405,41 +405,65 @@ endif
 
                 let touchStartY = 0;
                 let touchCurrentY = 0;
-                const SWIPE_THRESHOLD = 50;
+                const CLOSE_THRESHOLD = window.innerHeight * 0.75; // 75% of screen height
+                let isDragging = false;
 
                 handle.addEventListener('touchstart', (e) => {
                     touchStartY = e.touches[0].clientY;
-                    handle.style.transition = 'none';
+                    isDragging = true;
+                    dialogContent.style.transition = 'none';
+                    handle.style.cursor = 'grabbing';
                 }, { passive: true });
 
-                handle.addEventListener('touchmove', (e) => {
-                    touchCurrentY = e.touches[0].clientY;
-                    const swipeDistance = touchCurrentY - touchStartY;
-                    
+                const updateDialogPosition = (yPosition) => {
+                    const swipeDistance = yPosition - touchStartY;
                     if (swipeDistance > 0) {
+                        // Calculate opacity based on distance (1 at top, 0 at CLOSE_THRESHOLD)
+                        const opacity = Math.max(0, 1 - (swipeDistance / CLOSE_THRESHOLD));
                         dialogContent.style.transform = `translateY(${swipeDistance}px)`;
-                        dialogContent.style.opacity = 1 - (swipeDistance / (SWIPE_THRESHOLD * 2));
+                        dialogContent.style.opacity = opacity;
+
+                        // Add some resistance to the dragging
+                        if (swipeDistance > CLOSE_THRESHOLD) {
+                            const excess = swipeDistance - CLOSE_THRESHOLD;
+                            const resistance = excess * 0.1; // Reduce movement by 90%
+                            dialogContent.style.transform = `translateY(${CLOSE_THRESHOLD + resistance}px)`;
+                        }
                     }
+                };
+
+                handle.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    touchCurrentY = e.touches[0].clientY;
+                    updateDialogPosition(touchCurrentY);
                 }, { passive: true });
 
                 const resetDialog = () => {
                     dialogContent.style.transform = 'translateY(0)';
                     dialogContent.style.opacity = '1';
                     dialogContent.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                    handle.style.cursor = 'grab';
                 };
 
-                handle.addEventListener('touchend', (e) => {
+                const finishClose = () => {
+                    dialogContent.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                    dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+                    dialogContent.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        closeDialog();
+                        resetDialog();
+                    }, 300);
+                };
+
+                handle.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+
                     const swipeDistance = touchCurrentY - touchStartY;
                     
-                    if (swipeDistance > SWIPE_THRESHOLD) {
-                        dialogContent.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-                        dialogContent.style.transform = `translateY(100%)`;
-                        dialogContent.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            closeDialog();
-                            resetDialog();
-                        }, 300);
+                    if (swipeDistance >= CLOSE_THRESHOLD) {
+                        finishClose();
                     } else {
                         resetDialog();
                     }
@@ -449,7 +473,40 @@ endif
                 });
 
                 handle.addEventListener('touchcancel', () => {
+                    isDragging = false;
                     resetDialog();
+                    touchStartY = 0;
+                    touchCurrentY = 0;
+                });
+
+                // Add mousemove support for desktop testing
+                let isMouseDragging = false;
+
+                handle.addEventListener('mousedown', (e) => {
+                    isMouseDragging = true;
+                    touchStartY = e.clientY;
+                    dialogContent.style.transition = 'none';
+                    handle.style.cursor = 'grabbing';
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isMouseDragging) return;
+                    touchCurrentY = e.clientY;
+                    updateDialogPosition(touchCurrentY);
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (!isMouseDragging) return;
+                    isMouseDragging = false;
+
+                    const swipeDistance = touchCurrentY - touchStartY;
+                    
+                    if (swipeDistance >= CLOSE_THRESHOLD) {
+                        finishClose();
+                    } else {
+                        resetDialog();
+                    }
+                    
                     touchStartY = 0;
                     touchCurrentY = 0;
                 });
