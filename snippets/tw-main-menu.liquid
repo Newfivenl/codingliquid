@@ -448,8 +448,10 @@ endif
                     setTimeout(() => {
                         closeDialog();
                         //resetDialog();
+                        handle.style.cursor = 'grab';
                     }, 300);
                 };
+
 
                 handle.addEventListener('touchend', () => {
                     if (!isDragging) return;
