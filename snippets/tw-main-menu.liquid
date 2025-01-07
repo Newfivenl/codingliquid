@@ -279,7 +279,7 @@ endif
                                 <div class="tw-main-menu-images tw-mt-auto tw-w-full  tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
                                     <div class="tw-w-fit tw-flex">
                                         {% assign total_blocks = section.blocks.size %}
-                                        {% assign half_blocks = total_blocks | divided_by: 3 %}
+                                        {% assign half_blocks = total_blocks | divided_by: 2 %}
                         
                                         {% for block in section.blocks %}
                                             {% assign block_index = forloop.index0 %}
