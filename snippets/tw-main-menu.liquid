@@ -89,23 +89,15 @@ endif
         animation: var(--tw-dialog-animation-duration) var(--tw-dialog-timing) normal;
     }
 
-    .tw-dialog-content.horizontal[open] {
-        animation-name: horizontal-show;
-    }
-
-    .tw-dialog-content.horizontal.hide {
-        animation-name: horizontal-hide;
-    }
-
-    .tw-dialog-content.vertical[open] {
+    .tw-dialog-content.vertical-animation[open] {
         animation-name: vertical-show;
     }
 
-    .tw-dialog-content.vertical.hide {
+    .tw-dialog-content.vertical-animation.hide {
         animation-name: vertical-hide;
     }
 
-    dialog.vertical {
+    dialog.vertical-animation {
         width: 100%;
         max-width: 100%;
         height: var(--tw-dialog-height);
@@ -113,16 +105,6 @@ endif
         left: 0;
         bottom: 0;
         top: auto !important;
-    }
-
-    @keyframes horizontal-show {
-        from { transform: translateX(110%); }
-        to { transform: translateX(0); }
-    }
-
-    @keyframes horizontal-hide {
-        from { transform: translateX(0); }
-        to { transform: translateX(110%); }
     }
 
     @keyframes vertical-show {
@@ -228,14 +210,13 @@ endif
             </span>
         </span>
     </div>
-    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content horizontal gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
+    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content vertical-animation gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
         <div class="tw-dialog-handle-container">
             <div class="tw-dialog-handle"></div>
         </div>
         <div class="tw-menu-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
             <div class="tw-tab-btn-container tw-relative tw-flex tw-justify-space-evenly tw-relative tw-w-full tw-overflow-x-hidden">
                 {%- for link in section.settings.menu.links -%}
-                    {% comment %} {% if link.title != blank and link.links != blank %} {% endif %} {% endcomment %}
                     {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                     <button 
                         class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
@@ -366,7 +347,7 @@ endif
 <script>
 
     (() => {
-        const twDialog = (triggerButton, closeBtn, animation) => {
+        const twDialog = (triggerButton, closeBtn) => {
             const btn = document.querySelector(triggerButton);
             if (!btn) return;
 
@@ -645,14 +626,6 @@ endif
                 }
             };
 
-            if (animation === 'horizontal') {
-                dialogContent.classList.remove('vertical');
-                dialogContent.classList.add('horizontal');
-            } else {
-                dialogContent.classList.remove('horizontal');
-                dialogContent.classList.add('vertical');
-            }
-
             btn.addEventListener("click", openDialog);
             closeButton.addEventListener("click", closeDialog);
 
@@ -673,8 +646,7 @@ endif
 
         twDialog(
             '#showDialog-{{ section.id }}', 
-            '#tw-dialog-button-{{ section.id }}', 
-            'vertical'
+            '#tw-dialog-button-{{ section.id }}'
         );
         
     })();
@@ -684,10 +656,6 @@ endif
             const tabBtns = document.querySelectorAll('.tab-btn');
             const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
             const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
-
-            console.log(tabBtns);
-            console.log(tabsWrapper);
-            console.log(tabContents);
 
             let isScrollingFromClick = false;
 
@@ -786,7 +754,5 @@ endif
             tabBtns[0].classList.add('active');
         });
     })(); 
-
-    
 
 </script>
