@@ -1,4 +1,6 @@
 
+alert(1)
+
 (() => {
     const twDialog = (triggerButton, closeBtn, animation) => {
         const btn = document.querySelector(triggerButton);
