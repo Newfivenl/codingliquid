@@ -8,22 +8,6 @@
     "label": "TW - main menu",
     "info": "Enter your menu's handle to activate it - you can find this handle by clicking on your menu. For example: main-menu. Leave empty to deactivate."
 },
-{
-    "type": "select",
-    "id": "tw_animation",
-    "label": "TW - menu animation",
-    "options": [
-        {
-            "label": "Horizontal",
-            "value": "horizontal"
-        },
-        {
-            "label": "Vertical",
-            "value": "vertical"
-        }
-    ],
-    "default": "vertical"
-},
 add this to block
     {
         "type": "tw_menu_image",
@@ -694,7 +678,7 @@ endif
         twDialog(
             '#showDialog-{{ section.id }}', 
             '#tw-dialog-button-{{ section.id }}', 
-            '{{ section.settings.tw_animation }}'
+            'vertical'
         );
     })();
 
