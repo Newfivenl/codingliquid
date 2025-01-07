@@ -232,13 +232,13 @@ endif
         <div class="tw-dialog-handle-container">
             <div class="tw-dialog-handle"></div>
         </div>
-        <div class="tw-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
+        <div class="tw-menu-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
             <div class="tw-tab-btn-container tw-relative tw-flex tw-justify-space-evenly tw-relative tw-w-full tw-overflow-x-hidden">
                 {%- for link in section.settings.menu.links -%}
                     {% comment %} {% if link.title != blank and link.links != blank %} {% endif %} {% endcomment %}
                     {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                     <button 
-                        class="tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
+                        class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
                         data-tab="tab-{{ tab_id }}" tab-index="-1">
                         {{ link.title | escape }}
                     </button>
@@ -251,7 +251,7 @@ endif
                     {%- for link in section.settings.menu.links -%}
                         <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
                             {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
-                            <div id="tab-{{ tab_id }}" class="tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
+                            <div id="tab-{{ tab_id }}" class="tw-menu-tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
                                 {%- if link.links != blank -%}
                                     <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
                                     {% for childlink in link.links %}
@@ -507,7 +507,7 @@ endif
             toggleIcons(false);
 
             const initTabs = () => {
-                const tabBtns = dialogContent.querySelectorAll('.tab-btn');
+                const tabBtns = dialogContent.querySelectorAll('.tw-menu-tab-btn');
                 const tabsWrapper = dialogContent.querySelector('.tw-tabs-content-wrapper');
                 const tabContents = dialogContent.querySelectorAll('.tw-tabs-content-link-list');
                 let isScrollingFromClick = false;
@@ -620,7 +620,6 @@ endif
                 });
             };
 
-
             const closeDialog = (fromSwipe = false) => {
                 if (fromSwipe) {
                     document.body.classList.remove('overflow-hidden');
@@ -670,9 +669,6 @@ endif
                 }
             });
 
-
-
-
         };
 
         twDialog(
@@ -680,6 +676,7 @@ endif
             '#tw-dialog-button-{{ section.id }}', 
             'vertical'
         );
+        
     })();
 
     (() => {
@@ -687,6 +684,11 @@ endif
             const tabBtns = document.querySelectorAll('.tab-btn');
             const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
             const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
+
+            console.log(tabBtns);
+            console.log(tabsWrapper);
+            console.log(tabContents);
+
             let isScrollingFromClick = false;
 
             const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
@@ -776,7 +778,7 @@ endif
             }
 
             window.addEventListener('resize', () => {
-                const activeBtn = document.querySelector('.tab-btn.active');
+                const activeBtn = document.querySelector('.tw-menu-tab-btn.active');
                 updateIndicator(activeBtn);
             });
 
@@ -784,5 +786,7 @@ endif
             tabBtns[0].classList.add('active');
         });
     })(); 
+
+    
 
 </script>
