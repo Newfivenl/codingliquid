@@ -405,14 +405,22 @@ endif
 
                 let touchStartY = 0;
                 let touchCurrentY = 0;
-                const CLOSE_THRESHOLD = window.innerHeight * 0.75;
+                const CLOSE_THRESHOLD = window.innerHeight * 0.75; // 75% of screen height
                 let isDragging = false;
+
+                handle.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    isDragging = true;
+                    dialogContent.style.transition = 'none';
+                    handle.style.cursor = 'grabbing';
+                }, { passive: true });
 
                 const updateDialogPosition = (yPosition) => {
                     const swipeDistance = yPosition - touchStartY;
                     if (swipeDistance > 0) {
                         dialogContent.style.transform = `translateY(${swipeDistance}px)`;
 
+                        // Add resistance when dragging beyond threshold
                         if (swipeDistance > CLOSE_THRESHOLD) {
                             const excess = swipeDistance - CLOSE_THRESHOLD;
                             const resistance = excess * 0.1;
@@ -420,6 +428,12 @@ endif
                         }
                     }
                 };
+
+                handle.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    touchCurrentY = e.touches[0].clientY;
+                    updateDialogPosition(touchCurrentY);
+                }, { passive: true });
 
                 const resetDialog = () => {
                     dialogContent.style.transform = 'translateY(0)';
@@ -432,26 +446,10 @@ endif
                     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
                     
                     setTimeout(() => {
-                        dialogContent.setAttribute('close', '');
                         closeDialog();
-                        dialogContent.style.transform = 'translateY(0)';
-                        dialogContent.style.transition = 'none';
+                        resetDialog();
                     }, 300);
                 };
-
-                // Touch events
-                handle.addEventListener('touchstart', (e) => {
-                    touchStartY = e.touches[0].clientY;
-                    isDragging = true;
-                    dialogContent.style.transition = 'none';
-                    handle.style.cursor = 'grabbing';
-                }, { passive: true });
-
-                handle.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    touchCurrentY = e.touches[0].clientY;
-                    updateDialogPosition(touchCurrentY);
-                }, { passive: true });
 
                 handle.addEventListener('touchend', () => {
                     if (!isDragging) return;
@@ -476,7 +474,7 @@ endif
                     touchCurrentY = 0;
                 });
 
-                // Mouse support
+                // Mouse support for desktop testing
                 let isMouseDragging = false;
 
                 handle.addEventListener('mousedown', (e) => {
@@ -507,46 +505,7 @@ endif
                     touchStartY = 0;
                     touchCurrentY = 0;
                 });
-            }
-
-            const openDialog = () => {
-                dialogContent.removeAttribute('close');
-                dialogContent.showModal();
-                dialogContent.classList.remove('hide');
-                document.body.classList.add('overflow-hidden');
-                toggleIcons(true);
-
-                requestAnimationFrame(() => {
-                    initTabs();
-                    handleSwipeClose();
-                });
             };
-
-            if (animation === 'horizontal') {
-                dialogContent.classList.remove('vertical');
-                dialogContent.classList.add('horizontal');
-            } else {
-                dialogContent.classList.remove('horizontal');
-                dialogContent.classList.add('vertical');
-            }
-
-            btn.addEventListener("click", openDialog);
-            closeButton.addEventListener("click", closeDialog);
-
-            dialogContent.addEventListener('click', (event) => {
-                if (event.target === dialogContent) {
-                    closeDialog();
-                    event.stopPropagation();
-                }
-            });
-
-            dialogContent.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    closeDialog();
-                }
-            });
-        };
-
 
             const toggleIcons = (isOpen) => {
                 if (isOpen) {
@@ -678,24 +637,6 @@ endif
                 });
             };
 
-            // const closeDialog = () => {
-            //     dialogContent.classList.add('hide');
-            //     document.body.classList.remove('overflow-hidden');
-            //     toggleIcons(false);
-
-            //     const handleAnimationEnd = () => {
-            //         dialogContent.classList.remove('hide');
-            //         dialogContent.close();
-            //         dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
-            //     };
-
-            //     if (!('showModal' in document.createElement('dialog'))) {
-            //         dialogContent.close();
-            //     } else {
-            //         dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
-            //     }
-            // };
-
             const closeDialog = () => {
                 dialogContent.classList.add('hide');
                 document.body.classList.remove('overflow-hidden');
@@ -704,13 +645,11 @@ endif
                 const handleAnimationEnd = () => {
                     dialogContent.classList.remove('hide');
                     dialogContent.close();
-                    dialogContent.setAttribute('close', '');
                     dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
                 };
 
                 if (!('showModal' in document.createElement('dialog'))) {
                     dialogContent.close();
-                    dialogContent.setAttribute('close', '');
                 } else {
                     dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
                 }
