@@ -8,11 +8,11 @@
     "label": "TW - main menu",
     "info": "Enter your menu's handle to activate it - you can find this handle by clicking on your menu. For example: main-menu. Leave empty to deactivate."
 },
-add this to block
-    {
-        "type": "tw_menu_image",
-        "name": "TW - menu image",
-        "limit": 6,
+add this to block header.liquid
+{
+    "type": "tw_menu_image",
+    "name": "TW - menu image",
+    "limit": 6,
         "settings": [
         {
             "type": "text",
@@ -32,7 +32,7 @@ add this to block
     ]
 }
 
-2. Locate and update the code in header-drawer.liquid
+2. Locate and update the code in header.liquid in sections folder
 if section.settings.menu != blank
     if section.settings.tw_menu != blank
         render 'tw-main-menu', section: section
