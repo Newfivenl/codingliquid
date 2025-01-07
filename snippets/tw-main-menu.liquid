@@ -418,15 +418,12 @@ endif
                 const updateDialogPosition = (yPosition) => {
                     const swipeDistance = yPosition - touchStartY;
                     if (swipeDistance > 0) {
-                        // Calculate opacity based on distance (1 at top, 0 at CLOSE_THRESHOLD)
-                        const opacity = Math.max(0, 1 - (swipeDistance / CLOSE_THRESHOLD));
                         dialogContent.style.transform = `translateY(${swipeDistance}px)`;
-                        dialogContent.style.opacity = opacity;
 
-                        // Add some resistance to the dragging
+                        // Add resistance when dragging beyond threshold
                         if (swipeDistance > CLOSE_THRESHOLD) {
                             const excess = swipeDistance - CLOSE_THRESHOLD;
-                            const resistance = excess * 0.1; // Reduce movement by 90%
+                            const resistance = excess * 0.1;
                             dialogContent.style.transform = `translateY(${CLOSE_THRESHOLD + resistance}px)`;
                         }
                     }
@@ -440,15 +437,13 @@ endif
 
                 const resetDialog = () => {
                     dialogContent.style.transform = 'translateY(0)';
-                    dialogContent.style.opacity = '1';
-                    dialogContent.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                    dialogContent.style.transition = 'transform 0.3s ease-out';
                     handle.style.cursor = 'grab';
                 };
 
                 const finishClose = () => {
-                    dialogContent.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+                    dialogContent.style.transition = 'transform 0.3s ease-out';
                     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
-                    dialogContent.style.opacity = '0';
                     
                     setTimeout(() => {
                         closeDialog();
@@ -479,7 +474,7 @@ endif
                     touchCurrentY = 0;
                 });
 
-                // Add mousemove support for desktop testing
+                // Mouse support for desktop testing
                 let isMouseDragging = false;
 
                 handle.addEventListener('mousedown', (e) => {
@@ -511,7 +506,6 @@ endif
                     touchCurrentY = 0;
                 });
             };
-
 
             const toggleIcons = (isOpen) => {
                 if (isOpen) {
