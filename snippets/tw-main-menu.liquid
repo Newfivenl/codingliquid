@@ -251,7 +251,7 @@ endif
                     {%- for link in section.settings.menu.links -%}
                         <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
                             {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
-                            <div id="tab-{{ tab_id }}" class="tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
+                            <div id="tab-{{ tab_id }}" class="menu-tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
                                 {%- if link.links != blank -%}
                                     <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
                                     {% for childlink in link.links %}
