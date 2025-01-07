@@ -441,15 +441,31 @@ endif
                     handle.style.cursor = 'grab';
                 };
 
+                // const finishClose = () => {
+                //     dialogContent.style.transition = 'transform 0.3s ease-out';
+                //     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+                    
+                //     setTimeout(() => {
+                //         closeDialog();
+                //         //resetDialog();
+                //         handle.style.cursor = 'grab';
+                //     }, 300);
+                // };
+
                 const finishClose = () => {
-                    dialogContent.style.transition = 'transform 0.3s ease-out';
+                    // Immediately remove any existing transitions
+                    dialogContent.style.transition = 'none';
+                    // Set final position
                     dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
                     
-                    setTimeout(() => {
-                        closeDialog();
-                        //resetDialog();
-                        handle.style.cursor = 'grab';
-                    }, 300);
+                    // Close immediately without additional animations
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    dialogContent.close();
+                    
+                    // Reset styles after close
+                    dialogContent.style.transform = '';
+                    handle.style.cursor = 'grab';
                 };
 
 
