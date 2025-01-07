@@ -138,7 +138,6 @@
         "menu": "main-menu",
         "tw_menu": "main-menu",
         "tw_menu_color_scheme": "scheme-4",
-        "tw_animation": "horizontal",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
