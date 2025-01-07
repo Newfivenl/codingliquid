@@ -782,4 +782,144 @@ endif
     //     });
     // })(); 
 
+    (() => {
+        const initializeMenu = () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
+            const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
+            const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
+
+            // If required elements aren't found, exit gracefully
+            if (!tabsWrapper || !tabBtnContainer || !tabContents.length || !tabBtns.length) {
+                console.warn('Required menu elements not found');
+                return;
+            }
+
+            let isScrollingFromClick = false;
+
+            // Remove any existing indicator before creating a new one
+            const existingIndicator = tabBtnContainer.querySelector('.active-tab-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+
+            const activeIndicator = document.createElement('span');
+            activeIndicator.classList.add('active-tab-indicator');
+            Object.assign(activeIndicator.style, {
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                height: '2px',
+                backgroundColor: 'currentColor',
+                transition: 'transform 0.3s ease, width 0.3s ease',
+                display: 'block'
+            });
+            tabBtnContainer.appendChild(activeIndicator);
+
+            function updateIndicator(activeBtn) {
+                if (!activeBtn) return;
+                
+                const width = activeBtn.offsetWidth;
+                const left = activeBtn.offsetLeft;
+                
+                activeIndicator.style.width = `${width}px`;
+                activeIndicator.style.transform = `translateX(${left}px)`;
+            }
+
+            function updateActiveTabOnScroll() {
+                const scrollPosition = tabsWrapper.scrollLeft;
+                
+                let activeIndex = 0;
+                let minDistance = Infinity;
+                
+                tabContents.forEach((content, index) => {
+                    const distance = Math.abs(content.offsetLeft - scrollPosition);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeIndex = index;
+                    }
+                });
+
+                tabBtns.forEach((btn, index) => {
+                    if (index === activeIndex) {
+                        btn.classList.add('active');
+                        updateIndicator(btn);
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            // Set up click handlers for tabs
+            tabBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    isScrollingFromClick = true;
+                    
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateIndicator(btn);
+                    
+                    const scrollPosition = tabContents[index].offsetLeft;
+                    
+                    tabsWrapper.scrollTo({
+                        left: scrollPosition,
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+
+                    setTimeout(() => {
+                        isScrollingFromClick = false;
+                    }, 500);
+                });
+            });
+
+            // Set up scroll handling
+            tabsWrapper.addEventListener('scroll', () => {
+                if (!isScrollingFromClick) {
+                    updateActiveTabOnScroll();
+                }
+            });
+
+            // Handle wheel events
+            tabsWrapper.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    tabsWrapper.scrollLeft += e.deltaY;
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const activeBtn = document.querySelector('.tab-btn.active');
+                updateIndicator(activeBtn);
+            });
+
+            // Initialize first tab
+            if (tabBtns.length > 0) {
+                tabBtns[0].classList.add('active');
+                updateIndicator(tabBtns[0]);
+            }
+        };
+
+        // Try to initialize immediately
+        initializeMenu();
+
+        // Also initialize on DOMContentLoaded as a fallback
+        document.addEventListener('DOMContentLoaded', initializeMenu);
+
+        // Additional safety net for dynamic content loading
+        if (Shopify && Shopify.designMode) {
+            document.addEventListener('shopify:section:load', initializeMenu);
+        }
+    })();
+
+    // Try to initialize immediately
+    initializeMenu();
+
+    // Also initialize on DOMContentLoaded as a fallback
+    document.addEventListener('DOMContentLoaded', initializeMenu);
+
 </script>
