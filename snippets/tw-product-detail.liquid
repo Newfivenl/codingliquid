@@ -875,51 +875,51 @@ Add to your schema settings block main-product.liquid
   // })();
   
   // Tab Handler
-  (function() {
-    function initTabs() {
-      const tabContainers = document.querySelectorAll('.tw-tabs-container');
-      if (!tabContainers.length) return;
+  // (function() {
+  //   function initTabs() {
+  //     const tabContainers = document.querySelectorAll('.tw-tabs-container');
+  //     if (!tabContainers.length) return;
 
-      function switchTab(tabsContainer, clickedTab) {
-        const targetId = clickedTab.getAttribute('data-tab');
-        if (!targetId) return;
+  //     function switchTab(tabsContainer, clickedTab) {
+  //       const targetId = clickedTab.getAttribute('data-tab');
+  //       if (!targetId) return;
 
-        const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
-        const tabContents = tabsContainer.querySelectorAll('.tab-content');
+  //       const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+  //       const tabContents = tabsContainer.querySelectorAll('.tab-content');
 
-        tabButtons.forEach(btn => {
-          btn.classList.remove('active');
-        });
-        tabContents.forEach(content => {
-          content.classList.remove('active');
-        });
+  //       tabButtons.forEach(btn => {
+  //         btn.classList.remove('active');
+  //       });
+  //       tabContents.forEach(content => {
+  //         content.classList.remove('active');
+  //       });
 
-        clickedTab.classList.add('active');
-        const targetContent = tabsContainer.querySelector(`#${targetId}`);
-        if (targetContent) {
-          targetContent.classList.add('active');
-        }
-      }
+  //       clickedTab.classList.add('active');
+  //       const targetContent = tabsContainer.querySelector(`#${targetId}`);
+  //       if (targetContent) {
+  //         targetContent.classList.add('active');
+  //       }
+  //     }
 
-      tabContainers.forEach(container => {
-        container.addEventListener('click', (e) => {
-          const clickedTab = e.target.closest('.tab-btn');
-          if (clickedTab) {
-            const parentContainer = clickedTab.closest('.tw-tabs-container');
-            if (parentContainer) {
-              switchTab(parentContainer, clickedTab);
-            }
-          }
-        });
-      });
-    }
+  //     tabContainers.forEach(container => {
+  //       container.addEventListener('click', (e) => {
+  //         const clickedTab = e.target.closest('.tab-btn');
+  //         if (clickedTab) {
+  //           const parentContainer = clickedTab.closest('.tw-tabs-container');
+  //           if (parentContainer) {
+  //             switchTab(parentContainer, clickedTab);
+  //           }
+  //         }
+  //       });
+  //     });
+  //   }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTabs);
-    } else {
-      initTabs();
-    }
-  })();
+  //   if (document.readyState === 'loading') {
+  //     document.addEventListener('DOMContentLoaded', initTabs);
+  //   } else {
+  //     initTabs();
+  //   }
+  // })();
 
 
 
