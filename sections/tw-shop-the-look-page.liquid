@@ -221,80 +221,184 @@ Metaobject fields:
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.matchMedia("(min-width: 640px)").matches) {
-            const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
-            const lookItems = document.querySelectorAll('#product-grid .grid__item');
-            const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     if (window.matchMedia("(min-width: 640px)").matches) {
+    //         const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
+    //         const lookItems = document.querySelectorAll('#product-grid .grid__item');
+    //         const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
 
-            lookItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const index = item.getAttribute('data-index');
-                    const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
-                    if (relatedContent) {
-                        relatedContent.classList.remove('tw-hidden');
-                        shopTheLookItemsContainer.classList.add('tw-hidden');
-                        lookItems.forEach(li => li.classList.add('tw-hidden'));
-                    }
-                    const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
-                    if (relatedBackButton) {
-                        relatedBackButton.addEventListener('click', () => {
-                        relatedContent.classList.add('tw-hidden');
-                        shopTheLookItemsContainer.classList.remove('tw-hidden');
-                        lookItems.forEach(item => item.classList.remove('tw-hidden'));
-                        console.log(`Back button clicked for item: ${index}`);
-                        }, { once: true });
-                    }
-                });
-            });
-        }
-    });
+    //         lookItems.forEach(item => {
+    //             item.addEventListener('click', () => {
+    //                 const index = item.getAttribute('data-index');
+    //                 const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
+    //                 if (relatedContent) {
+    //                     relatedContent.classList.remove('tw-hidden');
+    //                     shopTheLookItemsContainer.classList.add('tw-hidden');
+    //                     lookItems.forEach(li => li.classList.add('tw-hidden'));
+    //                 }
+    //                 const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
+    //                 if (relatedBackButton) {
+    //                     relatedBackButton.addEventListener('click', () => {
+    //                     relatedContent.classList.add('tw-hidden');
+    //                     shopTheLookItemsContainer.classList.remove('tw-hidden');
+    //                     lookItems.forEach(item => item.classList.remove('tw-hidden'));
+    //                     console.log(`Back button clicked for item: ${index}`);
+    //                     }, { once: true });
+    //                 }
+    //             });
+    //         });
+    //     }
+    // });
 
-    function toggleSlider(index) {
+    // function toggleSlider(index) {
 
-        const slider = document.getElementById('shop-the-look-slider');
-        const overlay = document.getElementById('overlay');
-        const closeButton = document.getElementById('close-button');
-        const body = document.querySelector('body');
+    //     const slider = document.getElementById('shop-the-look-slider');
+    //     const overlay = document.getElementById('overlay');
+    //     const closeButton = document.getElementById('close-button');
+    //     const body = document.querySelector('body');
         
-        body.classList.add('tw-overflow-hidden');
+    //     body.classList.add('tw-overflow-hidden');
 
-        function handleClose() {
-            body.classList.remove('tw-overflow-hidden');
-            slider.classList.remove('animate-slide-up');
-            slider.classList.add('animate-slide-down');
-            overlay.classList.add('tw-hidden');
-            slider.addEventListener('animationend', function handleAnimationEnd() {
-            if (slider.classList.contains('animate-slide-down')) {
-                slider.classList.add('tw-hidden');
-                slider.classList.remove('animate-slide-down');
-            }
-            slider.removeEventListener('animationend', handleAnimationEnd);
-            });
-        }
+    //     function handleClose() {
+    //         body.classList.remove('tw-overflow-hidden');
+    //         slider.classList.remove('animate-slide-up');
+    //         slider.classList.add('animate-slide-down');
+    //         overlay.classList.add('tw-hidden');
+    //         slider.addEventListener('animationend', function handleAnimationEnd() {
+    //         if (slider.classList.contains('animate-slide-down')) {
+    //             slider.classList.add('tw-hidden');
+    //             slider.classList.remove('animate-slide-down');
+    //         }
+    //         slider.removeEventListener('animationend', handleAnimationEnd);
+    //         });
+    //     }
 
-        if (slider.classList.contains('tw-hidden')) {
+    //     if (slider.classList.contains('tw-hidden')) {
 
-            slider.classList.remove('tw-hidden', 'animate-slide-down');
-            slider.classList.add('animate-slide-up');
-            overlay.classList.remove('tw-hidden');
+    //         slider.classList.remove('tw-hidden', 'animate-slide-down');
+    //         slider.classList.add('animate-slide-up');
+    //         overlay.classList.remove('tw-hidden');
 
-            document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
-            if (content.getAttribute('data-index') === index) {
-                content.classList.remove('tw-hidden');
-                content.classList.add('tw-grid');
-            } else {
-                content.classList.add('tw-hidden');
-                content.classList.remove('tw-grid');
-            }
-            });
-        } else {
-            handleClose();
-        }
+    //         document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
+    //         if (content.getAttribute('data-index') === index) {
+    //             content.classList.remove('tw-hidden');
+    //             content.classList.add('tw-grid');
+    //         } else {
+    //             content.classList.add('tw-hidden');
+    //             content.classList.remove('tw-grid');
+    //         }
+    //         });
+    //     } else {
+    //         handleClose();
+    //     }
 
-        closeButton.addEventListener('click', handleClose);
-        overlay.addEventListener('click', handleClose);
+    //     closeButton.addEventListener('click', handleClose);
+    //     overlay.addEventListener('click', handleClose);
+    // }
+
+
+    // Initialize shop the look functionality for desktop
+function initializeShopTheLook() {
+    if (!window.matchMedia("(min-width: 640px)").matches) return;
+
+    const elements = {
+        container: document.querySelector('.shop-the-look-items'),
+        items: document.querySelectorAll('#product-grid .grid__item'),
+        contents: document.querySelectorAll('.shop-the-look-contents')
+    };
+
+    if (!elements.container || !elements.items.length) return;
+
+    function handleBackButtonClick(content, index) {
+        return () => {
+            content.classList.add('tw-hidden');
+            elements.container.classList.remove('tw-hidden');
+            elements.items.forEach(item => item.classList.remove('tw-hidden'));
+            console.log(`Back button clicked for item: ${index}`);
+        };
     }
+
+    function handleItemClick(item) {
+        const index = item.getAttribute('data-index');
+        const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
+        
+        if (!relatedContent) return;
+
+        // Hide items and show content
+        relatedContent.classList.remove('tw-hidden');
+        elements.container.classList.add('tw-hidden');
+        elements.items.forEach(item => item.classList.add('tw-hidden'));
+
+        // Setup back button
+        const backButton = relatedContent.querySelector('.shop-the-look-back');
+        if (backButton) {
+            backButton.addEventListener('click', handleBackButtonClick(relatedContent, index), { once: true });
+        }
+    }
+
+    // Attach click handlers to items
+    elements.items.forEach(item => item.addEventListener('click', () => handleItemClick(item)));
+}
+
+// Initialize mobile slider functionality
+function initializeSlider(index) {
+    const elements = {
+        slider: document.getElementById('shop-the-look-slider'),
+        overlay: document.getElementById('overlay'),
+        closeButton: document.getElementById('close-button'),
+        body: document.querySelector('body')
+    };
+
+    if (!elements.slider || !elements.overlay || !elements.closeButton) return;
+
+    function handleClose() {
+        elements.body.classList.remove('tw-overflow-hidden');
+        elements.slider.classList.remove('animate-slide-up');
+        elements.slider.classList.add('animate-slide-down');
+        elements.overlay.classList.add('tw-hidden');
+
+        function handleAnimationEnd() {
+            if (elements.slider.classList.contains('animate-slide-down')) {
+                elements.slider.classList.add('tw-hidden');
+                elements.slider.classList.remove('animate-slide-down');
+            }
+            elements.slider.removeEventListener('animationend', handleAnimationEnd);
+        }
+
+        elements.slider.addEventListener('animationend', handleAnimationEnd);
+    }
+
+    function showSlider() {
+        elements.slider.classList.remove('tw-hidden', 'animate-slide-down');
+        elements.slider.classList.add('animate-slide-up');
+        elements.overlay.classList.remove('tw-hidden');
+        elements.body.classList.add('tw-overflow-hidden');
+
+        // Update content visibility based on index
+        document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
+            const isMatchingContent = content.getAttribute('data-index') === index;
+            content.classList.toggle('tw-hidden', !isMatchingContent);
+            content.classList.toggle('tw-grid', isMatchingContent);
+        });
+    }
+
+    // Initialize event listeners
+    function initializeEventListeners() {
+        elements.closeButton.addEventListener('click', handleClose);
+        elements.overlay.addEventListener('click', handleClose);
+    }
+
+    // Main execution
+    if (elements.slider.classList.contains('tw-hidden')) {
+        showSlider();
+        initializeEventListeners();
+    } else {
+        handleClose();
+    }
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeShopTheLook);
 
 </script>
 
