@@ -31,34 +31,5 @@ module.exports = {
       '9xl': '12.8rem', // 128px
     },
   },
-  daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: '#111827',
-          'primary-content': '#c9cbcf',
-          secondary: '#347eea',
-          'secondary-content': '#fff',
-          accent: '#60a5fa',
-          'accent-content': '#ffffff',
-          neutral: '#fff',
-          'neutral-content': '#141414',
-          'base-100': '#fafafa',
-          'base-200': '#d9d9d9',
-          'base-300': '#bababa',
-          'base-content': '#151515',
-          info: '#ffedd5',
-          'info-content': '#161410',
-          success: '#16a34a',
-          'success-content': '#000a02',
-          warning: '#f59e0b',
-          'warning-content': '#150900',
-          error: '#dc2626',
-          'error-content': '#ffd9d4',
-        },
-      },
-    ],
-  },
-  plugins: [require('daisyui')],
   prefix: 'tw-',
 };
