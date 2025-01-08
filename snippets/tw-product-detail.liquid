@@ -600,21 +600,6 @@ Add to your schema settings block main-product.liquid
       }
     });
 
-    xbtn.addEventListener("click", function(event) {
-      dialogContent.classList.add('hide');
-      document.querySelector('body').classList.remove('overflow-hidden');
-
-      if (!('showModal' in document.createElement('dialog'))) {
-        dialogContent.close();
-      } else {
-        dialogContent.addEventListener('webkitAnimationEnd', function() {
-          dialogContent.classList.remove('hide');
-          dialogContent.close();
-          dialogContent.removeEventListener('webkitAnimationEnd', arguments.callee, false);
-        }, false);
-      }
-    });
-
     xbtnDesktop.addEventListener("click", function(event) {
       dialogContent.classList.add('hide');
       document.querySelector('body').classList.remove('overflow-hidden');
