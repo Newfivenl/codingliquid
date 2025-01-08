@@ -221,256 +221,80 @@ Metaobject fields:
 </div>
 
 <script>
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     if (window.matchMedia("(min-width: 640px)").matches) {
-    //         const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
-    //         const lookItems = document.querySelectorAll('#product-grid .grid__item');
-    //         const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.matchMedia("(min-width: 640px)").matches) {
+            const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
+            const lookItems = document.querySelectorAll('#product-grid .grid__item');
+            const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
 
-    //         lookItems.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //                 const index = item.getAttribute('data-index');
-    //                 const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
-    //                 if (relatedContent) {
-    //                     relatedContent.classList.remove('tw-hidden');
-    //                     shopTheLookItemsContainer.classList.add('tw-hidden');
-    //                     lookItems.forEach(li => li.classList.add('tw-hidden'));
-    //                 }
-    //                 const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
-    //                 if (relatedBackButton) {
-    //                     relatedBackButton.addEventListener('click', () => {
-    //                     relatedContent.classList.add('tw-hidden');
-    //                     shopTheLookItemsContainer.classList.remove('tw-hidden');
-    //                     lookItems.forEach(item => item.classList.remove('tw-hidden'));
-    //                     console.log(`Back button clicked for item: ${index}`);
-    //                     }, { once: true });
-    //                 }
-    //             });
-    //         });
-    //     }
-    // });
+            lookItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const index = item.getAttribute('data-index');
+                    const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
+                    if (relatedContent) {
+                        relatedContent.classList.remove('tw-hidden');
+                        shopTheLookItemsContainer.classList.add('tw-hidden');
+                        lookItems.forEach(li => li.classList.add('tw-hidden'));
+                    }
+                    const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
+                    if (relatedBackButton) {
+                        relatedBackButton.addEventListener('click', () => {
+                        relatedContent.classList.add('tw-hidden');
+                        shopTheLookItemsContainer.classList.remove('tw-hidden');
+                        lookItems.forEach(item => item.classList.remove('tw-hidden'));
+                        console.log(`Back button clicked for item: ${index}`);
+                        }, { once: true });
+                    }
+                });
+            });
+        }
+    });
 
-    // function toggleSlider(index) {
+    function toggleSlider(index) {
 
-    //     const slider = document.getElementById('shop-the-look-slider');
-    //     const overlay = document.getElementById('overlay');
-    //     const closeButton = document.getElementById('close-button');
-    //     const body = document.querySelector('body');
+        const slider = document.getElementById('shop-the-look-slider');
+        const overlay = document.getElementById('overlay');
+        const closeButton = document.getElementById('close-button');
+        const body = document.querySelector('body');
         
-    //     body.classList.add('tw-overflow-hidden');
+        body.classList.add('tw-overflow-hidden');
 
-    //     function handleClose() {
-    //         body.classList.remove('tw-overflow-hidden');
-    //         slider.classList.remove('animate-slide-up');
-    //         slider.classList.add('animate-slide-down');
-    //         overlay.classList.add('tw-hidden');
-    //         slider.addEventListener('animationend', function handleAnimationEnd() {
-    //         if (slider.classList.contains('animate-slide-down')) {
-    //             slider.classList.add('tw-hidden');
-    //             slider.classList.remove('animate-slide-down');
-    //         }
-    //         slider.removeEventListener('animationend', handleAnimationEnd);
-    //         });
-    //     }
+        function handleClose() {
+            body.classList.remove('tw-overflow-hidden');
+            slider.classList.remove('animate-slide-up');
+            slider.classList.add('animate-slide-down');
+            overlay.classList.add('tw-hidden');
+            slider.addEventListener('animationend', function handleAnimationEnd() {
+            if (slider.classList.contains('animate-slide-down')) {
+                slider.classList.add('tw-hidden');
+                slider.classList.remove('animate-slide-down');
+            }
+            slider.removeEventListener('animationend', handleAnimationEnd);
+            });
+        }
 
-    //     if (slider.classList.contains('tw-hidden')) {
+        if (slider.classList.contains('tw-hidden')) {
 
-    //         slider.classList.remove('tw-hidden', 'animate-slide-down');
-    //         slider.classList.add('animate-slide-up');
-    //         overlay.classList.remove('tw-hidden');
+            slider.classList.remove('tw-hidden', 'animate-slide-down');
+            slider.classList.add('animate-slide-up');
+            overlay.classList.remove('tw-hidden');
 
-    //         document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
-    //         if (content.getAttribute('data-index') === index) {
-    //             content.classList.remove('tw-hidden');
-    //             content.classList.add('tw-grid');
-    //         } else {
-    //             content.classList.add('tw-hidden');
-    //             content.classList.remove('tw-grid');
-    //         }
-    //         });
-    //     } else {
-    //         handleClose();
-    //     }
+            document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
+            if (content.getAttribute('data-index') === index) {
+                content.classList.remove('tw-hidden');
+                content.classList.add('tw-grid');
+            } else {
+                content.classList.add('tw-hidden');
+                content.classList.remove('tw-grid');
+            }
+            });
+        } else {
+            handleClose();
+        }
 
-    //     closeButton.addEventListener('click', handleClose);
-    //     overlay.addEventListener('click', handleClose);
-    // }
-
-    // Constants for reusability and easier maintenance
-const BREAKPOINT_DESKTOP = 640;
-const CLASSNAMES = {
-  hidden: 'tw-hidden',
-  grid: 'tw-grid',
-  overflowHidden: 'tw-overflow-hidden',
-  animateSlideUp: 'animate-slide-up',
-  animateSlideDown: 'animate-slide-down'
-};
-
-// Config object for selectors
-const SELECTORS = {
-  container: '.shop-the-look-items',
-  gridItems: '#product-grid .grid__item',
-  contents: '.shop-the-look-contents',
-  backButton: '.shop-the-look-back',
-  slider: '#shop-the-look-slider',
-  overlay: '#overlay',
-  closeButton: '#close-button',
-  mobileContents: '.shop-the-look-contents-mobile > div'
-};
-
-// Main class to handle Shop The Look functionality
-class ShopTheLook {
-  constructor() {
-    this.isDesktop = window.matchMedia(`(min-width: ${BREAKPOINT_DESKTOP}px)`).matches;
-    this.initialized = false;
-    
-    // Bind methods to preserve context
-    this.init = this.init.bind(this);
-    this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleBackClick = this.handleBackClick.bind(this);
-    this.toggleSlider = this.toggleSlider.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', this.init);
-    } else {
-      this.init();
+        closeButton.addEventListener('click', handleClose);
+        overlay.addEventListener('click', handleClose);
     }
-  }
-
-  init() {
-    if (this.initialized || !this.isDesktop) return;
-
-    this.container = document.querySelector(SELECTORS.container);
-    this.items = document.querySelectorAll(SELECTORS.gridItems);
-    this.contents = document.querySelectorAll(SELECTORS.contents);
-
-    if (!this.container || !this.items.length || !this.contents.length) {
-      console.warn('Required elements not found for Shop The Look');
-      return;
-    }
-
-    this.setupEventListeners();
-    this.initialized = true;
-  }
-
-  setupEventListeners() {
-    this.items.forEach(item => {
-      item.addEventListener('click', () => this.handleItemClick(item));
-    });
-  }
-
-  handleItemClick(item) {
-    const index = item.getAttribute('data-index');
-    const relatedContent = document.querySelector(`${SELECTORS.contents}[data-index="${index}"]`);
-    
-    if (!relatedContent) {
-      console.warn(`No content found for index: ${index}`);
-      return;
-    }
-
-    this.showContent(relatedContent);
-    this.setupBackButton(relatedContent, index);
-  }
-
-  showContent(content) {
-    content.classList.remove(CLASSNAMES.hidden);
-    this.container.classList.add(CLASSNAMES.hidden);
-    this.items.forEach(item => item.classList.add(CLASSNAMES.hidden));
-  }
-
-  setupBackButton(content, index) {
-    const backButton = content.querySelector(SELECTORS.backButton);
-    if (backButton) {
-      backButton.addEventListener('click', () => this.handleBackClick(content, index), { once: true });
-    }
-  }
-
-  handleBackClick(content, index) {
-    content.classList.add(CLASSNAMES.hidden);
-    this.container.classList.remove(CLASSNAMES.hidden);
-    this.items.forEach(item => item.classList.remove(CLASSNAMES.hidden));
-    console.log(`Back button clicked for item: ${index}`);
-  }
-
-  // Mobile slider functionality
-  toggleSlider(index) {
-    const slider = document.getElementById(SELECTORS.slider.slice(1));
-    const overlay = document.getElementById(SELECTORS.overlay.slice(1));
-    const closeButton = document.getElementById(SELECTORS.closeButton.slice(1));
-    const body = document.querySelector('body');
-
-    if (!slider || !overlay || !closeButton) {
-      console.warn('Required slider elements not found');
-      return;
-    }
-
-    if (slider.classList.contains(CLASSNAMES.hidden)) {
-      this.openSlider(slider, overlay, body, index);
-    } else {
-      this.handleClose(slider, overlay, body);
-    }
-
-    // Event listeners with cleanup
-    const closeHandler = () => this.handleClose(slider, overlay, body);
-    closeButton.addEventListener('click', closeHandler);
-    overlay.addEventListener('click', closeHandler);
-
-    // Cleanup function
-    const cleanup = () => {
-      closeButton.removeEventListener('click', closeHandler);
-      overlay.removeEventListener('click', closeHandler);
-    };
-
-    // Remove event listeners when slider is hidden
-    slider.addEventListener('animationend', () => {
-      if (slider.classList.contains(CLASSNAMES.hidden)) {
-        cleanup();
-      }
-    });
-  }
-
-  openSlider(slider, overlay, body, index) {
-    body.classList.add(CLASSNAMES.overflowHidden);
-    slider.classList.remove(CLASSNAMES.hidden, CLASSNAMES.animateSlideDown);
-    slider.classList.add(CLASSNAMES.animateSlideUp);
-    overlay.classList.remove(CLASSNAMES.hidden);
-
-    this.updateMobileContent(index);
-  }
-
-  updateMobileContent(index) {
-    document.querySelectorAll(SELECTORS.mobileContents).forEach((content) => {
-      const shouldShow = content.getAttribute('data-index') === index;
-      content.classList.toggle(CLASSNAMES.hidden, !shouldShow);
-      content.classList.toggle(CLASSNAMES.grid, shouldShow);
-    });
-  }
-
-  handleClose(slider, overlay, body) {
-    body.classList.remove(CLASSNAMES.overflowHidden);
-    slider.classList.remove(CLASSNAMES.animateSlideUp);
-    slider.classList.add(CLASSNAMES.animateSlideDown);
-    overlay.classList.add(CLASSNAMES.hidden);
-
-    const handleAnimationEnd = () => {
-      if (slider.classList.contains(CLASSNAMES.animateSlideDown)) {
-        slider.classList.add(CLASSNAMES.hidden);
-        slider.classList.remove(CLASSNAMES.animateSlideDown);
-      }
-      slider.removeEventListener('animationend', handleAnimationEnd);
-    };
-
-    slider.addEventListener('animationend', handleAnimationEnd);
-  }
-}
-
-// Initialize the Shop The Look functionality
-const shopTheLook = new ShopTheLook();
-
-// Export for usage in other files if needed
-export { shopTheLook, ShopTheLook };
 
 </script>
 
