@@ -43,7 +43,7 @@
           "settings": {
             "block_title": "Description",
             "title_1": "Upgrade content",
-            "content_1": "<p>Upgrade your content game with our professional services.</p><ul><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li></ul>",
+            "content_1": "<p>Upgrade your content game with our professional services.</p><ul><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3<br/>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li></ul>",
             "title_2": "Content 2",
             "content_2": "<p>Enhance Your Daily Routine with Premium Content-Based Products.</p>",
             "title_3": "Content 3",
