@@ -80,7 +80,7 @@
           "type": "tw_menu_image",
           "settings": {
             "tw_title": "Image men 1",
-            "tw_title_link": "shopify://collections",
+            "tw_title_link": "",
             "tw_image": "shopify://shop_images/M_Nav_Tile_Shirts_v2_4x5_755b9ce5-2aea-4c8a-abe6-adbbab94edd8.webp"
           }
         },
@@ -88,7 +88,7 @@
           "type": "tw_menu_image",
           "settings": {
             "tw_title": "Image men 2",
-            "tw_title_link": "shopify://collections/all",
+            "tw_title_link": "",
             "tw_image": "shopify://shop_images/M_Shorts_v3_4x5_bb9c2f2e-a5df-4072-b6a1-4a7e8df91b21.webp"
           }
         },
@@ -96,7 +96,7 @@
           "type": "tw_menu_image",
           "settings": {
             "tw_title": "Image men 3",
-            "tw_title_link": "shopify://pages/shop-the-look",
+            "tw_title_link": "",
             "tw_image": "shopify://shop_images/M_Jogger_v2_4x5_1130e82b-c3e4-4972-b7f4-a227d99dc050.webp"
           }
         },
@@ -104,7 +104,7 @@
           "type": "tw_menu_image",
           "settings": {
             "tw_title": "Image women 1",
-            "tw_title_link": "shopify://collections/frontpage",
+            "tw_title_link": "",
             "tw_image": "shopify://shop_images/W_Shorts_v3_4x5_4a39b326-4832-45c7-af7f-1286d8d90143.webp"
           }
         },
@@ -112,7 +112,7 @@
           "type": "tw_menu_image",
           "settings": {
             "tw_title": "Image women 2",
-            "tw_title_link": "shopify://collections/all",
+            "tw_title_link": "",
             "tw_image": "shopify://shop_images/W_matching_set_4x5_0af68e73-9bd8-485f-8380-64d65852b3da.webp"
           }
         },
