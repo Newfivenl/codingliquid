@@ -1730,6 +1730,10 @@ html {
 }
 
 @media (max-width: 768px) {
+  .max-\[768px\]\:tw-mb-\[0px\] {
+    margin-bottom: 0px;
+  }
+
   .max-\[768px\]\:tw-px-\[10px\] {
     padding-left: 10px;
     padding-right: 10px;
