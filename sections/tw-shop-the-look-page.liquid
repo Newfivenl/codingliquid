@@ -296,6 +296,61 @@ Metaobject fields:
     //     overlay.addEventListener('click', handleClose);
     // }
 
+    function toggleSlider(index) {
+    const slider = document.getElementById('shop-the-look-slider');
+    const overlay = document.getElementById('overlay');
+    const closeButton = document.getElementById('close-button');
+    const body = document.querySelector('body');
+    
+    if (!slider || !overlay || !closeButton) {
+        console.error('Required elements not found');
+        return;
+    }
+
+    const handleClose = () => {
+        body.classList.remove('tw-overflow-hidden');
+        slider.classList.remove('animate-slide-up');
+        slider.classList.add('animate-slide-down');
+        overlay.classList.add('tw-hidden');
+        
+        const handleAnimationEnd = () => {
+            if (slider.classList.contains('animate-slide-down')) {
+                slider.classList.add('tw-hidden');
+                slider.classList.remove('animate-slide-down');
+            }
+            slider.removeEventListener('animationend', handleAnimationEnd);
+        };
+        
+        slider.addEventListener('animationend', handleAnimationEnd);
+    };
+
+    const cleanup = () => {
+        closeButton.removeEventListener('click', handleClose);
+        overlay.removeEventListener('click', handleClose);
+    };
+
+    if (slider.classList.contains('tw-hidden')) {
+        cleanup(); // Remove any existing listeners
+        slider.classList.remove('tw-hidden', 'animate-slide-down');
+        slider.classList.add('animate-slide-up');
+        overlay.classList.remove('tw-hidden');
+        body.classList.add('tw-overflow-hidden');
+
+        const contents = document.querySelectorAll('.shop-the-look-contents-mobile > div');
+        contents.forEach((content) => {
+            const isMatch = content.getAttribute('data-index') === index.toString();
+            content.classList.toggle('tw-hidden', !isMatch);
+            content.classList.toggle('tw-grid', isMatch);
+        });
+
+        closeButton.addEventListener('click', handleClose);
+        overlay.addEventListener('click', handleClose);
+    } else {
+        handleClose();
+        cleanup();
+    }
+}
+
 </script>
 
 
