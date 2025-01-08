@@ -8,27 +8,35 @@
     "label": "TW - main menu",
     "info": "Enter your menu's handle to activate it - you can find this handle by clicking on your menu. For example: main-menu. Leave empty to deactivate."
 },
-{
-    "type": "select",
-    "id": "tw_animation",
-    "label": "TW - menu animation",
-    "options": [
-    {
-        "label": "Horizontal",
-        "value": "horizontal"
-    },
-    {
-        "label": "Vertical",
-        "value": "vertical"
-    }
-    ],
-    "default": "vertical"
-},
 
-2. Locate and update the code in header-drawer.liquid
+add this to block header.liquid
+{
+    "type": "tw_menu_image",
+    "name": "TW - menu image",
+    "limit": 6,
+        "settings": [
+        {
+            "type": "text",
+            "id": "tw_title",
+            "label": "Image title"
+        },
+        {
+            "type": "url",
+            "id": "tw_title_link",
+            "label": "Title link"
+        },
+        {
+            "type": "image_picker",
+            "id": "tw_image",
+            "label": "Image"
+        }
+    ]
+}
+
+2. Locate and update the code in header.liquid in sections folder
 if section.settings.menu != blank
     if section.settings.tw_menu != blank
-        render 'tw-main-menu'
+        render 'tw-main-menu', section: section
     else 
         render 'header-drawer'
     endif
@@ -42,9 +50,15 @@ endif
         --tw-dialog-animation-duration: 0.5s;
         --tw-dialog-timing: cubic-bezier(.4,0,.2,1);
         --tw-dialog-backdrop-opacity: 0.8;
-        --tw-dialog-height: 550px;
+        --tw-dialog-height: 100%; 
         --tw-dialog-width: 580px;
         --tw-dialog-padding: 30px;
+        --vh: 8.96px;
+    }
+
+    .tw-dialog-content *:focus-visible {
+        outline: none;
+        box-shadow: none;
     }
 
     .tw-dialog-content {
@@ -55,10 +69,10 @@ endif
         max-height: 100%;
         top: 0;
         border: 0;
-        padding: var(--tw-dialog-padding) var(--tw-dialog-padding) 20px;
         transition: all 0.3s ease-in-out;
         left: calc(100vw - 484px);
         margin-right: 0;
+        overflow: initial;
     }
 
     .tw-dialog-content::backdrop {
@@ -76,39 +90,22 @@ endif
         animation: var(--tw-dialog-animation-duration) var(--tw-dialog-timing) normal;
     }
 
-    .tw-dialog-content.horizontal[open] {
-        animation-name: horizontal-show;
-    }
-
-    .tw-dialog-content.horizontal.hide {
-        animation-name: horizontal-hide;
-    }
-
-    .tw-dialog-content.vertical[open] {
+    .tw-dialog-content.vertical-animation[open] {
         animation-name: vertical-show;
     }
 
-    .tw-dialog-content.vertical.hide {
+    .tw-dialog-content.vertical-animation.hide {
         animation-name: vertical-hide;
     }
 
-    dialog.vertical {
+    dialog.vertical-animation {
         width: 100%;
         max-width: 100%;
         height: var(--tw-dialog-height);
+        max-height: calc(var(--vh,1vh)*80);
         left: 0;
         bottom: 0;
         top: auto !important;
-    }
-
-    @keyframes horizontal-show {
-        from { transform: translateX(110%); }
-        to { transform: translateX(0); }
-    }
-
-    @keyframes horizontal-hide {
-        from { transform: translateX(0); }
-        to { transform: translateX(110%); }
     }
 
     @keyframes vertical-show {
@@ -123,7 +120,6 @@ endif
 
     @media screen and (max-width: 767px) {
         .tw-dialog-content {
-        padding: 50px var(--tw-dialog-padding) 20px;
         max-width: 100%;
         right: 0;
         left: auto;
@@ -152,7 +148,7 @@ endif
 
     @media screen and (min-width: 990px) {
         .tw-main-menu {
-        display: none;
+            display: none;
         }
     }
 
@@ -162,11 +158,46 @@ endif
         transform: translateZ(0);
     }
 
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
+
+    .tw-dialog-handle {
+        width: 5rem;
+        height: 6px;
+        background-color: #ffffff4d;
+        border-radius: 2px;
+        margin: 8px auto;
+        cursor: grab;
+        position: relative;
+        display: block !important;
+    }
+
+    .tw-dialog-handle-container {
+        width: 100%;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        position: absolute;
+        top: -21px;
+        z-index: 9999;
+        z-index: 10;
+        touch-action: none;
+    }
+
 {%- endstyle -%}
 
 {% liquid 
-assign dialog_id = dialog_id | plus: 1
-assign trigger_id = trigger_id | plus: 1
+    assign dialog_id = dialog_id | plus: 1
+    assign trigger_id = trigger_id | plus: 1
+    assign count_tab = count_tab |  plus: 1
 %}
 
 <div class="tw-main-menu min-[990px]:tw-hidden">
@@ -180,9 +211,128 @@ assign trigger_id = trigger_id | plus: 1
             </span>
         </span>
     </div>
-    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content horizontal gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
-        Content here
-        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button">
+    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content vertical-animation gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
+        <div class="tw-dialog-handle-container">
+            <div class="tw-dialog-handle"></div>
+        </div>
+        <div class="tw-menu-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
+            <div class="tw-tab-btn-container tw-relative tw-flex tw-justify-space-evenly tw-relative tw-w-full tw-overflow-x-hidden">
+                {%- for link in section.settings.menu.links -%}
+                    {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+                    <button 
+                        class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
+                        data-tab="tab-{{ tab_id }}" tab-index="-1">
+                        {{ link.title | escape }}
+                    </button>
+                   
+                {%- endfor -%}
+            </div>
+            <div class="tw-tab-contents tw-w-full tw-h-full tw-overflow-auto tw-scroll-smooth no-scrollbar">
+                <div class="tw-tabs-content-wrapper tw-w-full tw-flex tw-overflow-auto tw-overscroll-none tw-snap-both tw-snap-mandatory tw-scroll-smooth no-scrollbar">
+                   
+
+                    {%- for link in section.settings.menu.links -%}
+                        <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
+                            {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
+                            <div id="tab-{{ tab_id }}" class="tw-menu-tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
+                                {%- if link.links != blank -%}
+                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                    {% for childlink in link.links %}
+                                        <li class="">
+                                        <div class="tw-py-4 tw-px-1 tw-break-inside-avoid">
+                                            <a 
+                                            href="{{ childlink.url }}"
+                                            class="tw-block tw-text-current hover:tw-opacity-75 tw-font-bold {% if childlink.current %}{% endif %}"
+                                            {% if childlink.current %}aria-current="page"{% endif %}
+                                            >
+                                            {{ childlink.title | escape }}
+                                            </a>
+                                            
+                                            {%- if childlink.links != blank -%}
+                                            <ul class="tw-list-none tw-mt-2 tw-mb-0 tw-p-0 tw-break-inside-avoid" role="list">
+                                                {%- for grandchildlink in childlink.links -%}
+                                                <li class="tw-mb-2">
+                                                    <a 
+                                                    href="{{ grandchildlink.url }}"
+                                                    class="tw-block tw-text-current hover:tw-opacity-75 {% if grandchildlink.current %}{% endif %}"
+                                                    {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                                    >
+                                                    {{ grandchildlink.title | escape }}
+                                                    </a>
+                                                </li>
+                                                {%- endfor -%}
+                                            </ul>
+                                            {%- endif -%}
+                                        </div>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                {%- else -%}
+                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                        <li><a 
+                                            href="{{ link.url }}"
+                                            class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
+                                            {% if link.current %}aria-current="page"{% endif %}
+                                        >
+                                            {{ link.title | escape }}
+                                        </a></li>
+                                    </ul>
+                                {%- endif -%}
+                                <div class="tw-main-menu-images tw-mt-auto tw-w-full tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
+                                    <div class="tw-w-fit tw-flex">
+                                        {% assign menu_items_count = section.settings.menu.links | size %}
+                                        {% assign blocks_per_menu = section.blocks.size | divided_by: menu_items_count %}
+                                        
+                                        {% for block in section.blocks %}
+                                            {% assign block_index = forloop.index0 %}
+                                            {% assign start_index = forloop.parentloop.index0 | times: blocks_per_menu %}
+                                            {% assign end_index = start_index | plus: blocks_per_menu | minus: 1 %}
+
+                                            {% if block_index >= start_index and block_index <= end_index %}
+                                                {% assign should_display = true %}
+                                            {% else %}
+                                                {% assign should_display = false %}
+                                            {% endif %}
+
+                                            {% if should_display %}
+                                                <div class="tw-snap-center tw-relative tw-overflow-hidden">
+                                                    {% if block.type == 'tw_menu_image' %}
+                                                        {% if block.settings.tw_image != blank %}
+                                                            {% if block.settings.tw_title_link != blank %}
+                                                            <a href="{{ block.settings.tw_title_link }}" class="tw-block tw-w-full tw-aspect-auto">
+                                                            {% else %}
+                                                            <div class="tw-block tw-relative tw-w-full tw-aspect-auto">
+                                                            {% endif %}
+                                                                {{ block.settings.tw_image | image_url: width: 800 | image_tag: class: 'tw-w-[75vw] tw-max-w-[35rem] ' }}
+                                                                {% if block.settings.tw_title != blank %}
+                                                                    <span class="tw-absolute tw-w-full tw-h-full tw-z-[1] tw-flex tw-justify-center tw-items-center tw-top-0 tw-left-0 tw-bg-black tw-bg-opacity-10">{{ block.settings.tw_title }}</span>
+                                                                {% endif %}
+                                                            {% if block.settings.tw_title_link != blank %}
+                                                            </a>
+                                                            {% else %}
+                                                            </div>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <div class="">
+                                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    {%- endfor -%}
+
+                    
+                </div>
+                
+            </div>
+        </div>
+        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button !tw-hidden">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
                 <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
@@ -193,10 +343,10 @@ assign trigger_id = trigger_id | plus: 1
     </dialog>
 </div> 
 
-
 <script>
+
     (() => {
-        const twDialog = (triggerButton, closeBtn, animation) => {
+        const twDialog = (triggerButton, closeBtn) => {
             const btn = document.querySelector(triggerButton);
             if (!btn) return;
 
@@ -207,12 +357,119 @@ assign trigger_id = trigger_id | plus: 1
             
             if (!dialogContent || !closeButton) return;
 
-            // Get both SVG elements within the trigger button
             const triggerSpan = document.querySelector(triggerButton);
             const hamburgerIcon = triggerSpan.querySelector('[data-icon="hamburger"]');
             const closeIcon = triggerSpan.querySelector('[data-icon="close"]');
+            
 
-            // Function to toggle icon visibility using Tailwind classes
+            const handleSwipeClose = () => {
+                const handle = dialogContent.querySelector('.tw-dialog-handle');
+                if (!handle) return;
+
+                let touchStartY = 0;
+                let touchCurrentY = 0;
+                const CLOSE_THRESHOLD = window.innerHeight * 0.50; // 50% of screen height
+                let isDragging = false;
+
+                handle.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    isDragging = true;
+                    dialogContent.style.transition = 'none';
+                    handle.style.cursor = 'grabbing';
+                }, { passive: true });
+
+                const updateDialogPosition = (yPosition) => {
+                    const swipeDistance = yPosition - touchStartY;
+                    if (swipeDistance > 0) {
+                        const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
+                        const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
+                        dialogContent.style.transform = `translateY(${easedDistance}px)`;
+                    }
+                };
+
+                handle.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    touchCurrentY = e.touches[0].clientY;
+                    updateDialogPosition(touchCurrentY);
+                }, { passive: true });
+
+                const finishClose = () => {
+                    
+                    dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+
+                    setTimeout(() => {
+                        document.body.classList.remove('overflow-hidden');
+                        toggleIcons(false);
+                        dialogContent.close();
+                        
+                        dialogContent.style.transform = '';
+                        dialogContent.style.transition = '';
+                        handle.style.cursor = 'grab';
+                    }, 500); 
+                };
+
+                const resetDialog = () => {
+                    dialogContent.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    dialogContent.style.transform = 'translateY(0)';
+                    handle.style.cursor = 'grab';
+                };
+
+                handle.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+
+                    const swipeDistance = touchCurrentY - touchStartY;
+                    
+                    if (swipeDistance >= CLOSE_THRESHOLD) {
+                        finishClose();
+                    } else {
+                        resetDialog();
+                    }
+                    
+                    touchStartY = 0;
+                    touchCurrentY = 0;
+                });
+
+                let isMouseDragging = false;
+
+                handle.addEventListener('mousedown', (e) => {
+                    isMouseDragging = true;
+                    touchStartY = e.clientY;
+                    dialogContent.style.transition = 'none';
+                    handle.style.cursor = 'grabbing';
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!isMouseDragging) return;
+                    touchCurrentY = e.clientY;
+                    updateDialogPosition(touchCurrentY);
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (!isMouseDragging) return;
+                    isMouseDragging = false;
+
+                    const swipeDistance = touchCurrentY - touchStartY;
+                    
+                    if (swipeDistance >= CLOSE_THRESHOLD) {
+                        finishClose();
+                    } else {
+                        resetDialog();
+                    }
+                    
+                    touchStartY = 0;
+                    touchCurrentY = 0;
+                });
+
+                handle.addEventListener('touchcancel', () => {
+                    isDragging = false;
+                    resetDialog();
+                    touchStartY = 0;
+                    touchCurrentY = 0;
+                });
+            };
+
             const toggleIcons = (isOpen) => {
                 if (isOpen) {
                     hamburgerIcon.classList.remove('tw-inline-block');
@@ -227,8 +484,107 @@ assign trigger_id = trigger_id | plus: 1
                 }
             };
 
-            // Initialize icons
             toggleIcons(false);
+
+            const initTabs = () => {
+                const tabBtns = dialogContent.querySelectorAll('.tw-menu-tab-btn');
+                const tabsWrapper = dialogContent.querySelector('.tw-tabs-content-wrapper');
+                const tabContents = dialogContent.querySelectorAll('.tw-tabs-content-link-list');
+                let isScrollingFromClick = false;
+
+                const tabBtnContainer = dialogContent.querySelector('.tw-tab-btn-container');
+                if (!tabBtnContainer) return;
+
+                const existingIndicator = tabBtnContainer.querySelector('.active-tab-indicator');
+                if (existingIndicator) {
+                    existingIndicator.remove();
+                }
+
+                const activeIndicator = document.createElement('span');
+                activeIndicator.classList.add('active-tab-indicator');
+                Object.assign(activeIndicator.style, {
+                    position: 'absolute',
+                    bottom: '0',
+                    left: '0',
+                    height: '2px',
+                    backgroundColor: 'currentColor',
+                    transition: 'transform 0.3s ease, width 0.3s ease',
+                    display: 'block'
+                });
+                tabBtnContainer.appendChild(activeIndicator);
+
+                function updateIndicator(activeBtn) {
+                    if (!activeBtn) return;
+                    
+                    const width = activeBtn.offsetWidth;
+                    const left = activeBtn.offsetLeft;
+                    
+                    activeIndicator.style.width = `${width}px`;
+                    activeIndicator.style.transform = `translateX(${left}px)`;
+                }
+
+                tabBtns.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        isScrollingFromClick = true;
+                        
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        updateIndicator(btn);
+                        
+                        const scrollPosition = tabContents[index].offsetLeft;
+                        
+                        tabsWrapper.scrollTo({
+                            left: scrollPosition,
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+
+                        setTimeout(() => {
+                            isScrollingFromClick = false;
+                        }, 500);
+                    });
+                });
+
+                tabsWrapper.addEventListener('scroll', () => {
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                });
+
+                function updateActiveTabOnScroll() {
+                    const scrollPosition = tabsWrapper.scrollLeft;
+                    
+                    let activeIndex = 0;
+                    let minDistance = Infinity;
+                    
+                    tabContents.forEach((content, index) => {
+                        const distance = Math.abs(content.offsetLeft - scrollPosition);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            activeIndex = index;
+                        }
+                    });
+
+                    tabBtns.forEach((btn, index) => {
+                        if (index === activeIndex) {
+                            btn.classList.add('active');
+                            updateIndicator(btn);
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                }
+
+                if (tabBtns.length > 0) {
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    tabBtns[0].classList.add('active');
+                   
+                    requestAnimationFrame(() => {
+                        updateIndicator(tabBtns[0]);
+                    });
+                    tabsWrapper.scrollLeft = 0;
+                }
+            };
 
             const openDialog = () => {
                 dialogContent.removeAttribute('close');
@@ -236,9 +592,22 @@ assign trigger_id = trigger_id | plus: 1
                 dialogContent.classList.remove('hide');
                 document.body.classList.add('overflow-hidden');
                 toggleIcons(true);
+
+                
+                requestAnimationFrame(() => {
+                    initTabs();
+                    handleSwipeClose();
+                });
             };
 
-            const closeDialog = () => {
+            const closeDialog = (fromSwipe = false) => {
+                if (fromSwipe) {
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    dialogContent.close();
+                    return;
+                }
+                
                 dialogContent.classList.add('hide');
                 document.body.classList.remove('overflow-hidden');
                 toggleIcons(false);
@@ -256,14 +625,6 @@ assign trigger_id = trigger_id | plus: 1
                 }
             };
 
-            if (animation === 'horizontal') {
-                dialogContent.classList.remove('vertical');
-                dialogContent.classList.add('horizontal');
-            } else {
-                dialogContent.classList.remove('horizontal');
-                dialogContent.classList.add('vertical');
-            }
-
             btn.addEventListener("click", openDialog);
             closeButton.addEventListener("click", closeDialog);
 
@@ -279,12 +640,118 @@ assign trigger_id = trigger_id | plus: 1
                     closeDialog();
                 }
             });
+
         };
 
         twDialog(
             '#showDialog-{{ section.id }}', 
-            '#tw-dialog-button-{{ section.id }}', 
-            '{{ section.settings.tw_animation }}'
+            '#tw-dialog-button-{{ section.id }}'
         );
+        
     })();
+
+    (() => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
+            const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
+
+            let isScrollingFromClick = false;
+
+            const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
+            const activeIndicator = document.createElement('span');
+            activeIndicator.classList.add('active-tab-indicator');
+            Object.assign(activeIndicator.style, {
+                position: 'absolute',
+                bottom: '0',
+                left: '0',
+                height: '2px',
+                backgroundColor: 'currentColor',
+                transition: 'transform 0.3s ease, width 0.3s ease',
+                display: 'block'
+            });
+            tabBtnContainer.appendChild(activeIndicator);
+
+            function updateIndicator(activeBtn) {
+                if (!activeBtn) return;
+                
+                const width = activeBtn.offsetWidth;
+                const left = activeBtn.offsetLeft;
+                
+                activeIndicator.style.width = `${width}px`;
+                activeIndicator.style.transform = `translateX(${left}px)`;
+            }
+
+            tabBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    isScrollingFromClick = true;
+                    
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateIndicator(btn);
+                    
+                    const scrollPosition = tabContents[index].offsetLeft;
+                    
+                    tabsWrapper.scrollTo({
+                        left: scrollPosition,
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+
+                    setTimeout(() => {
+                        isScrollingFromClick = false;
+                    }, 500);
+                });
+            });
+
+            tabsWrapper.addEventListener('scroll', () => {
+                if (!isScrollingFromClick) {
+                    updateActiveTabOnScroll();
+                }
+            });
+
+            tabsWrapper.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    tabsWrapper.scrollLeft += e.deltaY;
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                }
+            });
+
+            function updateActiveTabOnScroll() {
+                const scrollPosition = tabsWrapper.scrollLeft;
+                
+                let activeIndex = 0;
+                let minDistance = Infinity;
+                
+                tabContents.forEach((content, index) => {
+                    const distance = Math.abs(content.offsetLeft - scrollPosition);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        activeIndex = index;
+                    }
+                });
+
+                tabBtns.forEach((btn, index) => {
+                    if (index === activeIndex) {
+                        btn.classList.add('active');
+                        updateIndicator(btn);
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            window.addEventListener('resize', () => {
+                const activeBtn = document.querySelector('.tw-menu-tab-btn.active');
+                updateIndicator(activeBtn);
+            });
+
+            updateIndicator(tabBtns[0]);
+            tabBtns[0].classList.add('active');
+        });
+    })(); 
+
 </script>

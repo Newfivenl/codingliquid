@@ -9,71 +9,77 @@ Add to your main-product.liquid block case
 Add to your schema settings block main-product.liquid
 
 {
-    "type": "tw_product_detail",
-    "name": "TW - Product detail",
-    "settings": [
+  "type": "tw_product_detail",
+  "name": "TW - Product detail",
+  "settings": [
     {
-        "type": "text",
-        "id": "block_title",
-        "label": "Block title"
+      "type": "text",
+      "id": "block_title",
+      "label": "Block title"
     },
     {
-        "type": "header",
-        "content": "Content 1"
+      "type": "header",
+      "content": "Content 1"
     },
     {
-        "type": "text",
-        "id": "title_1",
-        "label": "Title"
+      "type": "text",
+      "id": "title_1",
+      "label": "Title"
     },
     {
-        "type": "richtext",
-        "id": "content_1",
-        "label": "Content"
+      "type": "richtext",
+      "id": "content_1",
+      "label": "Content"
     },
     {
-        "type": "header",
-        "content": "Content 2"
+      "type": "header",
+      "content": "Content 2"
     },
     {
-        "type": "text",
-        "id": "title_2",
-        "label": "Title"
+      "type": "text",
+      "id": "title_2",
+      "label": "Title"
     },
     {
-        "type": "richtext",
-        "id": "content_2",
-        "label": "Content"
+      "type": "richtext",
+      "id": "content_2",
+      "label": "Content"
     },
     {
-        "type": "header",
-        "content": "Content 3"
+      "type": "header",
+      "content": "Content 3"
     },
     {
-        "type": "text",
-        "id": "title_3",
-        "label": "Title"
+      "type": "text",
+      "id": "title_3",
+      "label": "Title"
     },
     {
-        "type": "richtext",
-        "id": "content_3",
-        "label": "Content"
+      "type": "richtext",
+      "id": "content_3",
+      "label": "Content"
     },
     {
-        "type": "header",
-        "content": "Content 4"
+      "type": "header",
+      "content": "Content 4"
     },
     {
-        "type": "text",
-        "id": "title_4",
-        "label": "Title"
+      "type": "text",
+      "id": "title_4",
+      "label": "Title"
     },
     {
-        "type": "richtext",
-        "id": "content_4",
-        "label": "Content"
+      "type": "richtext",
+      "id": "content_4",
+      "label": "Content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
     }
-    ] 
+  ] 
 }
 
 {%- endcomment -%}
@@ -187,6 +193,18 @@ Add to your schema settings block main-product.liquid
 .tab-content.active {
   display: block;
 }
+
+.usp-dialog-button span svg{
+  color: rgba(var(--color-foreground), 1);
+}
+
+.usp-dialog-button span svg path {
+  fill: rgba(var(--color-foreground), 1);
+}
+
+.usp-dialog-header {
+  border-bottom: 1px solid rgba(var(--color-foreground), .20);
+} 
     
  /* Horizontal animation keyframes */
 @keyframes horizontal-show {
@@ -280,13 +298,24 @@ Add to your schema settings block main-product.liquid
         </div> 
     {% endif %}
     
-    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-px-[30px] tw-pt-[50px] tw-pb-[20px] tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pt-[50px] max-sm:tw-px-[30px] max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content horizontal gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
-     
-      <div class="product-details-content-desktop accordions-wrapper tw-block">
-
+    <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content horizontal gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
+      
+      <div class="usp-dialog-header tw-sticky tw-top-0 tw-left-0 tw-z-[2] tw-flex tw-items-center tw-justify-between tw-px-[30px] tw-py-[20px] max-[768px]:tw-px-[10px] max-[768px]:tw-py-[10px] tw-mb-[10px] max-[768px]:tw-mb-[0px] tw-group tw-border-b gradient color-{{ block.settings.color_scheme }}">
         {% if block.settings.block_title != blank %}
-          <h2 class="h2 tw-mb-[20px]">{{ block.settings.block_title }}</h2>
+          <div class="h3">{{ block.settings.block_title }}</div>
         {% endif %}
+        <div class="">
+          <button id="usp-dialog-button-{{ block.id }}-desktop" class="!tw-min-w-max !tw-min-h-max tw-p-[10px]tw-cursor-pointer usp-dialog-button">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[15px] " fill="none" viewBox="0 0 18 17">
+              <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="product-details-content-desktop accordions-wrapper tw-relative tw-z-[1] tw-px-[30px]">
 
         {% if block.settings.title_1 != blank and block.settings.content_1 != blank %}
           <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative" open>
@@ -381,7 +410,8 @@ Add to your schema settings block main-product.liquid
         {% endif %}
       </div>
 
-      <div class="product-details-content-mobile tw-hidden">
+      <div class="product-details-content-mobile tw-px-[10px] tw-relative tw-z-[1] tw-hidden">
+
         <div class="tw-tabs-container">
           <div class="tw-flex tw-justify-space-evenly tw-mb-[20px]">
             {% for block in product_details %}
@@ -501,29 +531,17 @@ Add to your schema settings block main-product.liquid
         </div>
       </div>
           
-      <div class="tw-w-full tw-mt-[40px] tw-flex tw-justify-end">
-        <button id="usp-dialog-button-{{ block.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer usp-dialog-button">
-          <span>
-             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
-             <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
-             </svg>
-          </span>
-          <span>Close</span>
-       </button>
-      </div>
-
     </dialog>
 </div>
 
 <script>
 
-  /* Dialog */
-  function uspDialogContent(collapseBtn, closeBtn, animation) {
+  function uspDialogContent(collapseBtn, closeBtnDesktop, animation) {
     const btn = document.querySelector("" + collapseBtn + "");
     const uspItemCount = btn.parentNode.getAttribute('count_usp');
     const uspItemBlockId = btn.parentNode.getAttribute("block-id");
     const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-    const xbtn = document.querySelector("" + closeBtn + "");
+    const xbtnDesktop = document.querySelector("" + closeBtnDesktop + "");
 
     dialogContent.classList.add(animation);
 
@@ -569,7 +587,7 @@ Add to your schema settings block main-product.liquid
       }
     });
 
-    xbtn.addEventListener("click", function(event) {
+    xbtnDesktop.addEventListener("click", function(event) {
       dialogContent.classList.add('hide');
       document.querySelector('body').classList.remove('overflow-hidden');
 
@@ -814,7 +832,7 @@ Add to your schema settings block main-product.liquid
 
           switch (device) {
           case 'mobile':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', 'usp-dialog-content-vertical');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-block')) {
                 content.classList.remove('tw-block');
@@ -830,7 +848,7 @@ Add to your schema settings block main-product.liquid
             break;
           case 'tablet':
           case 'desktop':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', 'horizontal');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-hidden')) {
                 content.classList.remove('tw-hidden');

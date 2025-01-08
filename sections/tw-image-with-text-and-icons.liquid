@@ -74,7 +74,7 @@ Instructions:
 <section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="{{ section.settings.hero_width }}">
     <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 desktop-content-position-{{ section.settings.desktop_content_position }} desktop-content-alignment-{{ section.settings.desktop_content_alignment }} ">
-      <div>
+      <div class="{% if section.settings.layout == 'image_first' %} tw-order-2 {%  elsif section.settings.layout == 'text_first' %} max-[989px]:tw-order-2 {% endif %}">
         {%- for block in section.blocks -%}
             {%- case block.type -%}
             {%- when 'heading' -%}
@@ -113,11 +113,13 @@ Instructions:
                       margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
                   }
               {%- endstyle -%}
-              <a href="{{ block.settings.button_link }}"
-                  class="button button--{{ block.settings.button_style }} button-{{ block.id }}-margin"
-                  title="Button" {{ block.shopify_attributes }}>
-                  {{ block.settings.button_text }}
-              </a>
+              <div class="tw-w-full desktop-content-alignment-{{ section.settings.desktop_content_alignment }} mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">
+                <a href="{{ block.settings.button_link }}"
+                    class="button button--{{ block.settings.button_style }} button-{{ block.id }}-margin"
+                    title="Button" {{ block.shopify_attributes }}>
+                    {{ block.settings.button_text }}
+                </a>
+              </div>
             {%- when 'icon' -%}
               {%- style -%}
                 .icon-{{ block.id }}-margin {
@@ -125,25 +127,35 @@ Instructions:
                   margin-bottom: {{ block.settings.margin_bottom | times: 0.75 | round: 0 }}px;
                 }
               {%- endstyle -%}
-              <ul class="tw-grid tw-grid-cols-1 tw-gap-4">
-                {% if block.settings.icon_image and block.settings.icon_text != blank %}
-                  <li class="tw-flex tw-self-start icon-{{ block.id }}-margin" {{ block.shopify_attributes }}>
-                    <div class="tw-mr-4 tw-flex-none tw-flex tw-items-center">
-                      <span class="svg-wrapper">
-                        {{ block.settings.icon_image | image_url: width: 20 | image_tag: class: image_class }}
-                      </span>
-                    </div>
-                    <span>{{ block.settings.icon_text }}</span>
-                  </li>
-                {% else %}
-                  <li class="tw-flex tw-self-start icon-{{ block.id }}-margin" {{ block.shopify_attributes }}>
-                    <div class="tw-mr-4 tw-flex-none tw-flex tw-items-center">
-                      <span class="svg-wrapper">{{ 'icon-box.svg' | inline_asset_content }}</span>
-                    </div>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                  </li>
+
+              {% case section.settings.desktop_content_alignment %}
+              {% when 'left' %}
+                {% assign desktop_content_alignment = 'tw-justify-start' %}
+              {% when  'center' %}
+                {% assign desktop_content_alignment = 'tw-justify-center' %}
+              {% when 'right' %}
+                {% assign desktop_content_alignment = 'tw-justify-end' %}
+              {% endcase %}
+
+              {% case section.settings.mobile_content_alignment %}
+              {% when 'left' %}
+                {% assign mobile_content_alignment = 'max-[989px]:tw-justify-start' %}
+              {% when  'center' %}
+                {% assign mobile_content_alignment = 'max-[989px]:tw-justify-center' %}
+              {% when 'right' %}
+                {% assign mobile_content_alignment = 'max-[989px]:tw-justify-end' %}
+              {% endcase %}
+
+              <div class="tw-flex icon-{{ block.id }}-margin {{ desktop_content_alignment }} {{ mobile_content_alignment }}" {{ block.shopify_attributes }}>
+                {% if block.settings.icon_image != blank %}
+                  <div class="tw-mr-4 tw-flex-none tw-flex tw-items-center max-[989px]:tw-order-2 max-[989px]:tw-ml-[1rem] max-[989px]:tw-mr-0">
+                    <span class="svg-wrapper">
+                      {{ block.settings.icon_image | image_url: width: 20 | image_tag: class: image_class }}
+                    </span>
+                  </div>
                 {% endif %}
-              </ul>
+                <span class="mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">{{ block.settings.icon_text }}</span>
+              </div>
             {%- endcase -%}
         {%- endfor -%}
       </div>
@@ -202,6 +214,23 @@ Instructions:
                 "label": "Full Width"
             }
         ]
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "text_first",
+          "label": "Image second"
+        }
+      ],
+      "default": "text_first",
+      "label": "Desktop image placement",
+      "info": "Image first is the default mobile layout."
     },
     {
       "type": "select",

@@ -4,9 +4,36 @@ Instructions:
 
 1. Add this file to your sections folder
 
-2. Create your metaobject
-Metaobject name: Questions and Answers
-Metaobject description: This metaobject will be the content for the questions and answer content. 
+2. Create your metaobjects
+  1. Meta object blocks
+      Metaobject name: Questions and Answers
+      Metobject type: questions_and_answers
+      Metaobject description: This metaobject will be the block content for the questions and answers.
+      Metaobject fields
+      - Title
+        name: Title
+        type: single line text (one value)
+      - Icon
+        name: Icon
+        type: file file(image only) (one file)
+      - Question and answer items
+        name: Question and answer items
+        type: metaobject (list of entries)
+        reference: Question and answer item
+
+  2. Meta object question and answer item
+      Metaobject name: Question and answer item
+      Metobject type: question_and_answer_item
+      Metaobject description: This metaobject will be connected to metaobject field (Question and answer items) in Questions and Answers metaobject
+      Metaobject fields
+      - Question
+        name: Question
+        type: single line text (one value)
+      - Answer
+        name: Answer
+        type: Richtext
+  
+FYI.
 You can also change the name of this metaobject depends on what you need 
 just make sure to also update the ID, Label and metaobject_type below based on your changes.
 
@@ -17,24 +44,6 @@ just make sure to also update the ID, Label and metaobject_type below based on y
   "metaobject_type": "questions_and_answers"
 }
 
-Metobject type: questions_and_answers
-Metaobject fields:
-- Title
-  name: Title
-  type: single line text
-- Icon
-  name: Icon
-  type: file file(image only)
-- Questions and Answers
-  name: Questions and Answers
-  type: JSON
-  format:
-  [
-    {
-      "question": "How long does shipping typically take?",
-      "answer": "Our standard shipping takes 3-5 business days within the mainland. Express shipping options are available for next-day delivery."
-    },
-  ]
 {% endcomment %}
 
 {%- style -%}
@@ -207,82 +216,83 @@ Metaobject fields:
       data-columns-desktop="{{ section.settings.columns_desktop }}"
     >
     {%- for block in section.blocks -%}
-        {%- assign qa_object = block.settings.questions_and_answers -%}
+        {%- assign qa_metaobject = block.settings.questions_and_answers -%}
         
         <div class="tw-flex tw-flex-col tw-border tw-rounded-[5px] tw-question-and-answer-block-{{ section.id }}  {% if section.settings.column_alignment == 'center' %}tw-items-center tw-text-center{% endif %}" 
           {{ block.shopify_attributes }}
         >
          
-          {%- if qa_object.title.value != blank -%}
+          {%- if qa_metaobject.title.value != blank -%}
             <div class="tw-flex tw-items-center tw-gap-3 tw-py-[1rem] tw-w-full tw-px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
-              {%- if qa_object.icon.value != blank -%}
-                {{ qa_object.icon.value | image_url: width: 40 | image_tag:
+              {%- if qa_metaobject.icon.value != blank -%}
+                {{ qa_metaobject.icon.value | image_url: width: 40 | image_tag:
                     loading: 'lazy',
                     class: 'tw-w-10 tw-h-10 tw-object-contain'
                 }}
               {%- endif -%}
-              {%- if qa_object.title.value != blank -%}
-                <h3 class="">{{ qa_object.title.value }}</h3>
+              {%- if qa_metaobject.title.value != blank -%}
+                <h3 class="">{{ qa_metaobject.title.value }}</h3>
               {%- endif -%}
             </div>
           {%- endif -%}
 
-          {%- if qa_object.questions_and_answers.value != blank -%}
-            {%- assign qa_items = qa_object.questions_and_answers.value | json_parse -%}
-            
-            {%- for item in qa_items -%}
-              <div class="tw-w-full">
-                {%- if item.question != blank -%}
-                  <button 
-                    onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
-                    class="question-btn tw-w-full tw-text-left tw-flex tw-items-center focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
-                    aria-expanded="false"
-                    aria-controls="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw-w-5 tw-h-5 tw-mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
-                    <h4 class=" tw-m-0">{{ item.question }}</h4>
-                  </button>
-                {%- endif -%}
+          {% for question_and_answer_item in qa_metaobject.question_and_answer_items.value %}
 
-                {%- if item.answer != blank -%}
-                  <dialog 
-                    id="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
-                    class="tw-question-and-answer-dialog tw-p-0 tw-rounded-lg tw-shadow-xl tw-border-none tw-max-w-2xl tw-w-full md:tw-w-[90vw] tw-m-auto"
-                    aria-labelledby="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}"
-                  >
-                    <div class="dialog-content tw-w-full">
-                      <div class="tw-flex tw-items-center tw-justify-between tw-p-[1.5rem] tw-border-b">
-                        <h3 
-                          id="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
-                          class="tw-text-xl tw-font-semibold"
-                        >
-                          {{ item.question }}
-                        </h3>
-                        <button 
-                          onclick="closeModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
-                          class="tw-text-gray-400 hover:tw-text-gray-500 focus:tw-outline-none tw-rounded-lg"
-                          aria-label="Close modal"
-                        >
-                          <svg class="tw-w-6 tw-h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                          </svg>
-                        </button>
+            {%- if question_and_answer_item.question != blank -%}
+                <div class="tw-w-full">
+                  {%- if question_and_answer_item.question != blank -%}
+                    <button 
+                      onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
+                      class="question-btn tw-w-full tw-text-left tw-flex tw-items-center focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
+                      aria-expanded="false"
+                      aria-controls="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw-w-5 tw-h-5 tw-mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
+                      <h4 class=" tw-m-0">{{ question_and_answer_item.question }}</h4>
+                    </button>
+                  {%- endif -%}
+  
+                  {%- if question_and_answer_item.answer != blank -%}
+                    <dialog 
+                      id="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
+                      class="tw-question-and-answer-dialog tw-p-0 tw-rounded-lg tw-shadow-xl tw-border-none tw-max-w-2xl tw-w-full md:tw-w-[90vw] tw-m-auto"
+                      aria-labelledby="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}"
+                    >
+                      <div class="dialog-content tw-w-full">
+                        <div class="tw-flex tw-items-center tw-justify-between tw-p-[1.5rem] tw-border-b">
+                          <h3 
+                            id="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
+                            class="tw-text-xl tw-font-semibold"
+                          >
+                            {{ question_and_answer_item.question }}
+                          </h3>
+                          <button 
+                            onclick="closeModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
+                            class="tw-text-gray-400 hover:tw-text-gray-500 focus:tw-outline-none tw-rounded-lg"
+                            aria-label="Close modal"
+                          >
+                            <svg class="tw-w-6 tw-h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="tw-p-[1.5rem] tw-prose tw-max-w-none">
+                          {% assign rich_text = question_and_answer_item.answer %}
+                          {{ rich_text |  metafield_tag }}
+                        </div>
                       </div>
-                      <div class="tw-p-[1.5rem] tw-prose tw-max-w-none">
-                        <p>{{ item.answer }}</p>
-                      </div>
-                    </div>
-                  </dialog>
-                {%- endif -%}
-              </div>
-            {%- endfor -%}
-          {%- endif -%}
+                    </dialog>
+                  {%- endif -%}
+                </div>
+            {%- endif -%} 
+
+          {% endfor %}
+          
         </div>
     {%- endfor -%}
     </div>
   </div>
 
-  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');

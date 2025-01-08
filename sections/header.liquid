@@ -123,7 +123,7 @@
     {%- liquid
       if section.settings.menu != blank
         if section.settings.tw_menu != blank
-          render 'tw-main-menu'
+          render 'tw-main-menu', section: section
         else 
           render 'header-drawer'
         endif
@@ -445,7 +445,7 @@
 {
   "name": "t:sections.header.name",
   "class": "section-header",
-  "max_blocks": 3,
+  "max_blocks": 10,
   "settings": [
     {
       "type": "select",
@@ -485,20 +485,10 @@
       "info": "Enter your menu's handle to activate it - you can find this handle by clicking on your menu. For example: main-menu. Leave empty to deactivate."
     },
     {
-      "type": "select",
-      "id": "tw_animation",
-      "label": "TW - menu animation",
-      "options": [
-        {
-          "label": "Horizontal",
-          "value": "horizontal"
-        },
-        {
-          "label": "Vertical",
-          "value": "vertical"
-        }
-      ],
-      "default": "vertical"
+      "type": "color_scheme",
+      "id": "tw_menu_color_scheme",
+      "label": "TW - menu color scheme",
+      "default": "scheme-1"
     },
     {
       "type": "select",
@@ -663,6 +653,28 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "tw_menu_image",
+      "name": "TW - menu image",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "tw_title",
+          "label": "Image title"
+        },
+        {
+          "type": "url",
+          "id": "tw_title_link",
+          "label": "Title link"
+        },
+        {
+          "type": "image_picker",
+          "id": "tw_image",
+          "label": "Image"
+        }
+      ]
     }
   ]
 }

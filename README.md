@@ -9,4 +9,4 @@ npm i -D daisyui@latest
 npx tailwindcss -i ./tailwind/tailwind.css -o ./assets/tailwind.css --watch
 
 ## To theme dev
-shopify theme dev --store="nf-comp.myshopify.com"
+shopify theme dev --store="nf-comp.myshopify.com" -t="173321421141"

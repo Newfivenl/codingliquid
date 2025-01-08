@@ -75,15 +75,73 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "tw_menu_image_6nXCBq": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image men 1",
+            "tw_title_link": "shopify://collections",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-10.jpg"
+          }
+        },
+        "tw_menu_image_zDBJyW": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image men 2",
+            "tw_title_link": "shopify://collections/all",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-58.jpg"
+          }
+        },
+        "tw_menu_image_VEKLfy": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image men 3",
+            "tw_title_link": "shopify://pages/shop-the-look",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-62.jpg"
+          }
+        },
+        "tw_menu_image_H9LLPV": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image women 1",
+            "tw_title_link": "shopify://collections/frontpage",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-237.jpg"
+          }
+        },
+        "tw_menu_image_ixxH99": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image women 2",
+            "tw_title_link": "shopify://collections/all",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-240.jpg"
+          }
+        },
+        "tw_menu_image_xa7BwX": {
+          "type": "tw_menu_image",
+          "settings": {
+            "tw_title": "Image women 3",
+            "tw_title_link": "shopify://products/negroni-tee-black",
+            "tw_image": "shopify://shop_images/Menyardwebshopfoto_s-40.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "tw_menu_image_6nXCBq",
+        "tw_menu_image_zDBJyW",
+        "tw_menu_image_VEKLfy",
+        "tw_menu_image_H9LLPV",
+        "tw_menu_image_ixxH99",
+        "tw_menu_image_xa7BwX"
+      ],
       "settings": {
         "logo_position": "middle-left",
         "menu": "main-menu",
         "tw_menu": "main-menu",
-        "tw_animation": "vertical",
+        "tw_menu_color_scheme": "scheme-4",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-2",
         "menu_color_scheme": "",
         "enable_country_selector": false,
         "enable_language_selector": false,
