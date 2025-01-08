@@ -9,54 +9,6 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "BLACK FRIDAY DEALS",
-            "heading_size": "h1"
-          }
-        },
-        "text_9kYr3G": {
-          "type": "text",
-          "settings": {
-            "text": "Nu tijdelijk 2 premium t-shirts voor maar €74,99 Korting wordt automatisch verwerkt.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "SHOP NOW",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text_9kYr3G",
-        "button"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
     "tw_video_with_text_HDwWBL": {
       "type": "tw-video-with-text",
       "blocks": {
@@ -182,6 +134,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
+        "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
@@ -262,7 +215,6 @@
         "image_bzHGmc",
         "video_cGc4HV"
       ],
-      "disabled": true,
       "settings": {
         "section_color_scheme": "",
         "padding_top": 0,
@@ -441,6 +393,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
+        "layout": "text_first",
         "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
@@ -557,12 +510,11 @@
     }
   },
   "order": [
-    "image_banner",
+    "tw_full_image_or_video_with_text_L4bfVH",
+    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_video_with_text_HDwWBL",
     "tw_image_with_text_and_accordion_ecg4pc",
     "tw_features_grid_pKynKV",
-    "tw_full_image_or_video_with_text_L4bfVH",
-    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection",
