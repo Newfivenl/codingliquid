@@ -67,21 +67,6 @@
             "content_4": "",
             "color_scheme": "scheme-3"
           }
-        },
-        "tw_product_detail_jmYJEB": {
-          "type": "tw_product_detail",
-          "settings": {
-            "block_title": "Heyyo",
-            "title_1": "Het pak heeft",
-            "content_1": "<p>Dit cargopak is gemaakt van hoogwaardig materiaal en heeft een stijlvolle uitstraling die perfect is voor elke gelegenheid.</p><p>Het pak heeft een comfortabele pasvorm en is ontworpen met oog voor detail, inclusief verschillende zakken op de broek en het jasje. De stof is duurzaam en lichtgewicht, waardoor het ideaal is voor dagelijks gebruik.</p><p>Het cargopak is verkrijgbaar in verschillende kleuren en stijlen, waardoor je het goed kunt combineren. Of je nu op zoek bent naar een casual outfit voor een dagje uit of een meer geklede look voor een speciale gelegenheid, ons cargopak is veelzijdig genoeg om aan al je wensen te voldoen.</p>",
-            "title_2": "Media with text",
-            "content_2": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>",
-            "title_3": "",
-            "content_3": "",
-            "title_4": "",
-            "content_4": "",
-            "color_scheme": "scheme-5"
-          }
         }
       },
       "block_order": [
@@ -91,8 +76,7 @@
         "description",
         "buy_buttons",
         "tw_product_detail_hT3egy",
-        "tw_product_detail_qthMKJ",
-        "tw_product_detail_jmYJEB"
+        "tw_product_detail_qthMKJ"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
