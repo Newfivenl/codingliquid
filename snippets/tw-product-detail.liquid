@@ -848,19 +848,19 @@ Add to your schema settings block main-product.liquid
     });
   })();
 
-/* Breakpoints Handler */
-(function() {
+  /* Breakpoints Handler */
+  (function() {
     // Define breakpoints for different screen sizes
     const breakpoints = {
-        mobile: '(max-width: 767px)',
-        tablet: '(min-width: 768px) and (max-width: 1023px)',
-        desktop: '(min-width: 1024px)'
+      mobile: '(max-width: 767px)',
+      tablet: '(min-width: 768px) and (max-width: 1023px)',
+      desktop: '(min-width: 1024px)'
     };
 
     // Create media query listeners for each breakpoint
     const mediaQueries = Object.entries(breakpoints).map(([device, query]) => ({
-        device,
-        mql: window.matchMedia(query)
+      device,
+      mql: window.matchMedia(query)
     }));
 
     // Handle screen size changes
@@ -920,71 +920,71 @@ Add to your schema settings block main-product.liquid
         handleScreenChange(mql, device);
         mql.addListener((e) => handleScreenChange(e, device));
     });
-})();
+  })();
 
-// Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
-(function() {
-    // Main function to initialize tab functionality
-    function initTabs() {
-        // Find all tab container elements with class 'tw-tabs-container'
-        const tabContainers = document.querySelectorAll('.tw-tabs-container');
-        // Exit if no tab containers are found on the page
-        if (!tabContainers.length) return;
+  // Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
+  (function() {
+      // Main function to initialize tab functionality
+      function initTabs() {
+          // Find all tab container elements with class 'tw-tabs-container'
+          const tabContainers = document.querySelectorAll('.tw-tabs-container');
+          // Exit if no tab containers are found on the page
+          if (!tabContainers.length) return;
 
-        // Function to handle switching between tabs
-        function switchTab(tabsContainer, clickedTab) {
-            // Get the target tab content ID from the clicked tab's data-tab attribute
-            const targetId = clickedTab.getAttribute('data-tab');
-            // Exit if no target ID is found
-            if (!targetId) return;
+          // Function to handle switching between tabs
+          function switchTab(tabsContainer, clickedTab) {
+              // Get the target tab content ID from the clicked tab's data-tab attribute
+              const targetId = clickedTab.getAttribute('data-tab');
+              // Exit if no target ID is found
+              if (!targetId) return;
 
-            // Find all tab buttons and content panels within this container
-            const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
-            const tabContents = tabsContainer.querySelectorAll('.tab-content');
+              // Find all tab buttons and content panels within this container
+              const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
+              const tabContents = tabsContainer.querySelectorAll('.tab-content');
 
-            // Remove 'active' class from all tab buttons
-            tabButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            // Remove 'active' class from all tab content panels
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
+              // Remove 'active' class from all tab buttons
+              tabButtons.forEach(btn => {
+                  btn.classList.remove('active');
+              });
+              // Remove 'active' class from all tab content panels
+              tabContents.forEach(content => {
+                  content.classList.remove('active');
+              });
 
-            // Add 'active' class to the clicked tab button
-            clickedTab.classList.add('active');
-            // Find and activate the corresponding content panel
-            const targetContent = tabsContainer.querySelector(`#${targetId}`);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        }
+              // Add 'active' class to the clicked tab button
+              clickedTab.classList.add('active');
+              // Find and activate the corresponding content panel
+              const targetContent = tabsContainer.querySelector(`#${targetId}`);
+              if (targetContent) {
+                  targetContent.classList.add('active');
+              }
+          }
 
-        // Add click event listeners to all tab containers
-        tabContainers.forEach(container => {
-            container.addEventListener('click', (e) => {
-                // Find the closest tab button element to the click target
-                const clickedTab = e.target.closest('.tab-btn');
-                if (clickedTab) {
-                    // Find the parent container of the clicked tab
-                    const parentContainer = clickedTab.closest('.tw-tabs-container');
-                    if (parentContainer) {
-                        // Switch to the clicked tab
-                        switchTab(parentContainer, clickedTab);
-                    }
-                }
-            });
-        });
-    }
+          // Add click event listeners to all tab containers
+          tabContainers.forEach(container => {
+              container.addEventListener('click', (e) => {
+                  // Find the closest tab button element to the click target
+                  const clickedTab = e.target.closest('.tab-btn');
+                  if (clickedTab) {
+                      // Find the parent container of the clicked tab
+                      const parentContainer = clickedTab.closest('.tw-tabs-container');
+                      if (parentContainer) {
+                          // Switch to the clicked tab
+                          switchTab(parentContainer, clickedTab);
+                      }
+                  }
+              });
+          });
+      }
 
-    // Check if the DOM is still loading
-    if (document.readyState === 'loading') {
-        // If DOM is loading, wait for it to be ready before initializing tabs
-        document.addEventListener('DOMContentLoaded', initTabs);
-    } else {
-        // If DOM is already loaded, initialize tabs immediately
-        initTabs();
-    }
-})();
+      // Check if the DOM is still loading
+      if (document.readyState === 'loading') {
+          // If DOM is loading, wait for it to be ready before initializing tabs
+          document.addEventListener('DOMContentLoaded', initTabs);
+      } else {
+          // If DOM is already loaded, initialize tabs immediately
+          initTabs();
+      }
+  })();
 
 </script>
