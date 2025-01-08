@@ -221,34 +221,34 @@ Metaobject fields:
 </div>
 
 <script>
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     if (window.matchMedia("(min-width: 640px)").matches) {
-    //         const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
-    //         const lookItems = document.querySelectorAll('#product-grid .grid__item');
-    //         const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.matchMedia("(min-width: 640px)").matches) {
+            const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
+            const lookItems = document.querySelectorAll('#product-grid .grid__item');
+            const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
 
-    //         lookItems.forEach(item => {
-    //             item.addEventListener('click', () => {
-    //                 const index = item.getAttribute('data-index');
-    //                 const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
-    //                 if (relatedContent) {
-    //                     relatedContent.classList.remove('tw-hidden');
-    //                     shopTheLookItemsContainer.classList.add('tw-hidden');
-    //                     lookItems.forEach(li => li.classList.add('tw-hidden'));
-    //                 }
-    //                 const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
-    //                 if (relatedBackButton) {
-    //                     relatedBackButton.addEventListener('click', () => {
-    //                     relatedContent.classList.add('tw-hidden');
-    //                     shopTheLookItemsContainer.classList.remove('tw-hidden');
-    //                     lookItems.forEach(item => item.classList.remove('tw-hidden'));
-    //                     console.log(`Back button clicked for item: ${index}`);
-    //                     }, { once: true });
-    //                 }
-    //             });
-    //         });
-    //     }
-    // });
+            lookItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const index = item.getAttribute('data-index');
+                    const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
+                    if (relatedContent) {
+                        relatedContent.classList.remove('tw-hidden');
+                        shopTheLookItemsContainer.classList.add('tw-hidden');
+                        lookItems.forEach(li => li.classList.add('tw-hidden'));
+                    }
+                    const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
+                    if (relatedBackButton) {
+                        relatedBackButton.addEventListener('click', () => {
+                        relatedContent.classList.add('tw-hidden');
+                        shopTheLookItemsContainer.classList.remove('tw-hidden');
+                        lookItems.forEach(item => item.classList.remove('tw-hidden'));
+                        console.log(`Back button clicked for item: ${index}`);
+                        }, { once: true });
+                    }
+                });
+            });
+        }
+    });
 
     // function toggleSlider(index) {
 
