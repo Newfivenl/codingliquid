@@ -151,11 +151,57 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "tw_marquee_banner_teMkxG": {
+      "type": "tw-marquee-banner",
+      "blocks": {
+        "text_nW4rjp": {
+          "type": "text",
+          "settings": {
+            "text": "NEWFIVE",
+            "text_size": 12
+          }
+        },
+        "text_NaaQH8": {
+          "type": "text",
+          "settings": {
+            "text": "NEWFIVE",
+            "text_size": 12
+          }
+        },
+        "text_HhCxqG": {
+          "type": "text",
+          "settings": {
+            "text": "NEWFIVE",
+            "text_size": 12
+          }
+        },
+        "text_XG3DhW": {
+          "type": "text",
+          "settings": {
+            "text": "NEWFIVE",
+            "text_size": 12
+          }
+        }
+      },
+      "block_order": [
+        "text_nW4rjp",
+        "text_NaaQH8",
+        "text_HhCxqG",
+        "text_XG3DhW"
+      ],
+      "settings": {
+        "speed": 2.1,
+        "section_color_scheme": "",
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
     }
   },
   "order": [
     "tw_marquee_banner_f894ac",
     "announcement-bar",
-    "header"
+    "header",
+    "tw_marquee_banner_teMkxG"
   ]
 }
