@@ -985,6 +985,10 @@ html {
   margin-top: auto;
 }
 
+.tw-mb-\[10px\] {
+  margin-bottom: 10px;
+}
+
 .\!tw-block {
   display: block !important;
 }
