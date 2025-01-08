@@ -349,15 +349,16 @@
           "type": "icon",
           "settings": {
             "icon_text": "Icon heart",
-            "icon_image": "shopify://shop_images/icon-heart.svg",
+            "icon_image": "shopify://shop_images/box.svg",
             "margin_top": 20,
-            "margin_bottom": 4
+            "margin_bottom": 20
           }
         },
         "icon_Mrwg9p": {
           "type": "icon",
           "settings": {
             "icon_text": "Icon text",
+            "icon_image": "shopify://shop_images/truck-02.svg",
             "margin_top": 4,
             "margin_bottom": 4
           }
@@ -366,7 +367,8 @@
           "type": "icon",
           "settings": {
             "icon_text": "Icon text",
-            "margin_top": 4,
+            "icon_image": "shopify://shop_images/Icon.svg",
+            "margin_top": 20,
             "margin_bottom": 20
           }
         },
@@ -393,7 +395,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
-        "layout": "text_first",
+        "layout": "image_first",
         "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
