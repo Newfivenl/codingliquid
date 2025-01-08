@@ -140,52 +140,52 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             }}
           <script>
 
-            (function () {
-              const userAgentForVideo = navigator.userAgent.toLowerCase();
-              console.log('Current UserAgent:', userAgentForVideo);
+            // (function () {
+            //   const userAgentForVideo = navigator.userAgent.toLowerCase();
+            //   console.log('Current UserAgent:', userAgentForVideo);
               
-              const chromeVideo = document.getElementById("{{ chrome_video }}");
-              const safariVideo = document.getElementById("{{ safari_video }}");
+            //   const chromeVideo = document.getElementById("{{ chrome_video }}");
+            //   const safariVideo = document.getElementById("{{ safari_video }}");
               
-              const isSafari = () => {
-                const isChrome = /chrome|chromium|crios/i.test(userAgentForVideo);
-                const isSafari = /safari/i.test(userAgentForVideo);
-                return isSafari && !isChrome;
-              };
+            //   const isSafari = () => {
+            //     const isChrome = /chrome|chromium|crios/i.test(userAgentForVideo);
+            //     const isSafari = /safari/i.test(userAgentForVideo);
+            //     return isSafari && !isChrome;
+            //   };
               
-              if (safariVideo) {
-                const safariVideoImg = safariVideo.querySelector("img");
-                if (safariVideoImg) {
-                  const classes = safariVideo.getAttribute("class");
-                  if (classes) {
-                    classes.split(" ").forEach(className => {
-                      safariVideoImg.classList.add(className);
-                    });
-                  }
-                }
-              }
+            //   if (safariVideo) {
+            //     const safariVideoImg = safariVideo.querySelector("img");
+            //     if (safariVideoImg) {
+            //       const classes = safariVideo.getAttribute("class");
+            //       if (classes) {
+            //         classes.split(" ").forEach(className => {
+            //           safariVideoImg.classList.add(className);
+            //         });
+            //       }
+            //     }
+            //   }
               
-              if (isSafari()) {
-                console.log('Safari detected - showing video Safari version');
-                if (safariVideo) safariVideo.style.display = "block";
-                if (chromeVideo) {
-                  chromeVideo.style.display = "none";
-                  chromeVideo.style.visibility = 'hidden';
-                }
-              } else {
-                console.log('Non-Safari browser detected - showing video Chrome version');
-                if (safariVideo) {
-                  safariVideo.style.display = "none";
-                  safariVideo.style.visibility = 'hidden';
-                }
-                if (chromeVideo) {
-                  chromeVideo.style.display = "block";
-                  chromeVideo.play().catch(error => {
-                    console.warn('Auto-play failed:', error);
-                  });
-                }
-              }
-            })();
+            //   if (isSafari()) {
+            //     console.log('Safari detected - showing video Safari version');
+            //     if (safariVideo) safariVideo.style.display = "block";
+            //     if (chromeVideo) {
+            //       chromeVideo.style.display = "none";
+            //       chromeVideo.style.visibility = 'hidden';
+            //     }
+            //   } else {
+            //     console.log('Non-Safari browser detected - showing video Chrome version');
+            //     if (safariVideo) {
+            //       safariVideo.style.display = "none";
+            //       safariVideo.style.visibility = 'hidden';
+            //     }
+            //     if (chromeVideo) {
+            //       chromeVideo.style.display = "block";
+            //       chromeVideo.play().catch(error => {
+            //         console.warn('Auto-play failed:', error);
+            //       });
+            //     }
+            //   }
+            // })();
 
           </script>
 
