@@ -9,52 +9,82 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "tw_full_image_or_video_with_text_L4bfVH": {
+      "type": "tw-full-image-or-video-with-text",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "image_bzHGmc": {
+          "type": "image",
           "settings": {
-            "heading": "BLACK FRIDAY DEALS",
-            "heading_size": "h1"
+            "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
+            "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
+            "heading": "IMAGE BLOCK",
+            "heading_size": 240,
+            "subheading": "Sub heading image block.",
+            "subheading_size": 80,
+            "link": "shopify://collections",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
         },
-        "text_9kYr3G": {
-          "type": "text",
+        "video_cGc4HV": {
+          "type": "video",
           "settings": {
-            "text": "Nu tijdelijk 2 premium t-shirts voor maar €74,99 Korting wordt automatisch verwerkt.",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "SHOP NOW",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "VIDEO BLOCK",
+            "heading_size": 240,
+            "subheading": "Video block sub heading.",
+            "subheading_size": 70,
+            "link": "shopify://products/cargo-shine-black",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text_9kYr3G",
-        "button"
+        "image_bzHGmc",
+        "video_cGc4HV"
       ],
       "settings": {
-        "image": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "section_color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "tw_full_image_or_video_with_text_ycLpA6": {
+      "type": "tw-full-image-or-video-with-text",
+      "blocks": {
+        "image_GkKCB3": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg",
+            "image_mobile": "shopify://shop_images/HP_CH_2_D.webp",
+            "heading": "GIFTGUIDE",
+            "heading_size": 240,
+            "subheading": "SHOP NOW",
+            "subheading_size": 70,
+            "link": "shopify://collections/all",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
+        "video_UeYEdA": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "FW24 LIVE",
+            "heading_size": 210,
+            "subheading": "YOUR NEXT FAV",
+            "subheading_size": 70,
+            "link": "shopify://pages/contact",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        }
+      },
+      "block_order": [
+        "image_GkKCB3",
+        "video_UeYEdA"
+      ],
+      "settings": {
+        "section_color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "tw_video_with_text_HDwWBL": {
@@ -182,6 +212,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
+        "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
@@ -229,88 +260,15 @@
         "padding_bottom": 60
       }
     },
-    "tw_full_image_or_video_with_text_L4bfVH": {
-      "type": "tw-full-image-or-video-with-text",
-      "blocks": {
-        "image_bzHGmc": {
-          "type": "image",
-          "settings": {
-            "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
-            "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
-            "heading": "IMAGE BLOCK",
-            "heading_size": 240,
-            "subheading": "Sub heading image block.",
-            "subheading_size": 80,
-            "link": "shopify://collections",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
-          }
-        },
-        "video_cGc4HV": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
-            "heading": "VIDEO BLOCK",
-            "heading_size": 240,
-            "subheading": "Video block sub heading.",
-            "subheading_size": 70,
-            "link": "shopify://products/cargo-shine-black",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
-          }
-        }
-      },
-      "block_order": [
-        "image_bzHGmc",
-        "video_cGc4HV"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "tw_full_image_or_video_with_text_ycLpA6": {
-      "type": "tw-full-image-or-video-with-text",
-      "blocks": {
-        "image_GkKCB3": {
-          "type": "image",
-          "settings": {
-            "image_desktop": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg",
-            "image_mobile": "shopify://shop_images/HP_CH_2_D.webp",
-            "heading": "GIFTGUIDE",
-            "heading_size": 240,
-            "subheading": "SHOP NOW",
-            "subheading_size": 70,
-            "link": "shopify://collections/all",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
-          }
-        },
-        "video_UeYEdA": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
-            "heading": "FW24 LIVE",
-            "heading_size": 210,
-            "subheading": "YOUR NEXT FAV",
-            "subheading_size": 70,
-            "link": "shopify://pages/contact",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
-          }
-        }
-      },
-      "block_order": [
-        "image_GkKCB3",
-        "video_UeYEdA"
-      ],
-      "settings": {
-        "section_color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "tw_image_with_text_MtJVNb": {
       "type": "tw-image-with-text",
       "blocks": {
+        "image_NnfxJ8": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC05402_2.webp"
+          }
+        },
         "heading_XCnQzf": {
           "type": "heading",
           "settings": {
@@ -337,19 +295,13 @@
             "margin_top": 10,
             "margin_bottom": 10
           }
-        },
-        "image_NnfxJ8": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC05402_2.webp"
-          }
         }
       },
       "block_order": [
+        "image_NnfxJ8",
         "heading_XCnQzf",
         "paragraph_rgFLG4",
-        "button_Kc9pjb",
-        "image_NnfxJ8"
+        "button_Kc9pjb"
       ],
       "settings": {
         "hero_width": "page-width",
@@ -357,7 +309,7 @@
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 36
       }
     },
@@ -441,6 +393,7 @@
       ],
       "settings": {
         "hero_width": "page-width",
+        "layout": "text_first",
         "desktop_content_position": "center",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
@@ -557,12 +510,11 @@
     }
   },
   "order": [
-    "image_banner",
+    "tw_full_image_or_video_with_text_L4bfVH",
+    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_video_with_text_HDwWBL",
     "tw_image_with_text_and_accordion_ecg4pc",
     "tw_features_grid_pKynKV",
-    "tw_full_image_or_video_with_text_L4bfVH",
-    "tw_full_image_or_video_with_text_ycLpA6",
     "tw_image_with_text_MtJVNb",
     "tw_image_with_text_and_icons_98ejaC",
     "featured_collection",
