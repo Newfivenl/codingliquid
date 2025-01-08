@@ -41,14 +41,14 @@
         "tw_product_detail_hT3egy": {
           "type": "tw_product_detail",
           "settings": {
-            "block_title": "Product information",
+            "block_title": "Description",
             "title_1": "Upgrade content",
             "content_1": "<p>Upgrade your content game with our professional services.</p><ul><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li><li>List 1</li><li>List 2</li><li>List 3</li></ul>",
             "title_2": "Content 2",
             "content_2": "<p>Enhance Your Daily Routine with Premium Content-Based Products.</p>",
             "title_3": "Content 3",
             "content_3": "<p>Discover the Power of High-Quality Ingredients for Optimal Health.</p>",
-            "title_4": "Content 4",
+            "title_4": "FAQ",
             "content_4": "<p>Enhance Your Content Marketing Strategy with Proven Techniques.</p>",
             "color_scheme": "background-1"
           }
@@ -112,38 +112,9 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "media-with-text": {
-      "type": "media-with-text",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "media_crop": "landscape"
-          }
-        }
-      },
-      "block_order": [
-        "image"
-      ],
-      "settings": {
-        "full_width": false,
-        "media_width": "33",
-        "layout": "right",
-        "content_alignment": "left",
-        "content_position": "center",
-        "subheading": "",
-        "heading": "Media with text",
-        "heading_size": "h2",
-        "text": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>",
-        "button_text": "",
-        "button_link": "",
-        "color_scheme": "scheme-1"
-      }
     }
   },
   "order": [
-    "main",
-    "media-with-text"
+    "main"
   ]
 }
