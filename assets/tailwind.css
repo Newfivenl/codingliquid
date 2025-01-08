@@ -945,16 +945,16 @@ html {
   margin-bottom: 1rem;
 }
 
+.tw-mb-\[0px\] {
+  margin-bottom: 0px;
+}
+
 .tw-mb-\[20px\] {
   margin-bottom: 20px;
 }
 
 .tw-mb-\[3\.2rem\] {
   margin-bottom: 3.2rem;
-}
-
-.tw-mb-\[30px\] {
-  margin-bottom: 30px;
 }
 
 .tw-mb-\[3rem\] {
@@ -979,10 +979,6 @@ html {
 
 .tw-mt-5 {
   margin-top: 1.25rem;
-}
-
-.tw-mt-\[40px\] {
-  margin-top: 40px;
 }
 
 .tw-mt-auto {
@@ -1281,10 +1277,6 @@ html {
   gap: 5px;
 }
 
-.tw-gap-\[7px\] {
-  gap: 7px;
-}
-
 .tw-gap-x-20 {
   -moz-column-gap: 5rem;
        column-gap: 5rem;
@@ -1328,10 +1320,6 @@ html {
 
 .tw-scroll-smooth {
   scroll-behavior: smooth;
-}
-
-.tw-rounded-3xl {
-  border-radius: 1.5rem;
 }
 
 .tw-rounded-\[5px\] {
@@ -1477,16 +1465,6 @@ html {
 .tw-py-\[1rem\] {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.tw-py-\[20px\] {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.tw-py-\[5px\] {
-  padding-top: 5px;
-  padding-bottom: 5px;
 }
 
 .tw-py-\[5rem\] {
@@ -1746,6 +1724,18 @@ html {
   }
 }
 
+@media (max-width: 768px) {
+  .max-\[768px\]\:tw-px-\[10px\] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .max-\[768px\]\:tw-py-\[10px\] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
 @media not all and (min-width: 640px) {
   .max-sm\:tw-left-auto {
     left: auto;
@@ -1805,10 +1795,6 @@ html {
 
   .md\:tw-p-\[5rem\] {
     padding: 5rem;
-  }
-
-  .min-\[768px\]\:tw-hidden {
-    display: none;
   }
 }
 
