@@ -83,6 +83,55 @@ Instructions:
   //   marquee.addEventListener('mouseover', () => speed = 0);
   //   marquee.addEventListener('mouseout', () => speed = {{ section.settings.speed }});
   // });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const marquee = document.getElementById('marquee');
+    if (!marquee) return; // Error handling
+    
+    const marqueeContent = marquee.querySelector('.marquee-content');
+    if (!marqueeContent) return;
+    
+    let speed = Math.max(0, {{ section.settings.speed }}); // Validate speed
+    let pos = 0;
+    let animationFrame;
+    
+    function startMarquee() {
+        pos -= speed;
+        if (pos <= -marqueeContent.scrollWidth / 2) {
+            pos = 0;
+        }
+        marqueeContent.style.transform = `translateX(${pos}px)`;
+        animationFrame = requestAnimationFrame(startMarquee);
+    }
+    
+    function pauseMarquee() {
+        speed = 0;
+    }
+    
+    function resumeMarquee() {
+        speed = {{ section.settings.speed }};
+    }
+    
+    // Handle visibility change
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            cancelAnimationFrame(animationFrame);
+        } else {
+            startMarquee();
+        }
+    });
+    
+    // Mouse events
+    marquee.addEventListener('mouseover', pauseMarquee);
+    marquee.addEventListener('mouseout', resumeMarquee);
+    
+    // Touch events
+    marquee.addEventListener('touchstart', pauseMarquee);
+    marquee.addEventListener('touchend', resumeMarquee);
+    
+    startMarquee();
+});
+
 </script>
 
 
