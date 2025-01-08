@@ -300,9 +300,9 @@ Add to your schema settings block main-product.liquid
     
     <dialog id="tw-usp-dialog-content-{{ block.id }}-{{count_dialog}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-pb-[20px] max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto usp-dialog-content horizontal gradient color-{{ block.settings.color_scheme }}" count_dialog="{{count_dialog}}" close>
       
-      <div class="usp-dialog-header tw-flex tw-items-center tw-justify-between tw-px-[30px] tw-group tw-border-b tw-py-[20px] tw-mb-[30px]">
+      <div class="usp-dialog-header tw-sticky tw-top-0 tw-left-0 tw-z-[2] tw-flex tw-items-center tw-justify-between tw-px-[30px] tw-py-[20px] max-[768px]:tw-px-[10px] max-[768px]:tw-py-[10px] tw-mb-[10px] max-[768px]:tw-mb-[0px] tw-group tw-border-b gradient color-{{ block.settings.color_scheme }}">
         {% if block.settings.block_title != blank %}
-          <h2 class="h2">{{ block.settings.block_title }}</h2>
+          <div class="h3">{{ block.settings.block_title }}</div>
         {% endif %}
         <div class="">
           <button id="usp-dialog-button-{{ block.id }}-desktop" class="!tw-min-w-max !tw-min-h-max tw-p-[10px]tw-cursor-pointer usp-dialog-button">
@@ -314,8 +314,8 @@ Add to your schema settings block main-product.liquid
           </button>
         </div>
       </div>
-
-      <div class="product-details-content-desktop accordions-wrapper tw-block tw-px-[30px]">
+      
+      <div class="product-details-content-desktop accordions-wrapper tw-relative tw-z-[1] tw-px-[30px]">
 
         {% if block.settings.title_1 != blank and block.settings.content_1 != blank %}
           <details class="details-animated tw-group tw-border-b tw-border-gray-200 tw-relative" open>
@@ -410,7 +410,7 @@ Add to your schema settings block main-product.liquid
         {% endif %}
       </div>
 
-      <div class="product-details-content-mobile tw-px-[30px] tw-hidden">
+      <div class="product-details-content-mobile tw-px-[10px] tw-relative tw-z-[1] tw-hidden">
 
         <div class="tw-tabs-container">
           <div class="tw-flex tw-justify-space-evenly tw-mb-[20px]">
@@ -530,32 +530,17 @@ Add to your schema settings block main-product.liquid
           </div>
         </div>
       </div>
-
-      
           
-      <div class="tw-w-full tw-mt-[40px] tw-flex tw-justify-end tw-px-[30px] min-[768px]:tw-hidden">
-        <button id="usp-dialog-button-{{ block.id }}" class="button tw-flex tw-items-center !tw-min-w-max !tw-min-h-max tw-rounded-3xl tw-px-[10px] tw-py-[5px] tw-gap-[7px] tw-border-none tw-cursor-pointer usp-dialog-button">
-          <span>
-             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[15px]" fill="none" viewBox="0 0 18 17">
-             <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
-             </svg>
-          </span>
-          <span>Close</span>
-       </button>
-      </div>
-
     </dialog>
 </div>
 
 <script>
 
-  /* Dialog */
-  function uspDialogContent(collapseBtn, closeBtn, closeBtnDesktop, animation) {
+  function uspDialogContent(collapseBtn, closeBtnDesktop, animation) {
     const btn = document.querySelector("" + collapseBtn + "");
     const uspItemCount = btn.parentNode.getAttribute('count_usp');
     const uspItemBlockId = btn.parentNode.getAttribute("block-id");
     const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-    const xbtn = document.querySelector("" + closeBtn + "");
     const xbtnDesktop = document.querySelector("" + closeBtnDesktop + "");
 
     dialogContent.classList.add(animation);
@@ -599,21 +584,6 @@ Add to your schema settings block main-product.liquid
             }
           }
         }
-      }
-    });
-
-    xbtn.addEventListener("click", function(event) {
-      dialogContent.classList.add('hide');
-      document.querySelector('body').classList.remove('overflow-hidden');
-
-      if (!('showModal' in document.createElement('dialog'))) {
-        dialogContent.close();
-      } else {
-        dialogContent.addEventListener('webkitAnimationEnd', function() {
-          dialogContent.classList.remove('hide');
-          dialogContent.close();
-          dialogContent.removeEventListener('webkitAnimationEnd', arguments.callee, false);
-        }, false);
       }
     });
 
@@ -862,7 +832,7 @@ Add to your schema settings block main-product.liquid
 
           switch (device) {
           case 'mobile':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-block')) {
                 content.classList.remove('tw-block');
@@ -878,7 +848,7 @@ Add to your schema settings block main-product.liquid
             break;
           case 'tablet':
           case 'desktop':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-hidden')) {
                 content.classList.remove('tw-hidden');
