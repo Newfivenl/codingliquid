@@ -63,25 +63,80 @@ Instructions:
 </section>
 
 <script>
+  // Wait for DOM to be fully loaded before initializing the marquee
   document.addEventListener("DOMContentLoaded", function () {
+    // Get reference to main marquee container, exit if not found
     const marquee = document.getElementById('marquee');
+    if (!marquee) return; // Error handling
+    
+    // Get reference to the content that will scroll, exit if not found
     const marqueeContent = marquee.querySelector('.marquee-content');
-    let speed = {{ section.settings.speed }};
-    let pos = 0;
-
+    if (!marqueeContent) return;
+    
+    // Initialize speed with validation to prevent negative values
+    // Speed value is injected from framework settings
+    let speed = Math.max(0, {{ section.settings.speed }}); 
+    let pos = 0; // Tracks the current position of the marquee
+    let animationFrame; // Stores the animation frame ID for cleanup
+    
+    /**
+     * Main animation function that moves the marquee content
+     * Uses requestAnimationFrame for smooth performance
+     * Resets position when content is halfway through for infinite scroll effect
+     */
     function startMarquee() {
-      pos -= speed;
-      if (pos <= -marqueeContent.scrollWidth / 2) {
-        pos = 0;
-      }
-      marqueeContent.style.transform = `translateX(${pos}px)`;
-      requestAnimationFrame(startMarquee);
+        pos -= speed; // Move content left by subtracting speed
+        // Reset position when content has scrolled halfway
+        if (pos <= -marqueeContent.scrollWidth / 2) {
+            pos = 0;
+        }
+        // Apply transform for smooth hardware-accelerated animation
+        marqueeContent.style.transform = `translateX(${pos}px)`;
+        // Request next frame and store ID for potential cancellation
+        animationFrame = requestAnimationFrame(startMarquee);
     }
-
+    
+    /**
+     * Pauses the marquee by setting speed to 0
+     * Used for both mouse hover and touch events
+     */
+    function pauseMarquee() {
+        speed = 0;
+    }
+    
+    /**
+     * Resumes the marquee by restoring original speed
+     * Used for both mouse out and touch end events
+     */
+    function resumeMarquee() {
+        speed = {{ section.settings.speed }};
+    }
+    
+    /**
+     * Handles visibility changes when user switches tabs
+     * Stops animation when tab is hidden to save resources
+     * Resumes animation when tab becomes visible again
+     */
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            // Cancel animation when tab is not visible
+            cancelAnimationFrame(animationFrame);
+        } else {
+            // Restart animation when tab becomes visible
+            startMarquee();
+        }
+    });
+    
+    // Add mouse event listeners for desktop interaction
+    marquee.addEventListener('mouseover', pauseMarquee);
+    marquee.addEventListener('mouseout', resumeMarquee);
+    
+    // Add touch event listeners for mobile interaction
+    marquee.addEventListener('touchstart', pauseMarquee);
+    marquee.addEventListener('touchend', resumeMarquee);
+    
+    // Initialize the marquee animation
     startMarquee();
-
-    marquee.addEventListener('mouseover', () => speed = 0);
-    marquee.addEventListener('mouseout', () => speed = {{ section.settings.speed }});
   });
 </script>
 
@@ -89,6 +144,7 @@ Instructions:
 {% schema %}
 {
     "name": "TW - Marquee banner",
+    "limit": 1,
     "settings": [
         {
           "type":"range",

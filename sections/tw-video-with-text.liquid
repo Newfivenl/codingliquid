@@ -151,22 +151,55 @@ Instructions:
                 replace: '<source src', '<source srcset'
               }}
               <script>
+                // Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
                 (function () {
-                  const userAgentForVideo = navigator.userAgent;
-                  const chromeVideo = document.getElementById("{{ chrome_video }}");
-                  const safariVideo = document.getElementById("{{ safari_video }}");
-                  const safariVideoImg = safariVideo.querySelector("img");
-                  safariVideo.getAttribute("class").split(" ").forEach(className => {
-                      safariVideoImg.classList.add(className);
-                  });
-                  if (userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome")) {
-                    safariVideo.style.display = "block";
-                    chromeVideo.style.display = "none";
-                  } else {
-                    safariVideo.style.display = "none";
-                    chromeVideo.style.display = "block";
-                    chromeVideo.play();
-                  } 
+                  // Wrap everything in try-catch to handle any unexpected errors
+                  try {
+                    // Get the browser's user agent string for browser detection
+                    const userAgentForVideo = navigator.userAgent;
+                    
+                    // Attempt to get video elements from the DOM using template variables
+                    const chromeVideo = document.getElementById("{{ chrome_video }}");
+                    const safariVideo = document.getElementById("{{ safari_video }}");
+
+                    // Early exit if either video element is not found in the DOM
+                    if (!chromeVideo || !safariVideo) {
+                      console.error("Required video elements not found");
+                      return;
+                    }
+
+                    // Find the img element within the Safari video container
+                    const safariVideoImg = safariVideo.querySelector("img");
+                    
+                    // Only proceed with class copying if both the img exists and safari video has classes
+                    if (safariVideoImg && safariVideo.hasAttribute("class")) {
+                      // Split classes by space and add each one to the img element
+                      safariVideo.getAttribute("class").split(" ").forEach(className => {
+                        safariVideoImg.classList.add(className);
+                      });
+                    }
+
+                    // Check if browser is Safari (but not Chrome)
+                    // Chrome includes "Safari" in its user agent, so we need both checks
+                    const isSafari = userAgentForVideo.includes("Safari") && 
+                                    !userAgentForVideo.includes("Chrome");
+                    
+                    // Set display properties based on browser detection
+                    // Show Safari video and hide Chrome video for Safari browsers
+                    safariVideo.style.display = isSafari ? "block" : "none";
+                    chromeVideo.style.display = isSafari ? "none" : "block";
+                    
+                    // If not Safari, play the Chrome video
+                    if (!isSafari) {
+                      // Handle the promise returned by play() to catch any autoplay issues
+                      chromeVideo.play().catch(err => {
+                        console.error("Error playing video:", err);
+                      });
+                    }
+                  } catch (error) {
+                    // Log any errors that occur during execution
+                    console.error("Error in video handler:", error);
+                  }
                 })();
               </script>
             

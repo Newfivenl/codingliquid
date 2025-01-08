@@ -346,161 +346,193 @@ endif
 
 <script>
 
+    // Start of Immediately Invoked Function Expression (IIFE) to avoid global scope pollution
     (() => {
+        // Configuration object to store constant values and class names
+        const CONFIG = {
+            CLASSES: {
+                HIDDEN: 'tw-hidden',          // Class for hidden elements
+                VISIBLE: 'tw-inline-block',   // Class for visible elements
+                ACTIVE: 'active',             // Class for active state
+                HIDE: 'hide'                  // Class for hide animation
+            },
+            SWIPE: {
+                THRESHOLD: 0.50,              // 50% of screen height for swipe to close
+                DURATION: 500                 // Animation duration in milliseconds
+            }
+        };
+
+        // Main dialog initialization function
         const twDialog = (triggerButton, closeBtn) => {
+            // Find the trigger button in the DOM
             const btn = document.querySelector(triggerButton);
-            if (!btn) return;
+            if (!btn) return;  // Exit if trigger button not found
 
-            const triggerId = btn.parentNode.getAttribute('trigger-id');
-            const triggerSectionId = btn.parentNode.getAttribute("section-id");
-            const dialogContent = document.querySelector(`#tw-dialog-content-${triggerSectionId}-${triggerId}`);
-            const closeButton = document.querySelector(closeBtn);
-            
-            if (!dialogContent || !closeButton) return;
-
-            const triggerSpan = document.querySelector(triggerButton);
-            const hamburgerIcon = triggerSpan.querySelector('[data-icon="hamburger"]');
-            const closeIcon = triggerSpan.querySelector('[data-icon="close"]');
-            
-
-            const handleSwipeClose = () => {
-                const handle = dialogContent.querySelector('.tw-dialog-handle');
-                if (!handle) return;
-
-                let touchStartY = 0;
-                let touchCurrentY = 0;
-                const CLOSE_THRESHOLD = window.innerHeight * 0.50; // 50% of screen height
-                let isDragging = false;
-
-                handle.addEventListener('touchstart', (e) => {
-                    touchStartY = e.touches[0].clientY;
-                    isDragging = true;
-                    dialogContent.style.transition = 'none';
-                    handle.style.cursor = 'grabbing';
-                }, { passive: true });
-
-                const updateDialogPosition = (yPosition) => {
-                    const swipeDistance = yPosition - touchStartY;
-                    if (swipeDistance > 0) {
-                        const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
-                        const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
-                        dialogContent.style.transform = `translateY(${easedDistance}px)`;
-                    }
-                };
-
-                handle.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    touchCurrentY = e.touches[0].clientY;
-                    updateDialogPosition(touchCurrentY);
-                }, { passive: true });
-
-                const finishClose = () => {
-                    
-                    dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                    dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
-
-                    setTimeout(() => {
-                        document.body.classList.remove('overflow-hidden');
-                        toggleIcons(false);
-                        dialogContent.close();
-                        
-                        dialogContent.style.transform = '';
-                        dialogContent.style.transition = '';
-                        handle.style.cursor = 'grab';
-                    }, 500); 
-                };
-
-                const resetDialog = () => {
-                    dialogContent.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-                    dialogContent.style.transform = 'translateY(0)';
-                    handle.style.cursor = 'grab';
-                };
-
-                handle.addEventListener('touchend', () => {
-                    if (!isDragging) return;
-                    isDragging = false;
-
-                    const swipeDistance = touchCurrentY - touchStartY;
-                    
-                    if (swipeDistance >= CLOSE_THRESHOLD) {
-                        finishClose();
-                    } else {
-                        resetDialog();
-                    }
-                    
-                    touchStartY = 0;
-                    touchCurrentY = 0;
-                });
-
-                let isMouseDragging = false;
-
-                handle.addEventListener('mousedown', (e) => {
-                    isMouseDragging = true;
-                    touchStartY = e.clientY;
-                    dialogContent.style.transition = 'none';
-                    handle.style.cursor = 'grabbing';
-                });
-
-                window.addEventListener('mousemove', (e) => {
-                    if (!isMouseDragging) return;
-                    touchCurrentY = e.clientY;
-                    updateDialogPosition(touchCurrentY);
-                });
-
-                window.addEventListener('mouseup', () => {
-                    if (!isMouseDragging) return;
-                    isMouseDragging = false;
-
-                    const swipeDistance = touchCurrentY - touchStartY;
-                    
-                    if (swipeDistance >= CLOSE_THRESHOLD) {
-                        finishClose();
-                    } else {
-                        resetDialog();
-                    }
-                    
-                    touchStartY = 0;
-                    touchCurrentY = 0;
-                });
-
-                handle.addEventListener('touchcancel', () => {
-                    isDragging = false;
-                    resetDialog();
-                    touchStartY = 0;
-                    touchCurrentY = 0;
-                });
+            // Cache all DOM elements for better performance
+            const elements = {
+                trigger: btn,                                 // Trigger button element
+                parent: btn.parentNode,                      // Parent container
+                triggerId: btn.parentNode.getAttribute('trigger-id'),    // Unique trigger ID
+                sectionId: btn.parentNode.getAttribute("section-id"),    // Section ID
+                triggerSpan: document.querySelector(triggerButton),      // Trigger span element
+                hamburgerIcon: btn.querySelector('[data-icon="hamburger"]'),  // Hamburger menu icon
+                closeIcon: btn.querySelector('[data-icon="close"]')          // Close icon
             };
 
+            // Find and cache dialog content element
+            elements.dialogContent = document.querySelector(
+                `#tw-dialog-content-${elements.sectionId}-${elements.triggerId}`
+            );
+            elements.closeButton = document.querySelector(closeBtn);           // Close button
+            elements.handle = elements.dialogContent?.querySelector('.tw-dialog-handle');  // Swipe handle
+
+            // Exit if required elements are missing
+            if (!elements.dialogContent || !elements.closeButton) return;
+
+            // State object to track dialog interactions
+            let state = {
+                isDragging: false,        // Tracks if user is currently dragging
+                touchStartY: 0,           // Starting Y position of touch/drag
+                touchCurrentY: 0,         // Current Y position of touch/drag
+                isAnimating: false        // Tracks if animation is in progress
+            };
+
+            // Function to toggle between hamburger and close icons
             const toggleIcons = (isOpen) => {
-                if (isOpen) {
-                    hamburgerIcon.classList.remove('tw-inline-block');
-                    hamburgerIcon.classList.add('tw-hidden');
-                    closeIcon.classList.remove('tw-hidden');
-                    closeIcon.classList.add('tw-inline-block');
-                } else {
-                    hamburgerIcon.classList.remove('tw-hidden');
-                    hamburgerIcon.classList.add('tw-inline-block');
-                    closeIcon.classList.remove('tw-inline-block');
-                    closeIcon.classList.add('tw-hidden');
+                const { hamburgerIcon, closeIcon } = elements;
+                const { HIDDEN, VISIBLE } = CONFIG.CLASSES;
+
+                // Toggle visibility classes for both icons
+                hamburgerIcon.classList.toggle(HIDDEN, isOpen);
+                hamburgerIcon.classList.toggle(VISIBLE, !isOpen);
+                closeIcon.classList.toggle(HIDDEN, !isOpen);
+                closeIcon.classList.toggle(VISIBLE, isOpen);
+            };
+
+            // Object containing touch event handlers
+            const handleTouch = {
+                // Handle touch/mouse start event
+                start: (e) => {
+                    if (state.isAnimating) return;  // Ignore if animation is running
+                    
+                    // Get starting Y position from touch or mouse event
+                    state.touchStartY = e.touches?.[0]?.clientY ?? e.clientY;
+                    state.isDragging = true;
+                    elements.dialogContent.style.transition = 'none';  // Remove transition for smooth drag
+                    elements.handle.style.cursor = 'grabbing';        // Update cursor style
+                },
+
+                // Handle touch/mouse move event
+                move: (e) => {
+                    if (!state.isDragging || state.isAnimating) return;
+                    
+                    // Get current Y position and calculate distance
+                    state.touchCurrentY = e.touches?.[0]?.clientY ?? e.clientY;
+                    const swipeDistance = state.touchCurrentY - state.touchStartY;
+                    
+                    // Apply transform only for downward swipe
+                    if (swipeDistance > 0) {
+                        // Calculate resistance factor for natural feel
+                        const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
+                        const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
+                        elements.dialogContent.style.transform = `translateY(${easedDistance}px)`;
+                    }
+                },
+
+                // Handle touch/mouse end event
+                end: () => {
+                    if (!state.isDragging || state.isAnimating) return;
+                    
+                    // Calculate total swipe distance
+                    const swipeDistance = state.touchCurrentY - state.touchStartY;
+                    const threshold = window.innerHeight * CONFIG.SWIPE.THRESHOLD;
+
+                    // Close or reset based on swipe distance
+                    if (swipeDistance >= threshold) {
+                        finishClose();
+                    } else {
+                        resetDialog();
+                    }
+
+                    // Reset state
+                    state.isDragging = false;
+                    state.touchStartY = 0;
+                    state.touchCurrentY = 0;
                 }
             };
 
-            toggleIcons(false);
+            // Function to handle closing animation
+            const finishClose = () => {
+                state.isAnimating = true;
+                // Apply smooth closing animation
+                elements.dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
 
+                // Cleanup after animation
+                setTimeout(() => {
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    elements.dialogContent.close();
+                    
+                    // Reset styles
+                    elements.dialogContent.style.transform = '';
+                    elements.dialogContent.style.transition = '';
+                    elements.handle.style.cursor = 'grab';
+                    state.isAnimating = false;
+                }, CONFIG.SWIPE.DURATION);
+            };
+
+            // Function to reset dialog position
+            const resetDialog = () => {
+                state.isAnimating = true;
+                // Apply smooth reset animation
+                elements.dialogContent.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.dialogContent.style.transform = 'translateY(0)';
+                elements.handle.style.cursor = 'grab';
+
+                // Reset animation state
+                setTimeout(() => {
+                    state.isAnimating = false;
+                }, 300);
+            };
+
+            // Initialize swipe functionality
+            const handleSwipeClose = () => {
+                if (!elements.handle) return;
+
+                // Add touch event listeners
+                elements.handle.addEventListener('touchstart', handleTouch.start, { passive: true });
+                elements.handle.addEventListener('touchmove', handleTouch.move, { passive: true });
+                elements.handle.addEventListener('touchend', handleTouch.end);
+                elements.handle.addEventListener('touchcancel', handleTouch.end);
+
+                // Add mouse event listeners for desktop
+                elements.handle.addEventListener('mousedown', handleTouch.start);
+                window.addEventListener('mousemove', handleTouch.move);
+                window.addEventListener('mouseup', handleTouch.end);
+            };
+
+            // Initialize tab system within dialog
             const initTabs = () => {
-                const tabBtns = dialogContent.querySelectorAll('.tw-menu-tab-btn');
-                const tabsWrapper = dialogContent.querySelector('.tw-tabs-content-wrapper');
-                const tabContents = dialogContent.querySelectorAll('.tw-tabs-content-link-list');
-                let isScrollingFromClick = false;
+                // Cache tab-related elements
+                const tabElements = {
+                    buttons: elements.dialogContent.querySelectorAll('.tw-menu-tab-btn'),
+                    wrapper: elements.dialogContent.querySelector('.tw-tabs-content-wrapper'),
+                    contents: elements.dialogContent.querySelectorAll('.tw-tabs-content-link-list'),
+                    container: elements.dialogContent.querySelector('.tw-tab-btn-container')
+                };
 
-                const tabBtnContainer = dialogContent.querySelector('.tw-tab-btn-container');
-                if (!tabBtnContainer) return;
+                if (!tabElements.container) return;
 
-                const existingIndicator = tabBtnContainer.querySelector('.active-tab-indicator');
+                let isScrollingFromClick = false;  // Track scroll source
+
+                // Remove existing indicator if present
+                const existingIndicator = tabElements.container.querySelector('.active-tab-indicator');
                 if (existingIndicator) {
                     existingIndicator.remove();
                 }
 
+                // Create new active tab indicator
                 const activeIndicator = document.createElement('span');
                 activeIndicator.classList.add('active-tab-indicator');
                 Object.assign(activeIndicator.style, {
@@ -512,9 +544,10 @@ endif
                     transition: 'transform 0.3s ease, width 0.3s ease',
                     display: 'block'
                 });
-                tabBtnContainer.appendChild(activeIndicator);
+                tabElements.container.appendChild(activeIndicator);
 
-                function updateIndicator(activeBtn) {
+                // Function to update indicator position
+                const updateIndicator = (activeBtn) => {
                     if (!activeBtn) return;
                     
                     const width = activeBtn.offsetWidth;
@@ -522,43 +555,18 @@ endif
                     
                     activeIndicator.style.width = `${width}px`;
                     activeIndicator.style.transform = `translateX(${left}px)`;
-                }
+                };
 
-                tabBtns.forEach((btn, index) => {
-                    btn.addEventListener('click', () => {
-                        isScrollingFromClick = true;
-                        
-                        tabBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        updateIndicator(btn);
-                        
-                        const scrollPosition = tabContents[index].offsetLeft;
-                        
-                        tabsWrapper.scrollTo({
-                            left: scrollPosition,
-                            top: 0,
-                            behavior: 'smooth'
-                        });
+                // Function to update active tab on scroll
+                const updateActiveTabOnScroll = () => {
+                    if (isScrollingFromClick) return;
 
-                        setTimeout(() => {
-                            isScrollingFromClick = false;
-                        }, 500);
-                    });
-                });
-
-                tabsWrapper.addEventListener('scroll', () => {
-                    if (!isScrollingFromClick) {
-                        updateActiveTabOnScroll();
-                    }
-                });
-
-                function updateActiveTabOnScroll() {
-                    const scrollPosition = tabsWrapper.scrollLeft;
-                    
+                    const scrollPosition = tabElements.wrapper.scrollLeft;
                     let activeIndex = 0;
                     let minDistance = Infinity;
                     
-                    tabContents.forEach((content, index) => {
+                    // Find closest tab based on scroll position
+                    tabElements.contents.forEach((content, index) => {
                         const distance = Math.abs(content.offsetLeft - scrollPosition);
                         if (distance < minDistance) {
                             minDistance = distance;
@@ -566,193 +574,134 @@ endif
                         }
                     });
 
-                    tabBtns.forEach((btn, index) => {
+                    // Update active state and indicator
+                    tabElements.buttons.forEach((btn, index) => {
                         if (index === activeIndex) {
-                            btn.classList.add('active');
+                            btn.classList.add(CONFIG.CLASSES.ACTIVE);
                             updateIndicator(btn);
                         } else {
-                            btn.classList.remove('active');
+                            btn.classList.remove(CONFIG.CLASSES.ACTIVE);
                         }
                     });
-                }
+                };
 
-                if (tabBtns.length > 0) {
-                    tabBtns.forEach(btn => btn.classList.remove('active'));
-                    tabBtns[0].classList.add('active');
-                   
-                    requestAnimationFrame(() => {
-                        updateIndicator(tabBtns[0]);
+                // Add click handlers to tab buttons
+                tabElements.buttons.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        isScrollingFromClick = true;
+                        
+                        // Update active state
+                        tabElements.buttons.forEach(b => b.classList.remove(CONFIG.CLASSES.ACTIVE));
+                        btn.classList.add(CONFIG.CLASSES.ACTIVE);
+                        updateIndicator(btn);
+                        
+                        // Scroll to selected tab
+                        const scrollPosition = tabElements.contents[index].offsetLeft;
+                        tabElements.wrapper.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Reset scroll tracking after animation
+                        setTimeout(() => {
+                            isScrollingFromClick = false;
+                        }, CONFIG.SWIPE.DURATION);
                     });
-                    tabsWrapper.scrollLeft = 0;
+                });
+
+                // Add scroll event handler
+                tabElements.wrapper.addEventListener('scroll', () => {
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                });
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const activeBtn = tabElements.container.querySelector('.tw-menu-tab-btn.active');
+                    updateIndicator(activeBtn);
+                });
+
+                // Initialize first tab
+                if (tabElements.buttons.length > 0) {
+                    tabElements.buttons[0].classList.add(CONFIG.CLASSES.ACTIVE);
+                    requestAnimationFrame(() => {
+                        updateIndicator(tabElements.buttons[0]);
+                    });
+                    tabElements.wrapper.scrollLeft = 0;
                 }
             };
 
+            // Function to open dialog
             const openDialog = () => {
-                dialogContent.removeAttribute('close');
-                dialogContent.showModal();
-                dialogContent.classList.remove('hide');
+                elements.dialogContent.showModal();
+                elements.dialogContent.classList.remove(CONFIG.CLASSES.HIDE);
                 document.body.classList.add('overflow-hidden');
                 toggleIcons(true);
-
                 
-                requestAnimationFrame(() => {
-                    initTabs();
-                    handleSwipeClose();
-                });
+                // Initialize tabs after dialog is shown
+                requestAnimationFrame(initTabs);
             };
 
+            // Function to close dialog
             const closeDialog = (fromSwipe = false) => {
                 if (fromSwipe) {
+                    // Simple close for swipe
                     document.body.classList.remove('overflow-hidden');
                     toggleIcons(false);
-                    dialogContent.close();
+                    elements.dialogContent.close();
                     return;
                 }
                 
-                dialogContent.classList.add('hide');
+                // Animated close for button click
+                elements.dialogContent.classList.add(CONFIG.CLASSES.HIDE);
                 document.body.classList.remove('overflow-hidden');
                 toggleIcons(false);
 
+                // Handle animation end
                 const handleAnimationEnd = () => {
-                    dialogContent.classList.remove('hide');
-                    dialogContent.close();
-                    dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
+                    elements.dialogContent.classList.remove(CONFIG.CLASSES.HIDE);
+                    elements.dialogContent.close();
+                    elements.dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
                 };
 
+                // Fallback for browsers without dialog support
                 if (!('showModal' in document.createElement('dialog'))) {
-                    dialogContent.close();
+                    elements.dialogContent.close();
                 } else {
-                    dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
+                    elements.dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
                 }
             };
 
-            btn.addEventListener("click", openDialog);
-            closeButton.addEventListener("click", closeDialog);
+            // Add main event listeners
+            elements.trigger.addEventListener("click", openDialog);
+            elements.closeButton.addEventListener("click", () => closeDialog());
 
-            dialogContent.addEventListener('click', (event) => {
-                if (event.target === dialogContent) {
+            // Handle clicks outside dialog
+            elements.dialogContent.addEventListener('click', (event) => {
+                if (event.target === elements.dialogContent) {
                     closeDialog();
                     event.stopPropagation();
                 }
             });
 
-            dialogContent.addEventListener('keydown', (event) => {
+            // Handle escape key
+            elements.dialogContent.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
                     closeDialog();
                 }
             });
 
+            // Initialize dialog state
+            toggleIcons(false);
+            handleSwipeClose();
         };
 
+        // Initialize dialog with section-specific selectors
         twDialog(
             '#showDialog-{{ section.id }}', 
             '#tw-dialog-button-{{ section.id }}'
         );
-        
     })();
-
-    (() => {
-        document.addEventListener('DOMContentLoaded', () => {
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const tabsWrapper = document.querySelector('.tw-tabs-content-wrapper');
-            const tabContents = document.querySelectorAll('.tw-tabs-content-link-list');
-
-            let isScrollingFromClick = false;
-
-            const tabBtnContainer = document.querySelector('.tw-tab-btn-container');
-            const activeIndicator = document.createElement('span');
-            activeIndicator.classList.add('active-tab-indicator');
-            Object.assign(activeIndicator.style, {
-                position: 'absolute',
-                bottom: '0',
-                left: '0',
-                height: '2px',
-                backgroundColor: 'currentColor',
-                transition: 'transform 0.3s ease, width 0.3s ease',
-                display: 'block'
-            });
-            tabBtnContainer.appendChild(activeIndicator);
-
-            function updateIndicator(activeBtn) {
-                if (!activeBtn) return;
-                
-                const width = activeBtn.offsetWidth;
-                const left = activeBtn.offsetLeft;
-                
-                activeIndicator.style.width = `${width}px`;
-                activeIndicator.style.transform = `translateX(${left}px)`;
-            }
-
-            tabBtns.forEach((btn, index) => {
-                btn.addEventListener('click', () => {
-                    isScrollingFromClick = true;
-                    
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    updateIndicator(btn);
-                    
-                    const scrollPosition = tabContents[index].offsetLeft;
-                    
-                    tabsWrapper.scrollTo({
-                        left: scrollPosition,
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-
-                    setTimeout(() => {
-                        isScrollingFromClick = false;
-                    }, 500);
-                });
-            });
-
-            tabsWrapper.addEventListener('scroll', () => {
-                if (!isScrollingFromClick) {
-                    updateActiveTabOnScroll();
-                }
-            });
-
-            tabsWrapper.addEventListener('wheel', (e) => {
-                if (e.deltaY !== 0) {
-                    e.preventDefault();
-                    tabsWrapper.scrollLeft += e.deltaY;
-                    if (!isScrollingFromClick) {
-                        updateActiveTabOnScroll();
-                    }
-                }
-            });
-
-            function updateActiveTabOnScroll() {
-                const scrollPosition = tabsWrapper.scrollLeft;
-                
-                let activeIndex = 0;
-                let minDistance = Infinity;
-                
-                tabContents.forEach((content, index) => {
-                    const distance = Math.abs(content.offsetLeft - scrollPosition);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        activeIndex = index;
-                    }
-                });
-
-                tabBtns.forEach((btn, index) => {
-                    if (index === activeIndex) {
-                        btn.classList.add('active');
-                        updateIndicator(btn);
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            }
-
-            window.addEventListener('resize', () => {
-                const activeBtn = document.querySelector('.tw-menu-tab-btn.active');
-                updateIndicator(activeBtn);
-            });
-
-            updateIndicator(tabBtns[0]);
-            tabBtns[0].classList.add('active');
-        });
-    })(); 
 
 </script>

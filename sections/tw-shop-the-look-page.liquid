@@ -103,7 +103,7 @@ Metaobject fields:
                         <li class="tw-relative tw-group grid__item max-[640px]:!tw-w-full max-[640px]:tw-max-w-[100%]" data-index="{{ forloop.index }}">
                             <div class="tw-absolute tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-cursor-pointer min-[990px]:tw-opacity-0 min-[990px]:tw-bg-white/60 tw-transition-all tw-duration-300 min-[990px]:group-hover:tw-opacity-100 min-[990px]:group-hover:tw-backdrop-blur-sm max-[989px]:tw-flex max-[989px]:tw-flex-col max-[989px]:tw-justify-end">
                                 <span class="max-[989px]:tw-hidden"> {{ look_item.name_model }} </span>
-                                <button onclick="toggleSlider('{{ forloop.index }}')" class="tw-uppercase tw-bg-white tw-rounded-md tw-overflow-hidden tw-py-4 tw-px-5 tw-leading-[11px] tw-hidden max-[989px]:tw-block max-[989px]:tw-mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
+                                <button onclick="initializeSlider('{{ forloop.index }}')" class="tw-uppercase tw-bg-white tw-rounded-md tw-overflow-hidden tw-py-4 tw-px-5 tw-leading-[11px] tw-hidden max-[989px]:tw-block max-[989px]:tw-mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
                             </div>
                             {{ look_item.main_image | image_url: width: 1500 | image_tag: class: "tw-cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
                         </li>
@@ -221,85 +221,156 @@ Metaobject fields:
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.matchMedia("(min-width: 640px)").matches) {
-            const shopTheLookItemsContainer = document.querySelector('.shop-the-look-items');
-            const lookItems = document.querySelectorAll('#product-grid .grid__item');
-            const shopTheLookContents = document.querySelectorAll('.shop-the-look-contents');
+    // Function to initialize the shop-the-look feature for desktop view
+    function initializeShopTheLook() {
+        // Check if viewport width is at least 640px (desktop breakpoint)
+        // Return early if on mobile to save resources
+        if (!window.matchMedia("(min-width: 640px)").matches) return;
 
-            lookItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const index = item.getAttribute('data-index');
-                    const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
-                    if (relatedContent) {
-                        relatedContent.classList.remove('tw-hidden');
-                        shopTheLookItemsContainer.classList.add('tw-hidden');
-                        lookItems.forEach(li => li.classList.add('tw-hidden'));
-                    }
-                    const relatedBackButton = relatedContent.querySelector('.shop-the-look-back');
-                    if (relatedBackButton) {
-                        relatedBackButton.addEventListener('click', () => {
-                        relatedContent.classList.add('tw-hidden');
-                        shopTheLookItemsContainer.classList.remove('tw-hidden');
-                        lookItems.forEach(item => item.classList.remove('tw-hidden'));
-                        console.log(`Back button clicked for item: ${index}`);
-                        }, { once: true });
-                    }
-                });
-            });
-        }
-    });
+        // Object to store all DOM elements we'll need
+        const elements = {
+            // Main container for all shop-the-look items
+            container: document.querySelector('.shop-the-look-items'),
+            // Collection of all grid items that can be clicked
+            items: document.querySelectorAll('#product-grid .grid__item'),
+            // Collection of content sections that correspond to each item
+            contents: document.querySelectorAll('.shop-the-look-contents')
+        };
 
-    function toggleSlider(index) {
+        // Verify essential elements exist before proceeding
+        // Return early if container or items are missing
+        if (!elements.container || !elements.items.length) return;
 
-        const slider = document.getElementById('shop-the-look-slider');
-        const overlay = document.getElementById('overlay');
-        const closeButton = document.getElementById('close-button');
-        const body = document.querySelector('body');
-        
-        body.classList.add('tw-overflow-hidden');
-
-        function handleClose() {
-            body.classList.remove('tw-overflow-hidden');
-            slider.classList.remove('animate-slide-up');
-            slider.classList.add('animate-slide-down');
-            overlay.classList.add('tw-hidden');
-            slider.addEventListener('animationend', function handleAnimationEnd() {
-            if (slider.classList.contains('animate-slide-down')) {
-                slider.classList.add('tw-hidden');
-                slider.classList.remove('animate-slide-down');
-            }
-            slider.removeEventListener('animationend', handleAnimationEnd);
-            });
-        }
-
-        if (slider.classList.contains('tw-hidden')) {
-
-            slider.classList.remove('tw-hidden', 'animate-slide-down');
-            slider.classList.add('animate-slide-up');
-            overlay.classList.remove('tw-hidden');
-
-            document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
-            if (content.getAttribute('data-index') === index) {
-                content.classList.remove('tw-hidden');
-                content.classList.add('tw-grid');
-            } else {
+        // Handler function for back button clicks
+        // Takes content element and index as parameters for proper state management
+        function handleBackButtonClick(content, index) {
+            // Returns a function that will be called when back button is clicked
+            return () => {
+                // Hide the current content view
                 content.classList.add('tw-hidden');
-                content.classList.remove('tw-grid');
-            }
-            });
-        } else {
-            handleClose();
+                // Show the main container with all items
+                elements.container.classList.remove('tw-hidden');
+                // Show all grid items
+                elements.items.forEach(item => item.classList.remove('tw-hidden'));
+                // Log the action for debugging purposes
+                console.log(`Back button clicked for item: ${index}`);
+            };
         }
 
-        closeButton.addEventListener('click', handleClose);
-        overlay.addEventListener('click', handleClose);
+        // Handler function for when a grid item is clicked
+        function handleItemClick(item) {
+            // Get the data-index attribute from the clicked item
+            const index = item.getAttribute('data-index');
+            // Find the corresponding content section using the index
+            const relatedContent = document.querySelector(`.shop-the-look-contents[data-index="${index}"]`);
+            
+            // Return early if no matching content is found
+            if (!relatedContent) return;
+
+            // Show the related content and hide other elements
+            relatedContent.classList.remove('tw-hidden');
+            elements.container.classList.add('tw-hidden');
+            elements.items.forEach(item => item.classList.add('tw-hidden'));
+
+            // Find and set up the back button for this content section
+            const backButton = relatedContent.querySelector('.shop-the-look-back');
+            if (backButton) {
+                // Add click listener to back button that only triggers once
+                backButton.addEventListener('click', handleBackButtonClick(relatedContent, index), { once: true });
+            }
+        }
+
+        // Attach click event listeners to all grid items
+        elements.items.forEach(item => item.addEventListener('click', () => handleItemClick(item)));
     }
 
+    // Function to initialize the mobile slider functionality
+    function initializeSlider(index) {
+        // Object to store all required DOM elements
+        const elements = {
+            // Main slider container
+            slider: document.getElementById('shop-the-look-slider'),
+            // Overlay background
+            overlay: document.getElementById('overlay'),
+            // Button to close the slider
+            closeButton: document.getElementById('close-button'),
+            // Body element for controlling overflow
+            body: document.querySelector('body')
+        };
+
+        // Verify all required elements exist before proceeding
+        if (!elements.slider || !elements.overlay || !elements.closeButton) return;
+
+        // Function to handle closing the slider
+        function handleClose() {
+            // Enable scrolling on body
+            elements.body.classList.remove('tw-overflow-hidden');
+            // Remove slide up animation
+            elements.slider.classList.remove('animate-slide-up');
+            // Add slide down animation
+            elements.slider.classList.add('animate-slide-down');
+            // Hide the overlay
+            elements.overlay.classList.add('tw-hidden');
+
+            // Function to handle the end of slide down animation
+            function handleAnimationEnd() {
+                // Check if slide down animation is still active
+                if (elements.slider.classList.contains('animate-slide-down')) {
+                    // Hide the slider
+                    elements.slider.classList.add('tw-hidden');
+                    // Remove the slide down animation class
+                    elements.slider.classList.remove('animate-slide-down');
+                }
+                // Clean up the animation end event listener
+                elements.slider.removeEventListener('animationend', handleAnimationEnd);
+            }
+
+            // Listen for the end of the slide animation
+            elements.slider.addEventListener('animationend', handleAnimationEnd);
+        }
+
+        // Function to show the slider and its content
+        function showSlider() {
+            // Remove hidden class and slide down animation
+            elements.slider.classList.remove('tw-hidden', 'animate-slide-down');
+            // Add slide up animation
+            elements.slider.classList.add('animate-slide-up');
+            // Show the overlay
+            elements.overlay.classList.remove('tw-hidden');
+            // Disable scrolling on body
+            elements.body.classList.add('tw-overflow-hidden');
+
+            // Update visibility of content sections based on index
+            document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
+                // Check if this content section matches the current index
+                const isMatchingContent = content.getAttribute('data-index') === index;
+                // Toggle hidden class based on match
+                content.classList.toggle('tw-hidden', !isMatchingContent);
+                // Toggle grid class based on match
+                content.classList.toggle('tw-grid', isMatchingContent);
+            });
+        }
+
+        // Function to set up event listeners
+        function initializeEventListeners() {
+            // Add click handlers for close button and overlay
+            elements.closeButton.addEventListener('click', handleClose);
+            elements.overlay.addEventListener('click', handleClose);
+        }
+
+        // Main execution logic
+        if (elements.slider.classList.contains('tw-hidden')) {
+            // If slider is hidden, show it and initialize listeners
+            showSlider();
+            initializeEventListeners();
+        } else {
+            // If slider is visible, close it
+            handleClose();
+        }
+    }
+    // Initialize desktop functionality when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', initializeShopTheLook);
 </script>
-
-
-
 
 {% schema %}
 {

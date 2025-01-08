@@ -294,84 +294,122 @@ just make sure to also update the ID, Label and metaobject_type below based on y
   </div>
 
   <script>
+    
+    // Wait for the DOM to be fully loaded before running any code
     document.addEventListener('DOMContentLoaded', function() {
+      // Select all dialog elements that have the class 'tw-question-and-answer-dialog'
       const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');
+        
+      // Define a global function to open modal dialogs
       window.openModal = function(modalId, buttonElement) {
+        // Find the dialog element by its ID
         const dialog = document.getElementById(modalId);
         if (dialog) {
+          // Add 'active' class to the button that opened the modal
           buttonElement.classList.add('active');
+          // Open the modal using the native dialog API
           dialog.showModal();
+          // Remove the closing animation class if it exists
           dialog.classList.remove('closing');
+          // Force a browser reflow to ensure animations work correctly
           void dialog.offsetWidth;
+          // Find the first focusable element in the dialog
           const firstFocusable = dialog.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
           if (firstFocusable) {
+            // Set focus to the first focusable element for accessibility
             firstFocusable.focus();
           }
         }
       };
 
+      // Define a global function to close modal dialogs
       window.closeModal = function(modalId, buttonElement) {
+        // Find the dialog element by its ID
         const dialog = document.getElementById(modalId);
         if (dialog) {
+          // Remove 'active' class from all question buttons
           document.querySelectorAll('.question-btn').forEach(btn => {
             btn.classList.remove('active');
           });
 
+          // Add the closing animation class
           dialog.classList.add('closing');
+          // Wait for animation to complete before actually closing
           setTimeout(() => {
+            // Remove the closing class
             dialog.classList.remove('closing');
+            // Close the dialog using native dialog API
             dialog.close();
+            // Find the button that originally opened this dialog
             const triggerButton = document.querySelector(`[aria-controls="${modalId}"]`);
             if (triggerButton) {
+              // Return focus to the trigger button for accessibility
               triggerButton.focus();
             }
-          }, 200);
+          }, 200); // 200ms animation duration
         }
       };
 
+      // Add event listeners to each dialog
       dialogs.forEach(dialog => {
+        // Handle clicks on the dialog backdrop
         dialog.addEventListener('click', (e) => {
+          // Get the dialog's dimensions and position
           const dialogDimensions = dialog.getBoundingClientRect();
+          // Check if the click was outside the dialog bounds
           if (
             e.clientX < dialogDimensions.left ||
             e.clientX > dialogDimensions.right ||
             e.clientY < dialogDimensions.top ||
             e.clientY > dialogDimensions.bottom
           ) {
-            // Modified this line to pass the dialog ID and maintain focus management
+            // Find the button that opened this dialog
             const triggerButton = document.querySelector(`[aria-controls="${dialog.id}"]`);
             if (triggerButton) {
+              // Remove active state from trigger button
               triggerButton.classList.remove('active');
             }
+            // Close the modal
             closeModal(dialog.id, triggerButton);
           }
         });
 
+        // Prevent clicks inside dialog content from bubbling up
         dialog.querySelector('.dialog-content').addEventListener('click', (e) => {
+          // Stop the click event from reaching the dialog backdrop
           e.stopPropagation();
         });
 
+        // Handle escape key press
         dialog.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
+            // Close the modal when Escape is pressed
             closeModal(dialog.id);
           }
         });
 
+        // Implement keyboard focus trap
         dialog.addEventListener('keydown', function(e) {
           if (e.key === 'Tab') {
+            // Get all focusable elements in the dialog
             const focusableElements = dialog.querySelectorAll(
               'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
             );
+            // Get first and last focusable elements
             const firstFocusableElement = focusableElements[0];
             const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
+            // Handle Shift+Tab navigation
             if (e.shiftKey) {
               if (document.activeElement === firstFocusableElement) {
+                // If at first element, loop to last
                 lastFocusableElement.focus();
                 e.preventDefault();
               }
+            // Handle Tab navigation
             } else {
               if (document.activeElement === lastFocusableElement) {
+                // If at last element, loop to first
                 firstFocusableElement.focus();
                 e.preventDefault();
               }

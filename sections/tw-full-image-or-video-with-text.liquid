@@ -140,24 +140,34 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             }}
           <script>
 
+            // Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
             (function () {
+              // Get the user's browser information and convert to lowercase for consistent comparison
               const userAgentForVideo = navigator.userAgent.toLowerCase();
-              console.log('Current UserAgent:', userAgentForVideo);
               
+              // Get references to video elements for Chrome and Safari versions using template variables
               const chromeVideo = document.getElementById("{{ chrome_video }}");
               const safariVideo = document.getElementById("{{ safari_video }}");
               
+              // Function to detect if the browser is Safari
               const isSafari = () => {
+                // Check if Chrome is present in user agent (includes Chrome variants)
                 const isChrome = /chrome|chromium|crios/i.test(userAgentForVideo);
+                // Check if Safari is present in user agent
                 const isSafari = /safari/i.test(userAgentForVideo);
+                // Return true only if Safari is detected and Chrome is not (Safari includes Chrome in UA)
                 return isSafari && !isChrome;
               };
               
+              // If Safari video element exists
               if (safariVideo) {
+                // Find the img element within the Safari video container
                 const safariVideoImg = safariVideo.querySelector("img");
                 if (safariVideoImg) {
+                  // Get classes from the parent container
                   const classes = safariVideo.getAttribute("class");
                   if (classes) {
+                    // Copy all classes from parent to the img element
                     classes.split(" ").forEach(className => {
                       safariVideoImg.classList.add(className);
                     });
@@ -165,25 +175,29 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                 }
               }
               
+              // Check if browser is Safari
               if (isSafari()) {
-                console.log('Safari detected - showing video Safari version');
+                // Show Safari video if it exists
                 if (safariVideo) safariVideo.style.display = "block";
+                // Hide Chrome video if it exists
                 if (chromeVideo) {
                   chromeVideo.style.display = "none";
                   chromeVideo.style.visibility = 'hidden';
                 }
               } else {
-                console.log('Non-Safari browser detected - showing video Chrome version');
-                if (safariVideo) {
-                  safariVideo.style.display = "none";
-                  safariVideo.style.visibility = 'hidden';
-                }
-                if (chromeVideo) {
-                  chromeVideo.style.display = "block";
-                  chromeVideo.play().catch(error => {
-                    console.warn('Auto-play failed:', error);
-                  });
-                }
+                  // Hide Safari video if it exists
+                  if (safariVideo) {
+                    safariVideo.style.display = "none";
+                    safariVideo.style.visibility = 'hidden';
+                  }
+                  // Show and play Chrome video if it exists
+                  if (chromeVideo) {
+                    chromeVideo.style.display = "block";
+                    // Attempt to autoplay the video and catch any errors
+                    chromeVideo.play().catch(error => {
+                      console.warn('Auto-play failed:', error);
+                    });
+                  }
               }
             })();
 

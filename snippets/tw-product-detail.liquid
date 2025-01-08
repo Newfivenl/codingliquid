@@ -536,33 +536,41 @@ Add to your schema settings block main-product.liquid
 
 <script>
 
-  function uspDialogContent(collapseBtn, closeBtnDesktop, animation) {
-    const btn = document.querySelector("" + collapseBtn + "");
-    const uspItemCount = btn.parentNode.getAttribute('count_usp');
-    const uspItemBlockId = btn.parentNode.getAttribute("block-id");
-    const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-    const xbtnDesktop = document.querySelector("" + closeBtnDesktop + "");
 
+  // Function to handle USP (Unique Selling Point) dialog functionality
+  function uspDialogContent(collapseBtn, closeBtnDesktop, animation) {
+    // Get references to DOM elements
+    const btn = document.querySelector("" + collapseBtn + ""); // Select the collapse button
+    const uspItemCount = btn.parentNode.getAttribute('count_usp'); // Get USP item count from parent
+    const uspItemBlockId = btn.parentNode.getAttribute("block-id"); // Get block ID from parent
+    const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`); // Get dialog content
+    const xbtnDesktop = document.querySelector("" + closeBtnDesktop + ""); // Select desktop close button
+
+    // Add animation class to dialog content
     dialogContent.classList.add(animation);
 
+    // Add click event listener to the collapse button
     btn.addEventListener("click", function(event) {
-      dialogContent.removeAttribute('close');
-      dialogContent.showModal();
-      dialogContent.classList.remove('hide');
-      document.querySelector('body').classList.add('overflow-hidden');
+      dialogContent.removeAttribute('close'); // Remove close attribute
+      dialogContent.showModal(); // Show the modal dialog
+      dialogContent.classList.remove('hide'); // Remove hide class
+      document.querySelector('body').classList.add('overflow-hidden'); // Prevent body scrolling
 
+      // Handle mobile-specific functionality
       if (window.matchMedia('(max-width: 767px)').matches) {
-        const uspItem = event.currentTarget.parentNode;
-        const uspBlockId = uspItem.getAttribute('block-id');
+        const uspItem = event.currentTarget.parentNode; // Get parent USP item
+        const uspBlockId = uspItem.getAttribute('block-id'); // Get block ID
         
+        // Get mobile content container
         const mobileContent = dialogContent.querySelector('.product-details-content-mobile');
         if (mobileContent) {
           const tabsContainer = mobileContent.querySelector('.tw-tabs-container');
           if (tabsContainer) {
-          
+            // Get all tab buttons and content
             const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
             const tabContents = tabsContainer.querySelectorAll('.tab-content');
             
+            // Find target tab index based on block ID
             let targetIndex = -1;
             tabContents.forEach((content, index) => {
               if (content.id.includes(uspBlockId)) {
@@ -570,11 +578,13 @@ Add to your schema settings block main-product.liquid
               }
             });
 
+            // Activate correct tab if found
             if (targetIndex !== -1) {
-             
+              // Remove active class from all tabs
               tabButtons.forEach(btn => btn.classList.remove('active'));
               tabContents.forEach(content => content.classList.remove('active'));
 
+              // Add active class to target tab
               if (tabButtons[targetIndex]) {
                 tabButtons[targetIndex].classList.add('active');
               }
@@ -587,13 +597,16 @@ Add to your schema settings block main-product.liquid
       }
     });
 
+    // Add click event listener to desktop close button
     xbtnDesktop.addEventListener("click", function(event) {
-      dialogContent.classList.add('hide');
-      document.querySelector('body').classList.remove('overflow-hidden');
+      dialogContent.classList.add('hide'); // Add hide class
+      document.querySelector('body').classList.remove('overflow-hidden'); // Enable body scrolling
 
+      // Handle dialog closing based on browser support
       if (!('showModal' in document.createElement('dialog'))) {
-        dialogContent.close();
+        dialogContent.close(); // Close dialog directly if showModal not supported
       } else {
+        // Add animation end listener for modern browsers
         dialogContent.addEventListener('webkitAnimationEnd', function() {
           dialogContent.classList.remove('hide');
           dialogContent.close();
@@ -602,14 +615,15 @@ Add to your schema settings block main-product.liquid
       }
     });
 
+    // Handle clicking outside dialog to close
     const dialog = document.querySelectorAll('.usp-dialog-content');
-
     dialog.forEach((thisDialog) => {
       thisDialog.addEventListener('click', function(event) {
-        if (!event.target.contains(thisDialog)) return;
+        if (!event.target.contains(thisDialog)) return; // Return if click is inside dialog
         thisDialog.classList.add('hide');
         document.querySelector('body').classList.remove('overflow-hidden');
 
+        // Handle closing animation based on browser support
         if (!('showModal' in document.createElement('dialog'))) {
           thisDialog.close();
         } else {
@@ -620,34 +634,39 @@ Add to your schema settings block main-product.liquid
           }, false);
         }
 
-        event.stopPropagation();
+        event.stopPropagation(); // Prevent event bubbling
       });
     });
   }
-  
-  /* Accordion */
+
+  /* Accordion Implementation */
   (function() {
     'use strict';
+    // Accordion constructor
     const Accordion = function(el) {
-      this.el = el;
-      this.summary = el.querySelector('summary');
-      this.content = el.querySelector('.details-content');
-      this.animation = null;
-      this.isClosing = false;
-      this.isExpanding = false;
+      this.el = el; // Accordion element
+      this.summary = el.querySelector('summary'); // Summary element
+      this.content = el.querySelector('.details-content'); // Content element
+      this.animation = null; // Animation reference
+      this.isClosing = false; // Closing state flag
+      this.isExpanding = false; // Expanding state flag
       
+      // Icon elements
       this.plusIcon = this.summary.querySelector('.plus-icon');
       this.minusIcon = this.summary.querySelector('.minus-icon');
       
+      // Parent elements
       this.dialog = el.closest('dialog');
       this.wrapper = el.closest('.accordions-wrapper');
       this.mobileWrapper = el.closest('.tab-content');
 
-      this.initializeState();
+      this.initializeState(); // Initialize accordion state
       
+      // Add click event listener to summary
       this.summary.addEventListener('click', (e) => this.onClick(e));
     };
 
+    // Initialize accordion state based on open attribute
     Accordion.prototype.initializeState = function() {
       const isOpen = this.el.hasAttribute('open');
       if (isOpen) {
@@ -659,11 +678,13 @@ Add to your schema settings block main-product.liquid
       }
     };
 
+    // Handle click event on accordion
     Accordion.prototype.onClick = function(e) {
       e.preventDefault();
-      this.updateStackOrder();
-      this.closeOthersInSameContext();
+      this.updateStackOrder(); // Update z-index stack order
+      this.closeOthersInSameContext(); // Close other open accordions
       
+      // Toggle accordion state
       if (this.isClosing || !this.el.open) {
         this.open();
       } else if (this.isExpanding || this.el.open) {
@@ -671,6 +692,7 @@ Add to your schema settings block main-product.liquid
       }
     };
 
+    // Update z-index stack order of accordions
     Accordion.prototype.updateStackOrder = function() {
       const currentWrapper = this.mobileWrapper || this.wrapper;
       if (currentWrapper) {
@@ -681,6 +703,7 @@ Add to your schema settings block main-product.liquid
       }
     };
 
+    // Close other open accordions in same context
     Accordion.prototype.closeOthersInSameContext = function() {
       const context = this.mobileWrapper || (this.dialog && this.wrapper);
       
@@ -696,22 +719,27 @@ Add to your schema settings block main-product.liquid
       }
     };
 
+    // Shrink (close) accordion with animation
     Accordion.prototype.shrink = function() {
       this.isClosing = true;
       
       const startHeight = `${this.el.offsetHeight}px`;
       const endHeight = `${this.summary.offsetHeight}px`;
       
+      // Cancel existing animation if any
       if (this.animation) {
         this.animation.cancel();
       }
       
+      // Update icons
       this.plusIcon.classList.remove('tw-opacity-0', 'tw-rotate-90');
       this.minusIcon.classList.add('tw-opacity-0');
 
+      // Set content styles
       this.content.style.overflow = 'hidden';
       this.content.style.visibility = 'hidden';
       
+      // Create and configure animation
       this.animation = this.el.animate({
         height: [startHeight, endHeight]
       }, {
@@ -719,6 +747,7 @@ Add to your schema settings block main-product.liquid
         easing: 'ease-out'
       });
       
+      // Handle animation completion and cancellation
       this.animation.onfinish = () => this.onAnimationFinish(false);
       this.animation.oncancel = () => {
         this.isClosing = false;
@@ -728,28 +757,35 @@ Add to your schema settings block main-product.liquid
       };
     };
 
+    // Open accordion
     Accordion.prototype.open = function() {
       this.el.style.height = `${this.summary.offsetHeight}px`;
       this.el.open = true;
       
+      // Update icons
       this.plusIcon.classList.add('tw-opacity-0', 'tw-rotate-90');
       this.minusIcon.classList.remove('tw-opacity-0');
       
+      // Set content styles
       this.content.style.overflow = 'hidden';
       this.content.style.visibility = 'visible';
       
+      // Start expansion animation in next frame
       window.requestAnimationFrame(() => this.expand());
     };
 
+    // Expand accordion with animation
     Accordion.prototype.expand = function() {
       this.isExpanding = true;
       const startHeight = `${this.summary.offsetHeight}px`;
       const endHeight = `${this.summary.offsetHeight + this.content.offsetHeight}px`;
       
+      // Cancel existing animation if any
       if (this.animation) {
         this.animation.cancel();
       }
       
+      // Create and configure animation
       this.animation = this.el.animate({
         height: [startHeight, endHeight]
       }, {
@@ -757,6 +793,7 @@ Add to your schema settings block main-product.liquid
         easing: 'ease-out'
       });
       
+      // Handle animation completion and cancellation
       this.animation.onfinish = () => this.onAnimationFinish(true);
       this.animation.oncancel = () => {
         this.isExpanding = false;
@@ -766,6 +803,7 @@ Add to your schema settings block main-product.liquid
       };
     };
 
+    // Handle animation completion
     Accordion.prototype.onAnimationFinish = function(open) {
       this.el.open = open;
       this.animation = null;
@@ -781,6 +819,7 @@ Add to your schema settings block main-product.liquid
       }
     };
 
+    // Initialize all accordions on page
     const initializeAccordions = () => {
       document.querySelectorAll('.details-animated').forEach((el) => {
         if (!el.accordion) {
@@ -789,8 +828,10 @@ Add to your schema settings block main-product.liquid
       });
     };
 
+    // Initialize accordions when DOM is ready
     document.addEventListener('DOMContentLoaded', initializeAccordions);
 
+    // Initialize accordions when dialog opens
     document.addEventListener('click', (e) => {
       const target = e.target;
       if (target.matches('[data-open-dialog]') || target.closest('[data-open-dialog]')) {
@@ -798,6 +839,7 @@ Add to your schema settings block main-product.liquid
       }
     });
 
+    // Initialize accordions when tab changes
     document.addEventListener('click', (e) => {
       const tabBtn = e.target.closest('.tab-btn');
       if (tabBtn) {
@@ -806,32 +848,38 @@ Add to your schema settings block main-product.liquid
     });
   })();
 
-  /* Breakpoints */
+  /* Breakpoints Handler */
   (function() {
+    // Define breakpoints for different screen sizes
     const breakpoints = {
-        mobile: '(max-width: 767px)',
-        tablet: '(min-width: 768px) and (max-width: 1023px)',
-        desktop: '(min-width: 1024px)'
+      mobile: '(max-width: 767px)',
+      tablet: '(min-width: 768px) and (max-width: 1023px)',
+      desktop: '(min-width: 1024px)'
     };
 
+    // Create media query listeners for each breakpoint
     const mediaQueries = Object.entries(breakpoints).map(([device, query]) => ({
-        device,
-        mql: window.matchMedia(query)
+      device,
+      mql: window.matchMedia(query)
     }));
 
-      function handleScreenChange(e, device) {
+    // Handle screen size changes
+    function handleScreenChange(e, device) {
         if (e.matches) {
-
+          // Get relevant DOM elements
           const uspDialogElement = document.querySelector(`#tw-usp-dialog-content-{{ block.id }}-{{ count_usp }}`);
           const productDetailsContentDesktop = document.querySelectorAll('.product-details-content-desktop');
           const productDetailsContentMobile = document.querySelectorAll('.product-details-content-mobile');
 
+          // Remove existing dialog classes
           if (uspDialogElement) {
             uspDialogElement.classList.remove('horizontal', 'usp-dialog-content-vertical');
           }
 
+          // Apply device-specific styles and behaviors
           switch (device) {
           case 'mobile':
+            // Set up mobile dialog and content
             uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-block')) {
@@ -848,6 +896,7 @@ Add to your schema settings block main-product.liquid
             break;
           case 'tablet':
           case 'desktop':
+            // Set up tablet/desktop dialog and content
             uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-hidden')) {
@@ -863,50 +912,64 @@ Add to your schema settings block main-product.liquid
             });
             break;
         }
-
       }
     }
 
+    // Initialize and add listeners for media queries
     mediaQueries.forEach(({ device, mql }) => {
-       
         handleScreenChange(mql, device);
         mql.addListener((e) => handleScreenChange(e, device));
     });
   })();
-  
-  // Tab Handler
+
+  // Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
   (function() {
+    // Main function to initialize tab functionality
     function initTabs() {
+      // Find all tab container elements with class 'tw-tabs-container'
       const tabContainers = document.querySelectorAll('.tw-tabs-container');
+      // Exit if no tab containers are found on the page
       if (!tabContainers.length) return;
 
+      // Function to handle switching between tabs
       function switchTab(tabsContainer, clickedTab) {
+        // Get the target tab content ID from the clicked tab's data-tab attribute
         const targetId = clickedTab.getAttribute('data-tab');
+        // Exit if no target ID is found
         if (!targetId) return;
 
+        // Find all tab buttons and content panels within this container
         const tabButtons = tabsContainer.querySelectorAll('.tab-btn');
         const tabContents = tabsContainer.querySelectorAll('.tab-content');
 
+        // Remove 'active' class from all tab buttons
         tabButtons.forEach(btn => {
           btn.classList.remove('active');
         });
+        // Remove 'active' class from all tab content panels
         tabContents.forEach(content => {
           content.classList.remove('active');
         });
 
+        // Add 'active' class to the clicked tab button
         clickedTab.classList.add('active');
+        // Find and activate the corresponding content panel
         const targetContent = tabsContainer.querySelector(`#${targetId}`);
         if (targetContent) {
           targetContent.classList.add('active');
         }
       }
 
+      // Add click event listeners to all tab containers
       tabContainers.forEach(container => {
         container.addEventListener('click', (e) => {
+          // Find the closest tab button element to the click target
           const clickedTab = e.target.closest('.tab-btn');
           if (clickedTab) {
+            // Find the parent container of the clicked tab
             const parentContainer = clickedTab.closest('.tw-tabs-container');
             if (parentContainer) {
+              // Switch to the clicked tab
               switchTab(parentContainer, clickedTab);
             }
           }
@@ -914,9 +977,12 @@ Add to your schema settings block main-product.liquid
       });
     }
 
+    // Check if the DOM is still loading
     if (document.readyState === 'loading') {
+      // If DOM is loading, wait for it to be ready before initializing tabs
       document.addEventListener('DOMContentLoaded', initTabs);
     } else {
+      // If DOM is already loaded, initialize tabs immediately
       initTabs();
     }
   })();
