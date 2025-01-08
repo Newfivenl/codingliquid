@@ -757,6 +757,10 @@ video {
   aspect-ratio: auto;
 }
 
+.tw-aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
 .tw-h-10 {
   height: 2.5rem;
 }
