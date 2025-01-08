@@ -177,8 +177,6 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               
               // Check if browser is Safari
               if (isSafari()) {
-                // Log browser detection for debugging
-                console.log('Safari detected - showing video Safari version');
                 // Show Safari video if it exists
                 if (safariVideo) safariVideo.style.display = "block";
                 // Hide Chrome video if it exists
@@ -187,8 +185,6 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                   chromeVideo.style.visibility = 'hidden';
                 }
               } else {
-                  // Log browser detection for debugging
-                  console.log('Non-Safari browser detected - showing video Chrome version');
                   // Hide Safari video if it exists
                   if (safariVideo) {
                     safariVideo.style.display = "none";
