@@ -168,6 +168,39 @@ Instructions:
                 //     chromeVideo.play();
                 //   } 
                 // })();
+
+                (function () {
+                  try {
+                      const userAgentForVideo = navigator.userAgent;
+                      const chromeVideo = document.getElementById("{{ chrome_video }}");
+                      const safariVideo = document.getElementById("{{ safari_video }}");
+
+                      if (!chromeVideo || !safariVideo) {
+                          console.error("Required video elements not found");
+                          return;
+                      }
+
+                      const safariVideoImg = safariVideo.querySelector("img");
+                      if (safariVideoImg && safariVideo.hasAttribute("class")) {
+                          safariVideo.getAttribute("class").split(" ").forEach(className => {
+                              safariVideoImg.classList.add(className);
+                          });
+                      }
+
+                      const isSafari = userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome");
+                      
+                      safariVideo.style.display = isSafari ? "block" : "none";
+                      chromeVideo.style.display = isSafari ? "none" : "block";
+                      
+                      if (!isSafari) {
+                          chromeVideo.play().catch(err => {
+                              console.error("Error playing video:", err);
+                          });
+                      }
+                  } catch (error) {
+                      console.error("Error in video handler:", error);
+                  }
+              })();
               </script>
             
             {% else %}
