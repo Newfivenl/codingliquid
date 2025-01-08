@@ -962,18 +962,18 @@ Add to your schema settings block main-product.liquid
 
       // Add click event listeners to all tab containers
       tabContainers.forEach(container => {
-          container.addEventListener('click', (e) => {
-              // Find the closest tab button element to the click target
-              const clickedTab = e.target.closest('.tab-btn');
-              if (clickedTab) {
-                  // Find the parent container of the clicked tab
-                  const parentContainer = clickedTab.closest('.tw-tabs-container');
-                  if (parentContainer) {
-                      // Switch to the clicked tab
-                      switchTab(parentContainer, clickedTab);
-                  }
-              }
-          });
+        container.addEventListener('click', (e) => {
+          // Find the closest tab button element to the click target
+          const clickedTab = e.target.closest('.tab-btn');
+          if (clickedTab) {
+            // Find the parent container of the clicked tab
+            const parentContainer = clickedTab.closest('.tw-tabs-container');
+            if (parentContainer) {
+              // Switch to the clicked tab
+              switchTab(parentContainer, clickedTab);
+            }
+          }
+        });
       });
     }
 
