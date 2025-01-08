@@ -989,6 +989,10 @@ html {
   margin-bottom: 10px;
 }
 
+.tw-ml-\[10px\] {
+  margin-left: 10px;
+}
+
 .\!tw-block {
   display: block !important;
 }
