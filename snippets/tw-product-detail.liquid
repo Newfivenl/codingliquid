@@ -549,12 +549,12 @@ Add to your schema settings block main-product.liquid
 <script>
 
   /* Dialog */
-  function uspDialogContent(collapseBtn, closeBtn, closeBtnDesktop, animation) {
+  function uspDialogContent(collapseBtn, closeBtnDesktop, animation) {
     const btn = document.querySelector("" + collapseBtn + "");
     const uspItemCount = btn.parentNode.getAttribute('count_usp');
     const uspItemBlockId = btn.parentNode.getAttribute("block-id");
     const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-    const xbtn = document.querySelector("" + closeBtn + "");
+   
     const xbtnDesktop = document.querySelector("" + closeBtnDesktop + "");
 
     dialogContent.classList.add(animation);
