@@ -103,7 +103,7 @@ Metaobject fields:
                         <li class="tw-relative tw-group grid__item max-[640px]:!tw-w-full max-[640px]:tw-max-w-[100%]" data-index="{{ forloop.index }}">
                             <div class="tw-absolute tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-cursor-pointer min-[990px]:tw-opacity-0 min-[990px]:tw-bg-white/60 tw-transition-all tw-duration-300 min-[990px]:group-hover:tw-opacity-100 min-[990px]:group-hover:tw-backdrop-blur-sm max-[989px]:tw-flex max-[989px]:tw-flex-col max-[989px]:tw-justify-end">
                                 <span class="max-[989px]:tw-hidden"> {{ look_item.name_model }} </span>
-                                <button onclick="toggleSlider('{{ forloop.index }}')" class="tw-uppercase tw-bg-white tw-rounded-md tw-overflow-hidden tw-py-4 tw-px-5 tw-leading-[11px] tw-hidden max-[989px]:tw-block max-[989px]:tw-mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
+                                <button onclick="initializeSlider('{{ forloop.index }}')" class="tw-uppercase tw-bg-white tw-rounded-md tw-overflow-hidden tw-py-4 tw-px-5 tw-leading-[11px] tw-hidden max-[989px]:tw-block max-[989px]:tw-mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
                             </div>
                             {{ look_item.main_image | image_url: width: 1500 | image_tag: class: "tw-cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
                         </li>
@@ -399,7 +399,6 @@ function initializeSlider(index) {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeShopTheLook);
-initializeSlider(index);
 
 </script>
 
