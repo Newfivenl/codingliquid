@@ -151,24 +151,6 @@ Instructions:
                 replace: '<source src', '<source srcset'
               }}
               <script>
-                // (function () {
-                //   const userAgentForVideo = navigator.userAgent;
-                //   const chromeVideo = document.getElementById("{{ chrome_video }}");
-                //   const safariVideo = document.getElementById("{{ safari_video }}");
-                //   const safariVideoImg = safariVideo.querySelector("img");
-                //   safariVideo.getAttribute("class").split(" ").forEach(className => {
-                //       safariVideoImg.classList.add(className);
-                //   });
-                //   if (userAgentForVideo.includes("Safari") && !userAgentForVideo.includes("Chrome")) {
-                //     safariVideo.style.display = "block";
-                //     chromeVideo.style.display = "none";
-                //   } else {
-                //     safariVideo.style.display = "none";
-                //     chromeVideo.style.display = "block";
-                //     chromeVideo.play();
-                //   } 
-                // })();
-
                 // Immediately Invoked Function Expression (IIFE) to avoid polluting global scope
                 (function () {
                   // Wrap everything in try-catch to handle any unexpected errors
