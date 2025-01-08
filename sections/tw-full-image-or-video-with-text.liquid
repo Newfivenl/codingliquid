@@ -144,8 +144,6 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
             (function () {
               // Get the user's browser information and convert to lowercase for consistent comparison
               const userAgentForVideo = navigator.userAgent.toLowerCase();
-              // Log the user agent string for debugging purposes
-              console.log('Current UserAgent:', userAgentForVideo);
               
               // Get references to video elements for Chrome and Safari versions using template variables
               const chromeVideo = document.getElementById("{{ chrome_video }}");
