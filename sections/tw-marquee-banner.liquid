@@ -63,26 +63,6 @@ Instructions:
 </section>
 
 <script>
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   const marquee = document.getElementById('marquee');
-  //   const marqueeContent = marquee.querySelector('.marquee-content');
-  //   let speed = {{ section.settings.speed }};
-  //   let pos = 0;
-
-  //   function startMarquee() {
-  //     pos -= speed;
-  //     if (pos <= -marqueeContent.scrollWidth / 2) {
-  //       pos = 0;
-  //     }
-  //     marqueeContent.style.transform = `translateX(${pos}px)`;
-  //     requestAnimationFrame(startMarquee);
-  //   }
-
-  //   startMarquee();
-
-  //   marquee.addEventListener('mouseover', () => speed = 0);
-  //   marquee.addEventListener('mouseout', () => speed = {{ section.settings.speed }});
-  // });
 
   document.addEventListener("DOMContentLoaded", function () {
     const marquee = document.getElementById('marquee');
