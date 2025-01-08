@@ -554,7 +554,6 @@ Add to your schema settings block main-product.liquid
     const uspItemCount = btn.parentNode.getAttribute('count_usp');
     const uspItemBlockId = btn.parentNode.getAttribute("block-id");
     const dialogContent = document.querySelector(`#tw-usp-dialog-content-${uspItemBlockId}-${uspItemCount}`);
-   
     const xbtnDesktop = document.querySelector("" + closeBtnDesktop + "");
 
     dialogContent.classList.add(animation);
@@ -598,21 +597,6 @@ Add to your schema settings block main-product.liquid
             }
           }
         }
-      }
-    });
-
-    xbtn.addEventListener("click", function(event) {
-      dialogContent.classList.add('hide');
-      document.querySelector('body').classList.remove('overflow-hidden');
-
-      if (!('showModal' in document.createElement('dialog'))) {
-        dialogContent.close();
-      } else {
-        dialogContent.addEventListener('webkitAnimationEnd', function() {
-          dialogContent.classList.remove('hide');
-          dialogContent.close();
-          dialogContent.removeEventListener('webkitAnimationEnd', arguments.callee, false);
-        }, false);
       }
     });
 
@@ -861,7 +845,7 @@ Add to your schema settings block main-product.liquid
 
           switch (device) {
           case 'mobile':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'usp-dialog-content-vertical');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-block')) {
                 content.classList.remove('tw-block');
@@ -877,7 +861,7 @@ Add to your schema settings block main-product.liquid
             break;
           case 'tablet':
           case 'desktop':
-            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
+            uspDialogContent('#showDialog-{{ block.id }}', '#usp-dialog-button-{{ block.id }}-desktop', 'horizontal');
             productDetailsContentDesktop.forEach((content) => {
               if (content.classList.contains('tw-hidden')) {
                 content.classList.remove('tw-hidden');
