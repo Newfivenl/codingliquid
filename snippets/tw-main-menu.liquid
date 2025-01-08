@@ -756,4 +756,364 @@ endif
     // })(); 
 
 
+
+    // Start of Immediately Invoked Function Expression (IIFE) to avoid global scope pollution
+    (() => {
+        // Configuration object to store constant values and class names
+        const CONFIG = {
+            CLASSES: {
+                HIDDEN: 'tw-hidden',          // Class for hidden elements
+                VISIBLE: 'tw-inline-block',   // Class for visible elements
+                ACTIVE: 'active',             // Class for active state
+                HIDE: 'hide'                  // Class for hide animation
+            },
+            SWIPE: {
+                THRESHOLD: 0.50,              // 50% of screen height for swipe to close
+                DURATION: 500                 // Animation duration in milliseconds
+            }
+        };
+
+        // Main dialog initialization function
+        const twDialog = (triggerButton, closeBtn) => {
+            // Find the trigger button in the DOM
+            const btn = document.querySelector(triggerButton);
+            if (!btn) return;  // Exit if trigger button not found
+
+            // Cache all DOM elements for better performance
+            const elements = {
+                trigger: btn,                                 // Trigger button element
+                parent: btn.parentNode,                      // Parent container
+                triggerId: btn.parentNode.getAttribute('trigger-id'),    // Unique trigger ID
+                sectionId: btn.parentNode.getAttribute("section-id"),    // Section ID
+                triggerSpan: document.querySelector(triggerButton),      // Trigger span element
+                hamburgerIcon: btn.querySelector('[data-icon="hamburger"]'),  // Hamburger menu icon
+                closeIcon: btn.querySelector('[data-icon="close"]')          // Close icon
+            };
+
+            // Find and cache dialog content element
+            elements.dialogContent = document.querySelector(
+                `#tw-dialog-content-${elements.sectionId}-${elements.triggerId}`
+            );
+            elements.closeButton = document.querySelector(closeBtn);           // Close button
+            elements.handle = elements.dialogContent?.querySelector('.tw-dialog-handle');  // Swipe handle
+
+            // Exit if required elements are missing
+            if (!elements.dialogContent || !elements.closeButton) return;
+
+            // State object to track dialog interactions
+            let state = {
+                isDragging: false,        // Tracks if user is currently dragging
+                touchStartY: 0,           // Starting Y position of touch/drag
+                touchCurrentY: 0,         // Current Y position of touch/drag
+                isAnimating: false        // Tracks if animation is in progress
+            };
+
+            // Function to toggle between hamburger and close icons
+            const toggleIcons = (isOpen) => {
+                const { hamburgerIcon, closeIcon } = elements;
+                const { HIDDEN, VISIBLE } = CONFIG.CLASSES;
+
+                // Toggle visibility classes for both icons
+                hamburgerIcon.classList.toggle(HIDDEN, isOpen);
+                hamburgerIcon.classList.toggle(VISIBLE, !isOpen);
+                closeIcon.classList.toggle(HIDDEN, !isOpen);
+                closeIcon.classList.toggle(VISIBLE, isOpen);
+            };
+
+            // Object containing touch event handlers
+            const handleTouch = {
+                // Handle touch/mouse start event
+                start: (e) => {
+                    if (state.isAnimating) return;  // Ignore if animation is running
+                    
+                    // Get starting Y position from touch or mouse event
+                    state.touchStartY = e.touches?.[0]?.clientY ?? e.clientY;
+                    state.isDragging = true;
+                    elements.dialogContent.style.transition = 'none';  // Remove transition for smooth drag
+                    elements.handle.style.cursor = 'grabbing';        // Update cursor style
+                },
+
+                // Handle touch/mouse move event
+                move: (e) => {
+                    if (!state.isDragging || state.isAnimating) return;
+                    
+                    // Get current Y position and calculate distance
+                    state.touchCurrentY = e.touches?.[0]?.clientY ?? e.clientY;
+                    const swipeDistance = state.touchCurrentY - state.touchStartY;
+                    
+                    // Apply transform only for downward swipe
+                    if (swipeDistance > 0) {
+                        // Calculate resistance factor for natural feel
+                        const resistanceFactor = Math.min(1, swipeDistance / window.innerHeight);
+                        const easedDistance = swipeDistance * (1 - resistanceFactor * 0.6);
+                        elements.dialogContent.style.transform = `translateY(${easedDistance}px)`;
+                    }
+                },
+
+                // Handle touch/mouse end event
+                end: () => {
+                    if (!state.isDragging || state.isAnimating) return;
+                    
+                    // Calculate total swipe distance
+                    const swipeDistance = state.touchCurrentY - state.touchStartY;
+                    const threshold = window.innerHeight * CONFIG.SWIPE.THRESHOLD;
+
+                    // Close or reset based on swipe distance
+                    if (swipeDistance >= threshold) {
+                        finishClose();
+                    } else {
+                        resetDialog();
+                    }
+
+                    // Reset state
+                    state.isDragging = false;
+                    state.touchStartY = 0;
+                    state.touchCurrentY = 0;
+                }
+            };
+
+            // Function to handle closing animation
+            const finishClose = () => {
+                state.isAnimating = true;
+                // Apply smooth closing animation
+                elements.dialogContent.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.dialogContent.style.transform = `translateY(${window.innerHeight}px)`;
+
+                // Cleanup after animation
+                setTimeout(() => {
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    elements.dialogContent.close();
+                    
+                    // Reset styles
+                    elements.dialogContent.style.transform = '';
+                    elements.dialogContent.style.transition = '';
+                    elements.handle.style.cursor = 'grab';
+                    state.isAnimating = false;
+                }, CONFIG.SWIPE.DURATION);
+            };
+
+            // Function to reset dialog position
+            const resetDialog = () => {
+                state.isAnimating = true;
+                // Apply smooth reset animation
+                elements.dialogContent.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.dialogContent.style.transform = 'translateY(0)';
+                elements.handle.style.cursor = 'grab';
+
+                // Reset animation state
+                setTimeout(() => {
+                    state.isAnimating = false;
+                }, 300);
+            };
+
+            // Initialize swipe functionality
+            const handleSwipeClose = () => {
+                if (!elements.handle) return;
+
+                // Add touch event listeners
+                elements.handle.addEventListener('touchstart', handleTouch.start, { passive: true });
+                elements.handle.addEventListener('touchmove', handleTouch.move, { passive: true });
+                elements.handle.addEventListener('touchend', handleTouch.end);
+                elements.handle.addEventListener('touchcancel', handleTouch.end);
+
+                // Add mouse event listeners for desktop
+                elements.handle.addEventListener('mousedown', handleTouch.start);
+                window.addEventListener('mousemove', handleTouch.move);
+                window.addEventListener('mouseup', handleTouch.end);
+            };
+
+            // Initialize tab system within dialog
+            const initTabs = () => {
+                // Cache tab-related elements
+                const tabElements = {
+                    buttons: elements.dialogContent.querySelectorAll('.tw-menu-tab-btn'),
+                    wrapper: elements.dialogContent.querySelector('.tw-tabs-content-wrapper'),
+                    contents: elements.dialogContent.querySelectorAll('.tw-tabs-content-link-list'),
+                    container: elements.dialogContent.querySelector('.tw-tab-btn-container')
+                };
+
+                if (!tabElements.container) return;
+
+                let isScrollingFromClick = false;  // Track scroll source
+
+                // Remove existing indicator if present
+                const existingIndicator = tabElements.container.querySelector('.active-tab-indicator');
+                if (existingIndicator) {
+                    existingIndicator.remove();
+                }
+
+                // Create new active tab indicator
+                const activeIndicator = document.createElement('span');
+                activeIndicator.classList.add('active-tab-indicator');
+                Object.assign(activeIndicator.style, {
+                    position: 'absolute',
+                    bottom: '0',
+                    left: '0',
+                    height: '2px',
+                    backgroundColor: 'currentColor',
+                    transition: 'transform 0.3s ease, width 0.3s ease',
+                    display: 'block'
+                });
+                tabElements.container.appendChild(activeIndicator);
+
+                // Function to update indicator position
+                const updateIndicator = (activeBtn) => {
+                    if (!activeBtn) return;
+                    
+                    const width = activeBtn.offsetWidth;
+                    const left = activeBtn.offsetLeft;
+                    
+                    activeIndicator.style.width = `${width}px`;
+                    activeIndicator.style.transform = `translateX(${left}px)`;
+                };
+
+                // Function to update active tab on scroll
+                const updateActiveTabOnScroll = () => {
+                    if (isScrollingFromClick) return;
+
+                    const scrollPosition = tabElements.wrapper.scrollLeft;
+                    let activeIndex = 0;
+                    let minDistance = Infinity;
+                    
+                    // Find closest tab based on scroll position
+                    tabElements.contents.forEach((content, index) => {
+                        const distance = Math.abs(content.offsetLeft - scrollPosition);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            activeIndex = index;
+                        }
+                    });
+
+                    // Update active state and indicator
+                    tabElements.buttons.forEach((btn, index) => {
+                        if (index === activeIndex) {
+                            btn.classList.add(CONFIG.CLASSES.ACTIVE);
+                            updateIndicator(btn);
+                        } else {
+                            btn.classList.remove(CONFIG.CLASSES.ACTIVE);
+                        }
+                    });
+                };
+
+                // Add click handlers to tab buttons
+                tabElements.buttons.forEach((btn, index) => {
+                    btn.addEventListener('click', () => {
+                        isScrollingFromClick = true;
+                        
+                        // Update active state
+                        tabElements.buttons.forEach(b => b.classList.remove(CONFIG.CLASSES.ACTIVE));
+                        btn.classList.add(CONFIG.CLASSES.ACTIVE);
+                        updateIndicator(btn);
+                        
+                        // Scroll to selected tab
+                        const scrollPosition = tabElements.contents[index].offsetLeft;
+                        tabElements.wrapper.scrollTo({
+                            left: scrollPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Reset scroll tracking after animation
+                        setTimeout(() => {
+                            isScrollingFromClick = false;
+                        }, CONFIG.SWIPE.DURATION);
+                    });
+                });
+
+                // Add scroll event handler
+                tabElements.wrapper.addEventListener('scroll', () => {
+                    if (!isScrollingFromClick) {
+                        updateActiveTabOnScroll();
+                    }
+                });
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    const activeBtn = tabElements.container.querySelector('.tw-menu-tab-btn.active');
+                    updateIndicator(activeBtn);
+                });
+
+                // Initialize first tab
+                if (tabElements.buttons.length > 0) {
+                    tabElements.buttons[0].classList.add(CONFIG.CLASSES.ACTIVE);
+                    requestAnimationFrame(() => {
+                        updateIndicator(tabElements.buttons[0]);
+                    });
+                    tabElements.wrapper.scrollLeft = 0;
+                }
+            };
+
+            // Function to open dialog
+            const openDialog = () => {
+                elements.dialogContent.showModal();
+                elements.dialogContent.classList.remove(CONFIG.CLASSES.HIDE);
+                document.body.classList.add('overflow-hidden');
+                toggleIcons(true);
+                
+                // Initialize tabs after dialog is shown
+                requestAnimationFrame(initTabs);
+            };
+
+            // Function to close dialog
+            const closeDialog = (fromSwipe = false) => {
+                if (fromSwipe) {
+                    // Simple close for swipe
+                    document.body.classList.remove('overflow-hidden');
+                    toggleIcons(false);
+                    elements.dialogContent.close();
+                    return;
+                }
+                
+                // Animated close for button click
+                elements.dialogContent.classList.add(CONFIG.CLASSES.HIDE);
+                document.body.classList.remove('overflow-hidden');
+                toggleIcons(false);
+
+                // Handle animation end
+                const handleAnimationEnd = () => {
+                    elements.dialogContent.classList.remove(CONFIG.CLASSES.HIDE);
+                    elements.dialogContent.close();
+                    elements.dialogContent.removeEventListener('webkitAnimationEnd', handleAnimationEnd);
+                };
+
+                // Fallback for browsers without dialog support
+                if (!('showModal' in document.createElement('dialog'))) {
+                    elements.dialogContent.close();
+                } else {
+                    elements.dialogContent.addEventListener('webkitAnimationEnd', handleAnimationEnd);
+                }
+            };
+
+            // Add main event listeners
+            elements.trigger.addEventListener("click", openDialog);
+            elements.closeButton.addEventListener("click", () => closeDialog());
+
+            // Handle clicks outside dialog
+            elements.dialogContent.addEventListener('click', (event) => {
+                if (event.target === elements.dialogContent) {
+                    closeDialog();
+                    event.stopPropagation();
+                }
+            });
+
+            // Handle escape key
+            elements.dialogContent.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeDialog();
+                }
+            });
+
+            // Initialize dialog state
+            toggleIcons(false);
+            handleSwipeClose();
+        };
+
+        // Initialize dialog with section-specific selectors
+        twDialog(
+            '#showDialog-{{ section.id }}', 
+            '#tw-dialog-button-{{ section.id }}'
+        );
+    })();
+
+
 </script>
