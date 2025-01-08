@@ -318,7 +318,9 @@
       "blocks": {
         "image_fdiKk7": {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/FADE_SITE_FRONT_PC.jpg"
+          }
         },
         "caption_nhnArX": {
           "type": "caption",
@@ -377,7 +379,7 @@
           "settings": {
             "button_text": "Button",
             "button_link": "",
-            "button_style": "primary",
+            "button_style": "secondary",
             "margin_top": 10,
             "margin_bottom": 10
           }
