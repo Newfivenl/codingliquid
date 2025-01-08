@@ -294,92 +294,92 @@ just make sure to also update the ID, Label and metaobject_type below based on y
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');
-      window.openModal = function(modalId, buttonElement) {
-        const dialog = document.getElementById(modalId);
-        if (dialog) {
-          buttonElement.classList.add('active');
-          dialog.showModal();
-          dialog.classList.remove('closing');
-          void dialog.offsetWidth;
-          const firstFocusable = dialog.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-          if (firstFocusable) {
-            firstFocusable.focus();
-          }
-        }
-      };
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   const dialogs = document.querySelectorAll('dialog.tw-question-and-answer-dialog');
+    //   window.openModal = function(modalId, buttonElement) {
+    //     const dialog = document.getElementById(modalId);
+    //     if (dialog) {
+    //       buttonElement.classList.add('active');
+    //       dialog.showModal();
+    //       dialog.classList.remove('closing');
+    //       void dialog.offsetWidth;
+    //       const firstFocusable = dialog.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    //       if (firstFocusable) {
+    //         firstFocusable.focus();
+    //       }
+    //     }
+    //   };
 
-      window.closeModal = function(modalId, buttonElement) {
-        const dialog = document.getElementById(modalId);
-        if (dialog) {
-          document.querySelectorAll('.question-btn').forEach(btn => {
-            btn.classList.remove('active');
-          });
+    //   window.closeModal = function(modalId, buttonElement) {
+    //     const dialog = document.getElementById(modalId);
+    //     if (dialog) {
+    //       document.querySelectorAll('.question-btn').forEach(btn => {
+    //         btn.classList.remove('active');
+    //       });
 
-          dialog.classList.add('closing');
-          setTimeout(() => {
-            dialog.classList.remove('closing');
-            dialog.close();
-            const triggerButton = document.querySelector(`[aria-controls="${modalId}"]`);
-            if (triggerButton) {
-              triggerButton.focus();
-            }
-          }, 200);
-        }
-      };
+    //       dialog.classList.add('closing');
+    //       setTimeout(() => {
+    //         dialog.classList.remove('closing');
+    //         dialog.close();
+    //         const triggerButton = document.querySelector(`[aria-controls="${modalId}"]`);
+    //         if (triggerButton) {
+    //           triggerButton.focus();
+    //         }
+    //       }, 200);
+    //     }
+    //   };
 
-      dialogs.forEach(dialog => {
-        dialog.addEventListener('click', (e) => {
-          const dialogDimensions = dialog.getBoundingClientRect();
-          if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY < dialogDimensions.top ||
-            e.clientY > dialogDimensions.bottom
-          ) {
-            // Modified this line to pass the dialog ID and maintain focus management
-            const triggerButton = document.querySelector(`[aria-controls="${dialog.id}"]`);
-            if (triggerButton) {
-              triggerButton.classList.remove('active');
-            }
-            closeModal(dialog.id, triggerButton);
-          }
-        });
+    //   dialogs.forEach(dialog => {
+    //     dialog.addEventListener('click', (e) => {
+    //       const dialogDimensions = dialog.getBoundingClientRect();
+    //       if (
+    //         e.clientX < dialogDimensions.left ||
+    //         e.clientX > dialogDimensions.right ||
+    //         e.clientY < dialogDimensions.top ||
+    //         e.clientY > dialogDimensions.bottom
+    //       ) {
+    //         // Modified this line to pass the dialog ID and maintain focus management
+    //         const triggerButton = document.querySelector(`[aria-controls="${dialog.id}"]`);
+    //         if (triggerButton) {
+    //           triggerButton.classList.remove('active');
+    //         }
+    //         closeModal(dialog.id, triggerButton);
+    //       }
+    //     });
 
-        dialog.querySelector('.dialog-content').addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
+    //     dialog.querySelector('.dialog-content').addEventListener('click', (e) => {
+    //       e.stopPropagation();
+    //     });
 
-        dialog.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            closeModal(dialog.id);
-          }
-        });
+    //     dialog.addEventListener('keydown', (e) => {
+    //       if (e.key === 'Escape') {
+    //         closeModal(dialog.id);
+    //       }
+    //     });
 
-        dialog.addEventListener('keydown', function(e) {
-          if (e.key === 'Tab') {
-            const focusableElements = dialog.querySelectorAll(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            const firstFocusableElement = focusableElements[0];
-            const lastFocusableElement = focusableElements[focusableElements.length - 1];
+    //     dialog.addEventListener('keydown', function(e) {
+    //       if (e.key === 'Tab') {
+    //         const focusableElements = dialog.querySelectorAll(
+    //           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    //         );
+    //         const firstFocusableElement = focusableElements[0];
+    //         const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-            if (e.shiftKey) {
-              if (document.activeElement === firstFocusableElement) {
-                lastFocusableElement.focus();
-                e.preventDefault();
-              }
-            } else {
-              if (document.activeElement === lastFocusableElement) {
-                firstFocusableElement.focus();
-                e.preventDefault();
-              }
-            }
-          }
-        });
-      });
-    });
+    //         if (e.shiftKey) {
+    //           if (document.activeElement === firstFocusableElement) {
+    //             lastFocusableElement.focus();
+    //             e.preventDefault();
+    //           }
+    //         } else {
+    //           if (document.activeElement === lastFocusableElement) {
+    //             firstFocusableElement.focus();
+    //             e.preventDefault();
+    //           }
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
   </script>
 </section>
 
