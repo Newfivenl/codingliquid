@@ -82,6 +82,7 @@
           "settings": {
             "tw_usp_text": "USP 2",
             "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
+            "tw_usp_icon_svg_2": "shopify://shop_images/box.svg",
             "tw_usp_page_content": "<p>Popup content 2</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
