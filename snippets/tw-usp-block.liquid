@@ -2,7 +2,6 @@
 {% endcomment %}
 
 {% liquid 
-
     assign block_id = block.id 
     assign tw_usp_text = block.settings.tw_usp_text 
     assign tw_usp_icon_svg = block.settings.tw_usp_icon_svg 
@@ -11,8 +10,6 @@
     
     assign count_usp = count_usp
     assign cursor_auto = cursor_auto
-    assign padding_top = block.settings.padding_top
-    assign padding_bottom = block.settings.padding_bottom
 
     if tw_usp_page_content != blank 
         capture cursor_auto
@@ -21,9 +18,8 @@
     endif
 %}
 
-<div class="usp-block  !nf-m-0" style="padding-top: {{ padding_top }}px; padding-bottom: {{ padding_top }}px;">
+<div class="usp-block  !nf-m-0">
     {% assign count_usp = count_usp | plus: 1 %}
-
     <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item " block-id="{{ block.id }}" count_usp="{{count_usp}}">
         {%- if tw_usp_icon_svg -%}
             <span class=" first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
@@ -35,5 +31,4 @@
             {%- endif -%}
         </span>
     </div> 
-    
 </div>
