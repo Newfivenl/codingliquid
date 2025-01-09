@@ -73,7 +73,7 @@
           "settings": {
             "tw_usp_text": "USP 1",
             "tw_usp_icon_svg": "shopify://shop_images/Icon.svg",
-            "tw_usp_page_content": "<h3>Testing</h3>",
+            "tw_usp_content": "<p>Heading text<br/><br/>Aenean arcu quam, interdum nec eleifend vestibulum, gravida nec lectus. Phasellus urna erat, placerat vitae ipsum a, cursus sollicitudin massa. Vestibulum tincidunt, mi vel aliquam rhoncus, nisl enim pulvinar erat</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
@@ -82,7 +82,7 @@
           "settings": {
             "tw_usp_text": "USP 2",
             "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
-            "tw_usp_page_content": "<h5>Vivamus neque ligula</h5><p><br/>Donec nec sodales risus. Vivamus neque ligula, tincidunt at egestas convallis, mollis a ligula. Mauris posuere venenatis ligula, ut fringilla felis ullamcorper vitae. Etiam ac augue convallis nunc ultrices tempor ac sit amet augue.</p>",
+            "tw_usp_content": "",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
@@ -91,7 +91,7 @@
           "settings": {
             "tw_usp_text": "TW 3",
             "tw_usp_icon_svg": "shopify://shop_images/icon-heart.svg",
-            "tw_usp_page_content": "",
+            "tw_usp_content": "",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         }
