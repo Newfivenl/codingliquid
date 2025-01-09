@@ -32,3 +32,78 @@
         </span>
     </div> 
 </div>
+
+
+
+<style>
+    .localization-dialog {
+        padding: 2rem;
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        max-width: 50rem;
+        width: 90%;
+        overflow: unset;
+    }
+
+    .localization-dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .localization-dialog.localization-fade-in {
+        opacity: 1;
+    }
+
+    .localization-dialog.localization-fade-in::backdrop {
+        opacity: 1;
+    }
+
+    .localization-fade-out {
+        opacity: 0 !important;
+    }
+
+    .localization-dialog.localization-fade-out::backdrop {
+        opacity: 0 !important;
+    }
+
+
+    .localization-close-button {
+        display: inline-block;
+        padding: 0;
+        min-width: 2.4rem;
+        min-height: 1.4rem;
+        box-shadow: 0 0 0 .2rem rgba(var(--color-button), 0);
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: rgb(var(--color-foreground));
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+
+</style>
+
+
+<dialog id="localization-dialog" class="localization-dialog">
+
+    Content
+
+    <button class="localization-button localization-close-button" onclick="closeLocalizationDialog()">
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
+        class="icon icon-close"
+        fill="none"
+        viewBox="0 0 18 17"
+        >
+        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+        </svg>
+    </button>
+</dialog>
