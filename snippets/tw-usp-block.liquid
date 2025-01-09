@@ -1,6 +1,24 @@
 {% comment %}
 {% endcomment %}
 
+{% liquid 
+    assign block_id = block.id 
+    assign color_scheme = block.settings.usp_product_color_scheme 
+    assign usp_product_text = block.settings.usp_product_text 
+    assign usp_product_font_size = block.settings.usp_label_font_size 
+    assign usp_product_icon_svg = block.settings.usp_product_icon_svg 
+    assign usp_product__item_svg_icon_2 = block.settings.usp_product__item_svg_icon_2 
+    assign count_usp = count_usp, 
+    assign cursor_auto = cursor_auto
+    assign usp_product_page_content = block.settings.usp_product_page_content
+
+    if usp_product_page_content != blank 
+        capture cursor_auto
+            echo 'cursor-auto'
+        endcapture 
+    endif
+
+%}
 
 <div class="usp-block color-{{ block.settings.usp_product_color_scheme }} gradient !nf-m-0" style="padding-top: {{ block.settings.padding_top }}px; padding-bottom: {{ block.settings.padding_bottom }}px;">
     {% assign count_usp = count_usp | plus: 1 %}
