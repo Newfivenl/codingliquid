@@ -82,7 +82,7 @@
           "settings": {
             "tw_usp_text": "USP 2",
             "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
-            "tw_usp_page_content": "<p>Popup content 2</p>",
+            "tw_usp_page_content": "<h5>Vivamus neque ligula</h5><p><br/>Donec nec sodales risus. Vivamus neque ligula, tincidunt at egestas convallis, mollis a ligula. Mauris posuere venenatis ligula, ut fringilla felis ullamcorper vitae. Etiam ac augue convallis nunc ultrices tempor ac sit amet augue.</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
