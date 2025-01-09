@@ -84,7 +84,7 @@
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             </span>
             <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
-                <div class="dialog-content">
+                <div class="tw-dialog-content">
                     {{ tw_usp_content }}
                 </div>
                 <button type="button" class="twUSPBlock-button twUSPBlock-close-button" data-dialog-close>
@@ -175,7 +175,7 @@
             });
 
             // Prevent clicks in dialog from closing it
-            dialog.querySelector('.dialog-content')?.addEventListener('click', (e) => {
+            dialog.querySelector('.tw-dialog-content')?.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
 
