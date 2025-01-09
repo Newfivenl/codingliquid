@@ -21,14 +21,14 @@
     endif
 %}
 
-<div class="usp-block color-{{ tw_usp_color_scheme }} gradient !nf-m-0" style="padding-top: {{ padding_top }}px; padding-bottom: {{ padding_top }}px;">
+<div class="usp-block  !nf-m-0" style="padding-top: {{ padding_top }}px; padding-bottom: {{ padding_top }}px;">
     {% assign count_usp = count_usp | plus: 1 %}
 
-    <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item color-{{ tw_usp_color_scheme }} gradient" block-id="{{ block.id }}" count_usp="{{count_usp}}">
+    <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item " block-id="{{ block.id }}" count_usp="{{count_usp}}">
         {%- if tw_usp_icon_svg -%}
-            <span class="color-{{ tw_usp_color_scheme }} gradient first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
+            <span class=" first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
-        <span id="showDialog-{{ block.id }}" class="nf-flex usp-font-size color-{{ tw_usp_color_scheme }} gradient {{- cursor_auto -}}">
+        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}">
             <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             {%- if tw_usp_icon_svg_2 -%}
                 <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
