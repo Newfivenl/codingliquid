@@ -73,7 +73,7 @@
           "settings": {
             "tw_usp_text": "USP 1",
             "tw_usp_icon_svg": "shopify://shop_images/Icon.svg",
-            "tw_usp_content": "<p>Heading text<br/><br/>Aenean arcu quam, interdum nec eleifend vestibulum, gravida nec lectus. Phasellus urna erat, placerat vitae ipsum a, cursus sollicitudin massa. Vestibulum tincidunt, mi vel aliquam rhoncus, nisl enim pulvinar erat</p>",
+            "tw_usp_content": "<h2>Heading text</h2><p><br/>Aenean arcu quam, interdum nec eleifend vestibulum, gravida nec lectus. Phasellus urna erat, placerat vitae ipsum a, cursus sollicitudin massa. Vestibulum tincidunt, mi vel aliquam rhoncus, nisl enim pulvinar erat</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
