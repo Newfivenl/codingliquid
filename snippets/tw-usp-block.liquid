@@ -81,6 +81,12 @@
         {%- endif -%}
         {%- if tw_usp_page_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
+                {%- if tw_usp_icon_svg_2 != blank -%}
+                    {{ tw_usp_icon_svg_2 | image_url: width: 41 | image_tag:
+                        loading: 'lazy',
+                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                    }}
+                {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
                     {{ tw_usp_icon_svg_2 | image_url: width: 41 | image_tag:
