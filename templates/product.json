@@ -72,7 +72,17 @@
           "type": "tw_usp_block",
           "settings": {
             "tw_usp_text": "USP label",
-            "tw_usp_label_font_size": 12,
+            "tw_usp_page_content": "",
+            "tw_usp_color_scheme": "background-1",
+            "tw_usp_dialog_color_scheme": "background-1",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        },
+        "tw_usp_block_eV6jga": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "USP label 2",
             "tw_usp_page_content": "",
             "tw_usp_color_scheme": "background-1",
             "tw_usp_dialog_color_scheme": "background-1",
@@ -89,7 +99,8 @@
         "buy_buttons",
         "tw_product_detail_hT3egy",
         "tw_product_detail_qthMKJ",
-        "tw_usp_block_RQyRAq"
+        "tw_usp_block_RQyRAq",
+        "tw_usp_block_eV6jga"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
