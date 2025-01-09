@@ -119,7 +119,6 @@
 
     const USPDialog = {
         init: function() {
-            console.log('Initializing USP Dialog...');
             
             // Check for dialog support
             if (typeof HTMLDialogElement !== 'function') {
@@ -133,7 +132,6 @@
         setupEventListeners: function() {
             // Find all dialog triggers
             const triggers = document.querySelectorAll('[data-dialog-trigger]');
-            console.log('Found triggers:', triggers.length);
 
             triggers.forEach(trigger => {
                 const dialogId = trigger.dataset.dialogTarget;
@@ -150,7 +148,6 @@
         },
 
         setupDialog: function(trigger, dialog) {
-            console.log('Setting up dialog:', dialog.id);
 
             const closeButton = dialog.querySelector('[data-dialog-close]');
             
