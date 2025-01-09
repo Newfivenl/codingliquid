@@ -89,6 +89,82 @@
 
 </style>
 
+<script>
+
+    const localizationDialog = document.getElementById('localization-dialog');
+
+    function openLocalizationDialog() {
+        // First, set all focusable elements to tabindex -1
+        const focusableElements = localizationDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        const originalTabIndexes = new Map();
+
+        focusableElements.forEach(el => {
+            originalTabIndexes.set(el, el.getAttribute('tabindex'));
+            el.setAttribute('tabindex', '-1');
+        });
+
+        localizationDialog.showModal();
+
+        // Set dialog's tabindex to -1 and focus it instead of its contents
+        localizationDialog.setAttribute('tabindex', '-1');
+        localizationDialog.focus();
+
+        // Restore original tabindexes after animation frame
+        requestAnimationFrame(() => {
+                focusableElements.forEach(el => {
+                    const originalTabIndex = originalTabIndexes.get(el);
+                    if (originalTabIndex === null) {
+                        el.removeAttribute('tabindex');
+                    } else {
+                        el.setAttribute('tabindex', originalTabIndex);
+                    }
+                });
+                
+                requestAnimationFrame(() => {
+                    localizationDialog.classList.add('localization-fade-in');
+                });
+            });
+        }
+
+        function closeLocalizationDialog() {
+            localizationDialog.classList.remove('localization-fade-in');
+            localizationDialog.classList.add('localization-fade-out');
+            localizationDialog.addEventListener('transitionend', () => {
+                localizationDialog.close();
+                localizationDialog.classList.remove('localization-fade-out');
+                localizationDialog.removeAttribute('tabindex');
+            }, { once: true });
+        }
+
+        // Close dialog when clicking outside
+        localizationDialog.addEventListener('click', (e) => {
+            const dialogDimensions = localizationDialog.getBoundingClientRect();
+            if (
+                e.clientX < dialogDimensions.left ||
+                e.clientX > dialogDimensions.right ||
+                e.clientY < dialogDimensions.top ||
+                e.clientY > dialogDimensions.bottom
+            ) {
+                closeLocalizationDialog();
+            }
+        });
+
+        // Handle ESC key
+        localizationDialog.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            closeLocalizationDialog();
+        });
+
+        // Prevent any focusin events when dialog opens
+        localizationDialog.addEventListener('focusin', (e) => {
+            if (!localizationDialog.classList.contains('localization-fade-in')) {
+                e.preventDefault();
+                localizationDialog.focus();
+            }
+        });
+
+</script>
+
 
 <dialog id="localization-dialog" class="localization-dialog">
 
