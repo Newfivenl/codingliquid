@@ -75,6 +75,14 @@
             "tw_usp_page_content": "",
             "tw_usp_dialog_color_scheme": "background-1"
           }
+        },
+        "tw_usp_block_4PkDyA": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "USP 2",
+            "tw_usp_page_content": "",
+            "tw_usp_dialog_color_scheme": "background-1"
+          }
         }
       },
       "block_order": [
@@ -85,7 +93,8 @@
         "buy_buttons",
         "tw_product_detail_hT3egy",
         "tw_product_detail_qthMKJ",
-        "tw_usp_block_KARYnD"
+        "tw_usp_block_KARYnD",
+        "tw_usp_block_4PkDyA"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
