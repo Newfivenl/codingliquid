@@ -93,13 +93,7 @@
 
     function openLocalizationDialog() {
         // First, set all focusable elements to tabindex -1
-        const focusableElements = localizationDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         const originalTabIndexes = new Map();
-
-        focusableElements.forEach(el => {
-            originalTabIndexes.set(el, el.getAttribute('tabindex'));
-            el.setAttribute('tabindex', '-1');
-        });
 
         localizationDialog.showModal();
 
@@ -109,14 +103,6 @@
 
         // Restore original tabindexes after animation frame
         requestAnimationFrame(() => {
-                focusableElements.forEach(el => {
-                    const originalTabIndex = originalTabIndexes.get(el);
-                    if (originalTabIndex === null) {
-                        el.removeAttribute('tabindex');
-                    } else {
-                        el.setAttribute('tabindex', originalTabIndex);
-                    }
-                });
                 
                 requestAnimationFrame(() => {
                     localizationDialog.classList.add('localization-fade-in');
