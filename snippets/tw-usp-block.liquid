@@ -78,7 +78,7 @@
         {%- if tw_usp_icon_svg -%}
             <span class=" first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
-        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}">
+        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}" onclick="openLocalizationDialog();">
             <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             {%- if tw_usp_icon_svg_2 -%}
                 <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
@@ -86,8 +86,6 @@
         </span>
     </div> 
 </div>
-
-<button onclick="openLocalizationDialog();">click</button>
 
 <script>
 
