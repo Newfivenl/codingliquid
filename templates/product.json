@@ -68,20 +68,20 @@
             "color_scheme": "scheme-3"
           }
         },
-        "tw_usp_block_RQyRAq": {
+        "tw_usp_block_KARYnD": {
           "type": "tw_usp_block",
           "settings": {
-            "tw_usp_text": "USP label",
+            "tw_usp_text": "USP 1",
             "tw_usp_page_content": "",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
-        "tw_usp_block_eV6jga": {
+        "tw_usp_block_DhGUYp": {
           "type": "tw_usp_block",
           "settings": {
-            "tw_usp_text": "USP label 2",
+            "tw_usp_text": "USP 2",
             "tw_usp_page_content": "",
-            "tw_usp_dialog_color_scheme": "background-1"
+            "tw_usp_dialog_color_scheme": ""
           }
         }
       },
@@ -93,8 +93,8 @@
         "buy_buttons",
         "tw_product_detail_hT3egy",
         "tw_product_detail_qthMKJ",
-        "tw_usp_block_RQyRAq",
-        "tw_usp_block_eV6jga"
+        "tw_usp_block_KARYnD",
+        "tw_usp_block_DhGUYp"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
