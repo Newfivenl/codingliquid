@@ -2,8 +2,7 @@
 {% endcomment %}
 
 
-
-<div class="usp-wrap color-{{ block.settings.usp_product_color_scheme }} gradient !nf-m-0" style="padding-top: {{ block.settings.padding_top }}px; padding-bottom: {{ block.settings.padding_bottom }}px;">
+<div class="usp-block color-{{ block.settings.usp_product_color_scheme }} gradient !nf-m-0" style="padding-top: {{ block.settings.padding_top }}px; padding-bottom: {{ block.settings.padding_bottom }}px;">
     {% assign count_usp = count_usp | plus: 1 %}
     {% if block.settings.usp_product_page_content != blank %}
         {%  capture cursor_auto %}  {% endcapture %}
