@@ -70,17 +70,17 @@
     endif
 -%}
 
-<div class="tw-usp-block !nf-m-0" data-tw-usp-block>
+<div class="tw-usp-block !tw-m-0" data-tw-usp-block>
     {%- assign count_usp = count_usp | plus: 1 -%}
-    <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
+    <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
         {%- if tw_usp_icon_svg != blank -%}
-            <span class="first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
+            <span class="first:tw-contents [&>svg]:tw-max-w-[20px] [&>svg]:tw-h-[20px] [&>svg]:tw-w-full [&>svg]:tw-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
         {%- if tw_usp_page_content != blank -%}
-            <span id="showDialog-{{ block.id }}" class="nf-flex {{ cursor_auto }} nf-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
-                <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+            <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
+                <span class="tw-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
-                    <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
+                    <span class="tw-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
                 {%- endif -%}
             </span>
             <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
@@ -94,10 +94,10 @@
                 </button>
             </dialog>
         {%- else -%}
-            <span class="nf-flex nf-items-center">
-                <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+            <span class="tw-flex tw-items-center">
+                <span class="tw-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
-                    <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
+                    <span class="tw-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
                 {%- endif -%}
             </span>
         {%- endif -%}
