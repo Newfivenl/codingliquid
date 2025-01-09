@@ -2,7 +2,7 @@
 {% endcomment %}
 
 <style>
-    .localization-dialog {
+    .twUSPBlock-dialog {
         padding: 2rem;
         border-radius: 8px;
         border: none;
@@ -14,30 +14,29 @@
         overflow: unset;
     }
 
-    .localization-dialog::backdrop {
+    .twUSPBlock-dialog::backdrop {
         background: rgba(0, 0, 0, 0.6);
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
     }
 
-    .localization-dialog.localization-fade-in {
+    .twUSPBlock-dialog.twUSPBlock-fade-in {
         opacity: 1;
     }
 
-    .localization-dialog.localization-fade-in::backdrop {
+    .twUSPBlock-dialog.twUSPBlock-fade-in::backdrop {
         opacity: 1;
     }
 
-    .localization-fade-out {
+    .twUSPBlock-fade-out {
         opacity: 0 !important;
     }
 
-    .localization-dialog.localization-fade-out::backdrop {
+    .twUSPBlock-dialog.twUSPBlock-fade-out::backdrop {
         opacity: 0 !important;
     }
 
-
-    .localization-close-button {
+    .twUSPBlock-close-button {
         display: inline-block;
         padding: 0;
         min-width: 2.4rem;
@@ -51,8 +50,6 @@
         border: none;
         cursor: pointer;
     }
-
-
 </style>
 
 {% liquid 
@@ -72,13 +69,13 @@
     endif
 %}
 
-<div class="usp-block  !nf-m-0">
+<div class="usp-block !nf-m-0">
     {% assign count_usp = count_usp | plus: 1 %}
-    <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item " block-id="{{ block.id }}" count_usp="{{count_usp}}">
+    <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item" block-id="{{ block.id }}" count_usp="{{count_usp}}">
         {%- if tw_usp_icon_svg -%}
-            <span class=" first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
+            <span class="first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
-        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}" onclick="openLocalizationDialog();">
+        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}" onclick="openTwUSPBlockDialog();">
             <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             {%- if tw_usp_icon_svg_2 -%}
                 <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
@@ -88,73 +85,69 @@
 </div>
 
 <script>
+    const twUSPBlockDialog = document.getElementById('twUSPBlock-dialog');
 
-    const localizationDialog = document.getElementById('localization-dialog');
-
-    function openLocalizationDialog() {
-        // First, set all focusable elements to tabindex -1
+    function openTwUSPBlockDialog() {
+        const focusableElements = twUSPBlockDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         const originalTabIndexes = new Map();
 
-        localizationDialog.showModal();
+        focusableElements.forEach(el => {
+            originalTabIndexes.set(el, el.getAttribute('tabindex'));
+            el.setAttribute('tabindex', '-1');
+        });
 
-        // Set dialog's tabindex to -1 and focus it instead of its contents
-        localizationDialog.setAttribute('tabindex', '-1');
-        localizationDialog.focus();
+        twUSPBlockDialog.showModal();
+        twUSPBlockDialog.setAttribute('tabindex', '-1');
+        twUSPBlockDialog.focus();
 
-        // Restore original tabindexes after animation frame
         requestAnimationFrame(() => {
-                
-                requestAnimationFrame(() => {
-                    localizationDialog.classList.add('localization-fade-in');
-                });
+            requestAnimationFrame(() => {
+                twUSPBlockDialog.classList.add('twUSPBlock-fade-in');
             });
-        }
-
-        function closeLocalizationDialog() {
-            localizationDialog.classList.remove('localization-fade-in');
-            localizationDialog.classList.add('localization-fade-out');
-            localizationDialog.addEventListener('transitionend', () => {
-                localizationDialog.close();
-                localizationDialog.classList.remove('localization-fade-out');
-                localizationDialog.removeAttribute('tabindex');
-            }, { once: true });
-        }
-
-        // Close dialog when clicking outside
-        localizationDialog.addEventListener('click', (e) => {
-            const dialogDimensions = localizationDialog.getBoundingClientRect();
-            if (
-                e.clientX < dialogDimensions.left ||
-                e.clientX > dialogDimensions.right ||
-                e.clientY < dialogDimensions.top ||
-                e.clientY > dialogDimensions.bottom
-            ) {
-                closeLocalizationDialog();
-            }
         });
+    }
 
-        // Handle ESC key
-        localizationDialog.addEventListener('cancel', (e) => {
+    function closeTwUSPBlockDialog() {
+        twUSPBlockDialog.classList.remove('twUSPBlock-fade-in');
+        twUSPBlockDialog.classList.add('twUSPBlock-fade-out');
+        twUSPBlockDialog.addEventListener('transitionend', () => {
+            twUSPBlockDialog.close();
+            twUSPBlockDialog.classList.remove('twUSPBlock-fade-out');
+            twUSPBlockDialog.removeAttribute('tabindex');
+        }, { once: true });
+    }
+
+    // Close dialog when clicking outside
+    twUSPBlockDialog.addEventListener('click', (e) => {
+        const dialogDimensions = twUSPBlockDialog.getBoundingClientRect();
+        if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY < dialogDimensions.top ||
+            e.clientY > dialogDimensions.bottom
+        ) {
+            closeTwUSPBlockDialog();
+        }
+    });
+
+    // Handle ESC key
+    twUSPBlockDialog.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeTwUSPBlockDialog();
+    });
+
+    // Prevent any focusin events when dialog opens
+    twUSPBlockDialog.addEventListener('focusin', (e) => {
+        if (!twUSPBlockDialog.classList.contains('twUSPBlock-fade-in')) {
             e.preventDefault();
-            closeLocalizationDialog();
-        });
-
-        // Prevent any focusin events when dialog opens
-        localizationDialog.addEventListener('focusin', (e) => {
-            if (!localizationDialog.classList.contains('localization-fade-in')) {
-                e.preventDefault();
-                localizationDialog.focus();
-            }
-        });
-
+            twUSPBlockDialog.focus();
+        }
+    });
 </script>
 
-
-<dialog id="localization-dialog" class="localization-dialog">
-
+<dialog id="twUSPBlock-dialog" class="twUSPBlock-dialog">
     Content
-
-    <button class="localization-button localization-close-button" onclick="closeLocalizationDialog()">
+    <button class="twUSPBlock-button twUSPBlock-close-button" onclick="closeTwUSPBlockDialog()">
         <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
