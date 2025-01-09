@@ -75,6 +75,10 @@
     <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
         {%- if tw_usp_icon_svg != blank -%}
             <span class="first:tw-contents [&>svg]:tw-max-w-[20px] [&>svg]:tw-h-[20px] [&>svg]:tw-w-full [&>svg]:tw-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
+            {{ tw_usp_icon_svg | image_url: width: 41 | image_tag:
+                loading: 'lazy',
+                class: 'tw-w-10 tw-h-10 tw-object-contain'
+            }}
         {%- endif -%}
         {%- if tw_usp_page_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
