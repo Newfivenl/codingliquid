@@ -190,7 +190,6 @@
         },
 
         openDialog: function(dialog) {
-            console.log('Opening dialog:', dialog.id);
             
             // Set all focusable elements to tabindex -1
             const focusableElements = dialog.querySelectorAll(
@@ -219,7 +218,6 @@
         },
 
         closeDialog: function(dialog) {
-            console.log('Closing dialog:', dialog.id);
             
             dialog.classList.remove('twUSPBlock-fade-in');
             dialog.classList.add('twUSPBlock-fade-out');
