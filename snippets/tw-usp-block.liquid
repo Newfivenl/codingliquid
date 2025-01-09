@@ -73,16 +73,11 @@
 <div class="tw-usp-block" data-tw-usp-block>
     {%- assign count_usp = count_usp | plus: 1 -%}
     <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
-        {%- if tw_usp_icon_svg != blank -%}
-            {{ tw_usp_icon_svg | image_url: width: 41 | image_tag:
-                loading: 'lazy',
-                class: 'tw-w-10 tw-h-10 tw-object-contain'
-            }}
-        {%- endif -%}
+       
         {%- if tw_usp_page_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
-                {%- if tw_usp_icon_svg_2 != blank -%}
-                    {{ tw_usp_icon_svg_2 | image_url: width: 41 | image_tag:
+                {%- if tw_usp_icon_svg_1 != blank -%}
+                    {{ tw_usp_icon_svg_1 | image_url: width: 41 | image_tag:
                         loading: 'lazy',
                         class: 'tw-w-10 tw-h-10 tw-object-contain'
                     }}
@@ -107,6 +102,12 @@
             </dialog>
         {%- else -%}
             <span class="tw-flex tw-items-center">
+                {%- if tw_usp_icon_svg != blank -%}
+                    {{ tw_usp_icon_svg | image_url: width: 41 | image_tag:
+                        loading: 'lazy',
+                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                    }}
+                {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
                     {{ tw_usp_icon_svg_2 | image_url: width: 41 | image_tag:
