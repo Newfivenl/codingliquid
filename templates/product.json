@@ -72,7 +72,7 @@
           "type": "tw_usp_block",
           "settings": {
             "tw_usp_text": "USP 1",
-            "tw_usp_page_content": "",
+            "tw_usp_page_content": "<p>Popup content 1</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
@@ -80,7 +80,7 @@
           "type": "tw_usp_block",
           "settings": {
             "tw_usp_text": "USP 2",
-            "tw_usp_page_content": "",
+            "tw_usp_page_content": "<p>Popup content 2</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         }
