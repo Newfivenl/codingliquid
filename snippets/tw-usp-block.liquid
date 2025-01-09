@@ -9,6 +9,10 @@
         max-width: 50rem;
         width: 90%;
         overflow: unset;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .twUSPBlock-dialog::backdrop {
@@ -89,6 +93,15 @@ if (typeof HTMLDialogElement !== 'function') {
 
 document.addEventListener('DOMContentLoaded', function() {
     const twUSPBlockDialog = document.getElementById('twUSPBlock-dialog');
+    const closeButton = document.querySelector('.twUSPBlock-close-button');
+    
+    if (closeButton) {
+        closeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeTwUSPBlockDialog();
+        });
+    }
     if (!twUSPBlockDialog) {
         console.error('Dialog element not found');
         return;
@@ -116,13 +129,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeTwUSPBlockDialog() {
+        console.log('Closing dialog...');
+        if (!twUSPBlockDialog) return;
+        
         twUSPBlockDialog.classList.remove('twUSPBlock-fade-in');
         twUSPBlockDialog.classList.add('twUSPBlock-fade-out');
-        twUSPBlockDialog.addEventListener('transitionend', () => {
+        
+        const handleTransitionEnd = () => {
             twUSPBlockDialog.close();
             twUSPBlockDialog.classList.remove('twUSPBlock-fade-out');
             twUSPBlockDialog.removeAttribute('tabindex');
-        }, { once: true });
+            // Restore focusable elements
+            const focusableElements = twUSPBlockDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]');
+            focusableElements.forEach(el => {
+                el.removeAttribute('tabindex');
+            });
+        };
+
+        twUSPBlockDialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
     }
 
     // Close dialog when clicking outside
@@ -164,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <dialog id="twUSPBlock-dialog" class="twUSPBlock-dialog">
     Content
-    <button class="twUSPBlock-button twUSPBlock-close-button" onclick="closeTwUSPBlockDialog()">
+    <button class="twUSPBlock-button twUSPBlock-close-button">
         <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
