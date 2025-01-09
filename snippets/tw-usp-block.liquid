@@ -23,11 +23,6 @@
 
 <div class="usp-block color-{{ color_scheme }} gradient !nf-m-0" style="padding-top: {{ padding_top }}px; padding-bottom: {{ padding_top }}px;">
     {% assign count_usp = count_usp | plus: 1 %}
-    {% if block.settings.usp_product_page_content != blank %}
-        {%  capture cursor_auto %}  {% endcapture %}
-    {% else %}
-        {%  capture cursor_auto %} cursor-auto {% endcapture %}
-    {% endif %}
 
     <div id="usp_product__item-{{count_usp}}" class="nf-flex nf-relative nf-items-center usp_product__item color-{{ color_scheme }} gradient" block-id="{{ block.id }}" count_usp="{{count_usp}}">
         {%- if usp_product_icon_svg -%}
