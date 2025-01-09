@@ -78,9 +78,9 @@
         {%- endif -%}
         {%- if tw_usp_page_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
-                <span class="tw-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+                <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
-                    <span class="tw-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
+                    <span class="">{{ tw_usp_icon_svg_2 }}</span>   
                 {%- endif -%}
             </span>
             <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
@@ -95,9 +95,9 @@
             </dialog>
         {%- else -%}
             <span class="tw-flex tw-items-center">
-                <span class="tw-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+                <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
                 {%- if tw_usp_icon_svg_2 != blank -%}
-                    <span class="tw-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
+                    <span class="">{{ tw_usp_icon_svg_2 }}</span>   
                 {%- endif -%}
             </span>
         {%- endif -%}
