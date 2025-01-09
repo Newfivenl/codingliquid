@@ -11,16 +11,17 @@
     assign count_usp = count_usp, 
     assign cursor_auto = cursor_auto
     assign usp_product_page_content = block.settings.usp_product_page_content
+    assign padding_top = block.settings.padding_top
+    assign padding_bottom = block.settings.padding_bottom
 
     if usp_product_page_content != blank 
         capture cursor_auto
             echo 'cursor-auto'
         endcapture 
     endif
-
 %}
 
-<div class="usp-block color-{{ color_scheme }} gradient !nf-m-0" style="padding-top: {{ block.settings.padding_top }}px; padding-bottom: {{ block.settings.padding_bottom }}px;">
+<div class="usp-block color-{{ color_scheme }} gradient !nf-m-0" style="padding-top: {{ padding_top }}px; padding-bottom: {{ padding_top }}px;">
     {% assign count_usp = count_usp | plus: 1 %}
     {% if block.settings.usp_product_page_content != blank %}
         {%  capture cursor_auto %}  {% endcapture %}
