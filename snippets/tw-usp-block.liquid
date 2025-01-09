@@ -1,0 +1,253 @@
+{%- comment -%}USP Block Dialog{%- endcomment -%}
+<style>
+    .twUSPBlock-dialog {
+        padding: 2rem;
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        max-width: 50rem;
+        width: 90%;
+        overflow: unset;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
+
+    .twUSPBlock-dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .twUSPBlock-dialog.twUSPBlock-fade-in {
+        opacity: 1;
+    }
+
+    .twUSPBlock-dialog.twUSPBlock-fade-in::backdrop {
+        opacity: 1;
+    }
+
+    .twUSPBlock-fade-out {
+        opacity: 0 !important;
+    }
+
+    .twUSPBlock-dialog.twUSPBlock-fade-out::backdrop {
+        opacity: 0 !important;
+    }
+
+    .twUSPBlock-close-button {
+        display: inline-block;
+        padding: 0;
+        min-width: 2.4rem;
+        min-height: 1.4rem;
+        box-shadow: 0 0 0 .2rem rgba(var(--color-button), 0);
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: rgb(var(--color-foreground));
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
+{%- liquid 
+    assign block_id = block.id 
+    assign tw_usp_text = block.settings.tw_usp_text 
+    assign tw_usp_icon_svg = block.settings.tw_usp_icon_svg 
+    assign tw_usp_page_content = block.settings.tw_usp_page_content
+    
+    assign count_usp = count_usp
+    assign cursor_auto = cursor_auto
+
+    if tw_usp_page_content != blank 
+        assign cursor_auto = 'tw-cursor-pointer'
+    endif
+-%}
+
+<div class="tw-usp-block" data-tw-usp-block>
+    {%- assign count_usp = count_usp | plus: 1 -%}
+    <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
+       
+        {%- if tw_usp_page_content != blank -%}
+            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
+                {%- if tw_usp_icon_svg != blank -%}
+                    {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
+                        loading: 'lazy',
+                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                    }}
+                {%- endif -%}
+                <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+            </span>
+            <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
+                <div class="dialog-content">
+                    {{ tw_usp_page_content }}
+                </div>
+                <button type="button" class="twUSPBlock-button twUSPBlock-close-button" data-dialog-close>
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="none" viewBox="0 0 18 17">
+                        <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </dialog>
+        {%- else -%}
+            <span class="tw-flex tw-gap-[10px] tw-items-center">
+                {%- if tw_usp_icon_svg != blank -%}
+                    {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
+                        loading: 'lazy',
+                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                    }}
+                {%- endif -%}
+                <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
+            </span>
+        {%- endif -%}
+    </div> 
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    const USPDialog = {
+        init: function() {
+            console.log('Initializing USP Dialog...');
+            
+            // Check for dialog support
+            if (typeof HTMLDialogElement !== 'function') {
+                console.warn('Dialog element not supported in this browser');
+                return;
+            }
+
+            this.setupEventListeners();
+        },
+
+        setupEventListeners: function() {
+            // Find all dialog triggers
+            const triggers = document.querySelectorAll('[data-dialog-trigger]');
+            console.log('Found triggers:', triggers.length);
+
+            triggers.forEach(trigger => {
+                const dialogId = trigger.dataset.dialogTarget;
+                const dialog = document.getElementById(dialogId);
+                
+                if (!dialog) {
+                    console.error(`Dialog not found for ID: ${dialogId}`);
+                    return;
+                }
+
+                // Setup dialog instance
+                this.setupDialog(trigger, dialog);
+            });
+        },
+
+        setupDialog: function(trigger, dialog) {
+            console.log('Setting up dialog:', dialog.id);
+
+            const closeButton = dialog.querySelector('[data-dialog-close]');
+            
+            // Open dialog
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openDialog(dialog);
+            });
+
+            // Close button click
+            if (closeButton) {
+                closeButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.closeDialog(dialog);
+                });
+            }
+
+            // Click outside dialog
+            dialog.addEventListener('click', (e) => {
+                const rect = dialog.getBoundingClientRect();
+                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                
+                if (!isInDialog) {
+                    this.closeDialog(dialog);
+                }
+            });
+
+            // Prevent clicks in dialog from closing it
+            dialog.querySelector('.dialog-content')?.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Handle ESC key
+            dialog.addEventListener('cancel', (e) => {
+                e.preventDefault();
+                this.closeDialog(dialog);
+            });
+        },
+
+        openDialog: function(dialog) {
+            console.log('Opening dialog:', dialog.id);
+            
+            // Set all focusable elements to tabindex -1
+            const focusableElements = dialog.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            
+            focusableElements.forEach(el => {
+                el.setAttribute('tabindex', '-1');
+            });
+
+            // Show dialog
+            try {
+                dialog.showModal();
+                dialog.setAttribute('tabindex', '-1');
+                dialog.focus();
+
+                // Add fade-in class after a frame
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        dialog.classList.add('twUSPBlock-fade-in');
+                    });
+                });
+            } catch (error) {
+                console.error('Error opening dialog:', error);
+            }
+        },
+
+        closeDialog: function(dialog) {
+            console.log('Closing dialog:', dialog.id);
+            
+            dialog.classList.remove('twUSPBlock-fade-in');
+            dialog.classList.add('twUSPBlock-fade-out');
+
+            const handleTransitionEnd = () => {
+                try {
+                    dialog.close();
+                    dialog.classList.remove('twUSPBlock-fade-out');
+                    dialog.removeAttribute('tabindex');
+
+                    // Restore focusable elements
+                    const focusableElements = dialog.querySelectorAll(
+                        'button, [href], input, select, textarea, [tabindex]'
+                    );
+                    focusableElements.forEach(el => {
+                        el.removeAttribute('tabindex');
+                    });
+                } catch (error) {
+                    console.error('Error closing dialog:', error);
+                }
+            };
+
+            dialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
+        }
+    };
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => USPDialog.init());
+    } else {
+        USPDialog.init();
+    }
+})();
+</script>
