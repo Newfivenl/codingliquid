@@ -65,6 +65,7 @@
     assign tw_usp_text = block.settings.tw_usp_text 
     assign tw_usp_icon_svg = block.settings.tw_usp_icon_svg 
     assign tw_usp_content = block.settings.tw_usp_content
+    assign tw_usp_dialog_color_scheme =  block.settings.tw_usp_dialog_color_scheme
     
     assign count_usp = count_usp
     assign cursor_auto = cursor_auto
@@ -88,7 +89,7 @@
                 {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             </span>
-            <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
+            <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog gradient color-{{ tw_usp_dialog_color_scheme }}" data-dialog>
                 <div class="tw-dialog-content">
                     {{ tw_usp_content }}
                 </div>
