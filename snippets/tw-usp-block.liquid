@@ -1,6 +1,3 @@
-{% comment %}
-{% endcomment %}
-
 <style>
     .twUSPBlock-dialog {
         padding: 2rem;
@@ -75,7 +72,7 @@
         {%- if tw_usp_icon_svg -%}
             <span class="first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
-        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}}" onclick="openTwUSPBlockDialog();">
+        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}} cursor-pointer">
             <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             {%- if tw_usp_icon_svg_2 -%}
                 <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
@@ -85,9 +82,20 @@
 </div>
 
 <script>
+    // Check for dialog support
+if (typeof HTMLDialogElement !== 'function') {
+    console.warn('Dialog element not supported in this browser');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     const twUSPBlockDialog = document.getElementById('twUSPBlock-dialog');
+    if (!twUSPBlockDialog) {
+        console.error('Dialog element not found');
+        return;
+    }
 
     function openTwUSPBlockDialog() {
+        console.log('Opening dialog...');
         const focusableElements = twUSPBlockDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         const originalTabIndexes = new Map();
 
@@ -143,6 +151,15 @@
             twUSPBlockDialog.focus();
         }
     });
+
+    // Set up click handlers for all trigger elements
+    document.querySelectorAll('[id^="showDialog-"]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            console.log('Trigger clicked');
+            openTwUSPBlockDialog();
+        });
+    });
+});
 </script>
 
 <dialog id="twUSPBlock-dialog" class="twUSPBlock-dialog">
