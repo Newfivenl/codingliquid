@@ -53,18 +53,23 @@
         border: none;
         cursor: pointer;
     }
+
+    .tw-dialog-content p , .tw-dialog-content h1, .tw-dialog-content h2, .tw-dialog-content h3, .tw-dialog-content h4, .tw-dialog-content h5, .tw-dialog-content h6 {
+        margin: 1.5rem 0;
+    }
+
 </style>
 
 {%- liquid 
     assign block_id = block.id 
     assign tw_usp_text = block.settings.tw_usp_text 
     assign tw_usp_icon_svg = block.settings.tw_usp_icon_svg 
-    assign tw_usp_page_content = block.settings.tw_usp_page_content
+    assign tw_usp_content = block.settings.tw_usp_content
     
     assign count_usp = count_usp
     assign cursor_auto = cursor_auto
 
-    if tw_usp_page_content != blank 
+    if tw_usp_content != blank 
         assign cursor_auto = 'tw-cursor-pointer'
     endif
 -%}
@@ -73,7 +78,7 @@
     {%- assign count_usp = count_usp | plus: 1 -%}
     <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
        
-        {%- if tw_usp_page_content != blank -%}
+        {%- if tw_usp_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
                 {%- if tw_usp_icon_svg != blank -%}
                     {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
@@ -84,8 +89,8 @@
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             </span>
             <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog" data-dialog>
-                <div class="dialog-content">
-                    {{ tw_usp_page_content }}
+                <div class="tw-dialog-content">
+                    {{ tw_usp_content }}
                 </div>
                 <button type="button" class="twUSPBlock-button twUSPBlock-close-button" data-dialog-close>
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="none" viewBox="0 0 18 17">
@@ -175,7 +180,7 @@
             });
 
             // Prevent clicks in dialog from closing it
-            dialog.querySelector('.dialog-content')?.addEventListener('click', (e) => {
+            dialog.querySelector('.tw-dialog-content')?.addEventListener('click', (e) => {
                 e.stopPropagation();
             });
 
