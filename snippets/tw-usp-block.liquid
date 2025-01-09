@@ -75,8 +75,8 @@
        
         {%- if tw_usp_page_content != blank -%}
             <span id="showDialog-{{ block.id }}" class="tw-flex {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
-                {%- if tw_usp_icon_svg_1 != blank -%}
-                    {{ tw_usp_icon_svg_1 | image_url: width: 20 | image_tag:
+                {%- if tw_usp_icon_svg != blank -%}
+                    {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
                         loading: 'lazy',
                         class: 'tw-w-10 tw-h-10 tw-object-contain'
                     }}
