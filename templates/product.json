@@ -73,7 +73,7 @@
           "settings": {
             "tw_usp_text": "USP 1",
             "tw_usp_icon_svg": "shopify://shop_images/Icon.svg",
-            "tw_usp_page_content": "<h2>Aenean arcu quam</h2><h2></h2><p>interdum nec eleifend vestibulum, gravida nec lectus. Phasellus urna erat, placerat vitae ipsum a, cursus sollicitudin massa. Vestibulum tincidunt, mi vel aliquam rhoncus, nisl enim pulvinar erat, et semper ligula orci nec libero. In interdum dolor nisl, et vulputate diam consectetur eu. Integer quis purus at sapien suscipit commodo vel posuere mauris. Sed iaculis sit amet metus at rhoncus.</p><p>Donec nec sodales risus. Vivamus neque ligula, tincidunt at egestas convallis, mollis a ligula. Mauris posuere venenatis ligula, ut fringilla felis ullamcorper vitae. Etiam ac augue convallis nunc ultrices tempor ac sit amet augue.</p>",
+            "tw_usp_page_content": "<h3>Testing</h3>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
