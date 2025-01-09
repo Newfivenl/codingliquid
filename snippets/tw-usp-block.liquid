@@ -76,7 +76,7 @@
         {%- if tw_usp_icon_svg -%}
             <span class="first:nf-contents [&>svg]:nf-max-w-[20px] [&>svg]:nf-h-[20px] [&>svg]:nf-w-full [&>svg]:nf-fill-[#80807E]">{{ tw_usp_icon_svg }}</span>
         {%- endif -%}
-        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}} cursor-pointer">
+        <span id="showDialog-{{ block.id }}" class="nf-flex {{- cursor_auto -}} cursor-pointer" data-dialog-id="twUSPBlock-dialog-{{ block.id }}">
             <span class="nf-ml-[10px]" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             {%- if tw_usp_icon_svg_2 -%}
                 <span class="nf-ml-[10px]">{{ tw_usp_icon_svg_2 }}</span>   
@@ -85,108 +85,7 @@
     </div> 
 </div>
 
-<script>
-    // Check for dialog support
-if (typeof HTMLDialogElement !== 'function') {
-    console.warn('Dialog element not supported in this browser');
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const twUSPBlockDialog = document.getElementById('twUSPBlock-dialog');
-    const closeButton = document.querySelector('.twUSPBlock-close-button');
-    
-    if (closeButton) {
-        closeButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            closeTwUSPBlockDialog();
-        });
-    }
-    if (!twUSPBlockDialog) {
-        console.error('Dialog element not found');
-        return;
-    }
-
-    function openTwUSPBlockDialog() {
-        console.log('Opening dialog...');
-        const focusableElements = twUSPBlockDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        const originalTabIndexes = new Map();
-
-        focusableElements.forEach(el => {
-            originalTabIndexes.set(el, el.getAttribute('tabindex'));
-            el.setAttribute('tabindex', '-1');
-        });
-
-        twUSPBlockDialog.showModal();
-        twUSPBlockDialog.setAttribute('tabindex', '-1');
-        twUSPBlockDialog.focus();
-
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                twUSPBlockDialog.classList.add('twUSPBlock-fade-in');
-            });
-        });
-    }
-
-    function closeTwUSPBlockDialog() {
-        console.log('Closing dialog...');
-        if (!twUSPBlockDialog) return;
-        
-        twUSPBlockDialog.classList.remove('twUSPBlock-fade-in');
-        twUSPBlockDialog.classList.add('twUSPBlock-fade-out');
-        
-        const handleTransitionEnd = () => {
-            twUSPBlockDialog.close();
-            twUSPBlockDialog.classList.remove('twUSPBlock-fade-out');
-            twUSPBlockDialog.removeAttribute('tabindex');
-            // Restore focusable elements
-            const focusableElements = twUSPBlockDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]');
-            focusableElements.forEach(el => {
-                el.removeAttribute('tabindex');
-            });
-        };
-
-        twUSPBlockDialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
-    }
-
-    // Close dialog when clicking outside
-    twUSPBlockDialog.addEventListener('click', (e) => {
-        const dialogDimensions = twUSPBlockDialog.getBoundingClientRect();
-        if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY < dialogDimensions.top ||
-            e.clientY > dialogDimensions.bottom
-        ) {
-            closeTwUSPBlockDialog();
-        }
-    });
-
-    // Handle ESC key
-    twUSPBlockDialog.addEventListener('cancel', (e) => {
-        e.preventDefault();
-        closeTwUSPBlockDialog();
-    });
-
-    // Prevent any focusin events when dialog opens
-    twUSPBlockDialog.addEventListener('focusin', (e) => {
-        if (!twUSPBlockDialog.classList.contains('twUSPBlock-fade-in')) {
-            e.preventDefault();
-            twUSPBlockDialog.focus();
-        }
-    });
-
-    // Set up click handlers for all trigger elements
-    document.querySelectorAll('[id^="showDialog-"]').forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            console.log('Trigger clicked');
-            openTwUSPBlockDialog();
-        });
-    });
-});
-</script>
-
-<dialog id="twUSPBlock-dialog" class="twUSPBlock-dialog">
+<dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog">
     {{ tw_usp_page_content }}
     <button class="twUSPBlock-button twUSPBlock-close-button">
         <svg
@@ -201,3 +100,108 @@ document.addEventListener('DOMContentLoaded', function() {
         </svg>
     </button>
 </dialog>
+
+<script>
+(function() {
+    'use strict';
+
+    // Check for dialog support
+    if (typeof HTMLDialogElement !== 'function') {
+        console.warn('Dialog element not supported in this browser');
+    }
+
+    function setupUSPBlock(trigger) {
+        const dialogId = trigger.dataset.dialogId;
+        const dialog = document.getElementById(dialogId);
+        const closeButton = dialog.querySelector('.twUSPBlock-close-button');
+        
+        function openDialog() {
+            console.log('Opening dialog...', dialogId);
+            const focusableElements = dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            focusableElements.forEach(el => {
+                el.setAttribute('tabindex', '-1');
+            });
+
+            dialog.showModal();
+            dialog.setAttribute('tabindex', '-1');
+            dialog.focus();
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    dialog.classList.add('twUSPBlock-fade-in');
+                });
+            });
+        }
+
+        function closeDialog() {
+            console.log('Closing dialog...', dialogId);
+            dialog.classList.remove('twUSPBlock-fade-in');
+            dialog.classList.add('twUSPBlock-fade-out');
+            
+            const handleTransitionEnd = () => {
+                dialog.close();
+                dialog.classList.remove('twUSPBlock-fade-out');
+                dialog.removeAttribute('tabindex');
+                // Restore focusable elements
+                const focusableElements = dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]');
+                focusableElements.forEach(el => {
+                    el.removeAttribute('tabindex');
+                });
+            };
+
+            dialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
+        }
+
+        // Set up event listeners
+        trigger.addEventListener('click', openDialog);
+        
+        if (closeButton) {
+            closeButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                closeDialog();
+            });
+        }
+
+        // Close dialog when clicking outside
+        dialog.addEventListener('click', (e) => {
+            const dialogDimensions = dialog.getBoundingClientRect();
+            if (
+                e.clientX < dialogDimensions.left ||
+                e.clientX > dialogDimensions.right ||
+                e.clientY < dialogDimensions.top ||
+                e.clientY > dialogDimensions.bottom
+            ) {
+                closeDialog();
+            }
+        });
+
+        // Handle ESC key
+        dialog.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            closeDialog();
+        });
+
+        // Prevent any focusin events when dialog opens
+        dialog.addEventListener('focusin', (e) => {
+            if (!dialog.classList.contains('twUSPBlock-fade-in')) {
+                e.preventDefault();
+                dialog.focus();
+            }
+        });
+    }
+
+    function init() {
+        document.querySelectorAll('[id^="showDialog-"]').forEach(trigger => {
+            setupUSPBlock(trigger);
+        });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
