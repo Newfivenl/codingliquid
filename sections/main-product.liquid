@@ -662,6 +662,8 @@
                 {% render 'icon-with-text', block: block %}
               {%- when 'tw_product_detail' -%}
                 {% render 'tw-product-detail', block: block %}
+              {%- when 'tw_usp_block' -%}
+                {% render 'tw-usp-block', block: block %}
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
