@@ -67,6 +67,33 @@
             "content_4": "",
             "color_scheme": "scheme-3"
           }
+        },
+        "tw_usp_block_KARYnD": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "USP 1",
+            "tw_usp_icon_svg": "shopify://shop_images/Icon.svg",
+            "tw_usp_page_content": "<h2>Aenean arcu quam</h2><h2></h2><p>interdum nec eleifend vestibulum, gravida nec lectus. Phasellus urna erat, placerat vitae ipsum a, cursus sollicitudin massa. Vestibulum tincidunt, mi vel aliquam rhoncus, nisl enim pulvinar erat, et semper ligula orci nec libero. In interdum dolor nisl, et vulputate diam consectetur eu. Integer quis purus at sapien suscipit commodo vel posuere mauris. Sed iaculis sit amet metus at rhoncus.</p><p>Donec nec sodales risus. Vivamus neque ligula, tincidunt at egestas convallis, mollis a ligula. Mauris posuere venenatis ligula, ut fringilla felis ullamcorper vitae. Etiam ac augue convallis nunc ultrices tempor ac sit amet augue.</p>",
+            "tw_usp_dialog_color_scheme": "background-1"
+          }
+        },
+        "tw_usp_block_4PkDyA": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "USP 2",
+            "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
+            "tw_usp_page_content": "<h5>Vivamus neque ligula</h5><p><br/>Donec nec sodales risus. Vivamus neque ligula, tincidunt at egestas convallis, mollis a ligula. Mauris posuere venenatis ligula, ut fringilla felis ullamcorper vitae. Etiam ac augue convallis nunc ultrices tempor ac sit amet augue.</p>",
+            "tw_usp_dialog_color_scheme": "background-1"
+          }
+        },
+        "tw_usp_block_yi7YfF": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "TW 3",
+            "tw_usp_icon_svg": "shopify://shop_images/icon-heart.svg",
+            "tw_usp_page_content": "",
+            "tw_usp_dialog_color_scheme": "background-1"
+          }
         }
       },
       "block_order": [
@@ -76,7 +103,10 @@
         "description",
         "buy_buttons",
         "tw_product_detail_hT3egy",
-        "tw_product_detail_qthMKJ"
+        "tw_product_detail_qthMKJ",
+        "tw_usp_block_KARYnD",
+        "tw_usp_block_4PkDyA",
+        "tw_usp_block_yi7YfF"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
