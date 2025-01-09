@@ -82,7 +82,7 @@
           "settings": {
             "tw_usp_text": "USP 2",
             "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
-            "tw_usp_content": "",
+            "tw_usp_content": "<h4>Aliquam</h4><p><br/>Aliquam blandit, erat tristique hendrerit commodo, diam augue porta lacus, nec pretium sem lacus vel lacus. Suspendisse potenti. Sed vel lacinia turpis.</p>",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         },
