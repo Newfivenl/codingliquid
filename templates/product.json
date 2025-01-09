@@ -82,8 +82,16 @@
           "settings": {
             "tw_usp_text": "USP 2",
             "tw_usp_icon_svg": "shopify://shop_images/truck-02.svg",
-            "tw_usp_icon_svg_2": "shopify://shop_images/box.svg",
             "tw_usp_page_content": "<p>Popup content 2</p>",
+            "tw_usp_dialog_color_scheme": "background-1"
+          }
+        },
+        "tw_usp_block_yi7YfF": {
+          "type": "tw_usp_block",
+          "settings": {
+            "tw_usp_text": "TW 3",
+            "tw_usp_icon_svg": "shopify://shop_images/icon-heart.svg",
+            "tw_usp_page_content": "",
             "tw_usp_dialog_color_scheme": "background-1"
           }
         }
@@ -97,7 +105,8 @@
         "tw_product_detail_hT3egy",
         "tw_product_detail_qthMKJ",
         "tw_usp_block_KARYnD",
-        "tw_usp_block_4PkDyA"
+        "tw_usp_block_4PkDyA",
+        "tw_usp_block_yi7YfF"
       ],
       "custom_css": [
         ".main-product {padding-top: 0;}"
