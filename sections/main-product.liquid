@@ -2149,6 +2149,80 @@
           "default": "background-1"
         }
       ] 
+    },
+    {
+      "type": "usp_product",
+      "name": "NF - USP Product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "usp_product_text",          
+          "label": "Product USP",
+          "info": "Add product usp label"
+        },
+        {
+          "type": "range",
+          "id": "usp_label_font_size",
+          "min": 12,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "label": "Font size",
+          "info": "Product usp label font size",
+          "default": 12
+        },
+        {
+          "type": "richtext",
+          "id": "usp_product_page_content",
+          "label": "USP product content"
+        },
+        {
+          "type": "liquid",
+          "id": "usp_product_icon_svg",
+          "label": "SVG Icon",
+          "info": "Need to add the color directly to the svg. color scheme will not work because of liquid parsing issue."
+        },
+        {
+          "type": "liquid",
+          "id": "usp_product__item_svg_icon_2",
+          "label": "SVG Icon 2",
+          "info": "Need to add the color directly here. color scheme will not work because of liquid parsing issue."
+        },
+        {
+          "type": "color_scheme",
+          "id": "usp_product_color_scheme",
+          "label": "Color scheme for USP item",
+          "info": "t:sections.all.colors.label",
+          "default": "background-1"
+        },
+        {
+          "type": "color_scheme",
+          "id": "usp_product_dialog_color_scheme",
+          "label": "Color scheme for slide out conent if needed",
+          "info": "t:sections.all.colors.label",
+          "default": "background-1"
+        },
+        {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 10,
+          "step": 2,
+          "unit": "px",
+          "label": "t:sections.all.padding.padding_top",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 10,
+          "step": 2,
+          "unit": "px",
+          "label": "t:sections.all.padding.padding_bottom",
+          "default": 0
+        }
+      ]
     }
   ],
   "settings": [
