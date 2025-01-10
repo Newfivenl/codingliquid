@@ -159,6 +159,8 @@ Add to your schema settings block main-product.liquid
     </div> 
 </div>
 
+
+{%- if tw_usp_content != blank -%}
 <script>
 (function() {
     'use strict';
@@ -298,3 +300,4 @@ Add to your schema settings block main-product.liquid
     }
 })();
 </script>
+{%- endif -%}
