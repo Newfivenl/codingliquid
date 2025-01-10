@@ -46,7 +46,7 @@ Add to your schema settings block main-product.liquid
 
 
 <style>
-    .twUSPBlock-dialog {
+    .tw-USP-Block-dialog {
         padding: 2rem;
         border-radius: 8px;
         border: none;
@@ -63,29 +63,29 @@ Add to your schema settings block main-product.liquid
         margin: 0;
     }
 
-    .twUSPBlock-dialog::backdrop {
+    .tw-USP-Block-dialog::backdrop {
         background: rgba(0, 0, 0, 0.6);
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
     }
 
-    .twUSPBlock-dialog.twUSPBlock-fade-in {
+    .tw-USP-Block-dialog.tw-USP-Block-fade-in {
         opacity: 1;
     }
 
-    .twUSPBlock-dialog.twUSPBlock-fade-in::backdrop {
+    .tw-USP-Block-dialog.tw-USP-Block-fade-in::backdrop {
         opacity: 1;
     }
 
-    .twUSPBlock-fade-out {
+    .tw-USP-Block-fade-out {
         opacity: 0 !important;
     }
 
-    .twUSPBlock-dialog.twUSPBlock-fade-out::backdrop {
+    .tw-USP-Block-dialog.tw-USP-Block-fade-out::backdrop {
         opacity: 0 !important;
     }
 
-    .twUSPBlock-close-button {
+    .tw-USP-Block-close-button {
         display: inline-block;
         padding: 0;
         min-width: 2.4rem;
@@ -126,7 +126,7 @@ Add to your schema settings block main-product.liquid
     <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
        
         {%- if tw_usp_content != blank -%}
-            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
+            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="tw-USP-Block-dialog-{{ block.id }}">
                 {%- if tw_usp_icon_svg != blank -%}
                     {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
                         loading: 'lazy',
@@ -135,11 +135,11 @@ Add to your schema settings block main-product.liquid
                 {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             </span>
-            <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog gradient color-{{ tw_usp_dialog_color_scheme }}" data-dialog>
+            <dialog id="tw-USP-Block-dialog-{{ block.id }}" class="tw-USP-Block-dialog gradient color-{{ tw_usp_dialog_color_scheme }}" data-dialog>
                 <div class="tw-dialog-content">
                     {{ tw_usp_content }}
                 </div>
-                <button type="button" class="twUSPBlock-button twUSPBlock-close-button" data-dialog-close>
+                <button type="button" class="tw-USP-Block-button tw-USP-Block-close-button" data-dialog-close>
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="none" viewBox="0 0 18 17">
                         <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"/>
                     </svg>
@@ -255,7 +255,7 @@ Add to your schema settings block main-product.liquid
                 // Add fade-in class after a frame
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
-                        dialog.classList.add('twUSPBlock-fade-in');
+                        dialog.classList.add('tw-USP-Block-fade-in');
                     });
                 });
             } catch (error) {
@@ -265,13 +265,13 @@ Add to your schema settings block main-product.liquid
 
         closeDialog: function(dialog) {
             
-            dialog.classList.remove('twUSPBlock-fade-in');
-            dialog.classList.add('twUSPBlock-fade-out');
+            dialog.classList.remove('tw-USP-Block-fade-in');
+            dialog.classList.add('tw-USP-Block-fade-out');
 
             const handleTransitionEnd = () => {
                 try {
                     dialog.close();
-                    dialog.classList.remove('twUSPBlock-fade-out');
+                    dialog.classList.remove('tw-USP-Block-fade-out');
                     dialog.removeAttribute('tabindex');
 
                     // Restore focusable elements
