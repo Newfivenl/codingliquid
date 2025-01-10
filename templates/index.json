@@ -456,7 +456,7 @@
       ],
       "settings": {
         "title": "Questions & Answers",
-        "heading_tag": "h1",
+        "heading_tag": "h2",
         "columns_desktop": 3,
         "column_alignment": "left",
         "columns_mobile": "1",
