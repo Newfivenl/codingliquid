@@ -1,4 +1,50 @@
-{%- comment -%}USP Block Dialog{%- endcomment -%}
+{%- comment -%}
+
+Instructions:
+
+Add to your main-product.liquid block case
+{%- when 'tw_usp_block' -%}
+{% render 'tw-usp-block', block: block %}
+
+Add to your schema settings block main-product.liquid
+
+{
+      "type": "tw_usp_block",
+      "name": "TW - USP Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tw_usp_text",          
+          "label": "USP label",
+          "info": "Add USP label"
+        },
+        {
+          "type": "image_picker",
+          "id": "tw_usp_icon_svg",
+          "label": "SVG Icon",
+          "info": "Make sure you have square svg icon for better result."
+        },
+        {
+          "type": "header",
+          "content": "Popup content"
+        },
+        {
+          "type": "richtext",
+          "id": "tw_usp_content",
+          "label": "USP content"
+        },
+        {
+          "type": "color_scheme",
+          "id": "tw_usp_dialog_color_scheme",
+          "label": "Color scheme for popup conent if needed",
+          "default": "background-1"
+        }
+      ]
+    }
+
+{%- endcomment -%}
+
+
 <style>
     .twUSPBlock-dialog {
         padding: 2rem;
