@@ -418,41 +418,41 @@
         "metaobject_VPPKqm": {
           "type": "metaobject",
           "settings": {
-            "questions_and_answers": "block-heading-2"
+            "questions_and_answers": "first-questions-and-answers-list"
           }
         },
-        "metaobject_hAfzjb": {
+        "metaobject_kt9QmY": {
           "type": "metaobject",
           "settings": {
-            "questions_and_answers": "block-heading-3"
+            "questions_and_answers": "first-questions-and-answers-list"
           }
         },
-        "metaobject_zJ4apQ": {
+        "metaobject_DXPQJD": {
           "type": "metaobject",
           "settings": {
-            "questions_and_answers": "block-heading-4"
+            "questions_and_answers": "first-questions-and-answers-list"
           }
         },
-        "metaobject_xC744H": {
+        "metaobject_6jWWYe": {
           "type": "metaobject",
           "settings": {
-            "questions_and_answers": "block-heading-5"
+            "questions_and_answers": "first-questions-and-answers-list"
           }
         },
-        "metaobject_JM7drg": {
+        "metaobject_zDf7wc": {
           "type": "metaobject",
           "settings": {
-            "questions_and_answers": "block-heading-6"
+            "questions_and_answers": "first-questions-and-answers-list"
           }
         }
       },
       "block_order": [
         "metaobject_bbnG8f",
         "metaobject_VPPKqm",
-        "metaobject_hAfzjb",
-        "metaobject_zJ4apQ",
-        "metaobject_xC744H",
-        "metaobject_JM7drg"
+        "metaobject_kt9QmY",
+        "metaobject_DXPQJD",
+        "metaobject_6jWWYe",
+        "metaobject_zDf7wc"
       ],
       "settings": {
         "title": "Questions & Answers",
@@ -461,8 +461,8 @@
         "column_alignment": "left",
         "columns_mobile": "1",
         "section_color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
     "tw_shop_the_look_page_fpNbPJ": {
