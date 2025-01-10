@@ -1,64 +1,50 @@
-{%- comment -%}USP Block Dialog{%- endcomment -%}
-<style>
-    .twUSPBlock-dialog {
-        padding: 2rem;
-        border-radius: 8px;
-        border: none;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-        max-width: 50rem;
-        width: 90%;
-        overflow: unset;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-    }
+{%- comment -%}
 
-    .twUSPBlock-dialog::backdrop {
-        background: rgba(0, 0, 0, 0.6);
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
+Instructions:
 
-    .twUSPBlock-dialog.twUSPBlock-fade-in {
-        opacity: 1;
-    }
+Add to your main-product.liquid block case
+{%- when 'tw_usp_block' -%}
+{% render 'tw-usp-block', block: block %}
 
-    .twUSPBlock-dialog.twUSPBlock-fade-in::backdrop {
-        opacity: 1;
-    }
+Add to your schema settings block main-product.liquid
 
-    .twUSPBlock-fade-out {
-        opacity: 0 !important;
+{
+"type": "tw_usp_block",
+"name": "TW - USP Block",
+"settings": [
+    {
+        "type": "text",
+        "id": "tw_usp_text",          
+        "label": "USP label",
+        "info": "Add USP label"
+    },
+    {
+        "type": "image_picker",
+        "id": "tw_usp_icon_svg",
+        "label": "SVG Icon",
+        "info": "Make sure you have square svg icon for better result."
+    },
+    {
+        "type": "header",
+        "content": "Popup content"
+    },
+    {
+        "type": "richtext",
+        "id": "tw_usp_content",
+        "label": "USP content"
+    },
+    {
+        "type": "color_scheme",
+        "id": "tw_usp_dialog_color_scheme",
+        "label": "Color scheme for popup conent if needed",
+        "default": "background-1"
     }
+]
+}
 
-    .twUSPBlock-dialog.twUSPBlock-fade-out::backdrop {
-        opacity: 0 !important;
-    }
+{%- endcomment -%}
 
-    .twUSPBlock-close-button {
-        display: inline-block;
-        padding: 0;
-        min-width: 2.4rem;
-        min-height: 1.4rem;
-        box-shadow: 0 0 0 .2rem rgba(var(--color-button), 0);
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        color: rgb(var(--color-foreground));
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
 
-    .tw-dialog-content p , .tw-dialog-content h1, .tw-dialog-content h2, .tw-dialog-content h3, .tw-dialog-content h4, .tw-dialog-content h5, .tw-dialog-content h6 {
-        margin: 1.5rem 0;
-    }
-
-</style>
 
 {%- liquid 
     assign block_id = block.id 
@@ -75,12 +61,75 @@
     endif
 -%}
 
+{%- if tw_usp_content != blank -%}
+    <style>
+        .tw-usp-block-dialog {
+            padding: 2rem;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            max-width: 50rem;
+            width: 90%;
+            overflow: unset;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
+    
+        .tw-usp-block-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+    
+        .tw-usp-block-dialog.tw-usp-block-fade-in {
+            opacity: 1;
+        }
+    
+        .tw-usp-block-dialog.tw-usp-block-fade-in::backdrop {
+            opacity: 1;
+        }
+    
+        .tw-usp-block-fade-out {
+            opacity: 0 !important;
+        }
+    
+        .tw-usp-block-dialog.tw-usp-block-fade-out::backdrop {
+            opacity: 0 !important;
+        }
+    
+        .tw-usp-block-close-button {
+            display: inline-block;
+            padding: 0;
+            min-width: 2.4rem;
+            min-height: 1.4rem;
+            box-shadow: 0 0 0 .2rem rgba(var(--color-button), 0);
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgb(var(--color-foreground));
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    
+        .tw-dialog-content p , .tw-dialog-content h1, .tw-dialog-content h2, .tw-dialog-content h3, .tw-dialog-content h4, .tw-dialog-content h5, .tw-dialog-content h6 {
+            margin: 1.5rem 0;
+        }
+    
+    </style>
+    {%- endif -%}
+
 <div class="tw-usp-block" data-tw-usp-block>
     {%- assign count_usp = count_usp | plus: 1 -%}
     <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
        
         {%- if tw_usp_content != blank -%}
-            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="twUSPBlock-dialog-{{ block.id }}">
+            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="tw-usp-block-dialog-{{ block.id }}">
                 {%- if tw_usp_icon_svg != blank -%}
                     {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
                         loading: 'lazy',
@@ -89,11 +138,11 @@
                 {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
             </span>
-            <dialog id="twUSPBlock-dialog-{{ block.id }}" class="twUSPBlock-dialog gradient color-{{ tw_usp_dialog_color_scheme }}" data-dialog>
+            <dialog id="tw-usp-block-dialog-{{ block.id }}" class="tw-usp-block-dialog gradient color-{{ tw_usp_dialog_color_scheme }}" data-dialog>
                 <div class="tw-dialog-content">
                     {{ tw_usp_content }}
                 </div>
-                <button type="button" class="twUSPBlock-button twUSPBlock-close-button" data-dialog-close>
+                <button type="button" class="tw-usp-block-button tw-usp-block-close-button" data-dialog-close>
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close" fill="none" viewBox="0 0 18 17">
                         <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"/>
                     </svg>
@@ -113,142 +162,145 @@
     </div> 
 </div>
 
-<script>
-(function() {
-    'use strict';
 
-    const USPDialog = {
-        init: function() {
-            
-            // Check for dialog support
-            if (typeof HTMLDialogElement !== 'function') {
-                console.warn('Dialog element not supported in this browser');
-                return;
-            }
+{%- if tw_usp_content != blank -%}
+    <script>
+        (function() {
+            'use strict';
 
-            this.setupEventListeners();
-        },
+            const USPDialog = {
+                init: function() {
+                    
+                    // Check for dialog support
+                    if (typeof HTMLDialogElement !== 'function') {
+                        console.warn('Dialog element not supported in this browser');
+                        return;
+                    }
 
-        setupEventListeners: function() {
-            // Find all dialog triggers
-            const triggers = document.querySelectorAll('[data-dialog-trigger]');
+                    this.setupEventListeners();
+                },
 
-            triggers.forEach(trigger => {
-                const dialogId = trigger.dataset.dialogTarget;
-                const dialog = document.getElementById(dialogId);
-                
-                if (!dialog) {
-                    console.error(`Dialog not found for ID: ${dialogId}`);
-                    return;
-                }
+                setupEventListeners: function() {
+                    // Find all dialog triggers
+                    const triggers = document.querySelectorAll('[data-dialog-trigger]');
 
-                // Setup dialog instance
-                this.setupDialog(trigger, dialog);
-            });
-        },
+                    triggers.forEach(trigger => {
+                        const dialogId = trigger.dataset.dialogTarget;
+                        const dialog = document.getElementById(dialogId);
+                        
+                        if (!dialog) {
+                            console.error(`Dialog not found for ID: ${dialogId}`);
+                            return;
+                        }
 
-        setupDialog: function(trigger, dialog) {
-
-            const closeButton = dialog.querySelector('[data-dialog-close]');
-            
-            // Open dialog
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.openDialog(dialog);
-            });
-
-            // Close button click
-            if (closeButton) {
-                closeButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    this.closeDialog(dialog);
-                });
-            }
-
-            // Click outside dialog
-            dialog.addEventListener('click', (e) => {
-                const rect = dialog.getBoundingClientRect();
-                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-                
-                if (!isInDialog) {
-                    this.closeDialog(dialog);
-                }
-            });
-
-            // Prevent clicks in dialog from closing it
-            dialog.querySelector('.tw-dialog-content')?.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-
-            // Handle ESC key
-            dialog.addEventListener('cancel', (e) => {
-                e.preventDefault();
-                this.closeDialog(dialog);
-            });
-        },
-
-        openDialog: function(dialog) {
-            
-            // Set all focusable elements to tabindex -1
-            const focusableElements = dialog.querySelectorAll(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            
-            focusableElements.forEach(el => {
-                el.setAttribute('tabindex', '-1');
-            });
-
-            // Show dialog
-            try {
-                dialog.showModal();
-                dialog.setAttribute('tabindex', '-1');
-                dialog.focus();
-
-                // Add fade-in class after a frame
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        dialog.classList.add('twUSPBlock-fade-in');
+                        // Setup dialog instance
+                        this.setupDialog(trigger, dialog);
                     });
-                });
-            } catch (error) {
-                console.error('Error opening dialog:', error);
-            }
-        },
+                },
 
-        closeDialog: function(dialog) {
-            
-            dialog.classList.remove('twUSPBlock-fade-in');
-            dialog.classList.add('twUSPBlock-fade-out');
+                setupDialog: function(trigger, dialog) {
 
-            const handleTransitionEnd = () => {
-                try {
-                    dialog.close();
-                    dialog.classList.remove('twUSPBlock-fade-out');
-                    dialog.removeAttribute('tabindex');
+                    const closeButton = dialog.querySelector('[data-dialog-close]');
+                    
+                    // Open dialog
+                    trigger.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.openDialog(dialog);
+                    });
 
-                    // Restore focusable elements
+                    // Close button click
+                    if (closeButton) {
+                        closeButton.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            this.closeDialog(dialog);
+                        });
+                    }
+
+                    // Click outside dialog
+                    dialog.addEventListener('click', (e) => {
+                        const rect = dialog.getBoundingClientRect();
+                        const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                            rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                        
+                        if (!isInDialog) {
+                            this.closeDialog(dialog);
+                        }
+                    });
+
+                    // Prevent clicks in dialog from closing it
+                    dialog.querySelector('.tw-dialog-content')?.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+
+                    // Handle ESC key
+                    dialog.addEventListener('cancel', (e) => {
+                        e.preventDefault();
+                        this.closeDialog(dialog);
+                    });
+                },
+
+                openDialog: function(dialog) {
+                    
+                    // Set all focusable elements to tabindex -1
                     const focusableElements = dialog.querySelectorAll(
-                        'button, [href], input, select, textarea, [tabindex]'
+                        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
                     );
+                    
                     focusableElements.forEach(el => {
-                        el.removeAttribute('tabindex');
+                        el.setAttribute('tabindex', '-1');
                     });
-                } catch (error) {
-                    console.error('Error closing dialog:', error);
+
+                    // Show dialog
+                    try {
+                        dialog.showModal();
+                        dialog.setAttribute('tabindex', '-1');
+                        dialog.focus();
+
+                        // Add fade-in class after a frame
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                dialog.classList.add('tw-usp-block-fade-in');
+                            });
+                        });
+                    } catch (error) {
+                        console.error('Error opening dialog:', error);
+                    }
+                },
+
+                closeDialog: function(dialog) {
+                    
+                    dialog.classList.remove('tw-usp-block-fade-in');
+                    dialog.classList.add('tw-usp-block-fade-out');
+
+                    const handleTransitionEnd = () => {
+                        try {
+                            dialog.close();
+                            dialog.classList.remove('tw-usp-block-fade-out');
+                            dialog.removeAttribute('tabindex');
+
+                            // Restore focusable elements
+                            const focusableElements = dialog.querySelectorAll(
+                                'button, [href], input, select, textarea, [tabindex]'
+                            );
+                            focusableElements.forEach(el => {
+                                el.removeAttribute('tabindex');
+                            });
+                        } catch (error) {
+                            console.error('Error closing dialog:', error);
+                        }
+                    };
+
+                    dialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
                 }
             };
 
-            dialog.addEventListener('transitionend', handleTransitionEnd, { once: true });
-        }
-    };
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => USPDialog.init());
-    } else {
-        USPDialog.init();
-    }
-})();
-</script>
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => USPDialog.init());
+            } else {
+                USPDialog.init();
+            }
+        })();
+    </script>
+{%- endif -%}
