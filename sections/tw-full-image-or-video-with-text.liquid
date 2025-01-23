@@ -30,7 +30,7 @@ endif
 
 assign image_blocks = section.blocks | where: 'type', 'image'
 assign widths = '375, 550, 750, 800, 1100, 1500, 1780, 2048, 3000, 3840'
-assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
+assign image_class = 'tw:w-full tw:h-auto tw:object-cover'
 
 -%}
 
@@ -40,16 +40,16 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
     {%  case block.type  %}  
     {%  when 'image' %}
       {% if block.settings.link != blank %}
-      <a href="{{ block.settings.link }}" class="tw-block tw-w-full tw-h-full">
+      <a href="{{ block.settings.link }}" class="tw:block tw:w-full tw:h-full">
       {% endif %}
-        <div class="tw-relative">
+        <div class="tw:relative">
           <picture>
             {% if block.settings.image_desktop != blank %}
-              <div class="tw-full-image-desktop {% if block.settings.image_mobile != blank %} max-[989px]:tw-hidden {% endif %}">
+              <div class="tw-full-image-desktop {% if block.settings.image_mobile != blank %} tw:max-[989px]:hidden {% endif %}">
                 {{ block.settings.image_desktop | image_url: width: 2048 | image_tag: class: image_class, alt: block.settings.image_desktop.alt, widths: widths, fetchpriority: fetch_priority }}
               </div>
               {% if block.settings.image_mobile != blank %}
-                <div class="tw-full-image-mobile tw-hidden max-[989px]:tw-block">
+                <div class="tw-full-image-mobile tw:hidden tw:max-[989px]:block">
                   {{ block.settings.image_mobile| image_url: width: 800 | image_tag: class: image_class, alt: block.settings.image_mobile.alt, widths: widths, fetchpriority: fetch_priority }}
                 </div>
               {% endif %}
@@ -57,10 +57,10 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
             {% endif %}
           </picture>
-          <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
-            <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
-              <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">
-                <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none tw-p-[1rem] md:tw-p-[5rem] max-[640px]:!tw-pb-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
+          <div class="tw:absolute tw:top-0 tw:bottom-0 tw:left-0 tw:w-full">
+            <div class="tw:sticky tw:top-0 tw:z-1 tw:h-full tw:max-h-screen">
+              <div class="tw:flex tw:items-center tw:h-full tw:lg:items-end ">
+                <div class="tw:sticky tw:lg:static tw:top-[calc(50%-0.5em*1.02)] tw:text-left tw:w-full tw:z-30 tw:pointer-events-none tw:p-[1rem] tw:md:p-[5rem] tw:max-[640px]:pb-[2rem]! gradient color-{{ block.settings.content_color_scheme }}">
                   {% if block.settings.heading != blank %}
                     {% style %}
                       .h2-{{ block.id }} {
@@ -95,8 +95,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                         }
                       }
                     {% endstyle %}
-                    <h2 class="h2-{{ block.id }} tw-font-bold tw-mask-text tw-leading-[1.02] tw-text-white/80 supports-[mask-clip:text]:tw-text-transparent supports-[mask-clip:text]:tw-bg-white/50 supports-[mask-clip:text]:tw-backdrop-blur-md tw-text-left tw-w-full">{{ block.settings.heading }}</h2>
-                    <h3 class="h3-{{ block.id }} tw-mask-text tw-text-white/80 supports-[mask-clip:text]:tw-text-transparent supports-[mask-clip:text]:tw-bg-white/50 supports-[mask-clip:text]:tw-backdrop-blur-md tw-text-left tw-w-full"">{{ block.settings.subheading }}</h3>
+                    <h2 class="h2-{{ block.id }} tw:font-bold tw-mask-text tw:leading-[1.02] tw:text-white/80 tw:supports-[mask-clip:text]:text-transparent tw:supports-[mask-clip:text]:bg-white/50 tw:supports-[mask-clip:text]:backdrop-blur-md tw:text-left tw:w-full">{{ block.settings.heading }}</h2>
+                    <h3 class="h3-{{ block.id }} tw-mask-text tw:text-white/80 tw:supports-[mask-clip:text]:text-transparent tw:supports-[mask-clip:text]:bg-white/50 tw:supports-[mask-clip:text]:backdrop-blur-md tw:text-left tw:w-full"">{{ block.settings.subheading }}</h3>
                   {% endif %}
                 </div>
               </div>
@@ -108,12 +108,12 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
       {% endif %}
     {%  when 'video' %}
       {% if block.settings.video != blank %}
-        <div class="tw-relative">
+        <div class="tw:relative">
 
           {% assign chrome_video = "chrome-video-" | append: block.id %}
           {% assign safari_video = "safari-video-" | append: block.id %}
           {% if block.settings.link != blank %}
-          <a href="{{ block.settings.link }}" class="!tw-block tw-w-full tw-h-full tw-absolute tw-top-0 tw-left-0 tw-z-[2]"></a>
+          <a href="{{ block.settings.link }}" class="tw:block! tw:w-full tw:h-full tw:absolute tw:top-0 tw:left-0 tw:z-2"></a>
           {% endif %}
             {{
               block.settings.video | video_tag:
@@ -123,7 +123,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               controls: false,
               muted: true,
               id: chrome_video,
-              class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
+              class: "tw:w-full tw:h-full tw:object-cover tw:object-center"
             }}
             {{
               block.settings.video | video_tag:
@@ -133,7 +133,7 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
               controls: false,
               muted: true,
               id: safari_video,
-              class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+              class: "tw:w-full tw:h-full tw:object-cover tw:object-center" | 
               replace: '<video', '<picture' | 
               replace: '</video', '</picture' | 
               replace: '<source src', '<source srcset'
@@ -203,10 +203,10 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
 
           </script>
 
-          <div class="tw-absolute tw-top-0 tw-bottom-0 tw-left-0 tw-w-full">
-            <div class="tw-sticky tw-top-0 tw-z-[1] tw-h-full tw-max-h-screen">
-              <div class="tw-flex tw-items-center tw-h-full lg:tw-items-end ">
-                <div class="tw-sticky lg:tw-static tw-top-[calc(50%_-_0.5em_*_1.02)] tw-text-left tw-w-full tw-z-30 tw-pointer-events-none tw-p-[1rem] md:tw-p-[5rem] max-[640px]:!tw-pb-[2rem] gradient color-{{ block.settings.content_color_scheme }}">
+          <div class="tw:absolute tw:top-0 tw:bottom-0 tw:left-0 tw:w-full">
+            <div class="tw:sticky tw:top-0 tw:z-1 tw:h-full tw:max-h-screen">
+              <div class="tw:flex tw:items-center tw:h-full tw:lg:items-end ">
+                <div class="tw:sticky tw:lg:static tw:top-[calc(50%-0.5em*1.02)] tw:text-left tw:w-full tw:z-30 tw:pointer-events-none tw:p-[1rem] tw:md:p-[5rem] tw:max-[640px]:pb-[2rem]! gradient color-{{ block.settings.content_color_scheme }}">
                   {% if block.settings.heading != blank %}
                     {% style %}
                       .h2-{{ block.id }} {
@@ -241,8 +241,8 @@ assign image_class = 'tw-w-full tw-h-auto tw-object-cover'
                         }
                       }
                     {% endstyle %}
-                   <h2 class="h2-{{ block.id }} tw-font-bold tw-mask-text tw-leading-[1.02] tw-text-white/80 supports-[mask-clip:text]:tw-text-transparent supports-[mask-clip:text]:tw-bg-white/50 supports-[mask-clip:text]:tw-backdrop-blur-md tw-text-left tw-w-full">{{ block.settings.heading }}</h2>
-                   <h3 class="h3-{{ block.id }} tw-mask-text tw-text-white/80 supports-[mask-clip:text]:tw-text-transparent supports-[mask-clip:text]:tw-bg-white/50 supports-[mask-clip:text]:tw-backdrop-blur-md tw-text-left tw-w-full"">{{ block.settings.subheading }}</h3>
+                   <h2 class="h2-{{ block.id }} tw:font-bold tw-mask-text tw:leading-[1.02] tw:text-white/80 tw:supports-[mask-clip:text]:text-transparent tw:supports-[mask-clip:text]:bg-white/50 tw:supports-[mask-clip:text]:backdrop-blur-md tw:text-left tw:w-full">{{ block.settings.heading }}</h2>
+                   <h3 class="h3-{{ block.id }} tw-mask-text tw:text-white/80 tw:supports-[mask-clip:text]:text-transparent tw:supports-[mask-clip:text]:bg-white/50 tw:supports-[mask-clip:text]:backdrop-blur-md tw:text-left tw:w-full"">{{ block.settings.subheading }}</h3>
                  
                   {% endif %}
                 </div>
