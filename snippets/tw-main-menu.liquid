@@ -201,61 +201,61 @@ endif
     assign count_tab = count_tab |  plus: 1
 %}
 
-<div class="tw-main-menu min-[990px]:tw-hidden">
+<div class="tw-main-menu tw:min-[990px]:hidden">
     <div class="tw-menu-icons" section-id="{{ section.id }}" trigger-id="{{ trigger_id }}">
         <span id="showDialog-{{ section.id }}">
-            <span data-icon="hamburger" class="[&>svg]:tw-h-8 [&>svg]:tw-w-8 [&>svg]:tw-fill-none [&>svg]:tw-align-middle tw-inline-block">
+            <span data-icon="hamburger" class="tw:[&>svg]:h-8 tw:[&>svg]:w-8 tw:[&>svg]:fill-none tw:[&>svg]:align-middle tw:inline-block">
                 {{- 'icon-hamburger.svg' | inline_asset_content -}}
             </span>
-            <span data-icon="close" class="[&>svg]:tw-h-8 [&>svg]:tw-w-8 [&>svg]:tw-fill-none [&>svg]:tw-align-middle tw-hidden">
+            <span data-icon="close" class="tw:[&>svg]:h-8 tw:[&>svg]:w-8 tw:[&>svg]:fill-none tw:[&>svg]:align-middle tw:hidden">
                 {{- 'icon-close.svg' | inline_asset_content -}}
             </span>
         </span>
     </div>
-    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw-w-[580px] !tw-mt-0 tw-h-full tw-max-h-full tw-top-0 tw-border-0 tw-transition tw-ease-in-out tw-duration-300 tw-left-[calc(100vw-484px)] tw-mr-0 max-sm:tw-max-w-full max-sm:tw-right-0 max-sm:tw-left-auto tw-dialog-content vertical-animation gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
+    <dialog id="tw-dialog-content-{{ section.id }}-{{dialog_id}}" class="tw:w-[580px] tw:mt-0! tw:h-full tw:max-h-full tw:top-0 tw:border-0 tw:transition tw:ease-in-out tw:duration-300 tw:left-[calc(100vw-484px)] tw:mr-0 tw:max-sm:max-w-full tw:max-sm:right-0 tw:max-sm:left-auto tw-dialog-content vertical-animation gradient color-{{ section.settings.tw_menu_color_scheme }}" dialog_id="{{dialog_id}}" close>
         <div class="tw-dialog-handle-container">
             <div class="tw-dialog-handle"></div>
         </div>
-        <div class="tw-menu-tabs-container tw-w-full tw-h-full tw-overflow-hidden">
-            <div class="tw-tab-btn-container tw-relative tw-flex tw-justify-space-evenly tw-relative tw-w-full tw-overflow-x-hidden">
+        <div class="tw-menu-tabs-container tw:w-full tw:h-full tw:overflow-hidden">
+            <div class="tw-tab-btn-container tw:relative tw:flex tw-justify-space-evenly tw:relative tw:w-full tw:overflow-x-hidden">
                 {%- for link in section.settings.menu.links -%}
                     {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
                     <button 
-                        class="tw-menu-tab-btn tw-cursor-pointer tw-py-[10px] tw-px-[20px] tw-basis-full"
+                        class="tw-menu-tab-btn tw:cursor-pointer tw:py-[10px] tw:px-[20px] tw:basis-full"
                         data-tab="tab-{{ tab_id }}" tab-index="-1">
                         {{ link.title | escape }}
                     </button>
                    
                 {%- endfor -%}
             </div>
-            <div class="tw-tab-contents tw-w-full tw-h-full tw-overflow-auto tw-scroll-smooth no-scrollbar">
-                <div class="tw-tabs-content-wrapper tw-w-full tw-flex tw-overflow-auto tw-overscroll-none tw-snap-both tw-snap-mandatory tw-scroll-smooth no-scrollbar">
+            <div class="tw-tab-contents tw:w-full tw:h-full tw:overflow-auto tw:scroll-smooth no-scrollbar">
+                <div class="tw-tabs-content-wrapper tw:w-full tw:flex tw:overflow-auto tw:overscroll-none tw:snap-both tw:snap-mandatory tw:scroll-smooth no-scrollbar">
                    
 
                     {%- for link in section.settings.menu.links -%}
-                        <div class="tw-tabs-content-link-list tw-w-full tw-snap-center">
+                        <div class="tw-tabs-content-link-list tw:w-full tw:snap-center">
                             {% assign tab_id = link.handle | append: '-' | append: count_tab | append: '-' | append: forloop.index0 %}
-                            <div id="tab-{{ tab_id }}" class="tw-menu-tab-content tw-w-full tw-h-full tw-flex tw-flex-col">
+                            <div id="tab-{{ tab_id }}" class="tw-menu-tab-content tw:w-full tw:h-full tw:flex tw:flex-col">
                                 {%- if link.links != blank -%}
-                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                    <ul class="tw:list-none tw:p-0 tw:m-0 tw:w-full tw:h-full tw:flex-1 tw:columns-2 tw:px-[20px] tw:py-5" role="list">
                                     {% for childlink in link.links %}
                                         <li class="">
-                                        <div class="tw-py-4 tw-px-1 tw-break-inside-avoid">
+                                        <div class="tw:py-4 tw:px-1 tw:break-inside-avoid">
                                             <a 
                                             href="{{ childlink.url }}"
-                                            class="tw-block tw-text-current hover:tw-opacity-75 tw-font-bold {% if childlink.current %}{% endif %}"
+                                            class="tw:block tw:text-current tw:hover:opacity-75 tw:font-bold {% if childlink.current %}{% endif %}"
                                             {% if childlink.current %}aria-current="page"{% endif %}
                                             >
                                             {{ childlink.title | escape }}
                                             </a>
                                             
                                             {%- if childlink.links != blank -%}
-                                            <ul class="tw-list-none tw-mt-2 tw-mb-0 tw-p-0 tw-break-inside-avoid" role="list">
+                                            <ul class="tw:list-none tw:mt-2 tw:mb-0 tw:p-0 tw:break-inside-avoid" role="list">
                                                 {%- for grandchildlink in childlink.links -%}
-                                                <li class="tw-mb-2">
+                                                <li class="tw:mb-2">
                                                     <a 
                                                     href="{{ grandchildlink.url }}"
-                                                    class="tw-block tw-text-current hover:tw-opacity-75 {% if grandchildlink.current %}{% endif %}"
+                                                    class="tw:block tw:text-current tw:hover:opacity-75 {% if grandchildlink.current %}{% endif %}"
                                                     {% if grandchildlink.current %}aria-current="page"{% endif %}
                                                     >
                                                     {{ grandchildlink.title | escape }}
@@ -269,18 +269,18 @@ endif
                                     {% endfor %}
                                     </ul>
                                 {%- else -%}
-                                    <ul class="tw-list-none tw-p-0 tw-m-0 tw-w-full tw-h-full tw-flex-1 tw-columns-2 tw-px-[20px] tw-py-5" role="list">
+                                    <ul class="tw:list-none tw:p-0 tw:m-0 tw:w-full tw:h-full tw:flex-1 tw:columns-2 tw:px-[20px] tw:py-5" role="list">
                                         <li><a 
                                             href="{{ link.url }}"
-                                            class="tw-block tw-text-current hover:tw-opacity-75 {% if link.current %}tw-font-bold{% endif %}"
+                                            class="tw:block tw:text-current tw:hover:opacity-75 {% if link.current %}tw:font-bold{% endif %}"
                                             {% if link.current %}aria-current="page"{% endif %}
                                         >
                                             {{ link.title | escape }}
                                         </a></li>
                                     </ul>
                                 {%- endif -%}
-                                <div class="tw-main-menu-images tw-mt-auto tw-w-full tw-overflow-auto tw-snap-both tw-snap-mandatory tw-scrollbar-hidden">
-                                    <div class="tw-w-fit tw-flex">
+                                <div class="tw-main-menu-images tw:mt-auto tw:w-full tw:overflow-auto tw:snap-both tw:snap-mandatory tw-scrollbar-hidden">
+                                    <div class="tw:w-fit tw:flex">
                                         {% assign menu_items_count = section.settings.menu.links | size %}
                                         {% assign blocks_per_menu = section.blocks.size | divided_by: menu_items_count %}
                                         
@@ -296,17 +296,17 @@ endif
                                             {% endif %}
 
                                             {% if should_display %}
-                                                <div class="tw-snap-center tw-relative tw-overflow-hidden">
+                                                <div class="tw:snap-center tw:relative tw:overflow-hidden">
                                                     {% if block.type == 'tw_menu_image' %}
                                                         {% if block.settings.tw_image != blank %}
                                                             {% if block.settings.tw_title_link != blank %}
-                                                            <a href="{{ block.settings.tw_title_link }}" class="tw-block tw-w-full tw-aspect-auto">
+                                                            <a href="{{ block.settings.tw_title_link }}" class="tw:block tw:w-full tw:aspect-auto">
                                                             {% else %}
-                                                            <div class="tw-block tw-relative tw-w-full tw-aspect-auto">
+                                                            <div class="tw:block tw:relative tw:w-full tw:aspect-auto">
                                                             {% endif %}
-                                                                {{ block.settings.tw_image | image_url: width: 800 | image_tag: class: 'tw-w-[75vw] tw-max-w-[35rem] ' }}
+                                                                {{ block.settings.tw_image | image_url: width: 800 | image_tag: class: 'tw:w-[75vw] tw:max-w-[35rem] ' }}
                                                                 {% if block.settings.tw_title != blank %}
-                                                                    <span class="tw-absolute tw-w-full tw-h-full tw-z-[1] tw-flex tw-justify-center tw-items-center tw-top-0 tw-left-0 tw-bg-black tw-bg-opacity-10">{{ block.settings.tw_title }}</span>
+                                                                    <span class="tw:absolute tw:w-full tw:h-full tw:z-1 tw:flex tw:justify-center tw:items-center tw:top-0 tw:left-0 tw:bg-black tw:bg-opacity-10">{{ block.settings.tw_title }}</span>
                                                                 {% endif %}
                                                             {% if block.settings.tw_title_link != blank %}
                                                             </a>
@@ -333,9 +333,9 @@ endif
                 
             </div>
         </div>
-        <button id="tw-dialog-button-{{ section.id }}" class="button tw-flex tw-items-center tw-gap-[12px] tw-p-[10px] tw-border-none tw-cursor-pointer tw-dialog-button !tw-hidden">
+        <button id="tw-dialog-button-{{ section.id }}" class="button tw:flex tw:items-center tw:gap-[12px] tw:p-[10px] tw:border-none tw:cursor-pointer tw-dialog-button tw:hidden!">
             <span>
-                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw-w-[10px]" fill="none" viewBox="0 0 18 17">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-close tw:w-[10px]" fill="none" viewBox="0 0 18 17">
                 <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"></path>
                 </svg>
             </span>
@@ -351,8 +351,8 @@ endif
         // Configuration object to store constant values and class names
         const CONFIG = {
             CLASSES: {
-                HIDDEN: 'tw-hidden',          // Class for hidden elements
-                VISIBLE: 'tw-inline-block',   // Class for visible elements
+                HIDDEN: 'tw:hidden',          // Class for hidden elements
+                VISIBLE: 'tw:inline-block',   // Class for visible elements
                 ACTIVE: 'active',             // Class for active state
                 HIDE: 'hide'                  // Class for hide animation
             },

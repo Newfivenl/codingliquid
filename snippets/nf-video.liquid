@@ -13,7 +13,7 @@
         controls: false,
         muted: true,
         id: chrome_video,
-        class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
+        class: "tw:w-full tw:h-full tw:object-cover tw:object-center"
         }}
         {{
         block.settings.video | video_tag:
@@ -23,7 +23,7 @@
         controls: false,
         muted: true,
         id: safari_video,
-        class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
+        class: "tw:w-full tw:h-full tw:object-cover tw:object-center" | 
         replace: '<video', '<picture' | 
         replace: '</video', '</picture' | 
         replace: '<source src', '<source srcset'

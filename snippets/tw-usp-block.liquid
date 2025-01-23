@@ -57,7 +57,7 @@ Add to your schema settings block main-product.liquid
     assign cursor_auto = cursor_auto
 
     if tw_usp_content != blank 
-        assign cursor_auto = 'tw-cursor-pointer'
+        assign cursor_auto = 'tw:cursor-pointer'
     endif
 -%}
 
@@ -126,14 +126,14 @@ Add to your schema settings block main-product.liquid
 
 <div class="tw-usp-block" data-tw-usp-block>
     {%- assign count_usp = count_usp | plus: 1 -%}
-    <div id="usp_product__item-{{count_usp}}" class="tw-flex tw-relative tw-items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
+    <div id="usp_product__item-{{count_usp}}" class="tw:flex tw:relative tw:items-center usp_product__item" data-block-id="{{ block.id }}" data-count-usp="{{count_usp}}">
        
         {%- if tw_usp_content != blank -%}
-            <span id="showDialog-{{ block.id }}" class="tw-flex tw-items-center tw-gap-[10px] {{ cursor_auto }} tw-items-center" data-dialog-trigger data-dialog-target="tw-usp-block-dialog-{{ block.id }}">
+            <span id="showDialog-{{ block.id }}" class="tw:flex tw:items-center tw:gap-[10px] {{ cursor_auto }} tw:items-center" data-dialog-trigger data-dialog-target="tw-usp-block-dialog-{{ block.id }}">
                 {%- if tw_usp_icon_svg != blank -%}
                     {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
                         loading: 'lazy',
-                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                        class: 'tw:w-10 tw:h-10 tw:object-contain'
                     }}
                 {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
@@ -149,11 +149,11 @@ Add to your schema settings block main-product.liquid
                 </button>
             </dialog>
         {%- else -%}
-            <span class="tw-flex tw-gap-[10px] tw-items-center">
+            <span class="tw:flex tw:gap-[10px] tw:items-center">
                 {%- if tw_usp_icon_svg != blank -%}
                     {{ tw_usp_icon_svg | image_url: width: 20 | image_tag:
                         loading: 'lazy',
-                        class: 'tw-w-10 tw-h-10 tw-object-contain'
+                        class: 'tw:w-10 tw:h-10 tw:object-contain'
                     }}
                 {%- endif -%}
                 <span class="" style="font-size: {{usp_product_font_size}}px;">{{ tw_usp_text }}</span>
