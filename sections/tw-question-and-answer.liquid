@@ -202,15 +202,15 @@ just make sure to also update the ID, Label and metaobject_type below based on y
     {%- unless section.settings.title == blank -%}
       {%- case section.settings.heading_tag -%} 
       {%- when 'h1' -%}
-          <h1 class="h1 tw:mb-[3rem]">{{ section.settings.title }}</h1>
+          <h1 class="h1 tw-mb-[3rem]">{{ section.settings.title }}</h1>
       {%- when 'h2' -%}
-          <h2 class="h2 tw:mb-[3rem]">{{ section.settings.title }}</h2>
+          <h2 class="h2 tw-mb-[3rem]">{{ section.settings.title }}</h2>
       {%- when 'h3' -%}
-          <h3 class="h3 tw:mb-[3rem]">{{ section.settings.title }}</h3>
+          <h3 class="h3 tw-mb-[3rem]">{{ section.settings.title }}</h3>
       {%- endcase -%}
     {%- endunless -%}
 
-    <div class="tw:grid tw:gap-[3rem]" 
+    <div class="tw-grid tw-gap-[3rem]" 
       style="grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));"
       data-columns-mobile="{{ section.settings.columns_mobile }}"
       data-columns-desktop="{{ section.settings.columns_desktop }}"
@@ -218,16 +218,16 @@ just make sure to also update the ID, Label and metaobject_type below based on y
     {%- for block in section.blocks -%}
         {%- assign qa_metaobject = block.settings.questions_and_answers -%}
         
-        <div class="tw:flex tw:flex-col tw:border tw:rounded-[5px] tw-question-and-answer-block-{{ section.id }}  {% if section.settings.column_alignment == 'center' %}tw:items-center tw:text-center{% endif %}" 
+        <div class="tw-flex tw-flex-col tw-border tw-rounded-[5px] tw-question-and-answer-block-{{ section.id }}  {% if section.settings.column_alignment == 'center' %}tw-items-center tw-text-center{% endif %}" 
           {{ block.shopify_attributes }}
         >
          
           {%- if qa_metaobject.title.value != blank -%}
-            <div class="tw:flex tw:items-center tw:gap-3 tw:py-[1rem] tw:w-full tw:px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw:justify-center{% endif %}">
+            <div class="tw-flex tw-items-center tw-gap-3 tw-py-[1rem] tw-w-full tw-px-[1.5rem] tw-question-and-answer-dialog-title-{{ section.id }} {% if section.settings.column_alignment == 'center' %}tw-justify-center{% endif %}">
               {%- if qa_metaobject.icon.value != blank -%}
                 {{ qa_metaobject.icon.value | image_url: width: 40 | image_tag:
                     loading: 'lazy',
-                    class: 'tw:w-10 tw:h-10 tw:object-contain'
+                    class: 'tw-w-10 tw-h-10 tw-object-contain'
                 }}
               {%- endif -%}
               {%- if qa_metaobject.title.value != blank -%}
@@ -239,44 +239,44 @@ just make sure to also update the ID, Label and metaobject_type below based on y
           {% for question_and_answer_item in qa_metaobject.question_and_answer_items.value %}
 
             {%- if question_and_answer_item.question != blank -%}
-                <div class="tw:w-full">
+                <div class="tw-w-full">
                   {%- if question_and_answer_item.question != blank -%}
                     <button 
                       onclick="openModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
-                      class="question-btn tw:w-full tw:text-left tw:flex tw:items-center tw:focus:outline-hidden tw:py-[1rem] tw:px-[1.5rem] tw:transition-colors"
+                      class="question-btn tw-w-full tw-text-left tw-flex tw-items-center focus:tw-outline-none tw-py-[1rem] tw-px-[1.5rem] tw-transition-colors"
                       aria-expanded="false"
                       aria-controls="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw:w-5 tw:h-5 tw:mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
-                      <h4 class=" tw:m-0">{{ question_and_answer_item.question }}</h4>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-arrow tw-w-5 tw-h-5 tw-mr-[1rem]" viewBox="0 0 14 10"><path fill="currentColor" fill-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" clip-rule="evenodd"/></svg>
+                      <h4 class=" tw-m-0">{{ question_and_answer_item.question }}</h4>
                     </button>
                   {%- endif -%}
   
                   {%- if question_and_answer_item.answer != blank -%}
                     <dialog 
                       id="modal-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
-                      class="tw-question-and-answer-dialog tw:p-0 tw:rounded-lg tw:shadow-xl tw:border-none tw:max-w-2xl tw:w-full tw:md:w-[90vw] tw:m-auto"
+                      class="tw-question-and-answer-dialog tw-p-0 tw-rounded-lg tw-shadow-xl tw-border-none tw-max-w-2xl tw-w-full md:tw-w-[90vw] tw-m-auto"
                       aria-labelledby="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}"
                     >
-                      <div class="dialog-content tw:w-full">
-                        <div class="tw:flex tw:items-center tw:justify-between tw:p-[1.5rem] tw:border-b">
+                      <div class="dialog-content tw-w-full">
+                        <div class="tw-flex tw-items-center tw-justify-between tw-p-[1.5rem] tw-border-b">
                           <h3 
                             id="modal-title-{{ forloop.index }}-{{ forloop.parentloop.index }}" 
-                            class="tw:text-xl tw:font-semibold"
+                            class="tw-text-xl tw-font-semibold"
                           >
                             {{ question_and_answer_item.question }}
                           </h3>
                           <button 
                             onclick="closeModal('modal-{{ forloop.index }}-{{ forloop.parentloop.index }}', this)"
-                            class="tw:text-gray-400 tw:hover:text-gray-500 tw:focus:outline-hidden tw:rounded-lg"
+                            class="tw-text-gray-400 hover:tw-text-gray-500 focus:tw-outline-none tw-rounded-lg"
                             aria-label="Close modal"
                           >
-                            <svg class="tw:w-6 tw:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="tw-w-6 tw-h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                           </button>
                         </div>
-                        <div class="tw:p-[1.5rem] tw-prose tw:max-w-none">
+                        <div class="tw-p-[1.5rem] tw-prose tw-max-w-none">
                           {% assign rich_text = question_and_answer_item.answer %}
                           {{ rich_text |  metafield_tag }}
                         </div>

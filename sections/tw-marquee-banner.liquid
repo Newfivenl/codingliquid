@@ -28,11 +28,11 @@ Instructions:
 {% assign text_items = section.blocks | where: 'type', 'text' %}
 
 <section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="tw:flex tw:w-screen tw:max-w-full tw:justify-end tw:overflow-hidden">
-    <div id="marquee" class="tw:flex tw:overflow-hidden tw:w-full">
-      <div class="marquee-content tw:flex tw:w-[200%]">
+  <div class="tw-flex tw-w-screen tw-max-w-full tw-justify-end tw-overflow-hidden">
+    <div id="marquee" class="tw-flex tw-overflow-hidden tw-w-full">
+      <div class="marquee-content tw-flex tw-w-[200%]">
         {%- for block in text_items -%}
-          <div class="tw:flex tw:gap-[5px] tw:flex-none tw:w-1/4 tw:max-md:w-fit tw:justify-center tw:items-center tw:p-4 tw:text-lg tw:font-bold">
+          <div class="tw-flex tw-gap-[5px] tw-flex-none tw-w-1/4 max-md:tw-w-fit tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
             {% if block.settings.icon != blank %}
               {{ block.settings.icon | image_url: width: 20 | image_tag:
                 loading: 'lazy',
@@ -45,7 +45,7 @@ Instructions:
           </div>
         {%- endfor -%}
         {%- for block in text_items -%}
-          <div class="tw:flex tw:gap-[5px] tw:flex-none tw:w-1/4  tw:max-md:w-fit tw:justify-center tw:items-center tw:p-4 tw:text-lg tw:font-bold">
+          <div class="tw-flex tw-gap-[5px] tw-flex-none tw-w-1/4  max-md:tw-w-fit tw-justify-center tw-items-center tw-p-4 tw-text-lg tw-font-bold">
             {% if block.settings.icon != blank %}
               {{ block.settings.icon | image_url: width: 20 | image_tag:
                 loading: 'lazy',

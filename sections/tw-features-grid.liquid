@@ -21,44 +21,44 @@ Instructions:
 {%- endstyle -%}
 
 <div class="tw-section-wrapper section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
-  <div class="page-width tw:container tw:mx-auto">
-    <div class="tw:grid tw:lg:grid-cols-2 tw:gap-12 tw:lg:gap-16">
-      <div class="tw:space-y-6 tw:flex tw:flex-col tw:justify-center tw:items-center">
-      <div class="tw:flex tw:flex-col tw:align-top tw:gap-3">
+  <div class="page-width tw-container tw-mx-auto">
+    <div class="tw-grid lg:tw-grid-cols-2 tw-gap-12 lg:tw-gap-16">
+      <div class="tw-space-y-6 tw-flex tw-flex-col tw-justify-center tw-items-center">
+      <div class="tw-flex tw-flex-col tw-align-top tw-gap-3">
         {% if section.settings.caption != blank %}
-          <p class="tw:uppercase tw:text-[14px] tw:text-[#2D7BF1] tw:tracking-[2px]">
+          <p class="tw-uppercase tw-text-[14px] tw-text-[#2D7BF1] tw-tracking-[2px]">
             {{ section.settings.caption }}
           </p>
         {% endif %}
 
         {% if section.settings.heading != blank %}
-          <h2 class="tw:text-[48px] tw:leading-[55px] tw:font-[600] tw:tracking-tight">
+          <h2 class="tw-text-[48px] tw-leading-[55px] tw-font-[600] tw-tracking-tight">
             {{ section.settings.heading }}
           </h2>
         {% endif %}
 
         {% if section.settings.content != blank %}
-          <p class="tw:mt-5">
+          <p class="tw-mt-5">
             {{ section.settings.content }}
           </p>
         {% endif %}
 
-        <div class="tw:grid tw:gap-8 tw:sm:grid-cols-2 tw:mt-5 tw:mb-[3.2rem]">
+        <div class="tw-grid tw-gap-8 sm:tw-grid-cols-2 tw-mt-5 tw-mb-[3.2rem]">
           {% for block in section.blocks %}
             {% if block.type == 'feature' %}
-              <div class="tw:relative" {{ block.shopify_attributes }}>
+              <div class="tw-relative" {{ block.shopify_attributes }}>
                 {% if block.settings.icon %}
-                  <div class="tw:mb-4">
+                  <div class="tw-mb-4">
                     {{ block.settings.icon | image_url: width: 41 | image_tag:
                       loading: 'lazy',
-                      class: 'tw:w-10 tw:h-10 tw:object-contain'
+                      class: 'tw-w-10 tw-h-10 tw-object-contain'
                     }}
                   </div>
                 {% endif %}
                 
-                <div class="tw:space-y-2">
+                <div class="tw-space-y-2">
                   {% if block.settings.title != blank %}
-                    <h4 class="tw:text-lg tw:font-semibold">
+                    <h4 class="tw-text-lg tw-font-semibold">
                       {{ block.settings.title }}
                     </h4>
                   {% endif %}
@@ -74,7 +74,7 @@ Instructions:
           {% endfor %}
         </div>
 
-        <div class="tw:flex tw:gap-[10px]">
+        <div class="tw-flex tw-gap-[10px]">
           {% if section.settings.button_1_link != blank %}
             <a href="{{ section.settings.button_1_link }}"
               class="button button--{{ section.settings.button_1_style }}"
@@ -97,10 +97,10 @@ Instructions:
       </div>
 
       {% if section.settings.side_image %}
-        <div class="tw:relative tw:lg:mt-0">
+        <div class="tw-relative lg:tw-mt-0">
           {{ section.settings.side_image | image_url: width: 800 | image_tag:
             loading: 'lazy',
-            class: 'tw:w-full tw:h-full tw:object-cover',
+            class: 'tw-w-full tw-h-full tw-object-cover',
             sizes: '(min-width: 1024px) 50vw, 100vw'
           }}
         </div>

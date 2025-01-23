@@ -74,8 +74,8 @@ Instructions:
 
 <section class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="{{ section.settings.hero_width }}">
-    <div class="tw:grid tw:grid-cols-1 tw:gap-x-20 tw:gap-y-12 tw:md:gap-y-16 tw:lg:grid-cols-2 desktop-content-position-{{ section.settings.desktop_content_position }} desktop-content-alignment-{{ section.settings.desktop_content_alignment }} mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">
-      <div class="tw:max-[1024px]:order-1">
+    <div class="tw-grid tw-grid-cols-1 tw-gap-x-20 tw-gap-y-12 md:tw-gap-y-16 lg:tw-grid-cols-2 desktop-content-position-{{ section.settings.desktop_content_position }} desktop-content-alignment-{{ section.settings.desktop_content_alignment }} mobile-content-alignment-{{ section.settings.mobile_content_alignment }}">
+      <div class="max-[1024px]:tw-order-1">
         {%- for block in section.blocks -%}
             {%- case block.type -%}
             {%- when 'heading' -%}
@@ -135,7 +135,7 @@ Instructions:
                 controls: false,
                 muted: true,
                 id: chrome_video,
-                class: "tw:w-full tw:h-full tw:object-cover tw:object-center"
+                class: "tw-w-full tw-h-full tw-object-cover tw-object-center"
               }}
               {{
                 block.settings.video | video_tag:
@@ -145,7 +145,7 @@ Instructions:
                 controls: false,
                 muted: true,
                 id: safari_video,
-                class: "tw:w-full tw:h-full tw:object-cover tw:object-center" | 
+                class: "tw-w-full tw-h-full tw-object-cover tw-object-center" | 
                 replace: '<video', '<picture' | 
                 replace: '</video', '</picture' | 
                 replace: '<source src', '<source srcset'
