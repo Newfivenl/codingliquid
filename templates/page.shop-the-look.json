@@ -26,12 +26,18 @@
             "heading": "Shop the look",
             "heading_size": "h1"
           }
+        },
+        "text_RrP3KN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Component - inspired by Represent</p>"
+          }
         }
       },
       "block_order": [
-        "heading_YBanR8"
+        "heading_YBanR8",
+        "text_RrP3KN"
       ],
-      "disabled": true,
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
@@ -54,6 +60,7 @@
           "look-7",
           "look-8"
         ],
+        "image_ratio": "adapt",
         "section_color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
