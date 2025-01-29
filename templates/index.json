@@ -182,8 +182,8 @@
       ],
       "settings": {
         "hero_width": "page-width",
-        "desktop_content_position": "flex-end",
-        "desktop_content_alignment": "left",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "center",
         "mobile_content_alignment": "left",
         "section_color_scheme": "scheme-b52601c6-7452-486a-beb2-4368aece8731",
         "padding_top": 36,
