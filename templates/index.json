@@ -129,9 +129,9 @@
       ],
       "settings": {
         "hero_width": "page-width",
-        "desktop_content_position": "center",
+        "desktop_content_position": "flex-end",
         "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
+        "mobile_content_alignment": "center",
         "section_color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
