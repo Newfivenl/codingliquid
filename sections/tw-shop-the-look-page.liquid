@@ -100,12 +100,12 @@ Metaobject fields:
             <div class="">
                 <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
                     {% for look_item in shop_the_look_items %}
-                        <li class="tw-relative tw-group grid__item max-[640px]:!tw-w-full max-[640px]:tw-max-w-[100%]" data-index="{{ forloop.index }}">
-                            <div class="tw-absolute tw-w-full tw-h-full tw-flex tw-items-center tw-justify-center tw-cursor-pointer min-[990px]:tw-opacity-0 min-[990px]:tw-bg-white/60 tw-transition-all tw-duration-300 min-[990px]:group-hover:tw-opacity-100 min-[990px]:group-hover:tw-backdrop-blur-sm max-[989px]:tw-flex max-[989px]:tw-flex-col max-[989px]:tw-justify-end">
-                                <span class="max-[989px]:tw-hidden"> {{ look_item.name_model }} </span>
-                                <button onclick="initializeSlider('{{ forloop.index }}')" class="tw-uppercase tw-bg-white tw-rounded-md tw-overflow-hidden tw-py-4 tw-px-5 tw-leading-[11px] tw-hidden max-[989px]:tw-block max-[989px]:tw-mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
+                        <li class="tw:relative tw:group grid__item tw:max-[640px]:w-full! tw:max-[640px]:max-w-[100%]" data-index="{{ forloop.index }}">
+                            <div class="tw:absolute tw:w-full tw:h-full tw:flex tw:items-center tw:justify-center tw:cursor-pointer tw:min-[990px]:opacity-0 tw:min-[990px]:bg-white/60 tw:transition-all tw:duration-300 tw:min-[990px]:group-hover:opacity-100 tw:min-[990px]:group-hover:backdrop-blur-sm tw:max-[989px]:flex tw:max-[989px]:flex-col tw:max-[989px]:justify-end">
+                                <span class="tw:max-[989px]:hidden"> {{ look_item.name_model }} </span>
+                                <button onclick="initializeSlider('{{ forloop.index }}')" class="tw:uppercase tw:bg-white tw:rounded-md tw:overflow-hidden tw:py-4 tw:px-5 tw:leading-[11px] tw:hidden tw:max-[989px]:block tw:max-[989px]:mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>
                             </div>
-                            {{ look_item.main_image | image_url: width: 1500 | image_tag: class: "tw-cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
+                            {{ look_item.main_image | image_url: width: 1500 | image_tag: class: "tw:cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
                         </li>
                     {% endfor %}
                 </ul>
@@ -114,12 +114,12 @@ Metaobject fields:
     </div>
 
     {% for look_item in shop_the_look_items %}
-        <div class="shop-the-look-contents tw-hidden" data-index="{{ forloop.index }}">
+        <div class="shop-the-look-contents tw:hidden" data-index="{{ forloop.index }}">
             <div class="">
-                <button class="shop-the-look-back tw-relative tw-text-black tw-group tw-flex tw-items-center tw-gap-[10px] tw-ml-[10px]">
-                    <span class="tw-w-3 tw-h-3 tw-rotate-180">{{- 'icon-arrow.svg' | inline_asset_content -}}</span> <div class="tw-font-bold h3">{{ 'sections.shop_the_look.view_all_looks' | t }}</div>
+                <button class="shop-the-look-back tw:relative tw:text-black tw:group tw:flex tw:items-center tw:gap-[10px] tw:ml-[10px]">
+                    <span class="tw:w-3 tw:h-3 tw:rotate-180">{{- 'icon-arrow.svg' | inline_asset_content -}}</span> <div class="tw:font-bold h3">{{ 'sections.shop_the_look.view_all_looks' | t }}</div>
                 </button>
-                <div class="tw-py-[10px] tw-grid tw-grid-cols-2">
+                <div class="tw:py-[10px] tw:grid tw:grid-cols-2">
                     {% assign description_data = look_item.description.value %}
                     {% for child in description_data.children %}
                         {% for grandchild in child.children %}
@@ -130,15 +130,15 @@ Metaobject fields:
                         {% endfor %}
                     {% endfor %}
                 </div>
-                <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+                <div class="tw:grid tw:grid-cols-2 tw:gap-4">
                     <div class="">
-                        {{ look_item.main_image | image_url: width: 3000 | image_tag: class: "tw-cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
+                        {{ look_item.main_image | image_url: width: 3000 | image_tag: class: "tw:cursor-pointer image_class", sizes: sizes, widths: widths, fetchpriority: fetch_priority }}
                     </div>
                     <div class="">
 
-                        <div class="tw-grid tw-grid-cols-2 tw-gap-4 lg:tw-w-3/4 lg:tw-mx-auto">
+                        <div class="tw:grid tw:grid-cols-2 tw:gap-4 tw:lg:w-3/4 tw:lg:mx-auto">
                             {% for product in look_item.product_list.value %}
-                                <div class="tw-cursor-pointer">
+                                <div class="tw:cursor-pointer">
                                     {% render 'card-product',
                                     card_product: product,
                                     media_aspect_ratio: section.settings.image_ratio,
@@ -163,7 +163,7 @@ Metaobject fields:
     {% else %}
         <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
             {% for i in (1..4) %}
-                <li class="tw-relative tw-group grid__item max-[640px]:!tw-w-full max-[640px]:tw-max-w-[100%]" data-index="{{ forloop.index }}">
+                <li class="tw:relative tw:group grid__item tw:max-[640px]:w-full! tw:max-[640px]:max-w-[100%]" data-index="{{ forloop.index }}">
                     {%- assign ridx = forloop.index | append: '' -%}
                     {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
                     {% render 'card-product',
@@ -179,11 +179,11 @@ Metaobject fields:
 
 </div>
 
-<div id="overlay" class="tw-hidden tw-fixed tw-inset-0 tw-bg-black tw-bg-opacity-50"><span class="tw-sr-only">{{ 'sections.shop_the_look.overlay' | t }}</span></div>
-<div id="shop-the-look-slider" class="tw-hidden tw-transition animate-slide-down tw-fixed tw-pb-[0px] tw-w-full tw-h-fit tw-bottom-0 tw-p-[2rem] tw-bg-white tw-z-[9999]">
+<div id="overlay" class="tw:hidden tw:fixed tw:inset-0 tw:bg-black tw:bg-opacity-50"><span class="tw:sr-only">{{ 'sections.shop_the_look.overlay' | t }}</span></div>
+<div id="shop-the-look-slider" class="tw:hidden tw:transition animate-slide-down tw:fixed tw:pb-[0px] tw:w-full tw:h-fit tw:bottom-0 tw:p-[2rem] tw:bg-white tw:z-9999">
    
-    <div class="tw-flex tw-justify-between tw-items-center tw-pb-[2rem]">
-        <div class="tw-font-bold tw-text-[2rem]">{{ 'sections.shop_the_look.title' | t }}</div>
+    <div class="tw:flex tw:justify-between tw:items-center tw:pb-[2rem]">
+        <div class="tw:font-bold tw:text-[2rem]">{{ 'sections.shop_the_look.title' | t }}</div>
         <div>
             <button id="close-button">
                 <span class="svg-wrapper">
@@ -192,16 +192,16 @@ Metaobject fields:
             </button>
         </div>
     </div>
-    <div class="shop-the-look-contents-mobile tw-overflow-y-auto">
+    <div class="shop-the-look-contents-mobile tw:overflow-y-auto">
         {% for look_item in shop_the_look_items %}
         {% assign item_count = 0 %}
         {% for product in look_item.product_list.value %}
             {% assign item_count = item_count | plus: 1 %}
         {% endfor %}
         
-        <div class="{% if item_count == 3 %}tw-w-[485px] tw-grid-cols-3{% else %}tw-w-[640px] tw-grid-cols-4{% endif %} tw-grid tw-gap-4" data-index="{{ forloop.index }}">
+        <div class="{% if item_count == 3 %}tw:w-[485px] tw:grid-cols-3{% else %}tw:w-[640px] tw:grid-cols-4{% endif %} tw:grid tw:gap-4" data-index="{{ forloop.index }}">
             {% for product in look_item.product_list.value %}
-                <div class="tw-cursor-pointer">
+                <div class="tw:cursor-pointer">
                     {% render 'card-product',
                     card_product: product,
                     media_aspect_ratio: section.settings.image_ratio,
@@ -247,11 +247,11 @@ Metaobject fields:
             // Returns a function that will be called when back button is clicked
             return () => {
                 // Hide the current content view
-                content.classList.add('tw-hidden');
+                content.classList.add('tw:hidden');
                 // Show the main container with all items
-                elements.container.classList.remove('tw-hidden');
+                elements.container.classList.remove('tw:hidden');
                 // Show all grid items
-                elements.items.forEach(item => item.classList.remove('tw-hidden'));
+                elements.items.forEach(item => item.classList.remove('tw:hidden'));
                 // Log the action for debugging purposes
                 console.log(`Back button clicked for item: ${index}`);
             };
@@ -268,9 +268,9 @@ Metaobject fields:
             if (!relatedContent) return;
 
             // Show the related content and hide other elements
-            relatedContent.classList.remove('tw-hidden');
-            elements.container.classList.add('tw-hidden');
-            elements.items.forEach(item => item.classList.add('tw-hidden'));
+            relatedContent.classList.remove('tw:hidden');
+            elements.container.classList.add('tw:hidden');
+            elements.items.forEach(item => item.classList.add('tw:hidden'));
 
             // Find and set up the back button for this content section
             const backButton = relatedContent.querySelector('.shop-the-look-back');
@@ -304,20 +304,20 @@ Metaobject fields:
         // Function to handle closing the slider
         function handleClose() {
             // Enable scrolling on body
-            elements.body.classList.remove('tw-overflow-hidden');
+            elements.body.classList.remove('tw:overflow-hidden');
             // Remove slide up animation
             elements.slider.classList.remove('animate-slide-up');
             // Add slide down animation
             elements.slider.classList.add('animate-slide-down');
             // Hide the overlay
-            elements.overlay.classList.add('tw-hidden');
+            elements.overlay.classList.add('tw:hidden');
 
             // Function to handle the end of slide down animation
             function handleAnimationEnd() {
                 // Check if slide down animation is still active
                 if (elements.slider.classList.contains('animate-slide-down')) {
                     // Hide the slider
-                    elements.slider.classList.add('tw-hidden');
+                    elements.slider.classList.add('tw:hidden');
                     // Remove the slide down animation class
                     elements.slider.classList.remove('animate-slide-down');
                 }
@@ -332,22 +332,22 @@ Metaobject fields:
         // Function to show the slider and its content
         function showSlider() {
             // Remove hidden class and slide down animation
-            elements.slider.classList.remove('tw-hidden', 'animate-slide-down');
+            elements.slider.classList.remove('tw:hidden', 'animate-slide-down');
             // Add slide up animation
             elements.slider.classList.add('animate-slide-up');
             // Show the overlay
-            elements.overlay.classList.remove('tw-hidden');
+            elements.overlay.classList.remove('tw:hidden');
             // Disable scrolling on body
-            elements.body.classList.add('tw-overflow-hidden');
+            elements.body.classList.add('tw:overflow-hidden');
 
             // Update visibility of content sections based on index
             document.querySelectorAll('.shop-the-look-contents-mobile > div').forEach((content) => {
                 // Check if this content section matches the current index
                 const isMatchingContent = content.getAttribute('data-index') === index;
                 // Toggle hidden class based on match
-                content.classList.toggle('tw-hidden', !isMatchingContent);
+                content.classList.toggle('tw:hidden', !isMatchingContent);
                 // Toggle grid class based on match
-                content.classList.toggle('tw-grid', isMatchingContent);
+                content.classList.toggle('tw:grid', isMatchingContent);
             });
         }
 
@@ -359,7 +359,7 @@ Metaobject fields:
         }
 
         // Main execution logic
-        if (elements.slider.classList.contains('tw-hidden')) {
+        if (elements.slider.classList.contains('tw:hidden')) {
             // If slider is hidden, show it and initialize listeners
             showSlider();
             initializeEventListeners();
