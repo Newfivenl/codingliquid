@@ -27,9 +27,9 @@
         "image_bzHGmc": {
           "type": "image",
           "settings": {
-            "image_desktop": "shopify://shop_images/HP_CH_2_D.webp",
-            "image_mobile": "shopify://shop_images/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.webp",
-            "heading": "IMAGE BLOCK",
+            "image_desktop": "shopify://shop_images/SS_HP_1_Desk.webp",
+            "image_mobile": "shopify://shop_images/SS_HP_1_Desk.webp",
+            "heading": "OUTERWEAR",
             "heading_size": 240,
             "subheading": "Sub heading image block.",
             "subheading_size": 80,
