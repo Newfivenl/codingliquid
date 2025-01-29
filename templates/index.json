@@ -81,6 +81,7 @@
         "image_GkKCB3",
         "video_UeYEdA"
       ],
+      "disabled": true,
       "settings": {
         "section_color_scheme": "",
         "padding_top": 0,
@@ -93,7 +94,7 @@
         "heading_XG4pxD": {
           "type": "heading",
           "settings": {
-            "heading_text": "Medium length hero heading goes here",
+            "heading_text": "Video with Text",
             "heading_tag": "h1",
             "margin_top": 10,
             "margin_bottom": 10
@@ -146,7 +147,7 @@
         "heading_MkJVF6": {
           "type": "heading",
           "settings": {
-            "heading_text": "Medium length hero heading goes here",
+            "heading_text": "Image with text & Accordion",
             "heading_tag": "h1",
             "margin_top": 10,
             "margin_bottom": 10
