@@ -42,7 +42,7 @@
         "text_RnWiDE"
       ],
       "settings": {
-        "speed": 1,
+        "speed": 0.8,
         "section_color_scheme": "scheme-3",
         "padding_top": 4,
         "padding_bottom": 4
