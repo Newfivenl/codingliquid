@@ -12,6 +12,18 @@
     "tw_full_image_or_video_with_text_L4bfVH": {
       "type": "tw-full-image-or-video-with-text",
       "blocks": {
+        "video_cGc4HV": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
+            "heading": "THERMAL",
+            "heading_size": 240,
+            "subheading": "Explore winter collection",
+            "subheading_size": 70,
+            "link": "shopify://products/cargo-shine-black",
+            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
+          }
+        },
         "image_bzHGmc": {
           "type": "image",
           "settings": {
@@ -24,23 +36,11 @@
             "link": "shopify://collections",
             "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
           }
-        },
-        "video_cGc4HV": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/c60c18a583804d02b914a4a5ed24c81f.HD-1080p-3.3Mbps-36810540.mp4",
-            "heading": "VIDEO BLOCK",
-            "heading_size": 240,
-            "subheading": "Video block sub heading.",
-            "subheading_size": 70,
-            "link": "shopify://products/cargo-shine-black",
-            "content_color_scheme": "scheme-fca45ef7-a518-44ec-9388-28bc4186c5f9"
-          }
         }
       },
       "block_order": [
-        "image_bzHGmc",
-        "video_cGc4HV"
+        "video_cGc4HV",
+        "image_bzHGmc"
       ],
       "settings": {
         "section_color_scheme": "",
