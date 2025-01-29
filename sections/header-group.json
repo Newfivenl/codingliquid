@@ -135,7 +135,7 @@
       ],
       "settings": {
         "logo_position": "middle-left",
-        "menu": "shop-desktop",
+        "menu": "main-menu",
         "tw_menu": "main-menu",
         "tw_menu_color_scheme": "scheme-1",
         "menu_type_desktop": "dropdown",
