@@ -1378,6 +1378,14 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+.tw-mask-text {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  -webkit-mask-clip: text;
+  mask-clip: text;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
 @supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
   .supports-\[mask-clip\:text\]\:bg-white\/50 {
     background-color: rgb(255 255 255 / 0.5);
