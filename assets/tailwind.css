@@ -539,6 +539,9 @@
   .tw\:left-\[calc\(100vw-484px\)\] {
     left: calc(100vw - 484px);
   }
+  .tw\:left-\[calc\(100vw-580px\)\] {
+    left: calc(100vw - 580px);
+  }
   .tw\:z-0 {
     z-index: 0;
   }
