@@ -942,14 +942,14 @@
   .tw\:p-\[1\.5rem\] {
     padding: 1.5rem;
   }
-  .tw\:p-\[2rem\] {
-    padding: 2rem;
-  }
   .tw\:p-\[10px\] {
     padding: 10px;
   }
   .tw\:p-\[1rem\] {
     padding: 1rem;
+  }
+  .tw\:p-\[2rem\] {
+    padding: 2rem;
   }
   .tw\:px-1 {
     padding-inline: calc(var(--tw-spacing) * 1);
@@ -1135,23 +1135,6 @@
         outline: 2px solid transparent;
         outline-offset: 2px;
       }
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:bg-white\/50 {
-    @supports (mask-clip:text) {
-      background-color: color-mix(in oklab, var(--tw-color-white) 50%, transparent);
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:text-transparent {
-    @supports (mask-clip:text) {
-      color: transparent;
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:backdrop-blur-md {
-    @supports (mask-clip:text) {
-      --tw-backdrop-blur: blur(var(--tw-blur-md));
-      -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-      backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     }
   }
   .tw\:max-\[1024px\]\:order-1 {
@@ -1396,13 +1379,13 @@
   }
 }
 @supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
-  .supports-\[mask-clip\:text\]\:tw-bg-white\/50 {
+  .supports-\[mask-clip\:text\]\:bg-white\/50 {
     background-color: rgb(255 255 255 / 0.5);
   }
-  .supports-\[mask-clip\:text\]\:tw-text-transparent {
+  .supports-\[mask-clip\:text\]\:text-transparent {
     color: transparent;
   }
-  .supports-\[mask-clip\:text\]\:tw-backdrop-blur-md {
+  .supports-\[mask-clip\:text\]\:backdrop-blur-md {
     --tw-backdrop-blur: blur(12px);
     -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
     backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
