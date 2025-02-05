@@ -924,12 +924,6 @@
   .tw\:bg-white {
     background-color: var(--tw-color-white);
   }
-  .tw\:bg-white\/50 {
-    background-color: color-mix(in oklab, var(--tw-color-white) 50%, transparent);
-  }
-  .tw\:bg-clip-text {
-    background-clip: text;
-  }
   .tw\:object-contain {
     object-fit: contain;
   }
@@ -948,14 +942,14 @@
   .tw\:p-\[1\.5rem\] {
     padding: 1.5rem;
   }
-  .tw\:p-\[2rem\] {
-    padding: 2rem;
-  }
   .tw\:p-\[10px\] {
     padding: 10px;
   }
   .tw\:p-\[1rem\] {
     padding: 1rem;
+  }
+  .tw\:p-\[2rem\] {
+    padding: 2rem;
   }
   .tw\:px-1 {
     padding-inline: calc(var(--tw-spacing) * 1);
@@ -1093,11 +1087,6 @@
     --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .tw\:backdrop-blur-md {
-    --tw-backdrop-blur: blur(var(--tw-blur-md));
-    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-  }
   .tw\:transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
     transition-timing-function: var(--tw-ease, var(--tw-default-transition-timing-function));
@@ -1146,23 +1135,6 @@
         outline: 2px solid transparent;
         outline-offset: 2px;
       }
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:bg-white\/50 {
-    @supports (mask-clip:text) {
-      background-color: color-mix(in oklab, var(--tw-color-white) 50%, transparent);
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:text-transparent {
-    @supports (mask-clip:text) {
-      color: transparent;
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:backdrop-blur-md {
-    @supports (mask-clip:text) {
-      --tw-backdrop-blur: blur(var(--tw-blur-md));
-      -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-      backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     }
   }
   .tw\:max-\[1024px\]\:order-1 {
@@ -1414,6 +1386,19 @@
   -webkit-mask-mode: alpha;
   mask-mode: alpha;
 }
+@supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
+  .supports-\[mask-clip\:text\]\:bg-white\/50 {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+  .supports-\[mask-clip\:text\]\:text-transparent {
+    color: transparent;
+  }
+  .supports-\[mask-clip\:text\]\:backdrop-blur-md {
+    --tw-backdrop-blur: blur(12px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  }
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -1562,6 +1547,14 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-backdrop-blur {
   syntax: "*";
   inherits: false;
@@ -1595,14 +1588,6 @@
   inherits: false;
 }
 @property --tw-backdrop-sepia {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-duration {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ease {
   syntax: "*";
   inherits: false;
 }
