@@ -306,7 +306,7 @@ endif
                                                             {% endif %}
                                                                 {{ block.settings.tw_image | image_url: width: 800 | image_tag: class: 'tw:w-[75vw] tw:max-w-[35rem] ' }}
                                                                 {% if block.settings.tw_title != blank %}
-                                                                    <span class="tw:absolute tw:w-full tw:h-full tw:z-1 tw:flex tw:justify-center tw:items-center tw:top-0 tw:left-0 tw:bg-black tw:bg-opacity-10">{{ block.settings.tw_title }}</span>
+                                                                    <span class="tw:absolute tw:w-full tw:h-full tw:z-1 tw:flex tw:justify-center tw:items-center tw:top-0 tw:left-0 tw:bg-black/10">{{ block.settings.tw_title }}</span>
                                                                 {% endif %}
                                                             {% if block.settings.tw_title_link != blank %}
                                                             </a>
