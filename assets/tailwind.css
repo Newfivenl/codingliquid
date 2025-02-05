@@ -924,9 +924,6 @@
   .tw\:bg-white {
     background-color: var(--tw-color-white);
   }
-  .tw\:bg-clip-text {
-    background-clip: text;
-  }
   .tw\:object-contain {
     object-fit: contain;
   }
@@ -945,14 +942,14 @@
   .tw\:p-\[1\.5rem\] {
     padding: 1.5rem;
   }
+  .tw\:p-\[2rem\] {
+    padding: 2rem;
+  }
   .tw\:p-\[10px\] {
     padding: 10px;
   }
   .tw\:p-\[1rem\] {
     padding: 1rem;
-  }
-  .tw\:p-\[2rem\] {
-    padding: 2rem;
   }
   .tw\:px-1 {
     padding-inline: calc(var(--tw-spacing) * 1);
@@ -1396,6 +1393,19 @@
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+}
+@supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
+  .supports-\[mask-clip\:text\]\:tw-bg-white\/50 {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+  .supports-\[mask-clip\:text\]\:tw-text-transparent {
+    color: transparent;
+  }
+  .supports-\[mask-clip\:text\]\:tw-backdrop-blur-md {
+    --tw-backdrop-blur: blur(12px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   }
 }
 @keyframes spin {
