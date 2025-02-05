@@ -100,7 +100,7 @@ Metaobject fields:
             <div class="">
                 <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
                     {% for look_item in shop_the_look_items %}
-                        <li class="tw:relative tw:group grid__item tw:max-[640px]:w-full! tw:max-[640px]:max-w-[100%]" data-index="{{ forloop.index }}">
+                        <li class="tw:relative tw:group grid__item tw:max-[640px]:!w-full tw:max-[640px]:!max-w-[100%]" data-index="{{ forloop.index }}">
                             <div class="tw:absolute tw:w-full tw:h-full tw:flex tw:items-center tw:justify-center tw:cursor-pointer tw:min-[990px]:opacity-0 tw:min-[990px]:bg-white/60 tw:transition-all tw:duration-300 tw:min-[990px]:group-hover:opacity-100 tw:min-[990px]:group-hover:backdrop-blur-sm tw:max-[989px]:flex tw:max-[989px]:flex-col tw:max-[989px]:justify-end">
                                 <span class="tw:max-[989px]:hidden"> {{ look_item.name_model }} </span>
                                 <button onclick="initializeSlider('{{ forloop.index }}')" class="tw:uppercase tw:bg-white tw:rounded-md tw:overflow-hidden tw:py-4 tw:px-5 tw:leading-[11px] tw:hidden tw:max-[989px]:block tw:max-[989px]:mb-[20px]">{{ 'sections.shop_the_look.show_the_look' | t }}</button>

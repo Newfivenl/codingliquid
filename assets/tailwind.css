@@ -942,14 +942,14 @@
   .tw\:p-\[1\.5rem\] {
     padding: 1.5rem;
   }
+  .tw\:p-\[2rem\] {
+    padding: 2rem;
+  }
   .tw\:p-\[10px\] {
     padding: 10px;
   }
   .tw\:p-\[1rem\] {
     padding: 1rem;
-  }
-  .tw\:p-\[2rem\] {
-    padding: 2rem;
   }
   .tw\:px-1 {
     padding-inline: calc(var(--tw-spacing) * 1);
@@ -1212,9 +1212,19 @@
       padding-block: 10px;
     }
   }
+  .tw\:max-\[640px\]\:\!w-full {
+    @media (width < 640px) {
+      width: 100% !important;
+    }
+  }
   .tw\:max-\[640px\]\:w-full\! {
     @media (width < 640px) {
       width: 100% !important;
+    }
+  }
+  .tw\:max-\[640px\]\:\!max-w-\[100\%\] {
+    @media (width < 640px) {
+      max-width: 100% !important;
     }
   }
   .tw\:max-\[640px\]\:max-w-\[100\%\] {
