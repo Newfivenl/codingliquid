@@ -1,7 +1,7 @@
-/*! tailwindcss v4.0.0 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.0.3 | MIT License | https://tailwindcss.com */
 @layer theme, base, components, utilities;
 @layer theme {
-  :root {
+  :root, :host {
     --tw-font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --tw-font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -539,6 +539,9 @@
   .tw\:left-\[calc\(100vw-484px\)\] {
     left: calc(100vw - 484px);
   }
+  .tw\:left-\[calc\(100vw-580px\)\] {
+    left: calc(100vw - 580px);
+  }
   .tw\:z-0 {
     z-index: 0;
   }
@@ -921,6 +924,12 @@
   .tw\:bg-black {
     background-color: var(--tw-color-black);
   }
+  .tw\:bg-black\/10 {
+    background-color: color-mix(in oklab, var(--tw-color-black) 10%, transparent);
+  }
+  .tw\:bg-black\/50 {
+    background-color: color-mix(in oklab, var(--tw-color-black) 50%, transparent);
+  }
   .tw\:bg-white {
     background-color: var(--tw-color-white);
   }
@@ -1137,23 +1146,6 @@
       }
     }
   }
-  .tw\:supports-\[mask-clip\:text\]\:bg-white\/50 {
-    @supports (mask-clip:text) {
-      background-color: color-mix(in oklab, var(--tw-color-white) 50%, transparent);
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:text-transparent {
-    @supports (mask-clip:text) {
-      color: transparent;
-    }
-  }
-  .tw\:supports-\[mask-clip\:text\]\:backdrop-blur-md {
-    @supports (mask-clip:text) {
-      --tw-backdrop-blur: blur(var(--tw-blur-md));
-      -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-      backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-    }
-  }
   .tw\:max-\[1024px\]\:order-1 {
     @media (width < 1024px) {
       order: 1;
@@ -1229,9 +1221,19 @@
       padding-block: 10px;
     }
   }
+  .tw\:max-\[640px\]\:\!w-full {
+    @media (width < 640px) {
+      width: 100% !important;
+    }
+  }
   .tw\:max-\[640px\]\:w-full\! {
     @media (width < 640px) {
       width: 100% !important;
+    }
+  }
+  .tw\:max-\[640px\]\:\!max-w-\[100\%\] {
+    @media (width < 640px) {
+      max-width: 100% !important;
     }
   }
   .tw\:max-\[640px\]\:max-w-\[100\%\] {
@@ -1393,6 +1395,27 @@
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+}
+.tw-mask-text {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 100%);
+  -webkit-mask-clip: text;
+  mask-clip: text;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+@supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
+  .supports-\[mask-clip\:text\]\:bg-white\/50 {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+  .supports-\[mask-clip\:text\]\:text-transparent {
+    color: transparent;
+  }
+  .supports-\[mask-clip\:text\]\:backdrop-blur-md {
+    --tw-backdrop-blur: blur(12px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   }
 }
 @keyframes spin {

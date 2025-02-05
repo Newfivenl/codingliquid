@@ -11,6 +11,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -20,11 +21,27 @@
   }
 }
 
-@utility tw-mask-text {
+.tw-mask-text {
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 100%);
   -webkit-mask-clip: text;
   mask-clip: text;
   -webkit-mask-mode: alpha;
   mask-mode: alpha;
+}
+
+@supports ((-webkit-mask-clip: text) or (mask-clip: text)) {
+  .supports-\[mask-clip\:text\]\:bg-white\/50 {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+
+  .supports-\[mask-clip\:text\]\:text-transparent {
+    color: transparent;
+  }
+
+  .supports-\[mask-clip\:text\]\:backdrop-blur-md {
+    --tw-backdrop-blur: blur(12px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  }
 }
