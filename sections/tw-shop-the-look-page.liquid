@@ -163,7 +163,7 @@ Metaobject fields:
     {% else %}
         <ul id="product-grid" data-id="{{ section.id }}" class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop">
             {% for i in (1..4) %}
-                <li class="tw:relative tw:group grid__item tw:max-[640px]:w-full! tw:max-[640px]:max-w-[100%]" data-index="{{ forloop.index }}">
+                <li class="tw:relative tw:group grid__item tw:max-[640px]:!w-full tw:max-[640px]:!max-w-[100%]" data-index="{{ forloop.index }}">
                     {%- assign ridx = forloop.index | append: '' -%}
                     {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
                     {% render 'card-product',
