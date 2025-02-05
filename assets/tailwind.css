@@ -924,6 +924,9 @@
   .tw\:bg-white {
     background-color: var(--tw-color-white);
   }
+  .tw\:bg-clip-text {
+    background-clip: text;
+  }
   .tw\:object-contain {
     object-fit: contain;
   }
