@@ -921,6 +921,9 @@
   .tw\:bg-black {
     background-color: var(--tw-color-black);
   }
+  .tw\:bg-black\/50 {
+    background-color: color-mix(in oklab, var(--tw-color-black) 50%, transparent);
+  }
   .tw\:bg-white {
     background-color: var(--tw-color-white);
   }
