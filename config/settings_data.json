@@ -141,6 +141,27 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "66873344851171598": {
+        "type": "shopify://apps/arc-account-drawer/blocks/account_drawer/3038d3a6-a363-4b1c-b53f-b79d28541ec4",
+        "disabled": false,
+        "settings": {
+          "account_icon_selector": "",
+          "border_button_radius": 5,
+          "border_badge_radius": 5,
+          "primary_bg_color": "#000",
+          "secondary_bg_color": "#f7f7f7",
+          "body_color": "#000",
+          "button_text_color": "#FFF",
+          "border_color": "#d0d1d4",
+          "disabled_button_color": "#DDDDDD",
+          "table_label_text_color": "#9D9D9D",
+          "table_content_text_color": "#222",
+          "notification_success_color": "#4CAF50",
+          "notification_error_color": "#FF0000"
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
